@@ -34,27 +34,9 @@ File: Main Js File
 			if (lang == "en") {
 				document.getElementById("header-lang-img").src = "build/images/flags/us.svg";
 				document.getElementById("lang-name").innerHTML = "English"
-			} else if (lang == "sp") {
-				document.getElementById("header-lang-img").src = "build/images/flags/spain.svg";
-				document.getElementById("lang-name").innerHTML = "Española"
-			} else if (lang == "gr") {
-				document.getElementById("header-lang-img").src = "build/images/flags/germany.svg";
-				document.getElementById("lang-name").innerHTML = "Deutsche"
-			} else if (lang == "it") {
-				document.getElementById("header-lang-img").src = "build/images/flags/italy.svg";
-				document.getElementById("lang-name").innerHTML = "Italiana"
-			} else if (lang == "ru") {
-				document.getElementById("header-lang-img").src = "build/images/flags/russia.svg";
-				document.getElementById("lang-name").innerHTML = "русский"
-			} else if (lang == "ch") {
-				document.getElementById("header-lang-img").src = "build/images/flags/china.svg";
-				document.getElementById("lang-name").innerHTML = "中国人"
-			} else if (lang == "fr") {
-				document.getElementById("header-lang-img").src = "build/images/flags/french.svg";
-				document.getElementById("lang-name").innerHTML = "français"
-			} else if (lang == "ar") {
-				document.getElementById("header-lang-img").src = "build/images/flags/ae.svg";
-				document.getElementById("lang-name").innerHTML = "عربى"
+			} else if (lang == "id") {
+				document.getElementById("header-lang-img").src = "build/images/flags/id.svg";
+				document.getElementById("lang-name").innerHTML = "Indonesia"
 			}
 			localStorage.setItem("language", lang);
 			language = localStorage.getItem("language");
