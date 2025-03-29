@@ -22,12 +22,12 @@ Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout']);
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/test', function() {
+    Route::get('/test', function () {
         return view('widgets');
     });
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
-    
-    Route::get('/', function() {
+
+    Route::get('/', function () {
         return view('index');
     });
 });

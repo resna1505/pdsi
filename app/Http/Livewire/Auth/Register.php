@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use App\Models\Otp;
+use Carbon\Carbon;
 
 class Register extends Component
 {
@@ -17,7 +21,7 @@ class Register extends Component
     public $avatar;
     public $password;
     public $email;
-    public $password_confirmation;
+    public $password_confirmation, $otp, $generatedOtp;
 
     protected $rules = [
         'first_name' => 'required',
@@ -27,15 +31,64 @@ class Register extends Component
         'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
     ];
 
-    public function submit() {
+    // 🔹 Generate OTP & Kirim ke Email
+    // public function sendOtp()
+    // {
+    //     $this->generatedOtp = rand(100000, 999999); // Generate OTP 6 digit
+    //     Session::put('otp', $this->generatedOtp); // Simpan OTP ke session
+
+    //     Mail::raw("Your OTP code is: {$this->generatedOtp}", function ($message) {
+    //         $message->to($this->email)
+    //             ->subject('Your OTP Code');
+    //     });
+
+    //     $this->otp = $this->generatedOtp; // Otomatis isi input OTP
+    //     session()->flash('success', 'OTP sent to your email!');
+    // }
+    public function sendOtp()
+    {
+        $this->validate(['email' => 'required|email']);
+
+        // Generate OTP
+        $otpCode = rand(100000, 999999);
+
+        // Simpan OTP ke database
+        Otp::updateOrCreate(
+            ['email' => $this->email],
+            ['otp' => $otpCode, 'expires_at' => Carbon::now()->addMinutes(10)]
+        );
+
+        // Kirim OTP ke email
+        Mail::raw("Your OTP Code is: $otpCode", function ($message) {
+            $message->to($this->email)->subject('Your OTP Code');
+        });
+
+        session()->flash('success', 'OTP has been sent to your email.');
+    }
+
+    public function submit()
+    {
         // validate the data
         $this->validate();
+
+        // Cek OTP di database
+        $otpRecord = Otp::where('email', $this->email)
+            ->where('otp', $this->otp)
+            ->where('expires_at', '>', now()) // OTP tidak expired
+            ->first();
+
+        if (!$otpRecord) {
+            session()->flash('error', 'Invalid or expired OTP.');
+            return;
+        }
+
+        // Hapus OTP setelah digunakan
+        $otpRecord->delete();
 
         if ($this->avatar != null) {
             $avatar = $this->avatar;
             $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
             Storage::putFileAs('public/images/users', $avatar, $avatarName);
-
         }
         $token = bin2hex(random_bytes(20));
 

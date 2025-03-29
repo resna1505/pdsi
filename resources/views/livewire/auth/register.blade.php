@@ -150,6 +150,22 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="otp" class="form-label">OTP <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input id="otp" type="text" class="form-control" wire:model.live="otp" required autocomplete="off" placeholder="Enter your OTP">
+                                                <button type="button" class="btn btn-primary" wire:click="sendOtp">Send OTP</button>
+                                            </div>
+                                            @error('otp')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    
+
                                     <div class="mb-4">
                                         <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the
                                             Hybrix
