@@ -15,7 +15,7 @@
         <thead>
         <tr style="background-color: #3b395e; border: none; height: 70px;">
             <th scope="col" style="padding: 28px;display: flex;align-items: center; justify-content: space-between;">
-                <img src="{{ URL::asset('build/images/logo-light-full.png') }}" alt="<?php echo Config::get('app.APP_NAME'); ?>" title="<?php echo Config::get('app.APP_NAME'); ?>" style="height: 24px;" />
+                <img src="https://pdsionline.org/build/images/logo-light-full.png" alt="" height="45" />
             </th>
         </tr>
         </thead>
@@ -50,14 +50,14 @@
                 </div>
                 <div style="flex-grow: 1;">
                     <h5 style="color: #161c2d; font-size: 14px; margin: 0 0 5px; font-weight: 500;">Any Questions?</h5>
-                    <p style="margin: 0; line-height: 1.5;">If you need any help, please <a href="https://pichforest.com/support" target="_blank" style="color: #2f75d0;text-decoration: none;">Contact support.</a></p>
+                    <p style="margin: 0; line-height: 1.5;">If you need any help, please <a href="https://wa.me/628111601718" target="_blank" style="color: #2f75d0;text-decoration: none;">Contact support.</a></p>
                 </div>
             </div>
         </td>
 
         <tr>
             <td style="padding: 20px 8px; color: #cad2dd; background-color: #3b395e; text-align: center;">
-                {{ date('Y') }} @ <a href="#" style="color: #cad2dd; text-decoration: none;">{{ config('app.APP_NAME') }}</a>
+                {{ date('Y') }} @ <a href="#" style="color: #cad2dd; text-decoration: none;">PDSI</a>
             </td>
         </tr>
         </tbody>

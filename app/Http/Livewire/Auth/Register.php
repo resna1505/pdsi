@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Models\Otp;
 use Carbon\Carbon;
+use App\Mail\OtpEmail; // Tambahkan di bagian atas
 
 class Register extends Component
 {
@@ -31,20 +32,6 @@ class Register extends Component
         'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
     ];
 
-    // 🔹 Generate OTP & Kirim ke Email
-    // public function sendOtp()
-    // {
-    //     $this->generatedOtp = rand(100000, 999999); // Generate OTP 6 digit
-    //     Session::put('otp', $this->generatedOtp); // Simpan OTP ke session
-
-    //     Mail::raw("Your OTP code is: {$this->generatedOtp}", function ($message) {
-    //         $message->to($this->email)
-    //             ->subject('Your OTP Code');
-    //     });
-
-    //     $this->otp = $this->generatedOtp; // Otomatis isi input OTP
-    //     session()->flash('success', 'OTP sent to your email!');
-    // }
     public function sendOtp()
     {
         $this->validate(['email' => 'required|email']);
@@ -59,9 +46,10 @@ class Register extends Component
         );
 
         // Kirim OTP ke email
-        Mail::raw("Your OTP Code is: $otpCode", function ($message) {
-            $message->to($this->email)->subject('Your OTP Code');
-        });
+        // Mail::raw("Your OTP Code is: $otpCode", function ($message) {
+        //     $message->to($this->email)->subject('Your OTP Code');
+        // });
+        Mail::to($this->email)->send(new OtpEmail($otpCode));
 
         session()->flash('success', 'OTP has been sent to your email.');
     }
