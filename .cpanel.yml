@@ -1,5 +1,5 @@
 ---
 deployment:
 tasks:
-- export DEPLOYPATH=/home/embintania@gmail.com/public_html/git
+- export DEPLOYPATH=//home/ecoy7436/public_html/pdsionline.org/git
 - /bin/cp -r * $DEPLOYPATH
