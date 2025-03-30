@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <td style="padding: 25px 25px 0; color: #7c8ca3; font-size: 14px; text-align: center; line-height: 1.5;">
-                <p>If you did not request a password reset, no further action is required.<br>Thanks & Regards,<br>Hybrix Support team.</p>
+                <p>If you did not request a password reset, no further action is required.<br>Thanks & Regards,<br>PDSI Support team.</p>
             </td>
         </tr>
 

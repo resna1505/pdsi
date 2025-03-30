@@ -83,7 +83,7 @@
                                         <i class="ri-global-fill"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" id="websiteInput" placeholder="www.example.com" value="www.themesbrand.com">
+                                <input type="text" class="form-control" id="websiteInput" placeholder="www.example.com" value="www.ICT PDSI.com">
                             </div>
                             <div class="mb-3 d-flex">
                                 <div class="avatar-xs d-block flex-shrink-0 me-3">
@@ -174,7 +174,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="emailInput" class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="emailInput" placeholder="Enter your email" value="edwarddiana@hybrix.com">
+                                        <input type="email" class="form-control" id="emailInput" placeholder="Enter your email" value="edwarddiana@PDSI.com">
                                     </div>
                                 </div>
                                 <!--end col-->
@@ -210,7 +210,7 @@
                                 <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="websiteInput1" class="form-label">Website</label>
-                                        <input type="text" class="form-control" id="websiteInput1" placeholder="www.example.com" value="www.themesbrand.com" />
+                                        <input type="text" class="form-control" id="websiteInput1" placeholder="www.example.com" value="www.ICT PDSI.com" />
                                     </div>
                                 </div>
                                 <!--end col-->
@@ -420,7 +420,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="companyName" class="form-label">Company Name</label>
-                                                <input type="text" class="form-control" id="companyName" placeholder="Company name" value="Themesbrand">
+                                                <input type="text" class="form-control" id="companyName" placeholder="Company name" value="ICT PDSI">
                                             </div>
                                         </div>
                                         <!--end col-->

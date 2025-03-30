@@ -112,7 +112,7 @@
                     <div class="content">
                         <h5>Project</h5>
                         <p class="text-muted">
-                            <b>@jennifer_daina</b> edited <b>hybrix.zip</b> and attach 2 files to the hybrix project.
+                            <b>@jennifer_daina</b> edited <b>PDSI.zip</b> and attach 2 files to the PDSI project.
                         </p>
 
                         <div class="row">
@@ -126,7 +126,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <h6 class="mb-1">hybrix.zip</h6>
+                                                <h6 class="mb-1">PDSI.zip</h6>
                                                 <p class="fs-11 text-muted mb-0">12.76 MP</p>
                                             </div>
                                         </div>

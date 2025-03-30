@@ -1,8 +1,8 @@
 /*
-Template Name: Hybrix - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
+Template Name: PDSI - Admin & Dashboard Template
+Author: ICT PDSI
+Website: https://ICT PDSI.com/
+Contact: ICT PDSI@gmail.com
 File: Line Chart init js
 */
 

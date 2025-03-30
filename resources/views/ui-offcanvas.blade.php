@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <h6 class="mb-1">Bethany Johnson</h6>
-                                        <p class="text-muted mb-2">added a new member to Hybrix dashboard</p>
+                                        <p class="text-muted mb-2">added a new member to PDSI dashboard</p>
                                         <small class="mb-0 text-muted">19 Nov</small>
                                     </div>
                                 </div>
@@ -412,7 +412,7 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <h6 class="mb-1">Bethany Johnson</h6>
-                                            <p class="text-muted mb-2">added a new member to Hybrix dashboard</p>
+                                            <p class="text-muted mb-2">added a new member to PDSI dashboard</p>
                                             <small class="mb-0 text-muted">19 Nov</small>
                                         </div>
                                     </div>
@@ -679,7 +679,7 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <h6 class="mb-1">Bethany Johnson</h6>
-                                            <p class="text-muted mb-2">added a new member to Hybrix dashboard</p>
+                                            <p class="text-muted mb-2">added a new member to PDSI dashboard</p>
                                             <small class="mb-0 text-muted">19 Nov</small>
                                         </div>
                                     </div>
@@ -895,7 +895,7 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <h6 class="mb-1">Bethany Johnson</h6>
-                                            <p class="text-muted mb-2">added a new member to Hybrix dashboard</p>
+                                            <p class="text-muted mb-2">added a new member to PDSI dashboard</p>
                                             <small class="mb-0 text-muted">19 Nov</small>
                                         </div>
                                     </div>
@@ -1034,7 +1034,7 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <h6 class="mb-1">Bethany Johnson</h6>
-                                            <p class="text-muted mb-2">added a new member to Hybrix dashboard</p>
+                                            <p class="text-muted mb-2">added a new member to PDSI dashboard</p>
                                             <small class="mb-0 text-muted">19 Nov</small>
                                         </div>
                                     </div>
@@ -1173,7 +1173,7 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <h6 class="mb-1">Bethany Johnson</h6>
-                                            <p class="text-muted mb-2">added a new member to Hybrix dashboard</p>
+                                            <p class="text-muted mb-2">added a new member to PDSI dashboard</p>
                                             <small class="mb-0 text-muted">19 Nov</small>
                                         </div>
                                     </div>

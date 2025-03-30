@@ -6,7 +6,7 @@
     <div class="col-lg-5">
         <div class="me-5">
             <div class="mb-2">
-                <span class="badge text-secondary bg-secondary-subtle">Welcome To Hybrix</span>
+                <span class="badge text-secondary bg-secondary-subtle">Welcome To PDSI</span>
             </div>
             <h1 class="display-6 lh-base fw-medium">Components for <span class="text-primary">Fast & Beautiful</span> Admin Template.</h1>
             <p class="lead text-muted mb-4 pb-1">Build whatever you want without a single line of CSS/SASS code by just using our low-level utility classes and base components.</p>

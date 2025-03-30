@@ -24,7 +24,7 @@
                     <div class="card-body p-4 p-sm-5 m-lg-4">
                         <div class="text-center mt-2">
                             <h5 class="text-primary fs-20">Forgot Password?</h5>
-                            <p class="text-muted mb-4">Reset password with Hybrix</p>
+                            <p class="text-muted mb-4">Reset password with PDSI</p>
                             <div class="display-5 mb-4 text-danger">
                                 <i class="bi bi-envelope"></i>
                             </div>

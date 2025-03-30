@@ -88,7 +88,7 @@
                         <script>
                             document.write(new Date().getFullYear())
                         </script> PDSI. Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                        Themesbrand
+                        ICT PDSI
                     </p>
                 </div>
             </div>

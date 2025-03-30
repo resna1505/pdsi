@@ -1,8 +1,8 @@
 /*
-Template Name: Hybrix - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
+Template Name: PDSI - Admin & Dashboard Template
+Author: ICT PDSI
+Website: https://ICT PDSI.com/
+Contact: ICT PDSI@gmail.com
 File: contact init Js File
 */
 
@@ -299,7 +299,7 @@ var contactData = [
             "img": "build/images/users/avatar-10.jpg",
             "name": "Tonya Noble"
         },
-        "email": "tonyanoble@hybrix.com	",
+        "email": "tonyanoble@PDSI.com	",
         "phone": "+(34) 414 453 5725",
         "country": "Germany",
         "label": "Business",

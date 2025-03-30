@@ -1,8 +1,8 @@
 /*
-Template Name: Hybrix - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
+Template Name: PDSI - Admin & Dashboard Template
+Author: ICT PDSI
+Website: https://ICT PDSI.com/
+Contact: ICT PDSI@gmail.com
 File: Calendar init js
 */
 
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         {
             id: 456,
-            title: 'Hybrix Project',
+            title: 'PDSI Project',
             start: new Date(y, m, d + 23, 20, 0),
             end: new Date(y, m, d + 24, 16, 0),
             allDay: true,

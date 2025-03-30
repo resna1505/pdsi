@@ -1,8 +1,8 @@
 /*
-Template Name: Hybrix - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
+Template Name: PDSI - Admin & Dashboard Template
+Author: ICT PDSI
+Website: https://ICT PDSI.com/
+Contact: ICT PDSI@gmail.com
 File: Material design Init Js File
 */
 

@@ -33,8 +33,8 @@
                                                 <p class="mb-0">&copy;
                                                     <script>
                                                         document.write(new Date().getFullYear())
-                                                    </script> Hybrix. Crafted with <i
-                                                        class="mdi mdi-heart text-danger"></i> by Themesbrand
+                                                    </script> PDSI. Crafted with <i
+                                                        class="mdi mdi-heart text-danger"></i> by ICT PDSI
                                                 </p>
                                             </div>
                                         </div>
@@ -46,7 +46,7 @@
                                         <div class="card-body px-0 p-sm-5 m-lg-4">
                                             <div class="text-center mt-2">
                                                 <h5 class="text-primary fs-20">Create New Account</h5>
-                                                <p class="text-muted">Get your free Hybrix account now</p>
+                                                <p class="text-muted">Get your free PDSI account now</p>
                                             </div>
                                             <div class="p-2 mt-5">
                                                 <form class="needs-validation" novalidate method="POST"
@@ -108,7 +108,7 @@
 
                                                     <div class="mb-4">
                                                         <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree
-                                                            to the Hybrix <a href="#"
+                                                            to the PDSI <a href="#"
                                                                 class="text-primary text-decoration-underline fst-normal fw-medium">Terms
                                                                 of Use</a></p>
                                                     </div>

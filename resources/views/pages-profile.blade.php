@@ -26,7 +26,7 @@
                             <div class="hstack gap-1 mb-3 text-muted">
                                 <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>Phoenix, USA</div>
                                 <div>
-                                    <i class="ri-building-line me-1 fs-16 align-middle"></i>Themesbrand
+                                    <i class="ri-building-line me-1 fs-16 align-middle"></i>ICT PDSI
                                 </div>
                             </div>
                             <p>Product visual designer, expert in UI design</p>
@@ -324,7 +324,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1">Website :</p>
-                                                <a href="#" class="fw-semibold text-body">www.hybrix.com</a>
+                                                <a href="#" class="fw-semibold text-body">www.PDSI.com</a>
                                             </div>
                                         </div>
                                     </div>
@@ -352,7 +352,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">E-mail :</p>
-                                                <h6 class="text-truncate mb-0">edward@hybrix.com</h6>
+                                                <h6 class="text-truncate mb-0">edward@PDSI.com</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -555,7 +555,7 @@
                                                                 </div>
                                                                 <div class="flex-grow-1 ms-2">
                                                                     <a href="javascript:void(0);" class="stretched-link">
-                                                                        <h6 class="mb-1 fs-12">Hybrix Invoice</h6>
+                                                                        <h6 class="mb-1 fs-12">PDSI Invoice</h6>
                                                                     </a>
                                                                     <small class="text-muted">342 KB</small>
                                                                 </div>
@@ -674,7 +674,7 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-2">
                                                         <a href="javascript:void(0);" class="stretched-link">
-                                                            <h6>Hybrix Invoice</h6>
+                                                            <h6>PDSI Invoice</h6>
                                                         </a>
                                                         <small>342 KB</small>
                                                     </div>
@@ -963,7 +963,7 @@
                                                 <img src="{{ URL::asset('build/images/companies/img-5.png') }}" alt="" width="30px" height="30px" class="">
                                             </div>
                                             <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Hybrix Project</a></h5>
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">PDSI Project</a></h5>
                                                 <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">11 year Ago</span></p>
                                             </div>
                                             <div class="flex-shrink-0 ms-2">
@@ -1707,7 +1707,7 @@
                                                         </div>
                                                         <div class="ms-3 flex-grow-1">
                                                             <h6 class="fs-15 mb-0">
-                                                                <a href="javascript:void(0);" class="text-body">Hybrix-logo.png</a>
+                                                                <a href="javascript:void(0);" class="text-body">PDSI-logo.png</a>
                                                             </h6>
                                                         </div>
                                                     </div>

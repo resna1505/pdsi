@@ -30,7 +30,7 @@
                                                 <script>
                                                     document.write(new Date().getFullYear())
 
-                                                </script> Hybrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                                                </script> PDSI. Crafted with <i class="mdi mdi-heart text-danger"></i> by ICT PDSI
                                             </p>
                                         </div>
                                     </div>

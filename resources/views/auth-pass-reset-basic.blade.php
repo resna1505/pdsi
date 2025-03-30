@@ -29,7 +29,7 @@
                                             <p class="mb-0">&copy; <script>
                                                     document.write(new Date().getFullYear())
 
-                                                </script> Hybrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand </p>
+                                                </script> PDSI. Crafted with <i class="mdi mdi-heart text-danger"></i> by ICT PDSI </p>
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     <div class="card-body px-0 p-sm-5 m-lg-4">
                                         <div class="text-center mt-2">
                                             <h5 class="text-primary fs-20">Forgot Password?</h5>
-                                            <p class="text-muted mb-4">Reset password with Hybrix</p>
+                                            <p class="text-muted mb-4">Reset password with PDSI</p>
                                             <div class="display-5 mb-4 text-danger">
                                                 <i class="bi bi-envelope"></i>
                                             </div>

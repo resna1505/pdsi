@@ -1,8 +1,8 @@
 /*
-Template Name: Hybrix - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
+Template Name: PDSI - Admin & Dashboard Template
+Author: ICT PDSI
+Website: https://ICT PDSI.com/
+Contact: ICT PDSI@gmail.com
 File: Sweatalerts init js
 */
 
@@ -214,7 +214,7 @@ if (document.getElementById("custom-html-alert"))
             title: '<i>HTML</i> <u>example</u>',
             icon: 'info',
             html: 'You can use <b>bold text</b>, ' +
-                '<a href="//Themesbrand.in/">links</a> ' +
+                '<a href="//ICT PDSI.in/">links</a> ' +
                 'and other HTML tags',
             showCloseButton: true,
             showCancelButton: true,
@@ -412,7 +412,7 @@ if (document.getElementById("custom-sa-community"))
         Swal.fire({
             title: 'Join Our Community',
             html: 'You can use <b>bold text</b>, ' +
-                '<a href="//Themesbrand.in/">links</a> ' +
+                '<a href="//ICT PDSI.in/">links</a> ' +
                 'and other HTML tags',
             html: '<div class="mt-3 text-start">' +
                 '<label for="input-email" class="form-label fs-13">Email</label>' +

@@ -146,7 +146,7 @@
                             <li>
                                 <ul class="director">
                                     <li>
-                                        <a href="javascript:void(0);" class="fw-semibold bg-primary-subtle text-primary"><span class="">Hybrix Admin</span></a>
+                                        <a href="javascript:void(0);" class="fw-semibold bg-primary-subtle text-primary"><span class="">PDSI Admin</span></a>
                                         <ul class="subdirector">
                                             <li><a href="javascript:void(0);" class="fw-semibold"><span class="text-reset">Contact Us</span></a></li>
                                         </ul>
@@ -379,7 +379,7 @@
                     <div class="col-sm-6">
                         <div class="verti-sitemap">
                             <ul class="list-unstyled mb-0">
-                                <li class="p-0 parent-title"><a href="javascript: void(0);" class="fw-medium fs-14">Hybrix</a></li>
+                                <li class="p-0 parent-title"><a href="javascript: void(0);" class="fw-medium fs-14">PDSI</a></li>
                                 <li>
                                     <div class="first-list">
                                         <div class="list-wrap">

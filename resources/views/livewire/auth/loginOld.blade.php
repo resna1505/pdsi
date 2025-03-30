@@ -19,8 +19,8 @@
                         <p class="mb-0">&copy;
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> Hybrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                            Themesbrand
+                            </script> PDSI. Crafted with <i class="mdi mdi-heart text-danger"></i> by
+                            ICT PDSI
                         </p>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="card-body p-4 p-sm-5 m-lg-2">
                         <div class="text-center mt-2">
                             <h5 class="text-primary fs-22">Welcome Back !</h5>
-                            <p class="text-muted">Sign in to continue to Hybrix.</p>
+                            <p class="text-muted">Sign in to continue to PDSI.</p>
                         </div>
                         @if (session()->has('error'))
                             <div class="alert alert-borderless alert-danger alert-dismissible mb-2 mx-2">
@@ -56,7 +56,7 @@
                                             class="text-danger">*</span></label>
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" wire:model.live="email"
-                                        value="{{ old('email', 'admin@themesbrand.com') }}" required autocomplete="email" autofocus placeholder="Enter your email">
+                                        value="{{ old('email', 'admin@ICT PDSI.com') }}" required autocomplete="email" autofocus placeholder="Enter your email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

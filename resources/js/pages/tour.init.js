@@ -1,8 +1,8 @@
 /*
-Template Name: Hybrix - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
+Template Name: PDSI - Admin & Dashboard Template
+Author: ICT PDSI
+Website: https://ICT PDSI.com/
+Contact: ICT PDSI@gmail.com
 File: tour init js
 */
 
@@ -42,7 +42,7 @@ if (document.querySelector('#logo-tour'))
 if (document.querySelector('#register-tour'))
     tour.addStep({
         title: 'Register your account',
-        text: 'Get your Free Hybrix account now.',
+        text: 'Get your Free PDSI account now.',
         attachTo: {
             element: '#register-tour',
             on: 'bottom'
@@ -64,7 +64,7 @@ if (document.querySelector('#register-tour'))
 if (document.querySelector('#login-tour'))
     tour.addStep({
         title: 'Login your account',
-        text: 'Sign in to continue to Hybrix.',
+        text: 'Sign in to continue to PDSI.',
         attachTo: {
             element: '#login-tour',
             on: 'bottom'
@@ -86,7 +86,7 @@ if (document.querySelector('#login-tour'))
 if (document.querySelector('#getproduct-tour'))
     tour.addStep({
         title: 'Get yout Product',
-        text: 'Sign in to continue to Hybrix.',
+        text: 'Sign in to continue to PDSI.',
         attachTo: {
             element: '#getproduct-tour',
             on: 'bottom'
@@ -108,7 +108,7 @@ if (document.querySelector('#getproduct-tour'))
 if (document.querySelector('#thankyou-tour'))
     tour.addStep({
         title: 'Thank you !',
-        text: 'Sign in to continue to Hybrix.',
+        text: 'Sign in to continue to PDSI.',
         attachTo: {
             element: '#thankyou-tour',
             on: 'bottom'

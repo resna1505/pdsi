@@ -30,7 +30,7 @@
                                                 <script>
                                                     document.write(new Date().getFullYear())
 
-                                                </script> Hybrix. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand
+                                                </script> PDSI. Crafted with <i class="mdi mdi-heart text-danger"></i> by ICT PDSI
                                             </p>
                                         </div>
                                     </div>
@@ -42,7 +42,7 @@
                                     <div class="card-body px-0 p-sm-5 m-lg-4">
                                         <div class="text-center mt-2">
                                             <h5 class="text-primary fs-20">Welcome Back !</h5>
-                                            <p class="text-muted">Sign in to continue to Hybrix.</p>
+                                            <p class="text-muted">Sign in to continue to PDSI.</p>
                                         </div>
                                         <div class="p-2 mt-5">
                                             <form action="{{ route('login')}}" method="post">
@@ -50,7 +50,7 @@
 
                                                 <div class="mb-3">
                                                     <label for="username" class="form-label">Username</label>
-                                                    <input type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', 'admin@themesbrand.com') }}" id="username" name="email" placeholder="Enter username">
+                                                    <input type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', 'admin@ICT PDSI.com') }}" id="username" name="email" placeholder="Enter username">
                                                     @error('email')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>

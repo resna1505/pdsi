@@ -9,7 +9,7 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            Hybrix
+            PDSI
         @endslot
         @slot('title')
             Widgets
@@ -661,42 +661,42 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>jordan.martino@hybrix.com</td>
+                                    <td>jordan.martino@PDSI.com</td>
                                     <td>$1.95</td>
                                     <td><a href="#" class="badge text-success  bg-success-subtle">Paid</a></td>
                                 </tr>
                                 <tr>
-                                    <td>nancy.martino@hybrix.com</td>
+                                    <td>nancy.martino@PDSI.com</td>
                                     <td>$5.00</td>
                                     <td><a href="#" class="badge text-warning bg-warning-subtle">Pending</a></td>
                                 </tr>
                                 <tr>
-                                    <td>pieter.novitsky@hybrix.com</td>
+                                    <td>pieter.novitsky@PDSI.com</td>
                                     <td>$2.05</td>
                                     <td><a href="#" class="badge text-success  bg-success-subtle">Paid</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Ashley@hybrix.com</td>
+                                    <td>Ashley@PDSI.com</td>
                                     <td>$69.99</td>
                                     <td><a href="#" class="badge text-danger  bg-danger-subtle">Cancelled</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Heather@hybrix.com</td>
+                                    <td>Heather@PDSI.com</td>
                                     <td>$16.78</td>
                                     <td><a href="#" class="badge text-danger  bg-danger-subtle">Cancelled</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Jimenez@hybrix.com</td>
+                                    <td>Jimenez@PDSI.com</td>
                                     <td>$79.99</td>
                                     <td><a href="#" class="badge text-success  bg-success-subtle">Paid</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Daniel@hybrix.com</td>
+                                    <td>Daniel@PDSI.com</td>
                                     <td>$87.00</td>
                                     <td><a href="#" class="badge text-warning bg-warning-subtle">Pending</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Scott@hybrix.com</td>
+                                    <td>Scott@PDSI.com</td>
                                     <td>$42.32</td>
                                     <td><a href="#" class="badge text-danger  bg-danger-subtle">Cancelled</a></td>
                                 </tr>
@@ -1173,7 +1173,7 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-2">
                                                         <a href="javascript:void(0);" class="stretched-link">
-                                                            <h6 class="mb-1 fs-12">Hybrix Invoice</h6>
+                                                            <h6 class="mb-1 fs-12">PDSI Invoice</h6>
                                                         </a>
                                                         <small class="text-muted">342 KB</small>
                                                     </div>
@@ -1700,7 +1700,7 @@
 @section('script')
     <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
     <!-- for basic area chart -->
-    <script src="https://img.themesbrand.com/velzon/apexchart-js/stock-prices.js"></script>
+    <script src="https://img.ICT PDSI.com/velzon/apexchart-js/stock-prices.js"></script>
     <script src="{{ URL::asset('build/libs/jsvectormap/jsvectormap.min.js') }}"></script>
     <script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
     <script src="{{ URL::asset('build/js/maps/us-merc-en.js') }}"></script>

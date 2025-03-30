@@ -23,7 +23,7 @@
                     <div class="card-body p-4 p-sm-5 m-lg-4">
                         <div class="text-center mt-2">
                             <h5 class="text-primary fs-22">Welcome Back !</h5>
-                            <p class="text-muted">Sign in to continue to Hybrix.</p>
+                            <p class="text-muted">Sign in to continue to PDSI.</p>
                         </div>
                         <div class="p-2 mt-5">
                             <form action="index">

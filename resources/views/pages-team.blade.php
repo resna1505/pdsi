@@ -96,7 +96,7 @@
                     <a href="#member-overview" data-bs-toggle="offcanvas">
                         <h5 class="fs-17">Jordan Martino</h5>
                     </a>
-                    <p class="text-muted mb-0">jordan.martino@hybrix.com</p>
+                    <p class="text-muted mb-0">jordan.martino@PDSI.com</p>
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@
                     <a href="#member-overview" data-bs-toggle="offcanvas">
                         <h5 class="fs-17">Nancy Martino</h5>
                     </a>
-                    <p class="text-muted mb-0">nancy.martino@hybrix.com</p>
+                    <p class="text-muted mb-0">nancy.martino@PDSI.com</p>
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@
                     <a href="#member-overview" data-bs-toggle="offcanvas">
                         <h5 class="fs-17">Pieter Novitsky</h5>
                     </a>
-                    <p class="text-muted mb-0">pieter.novitsky@hybrix.com</p>
+                    <p class="text-muted mb-0">pieter.novitsky@PDSI.com</p>
                 </div>
             </div>
         </div>
@@ -192,7 +192,7 @@
                     <a href="#member-overview" data-bs-toggle="offcanvas">
                         <h5 class="fs-17">Allyson Booker</h5>
                     </a>
-                    <p class="text-muted mb-0">allyson.booker@hybrix.com</p>
+                    <p class="text-muted mb-0">allyson.booker@PDSI.com</p>
                 </div>
             </div>
         </div>
@@ -224,7 +224,7 @@
                     <a href="#member-overview" data-bs-toggle="offcanvas">
                         <h5 class="fs-17">Cristofer Leblanc</h5>
                     </a>
-                    <p class="text-muted mb-0">cristofer.leblanc@hybrix.com</p>
+                    <p class="text-muted mb-0">cristofer.leblanc@PDSI.com</p>
                 </div>
             </div>
         </div>

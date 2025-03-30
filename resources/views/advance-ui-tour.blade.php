@@ -52,7 +52,7 @@
                                                 </div>
                                             </div>
                                             <h5>Free register</h5>
-                                            <p class="text-muted mb-0">Get your Free Hybrix account now.</p>
+                                            <p class="text-muted mb-0">Get your Free PDSI account now.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                                 </div>
                                             </div>
                                             <h5>Log in account</h5>
-                                            <p class="text-muted mb-0">Sign in to continue to Hybrix.</p>
+                                            <p class="text-muted mb-0">Sign in to continue to PDSI.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                                 </div>
                                             </div>
                                             <h5>Get Product</h5>
-                                            <p class="text-muted mb-0">Sign in to continue to Hybrix.</p>
+                                            <p class="text-muted mb-0">Sign in to continue to PDSI.</p>
                                         </div>
                                     </div>
                                 </div>

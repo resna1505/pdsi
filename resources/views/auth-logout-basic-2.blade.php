@@ -25,7 +25,7 @@
                         </div>
                         <div class="mt-4 pt-2">
                             <h5 class="fs-18">You are Logged Out</h5>
-                            <p class="text-muted">Thank you for using <span class="fw-semibold">hybrix</span> admin template</p>
+                            <p class="text-muted">Thank you for using <span class="fw-semibold">PDSI</span> admin template</p>
                             <div class="mt-4">
                                 <a href="auth-signin-basic" class="btn btn-primary w-100">Sign In</a>
                             </div>

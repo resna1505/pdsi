@@ -29,10 +29,10 @@ class ResetPasswordEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('hybrix@no-reply.com'),
+            from: new Address('PDSI@no-reply.com'),
             replyTo: [
-            new Address('support@hybrix.com'),
-        ],
+                new Address('support@PDSI.com'),
+            ],
             subject: 'Reset Password',
 
         );

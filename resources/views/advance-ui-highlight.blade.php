@@ -26,7 +26,7 @@
                 <pre><code class="language-markup">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;title&gt;Hybrix - Responsive Admin Dashboard Template&lt;/title&gt;
+        &lt;title&gt;PDSI - Responsive Admin Dashboard Template&lt;/title&gt;
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div&gt;

@@ -5,7 +5,7 @@
 		"company_name": "iTest Factory",
 		"designation": "UI / UX Designer",
 		"date": "2012-04-23T18:25:43.511Z",
-		"email_id": "thomastaylor@Hybrix.com",
+		"email_id": "thomastaylor@PDSI.com",
 		"phone": "580-464-4694",
 		"lead_score": "236",
 		"tags": ["Partner"]
@@ -27,7 +27,7 @@
 		"company_name": "Android Galaxy",
 		"designation": "Asp.Net Developer",
 		"date": "2018-10-11T19:30:43.511Z",
-		"email_id": "alexisclarke@Hybrix.com",
+		"email_id": "alexisclarke@PDSI.com",
 		"phone": "515-395-1069",
 		"lead_score": "369",
 		"tags": ["Lead", "Partner"]
@@ -35,10 +35,10 @@
 	{
 		"id": "4",
 		"name": ["build/images/users/avatar-3.jpg", "James Price"],
-		"company_name": "Themesbrand",
+		"company_name": "ICT PDSI",
 		"designation": "Lead Developer",
 		"date": "2018-11-12T12:25:50.511Z",
-		"email_id": "jamesprice@Hybrix.com",
+		"email_id": "jamesprice@PDSI.com",
 		"phone": "646-276-2274",
 		"lead_score": "81",
 		"tags": ["Lead"]
@@ -49,7 +49,7 @@
 		"company_name": "Micro Design",
 		"designation": "Full Stack Developer",
 		"date": "2015-03-20T18:25:43.511Z",
-		"email_id": "marycousar@Hybrix.com",
+		"email_id": "marycousar@PDSI.com",
 		"phone": "540-575-0991",
 		"lead_score": "643",
 		"tags": ["Exiting"]
@@ -57,10 +57,10 @@
 	{
 		"id": "6",
 		"name": ["build/images/users/avatar-6.jpg", "Herbert Stokes"],
-		"company_name": "Themesbrand",
+		"company_name": "ICT PDSI",
 		"designation": "Mean Stack Developer",
 		"date": "2012-05-10T10:25:55.511Z",
-		"email_id": "herbertstokes@Hybrix.com",
+		"email_id": "herbertstokes@PDSI.com",
 		"phone": "949-791-0614",
 		"lead_score": "784",
 		"tags": ["Exiting", "Lead", "Partner"]
@@ -71,7 +71,7 @@
 		"company_name": "Syntyce Solutions",
 		"designation": "NodeJS Developer",
 		"date": "2021-08-12T18:25:43.511Z",
-		"email_id": "timothysmith@Hybrix.com",
+		"email_id": "timothysmith@PDSI.com",
 		"phone": "231-480-8536",
 		"lead_score": "732",
 		"tags": ["Lead", "Partner"]
@@ -82,7 +82,7 @@
 		"company_name": "Digitech Galaxy",
 		"designation": "Assitant Developer",
 		"date": "2017-09-18T18:36:10.511Z",
-		"email_id": "tonyanoble@Hybrix.com",
+		"email_id": "tonyanoble@PDSI.com",
 		"phone": "414-453-5725",
 		"lead_score": "154",
 		"tags": ["Partner"]
@@ -93,7 +93,7 @@
 		"company_name": "Meta4Systems",
 		"designation": "Senoir Developer",
 		"date": "2011-06-09T22:30:43.511Z",
-		"email_id": "kevindawson@Hybrix.com",
+		"email_id": "kevindawson@PDSI.com",
 		"phone": "745-321-9874",
 		"lead_score": "500",
 		"tags": ["Lead"]
@@ -104,7 +104,7 @@
 		"company_name": "Nesta Technologies",
 		"designation": "Lead Designer / Developer",
 		"date": "2012-04-23T18:25:43.511Z",
-		"email_id": "tonyanoble@Hybrix.com",
+		"email_id": "tonyanoble@PDSI.com",
 		"phone": "414-453-5725",
 		"lead_score": "225",
 		"tags": ["Lead", "Partner"]

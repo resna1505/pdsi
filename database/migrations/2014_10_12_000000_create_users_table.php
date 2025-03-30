@@ -24,7 +24,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        User::create(['first_name' => 'admin', 'last_name' => 'themesbrand','email' => 'admin@themesbrand.com','password' => Hash::make('12345678'),'email_verified_at'=>'2022-01-02 17:04:58','avatar' => 'avatar-1.jpg', 'remember_token' => bin2hex(random_bytes(20)), 'created_at' => now(),]);
+        User::create(['first_name' => 'admin', 'last_name' => 'ICT PDSI', 'email' => 'admin@ICT PDSI.com', 'password' => Hash::make('12345678'), 'email_verified_at' => '2022-01-02 17:04:58', 'avatar' => 'avatar-1.jpg', 'remember_token' => bin2hex(random_bytes(20)), 'created_at' => now(),]);
     }
 
     /**
