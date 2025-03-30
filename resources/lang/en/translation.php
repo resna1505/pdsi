@@ -290,4 +290,6 @@ return [
     "privacy-policy" => "Privacy Policy",
     "hot" => "Hot",
     "our-social-media" => "Our Social Media",
+    "recommendations" =>  "Recommendations",
+    "relocations" =>  "Relocations"
 ];

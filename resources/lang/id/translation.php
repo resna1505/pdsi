@@ -276,4 +276,6 @@ return [
     "privacy-policy" => "Kebijakan Privasi",
     "hot" => "Hot",
     "our-social-media" => "Sosial Media Kami",
+    "recommendations" =>  "Rekomendasi",
+    "relocations" =>  "Perpindahan"
 ];
