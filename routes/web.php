@@ -21,6 +21,18 @@ Route::get('/new-password/{email?}/{token?}', \App\Http\Livewire\Auth\NewPasswor
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout']);
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
 
+Route::get('/auth-404-basic', function () {
+    return view('auth-404-basic');
+})->name('auth.404');
+
+Route::get('/auth-500', function () {
+    return view('auth-500');
+})->name('auth.500');
+
+Route::get('/auth-offline', function () {
+    return view('auth-offline');
+})->name('auth.offline');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/test', function () {
         return view('widgets');

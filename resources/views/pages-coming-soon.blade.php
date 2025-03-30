@@ -32,7 +32,7 @@
                                 <p class="text-muted">Don't worry we will not spam you 😊</p>
                             </div>
 
-                            <form action="#!">
+                            <form action="/index">
                                 <div class="countdown-input-subscribe mx-auto my-4">
                                     <input type="email" class="form-control shadow" placeholder="Enter your email address" required />
                                     <button class="btn btn-primary" type="submit" id="button-email">Send<i class="ri-send-plane-2-fill align-bottom ms-2"></i></button>
