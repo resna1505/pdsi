@@ -10,7 +10,7 @@
         <div class="row g-0 justify-content-center">
             <div class="col-xl-4 col-lg-8">
                 <div class="text-center mb-5">
-                    <img src="{{ URL::asset('build/images/logo-light-full.png') }}" alt="" height="32" />
+                    <img src="{{ URL::asset('build/images/logo-light-full.png') }}" alt="" height="110" />
                 </div>
                 <div class="card mb-0">
                     <div class="card-body p-4 p-sm-4 m-lg-3 text-center">
