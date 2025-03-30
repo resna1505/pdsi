@@ -1,0 +1,7 @@
+{
+    "i18n-ally.localesPaths": [
+        "resources/lang",
+        "resources/libs/apexcharts/locales",
+        "resources/libs/moment/locale"
+    ]
+}
