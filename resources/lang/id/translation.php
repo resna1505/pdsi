@@ -274,5 +274,6 @@ return [
     "job-categories" => "Kategori Pekerjaan",
     "api-key" => "Kunci API",
     "privacy-policy" => "Kebijakan Privasi",
-    "hot" => "Hot"
+    "hot" => "Hot",
+    "our-social-media" => "Sosial Media Kami",
 ];

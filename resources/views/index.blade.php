@@ -181,7 +181,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-12">
+                {{-- <div class="col-xl-12">
                     <!-- card -->
                     <div class="card bg-info-subtle text-info border-0">
                         <div class="card-body">
@@ -200,7 +200,7 @@
                         </div>
                     </div>
                     <!-- end card -->
-                </div>
+                </div> --}}
                 <!-- end col -->
 
                 <div class="col-xl-12">
@@ -418,7 +418,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-xl-8">
                     <div class="swiper selling-product">
                         <div class="d-flex pt-2 pb-4">
@@ -820,7 +820,7 @@
                     <!-- end card -->
                 </div>
                 <!-- end col -->
-            </div>
+            </div> --}}
 
         </div> <!-- end .h-100-->
 

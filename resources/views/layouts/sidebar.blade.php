@@ -283,19 +283,19 @@
                     <a href="apps-calendar" class="nav-link menu-link"> <i class="bi bi-calendar3"></i> <span data-key="t-calendar">@lang('translation.calendar')</span> </a>
                 </li>
                 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="apps-api-key" class="nav-link menu-link"> <i class="bi bi-key"></i> <span data-key="t-api-key">@lang('translation.api-key')</span> </a>
                 </li>
                 
                 <li class="nav-item">
                     <a href="apps-contact" class="nav-link menu-link"> <i class="bi bi-person-square"></i> <span data-key="t-contact">@lang('translation.contact')</span> </a>
-                </li>
+                </li> --}}
                 
                 <li class="nav-item">
                     <a href="apps-leaderboards" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard">@lang('translation.leaderboard')</span> </a>
                 </li>
                 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-layouts">@lang('translation.layouts')</span></li>
+                {{-- <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-layouts">@lang('translation.layouts')</span></li>
                 <li class="nav-item">
                     <a href="layouts-horizontal" class="nav-link menu-link" target="_blank"> <i class="bi bi-window"></i> <span data-key="t-horizontal">@lang('translation.horizontal')</span> </a>
                 </li>
@@ -347,7 +347,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
 
             </ul>
         </div>
