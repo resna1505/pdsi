@@ -8,7 +8,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="ICT PDSI" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ URL::asset('build/images/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ URL::asset('build/images/favicon.png') }}">
     @include('layouts.head-css')
     @livewireStyles
 </head>

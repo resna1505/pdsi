@@ -16,13 +16,13 @@
             <div class="card-body">
                 <div class="position-relative">
                     <div class="mt-n5">
-                        <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="avatar-lg rounded-circle p-1 mt-n4">
+                        <img src="{{ URL::asset('storage/images/users/' . Auth::user()->avatar) }}" alt="" class="avatar-lg rounded-circle p-1 mt-n4">
                     </div>
                 </div>
                 <div class="pt-3">
                     <div class="row justify-content-between gy-4">
                         <div class="col-xl-5 col-lg-5">
-                            <h5 class="fs-17">Edward Diana</h5>
+                            <h5 class="fs-17">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h5>
                             <div class="hstack gap-1 mb-3 text-muted">
                                 <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>Phoenix, USA</div>
                                 <div>
@@ -138,30 +138,69 @@
 
                         <div class="card">
                             <div class="card-body p-2">
-                                <div class="card-body bg-primary rounded-3 pb-3">
-                                    <div class="mb-4 pb-1">
-                                        <h6 class="fs-16 text-white">Renew Premium License</h6>
-                                        <p class="text-white-75 mb-0">If you purchased an Annual plan and if you've not canceled the automatic renewal, our license management system automatically</p>
-                                    </div>
-                                </div>
-                                <div class="card-body pt-4">
-                                    <div class="mt-n5 p-3 rounded shadow card border-0 mb-0">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <h4 class="mb-0">$351</h4>
-                                            <div>
-                                                <span class="badge text-success  bg-success-subtle">25% Discount</span>
-                                                <p class="text-muted mb-0 mt-2">Exclusively for our Premium members</p>
+                                <!-- With Indicators -->
+                                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                                    </ol>
+                                    <div class="carousel-inner" role="listbox">
+                                        <div class="carousel-item active"> 
+                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_depan.png') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">
+                                                <div style="position: absolute; 
+                                                            top: 51%; 
+                                                            left: 50%; 
+                                                            transform: translate(-50%, -50%); 
+                                                            width: 220px; 
+                                                            height: 220px; 
+                                                            border-radius: 50%; 
+                                                            overflow: hidden;
+                                                            border: 2px solid white;">
+                                                    <img src="{{ URL::asset('storage/images/users/' . Auth::user()->avatar) }}" 
+                                                        alt="First slide" 
+                                                        style="width: 100%; 
+                                                                height: 100%; 
+                                                                object-fit: cover;
+                                                    ">
+
+                                                    
+                                                </div>
+                                                <div style="position: absolute; bottom: 100px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
+                                                    Nama : {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                                                </div>
+                                                <div style="position: absolute; bottom: 80px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
+                                                    Id : {{ Auth::user()->id }}
+                                                </div>
+                                                <div style="position: absolute; bottom: 60px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
+                                                    No.Urut Anggota : {{ Auth::user()->id }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item"> 
+                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_belakang.png') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">
+                                                <div style="position: absolute; 
+                                                            top: 15%; 
+                                                            left: 83%; 
+                                                            transform: translate(-50%, -50%); 
+                                                           
+                                                            overflow: hidden;">
+                                                        {!! QrCode::size(80)->generate(Auth::user()->first_name . ' ' . Auth::user()->last_name . ' ' . Auth::user()->id . ' ' . Auth::user()->created_at) !!}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="mt-4 hstack gap-2">
-                                        <button class="btn btn-soft-secondary w-100">Renew Plan</button>
-                                        <button class="btn btn-soft-danger w-100">View All Plan</button>
-                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                        
 
                         <div class="card">
                             <div class="card-body">

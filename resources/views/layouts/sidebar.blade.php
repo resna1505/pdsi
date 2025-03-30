@@ -32,20 +32,20 @@
             
                 <li class="menu-title"><span data-key="t-menu">@lang('translation.menu')</span></li>
                 <li class="nav-item">
-                    <a href="index" class="nav-link menu-link"> <i class="bi bi-speedometer2"></i> <span data-key="t-dashboard">@lang('translation.dashboards')</span> </a>
+                    <a href="index" class="nav-link menu-link"> <i class=" ri-pie-chart-line"></i> <span data-key="t-dashboard">@lang('translation.dashboards')</span> </a>
                 </li>
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">@lang('translation.pages')</span></li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="pages-coming-soon" role="button" aria-expanded="false" aria-controls="pages-coming-soon">
-                        <i class=" ri-file-paper-2-line"></i> <span data-key="t-authentication">@lang('translation.recommendations')</span>
+                        <i class="  ri-file-list-3-line"></i> <span data-key="t-authentication">@lang('translation.recommendations')</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="pages-coming-soon" role="button" aria-expanded="false" aria-controls="pages-coming-soon">
-                        <i class="  ri-file-transfer-line"></i> <span data-key="t-authentication">@lang('translation.relocations')</span>
+                        <i class="   ri-pin-distance-line"></i> <span data-key="t-authentication">@lang('translation.relocations')</span>
                     </a>
                 </li>
                 
