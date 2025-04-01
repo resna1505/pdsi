@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title'); ?>
 <?php echo app('translator')->get('translation.profile'); ?>
 <?php $__env->stopSection(); ?>
@@ -22,7 +21,7 @@
                 <div class="pt-3">
                     <div class="row justify-content-between gy-4">
                         <div class="col-xl-5 col-lg-5">
-                            <h5 class="fs-17"><?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?></h5>
+                            <h5 class="fs-17"><?php echo e(Auth::user()->name); ?> <?php echo e(Auth::user()->last_name); ?></h5>
                             <div class="hstack gap-1 mb-3 text-muted">
                                 <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>Phoenix, USA</div>
                                 <div>
@@ -166,7 +165,7 @@
                                                     
                                                 </div>
                                                 <div style="position: absolute; bottom: 100px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    Nama : <?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?>
+                                                    Nama : <?php echo e(Auth::user()->name); ?> <?php echo e(Auth::user()->last_name); ?>
 
                                                 </div>
                                                 <div style="position: absolute; bottom: 80px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
@@ -187,7 +186,7 @@
                                                             transform: translate(-50%, -50%); 
                                                            
                                                             overflow: hidden;">
-                                                        <?php echo QrCode::size(80)->generate(Auth::user()->first_name . ' ' . Auth::user()->last_name . ' ' . Auth::user()->id . ' ' . Auth::user()->created_at); ?>
+                                                        <?php echo QrCode::size(80)->generate(Auth::user()->name . ' ' . Auth::user()->last_name . ' ' . Auth::user()->id . ' ' . Auth::user()->created_at); ?>
 
                                                 </div>
                                             </div>

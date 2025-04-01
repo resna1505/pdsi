@@ -317,14 +317,14 @@
                                 alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span
-                                    class="d-none d-xl-inline-block ms-1 fw-medium user-name-text"><?php echo e(Auth::user()->first_name); ?></span>
-                                <span class="d-none d-xl-block ms-1 fs-13 text-reset user-name-sub-text"><?php echo e(Auth::user()->last_name); ?></span>
+                                    class="d-none d-xl-inline-block ms-1 fw-medium user-name-text"><?php echo e(Auth::user()->name); ?></span>
+                                <span class="d-none d-xl-block ms-1 fs-13 text-reset user-name-sub-text"><?php echo e(Auth::user()->profesi); ?></span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome <?php echo e(Auth::user()->first_name); ?> <?php echo e(Auth::user()->last_name); ?>!</h6>
+                        <h6 class="dropdown-header">Welcome <?php echo e(Auth::user()->name); ?> <?php echo e(Auth::user()->last_name); ?>!</h6>
                             <a class="dropdown-item" href="pages-profile"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span>

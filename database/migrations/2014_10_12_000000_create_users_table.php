@@ -15,16 +15,42 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->boolean('is_active')->default(false);
             $table->string('email')->unique();
+            $table->string('name');
+            $table->string('tempat_lahir');
+            $table->timestamp('tanggal_lahir');
+            $table->string('no_hp');
+            $table->string('alamat');
+            $table->string('kota');
+            $table->string('provinsi');
+            $table->string('profesi');
+            $table->text('ktp');
+            $table->text('npwp');
+            $table->text('avatar');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->text('avatar');
             $table->rememberToken();
             $table->timestamps();
         });
-        User::create(['first_name' => 'admin', 'last_name' => 'ICT PDSI', 'email' => 'admin@ICT PDSI.com', 'password' => Hash::make('12345678'), 'email_verified_at' => '2022-01-02 17:04:58', 'avatar' => 'avatar-1.jpg', 'remember_token' => bin2hex(random_bytes(20)), 'created_at' => now(),]);
+        User::create([
+            'email' => 'admin@ictpdsi.com', // Email sebaiknya lowercase
+            'name' => 'Admin ICT PDSI',
+            'tempat_lahir' => 'Jakarta',
+            'tanggal_lahir' => '1990-01-01 00:00:00', // Format timestamp yang valid
+            'no_hp' => '08123456789',
+            'alamat' => 'Kantor ICT PDSI',
+            'kota' => 'Jakarta',
+            'provinsi' => 'DKI Jakarta',
+            'profesi' => 'Administrator',
+            'ktp' => '1234567890123456',
+            'npwp' => '01.234.567.8-912.345',
+            'password' => Hash::make('12345678'),
+            'email_verified_at' => now(), // Gunakan now() untuk timestamp saat ini
+            'avatar' => 'avatar-1.jpg',
+            'remember_token' => bin2hex(random_bytes(20)),
+            'created_at' => now(),
+        ]);
     }
 
     /**

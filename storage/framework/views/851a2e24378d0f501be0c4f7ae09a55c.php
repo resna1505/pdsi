@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title'); ?>
 <?php echo app('translator')->get('translation.404-error-basic'); ?>
 <?php $__env->stopSection(); ?>

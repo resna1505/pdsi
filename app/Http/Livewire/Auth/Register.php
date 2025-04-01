@@ -17,19 +17,40 @@ class Register extends Component
 {
     use WithFileUploads;
 
-    public $first_name;
-    public $last_name;
+    public $email;
+    public $name;
+    public $tempat_lahir;
+    public $tanggal_lahir;
+    public $no_hp = '08';
+    public $alamat;
+    public $kota;
+    public $provinsi;
+    public $profesi;
+    public $ktp;
+    public $npwp;
     public $avatar;
     public $password;
-    public $email;
-    public $password_confirmation, $otp, $generatedOtp;
+    public $password_confirmation, $otp, $generatedOtp, $remember;
+
+
+    public $otherProfesi = '';
 
     protected $rules = [
-        'first_name' => 'required',
-        'last_name' => 'required',
         'email' => 'required|string|email|max:255|unique:users',
+        'name' => 'required',
+        'tempat_lahir' => 'required',
+        'tanggal_lahir' => 'required',
+        'no_hp' => 'required',
+        'alamat' => 'required',
+        'kota' => 'required',
+        'provinsi' => 'required',
+        'profesi' => 'required',
+        'ktp' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        'npwp' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         'password' => 'required|string|min:8|confirmed',
-        'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+        'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        'remember' => 'required|accepted',
+        'otp' => 'required',
     ];
 
     public function sendOtp()
@@ -73,22 +94,43 @@ class Register extends Component
         // Hapus OTP setelah digunakan
         $otpRecord->delete();
 
+        if ($this->ktp != null) {
+            $ktp = $this->ktp;
+            $ktpName = time() . '.' . $ktp->getClientOriginalExtension();
+            Storage::putFileAs('public/images/users', $ktp, $ktpName);
+        }
+        if ($this->npwp != null) {
+            $npwp = $this->npwp;
+            $npwpName = time() . '.' . $npwp->getClientOriginalExtension();
+            Storage::putFileAs('public/images/users', $npwp, $npwpName);
+        }
         if ($this->avatar != null) {
             $avatar = $this->avatar;
             $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
             Storage::putFileAs('public/images/users', $avatar, $avatarName);
         }
+        if ($this->profesi == 'other') {
+            $this->profesi = $this->otherProfesi;
+        }
         $token = bin2hex(random_bytes(20));
 
-        // create new user
-        $user = User::create([
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'avatar' => $avatarName,
+        User::create([
             'email' => $this->email,
+            'name' => $this->name,
+            'tempat_lahir' => $this->tempat_lahir,
+            'tanggal_lahir' => $this->tanggal_lahir,
+            'no_hp' => $this->no_hp,
+            'alamat' => $this->alamat,
+            'kota' => $this->kota,
+            'provinsi' => $this->provinsi,
+            'profesi' => $this->profesi,
+            'ktp' => $ktpName,
+            'npwp' => $npwpName,
             'password' => Hash::make($this->password),
+            'email_verified_at' => now(),
+            'avatar' => $avatarName,
             'remember_token' => $token,
-            'created_at' => now()
+            'created_at' => now(),
         ]);
 
         return redirect('login')->with('success', 'User registered successfully.!');
