@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/clear-cache', function () {
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+
+    return "Cache dan konfigurasi telah dibersihkan!";
+});
 
 Route::get('/login', \App\Http\Livewire\Auth\Login::class)->name('login');
 Route::get('/register', \App\Http\Livewire\Auth\Register::class)->name('register');
