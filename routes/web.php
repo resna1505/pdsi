@@ -23,6 +23,11 @@ Route::get('/clear-cache', function () {
     return "Cache dan konfigurasi telah dibersihkan!";
 });
 
+Route::get('/migrate-fresh', function () {
+    Artisan::call('migrate:fresh');
+    return "Database telah di-reset dan migrasi ulang berhasil!";
+});
+
 Route::get('/login', \App\Http\Livewire\Auth\Login::class)->name('login');
 Route::get('/register', \App\Http\Livewire\Auth\Register::class)->name('register');
 Route::get('/forget-password', \App\Http\Livewire\Auth\ForgetPassword::class)->name('password.reset');
