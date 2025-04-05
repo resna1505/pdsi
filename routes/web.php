@@ -51,9 +51,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/test', function () {
         return view('widgets');
     });
-    Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 
     Route::get('/', function () {
         return view('index');
     });
+
+    Route::get('/member', function () {
+        return view('admin.member');
+    });
+    Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

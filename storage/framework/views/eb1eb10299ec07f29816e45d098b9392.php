@@ -35,16 +35,30 @@
                     <a href="index" class="nav-link menu-link"> <i class=" ri-pie-chart-line"></i> <span data-key="t-dashboard"><?php echo app('translator')->get('translation.dashboards'); ?></span> </a>
                 </li>
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages"><?php echo app('translator')->get('translation.pages'); ?></span></li>
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">User Menu</span></li>
 
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon" role="button" aria-expanded="false" aria-controls="pages-coming-soon">
+                    <a class="nav-link menu-link" href="member">
+                        <i class=" ri-user-line"></i> <span data-key="t-member">Member</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="pages-coming-soon">
+                        <i class="ri-briefcase-line	"></i> <span data-key="t-authentication">Pelatihan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="pages-coming-soon">
+                        <i class="ri-megaphone-line	"></i> <span data-key="t-authentication">Announcement</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="pages-coming-soon">
                         <i class="  ri-file-list-3-line"></i> <span data-key="t-authentication"><?php echo app('translator')->get('translation.recommendations'); ?></span>
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon" role="button" aria-expanded="false" aria-controls="pages-coming-soon">
+                    <a class="nav-link menu-link" href="pages-coming-soon">
                         <i class="   ri-pin-distance-line"></i> <span data-key="t-authentication"><?php echo app('translator')->get('translation.relocations'); ?></span>
                     </a>
                 </li>
@@ -56,6 +70,44 @@
                 </li>
                 <li class="nav-item">
                     <a href="apps-leaderboards" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard"><?php echo app('translator')->get('translation.leaderboard'); ?></span> </a>
+                </li>
+
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
+
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                        <i class="bi bi-person-circle"></i> <span data-key="t-authentication">User</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarAuth">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="auth-signin-basic" class="nav-link" data-key="t-basic">Admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="auth-signin-basic-2" class="nav-link" data-key="t-basic-2">Anggota</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="pages-coming-soon">
+                        <i class="ri-calendar-line"></i> <span data-key="t-authentication">Jadwal</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="pages-coming-soon">
+                        <i class="ri-stethoscope-line"></i> <span data-key="t-authentication">Dokter</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="pages-coming-soon">
+                        <i class="ri-hospital-line"></i> <span data-key="t-authentication">Education</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="pages-coming-soon">
+                        <i class="ri-volume-up-line"></i> <span data-key="t-authentication">Announcement Type</span>
+                    </a>
                 </li>
             </ul>
         </div>

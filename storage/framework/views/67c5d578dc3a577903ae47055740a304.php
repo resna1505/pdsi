@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('title'); ?>
 <?php echo app('translator')->get('translation.settings'); ?>
 <?php $__env->stopSection(); ?>
@@ -222,7 +221,7 @@
                 </div>
                 <div class="text-center">
                     <a href="#member-overview" data-bs-toggle="offcanvas">
-                        <h5 class="fs-17">Cristofer Leblanc</h5>
+                        <h5 class="fs-17">Cristofer Leblanc 123</h5>
                     </a>
                     <p class="text-muted mb-0">cristofer.leblanc@PDSI.com</p>
                 </div>

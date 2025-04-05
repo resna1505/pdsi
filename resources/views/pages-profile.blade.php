@@ -24,12 +24,12 @@
                         <div class="col-xl-5 col-lg-5">
                             <h5 class="fs-17">{{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
                             <div class="hstack gap-1 mb-3 text-muted">
-                                <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>Phoenix, USA</div>
+                                <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>Kemayoran, Jakarta</div>
                                 <div>
-                                    <i class="ri-building-line me-1 fs-16 align-middle"></i>ICT PDSI
+                                    <i class="ri-building-line me-1 fs-16 align-middle"></i>Universitas Dummy
                                 </div>
                             </div>
-                            <p>Product visual designer, expert in UI design</p>
+                            <p>Dr. SpPD</p>
 
                             <div class="hstack gap-2">
                                 <button type="button" class="btn btn-success custom-toggle" data-bs-toggle="button" aria-pressed="false">
@@ -42,44 +42,41 @@
                                         <i class="bi bi-three-dots-vertical"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        <li><a class="dropdown-item" href="#">Konsultasi</a></li>
+                                        <li><a class="dropdown-item" href="#">Forum Diskusi Medis</a></li>
+                                        <li><a class="dropdown-item" href="#">Update Ilmiah & Seminar</a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-lg-5">
                             <div>
-                                <p class="text-muted fw-medium mb-2">Language Knows</p>
+                                <p class="text-muted fw-medium mb-2">place of practice</p>
                                 <ul class="list-inline mb-4">
                                     <li class="list-inline-item">
-                                        <span class="badge text-info bg-info-subtle">English</span>
+                                        <span class="badge text-info bg-info-subtle">Rumah Sakit Cipto Mangunkusumo (RSCM)</span>
                                     </li>
                                     <li class="list-inline-item">
-                                        <span class="badge text-info bg-info-subtle">Russian</span>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <span class="badge text-info bg-info-subtle">Chinese</span>
+                                        <span class="badge text-info bg-info-subtle">Klinik Medika Sehat</span>
                                     </li>
                                 </ul>
                             </div>
 
                             <div>
-                                <p class="text-muted fw-medium mb-2">Featured Skills</p>
+                                <p class="text-muted fw-medium mb-2">Professional Certification</p>
                                 <ul class="d-flex gap-2 flex-wrap list-unstyled mb-0">
                                     <li>
-                                        <span class="badge text-body-emphasis  bg-dark-subtle">Business Marketing</span>
+                                        <span class="badge text-body-emphasis  bg-dark-subtle">Sertifikasi USG Dasar</span>
                                     </li>
                                     <li>
-                                        <span class="badge text-body-emphasis  bg-dark-subtle">Google Ads Management</span>
+                                        <span class="badge text-body-emphasis  bg-dark-subtle">Hiperkes & Keselamatan Kerja</span>
                                     </li>
                                     <li>
-                                        <span class="badge text-body-emphasis  bg-dark-subtle">Social Ads Management</span>
+                                        <span class="badge text-body-emphasis  bg-dark-subtle">Sertifikasi Dokter Pemeriksa Kesehatan Kerja</span>
                                     </li>
-                                    <li>
-                                        <span class="badge text-body-emphasis  bg-dark-subtle">Content SEO</span>
-                                    </li>
+                                    {{-- <li>
+                                        <span class="badge text-body-emphasis  bg-dark-subtle">Estetika Medik Profesional</span>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div>
@@ -96,12 +93,17 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link fs-14" data-bs-toggle="tab" href="#activities" role="tab">
-                                    <i class="ri-list-unordered d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Activities</span>
+                                    <i class="ri-list-unordered d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Membership</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fs-14" data-bs-toggle="tab" href="#education" role="tab">
+                                    <i class="ri-price-tag-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Education</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link fs-14" data-bs-toggle="tab" href="#projects" role="tab">
-                                    <i class="ri-price-tag-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Projects</span>
+                                    <i class="ri-price-tag-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Practice</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -220,28 +222,28 @@
                                     <div>
                                         <a href="javascript:void(0);" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-dark text-white">
-                                                <i class="ri-github-fill"></i>
+                                                <i class="  ri-twitter-fill"></i>
                                             </span>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="javascript:void(0);" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-primary">
-                                                <i class="ri-global-fill"></i>
+                                                <i class=" ri-facebook-circle-fill"></i>
                                             </span>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="javascript:void(0);" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-success">
-                                                <i class="ri-dribbble-fill"></i>
+                                                <i class=" ri-linkedin-box-fill"></i>
                                             </span>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="javascript:void(0);" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-danger">
-                                                <i class="ri-pinterest-fill"></i>
+                                                <i class="ri-instagram-fill"></i>
                                             </span>
                                         </a>
                                     </div>
@@ -251,15 +253,13 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title mb-4">Skills</h5>
+                                <h5 class="card-title mb-4">Additional Expertise</h5>
                                 <div class="d-flex flex-wrap gap-2 fs-15">
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Photoshop</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">illustrator</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">HTML</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">CSS</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Javascript</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Php</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Python</a>
+                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Manajemen Pasien & Rekam Medis</a>
+                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Telemedicine & Konsultasi Online</a>
+                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Penelitian Medis</a>
+                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Pendidikan & Pelatihan Kedokteran</a>
+                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Kesehatan Masyarakat</a>
                                 </div>
                             </div><!-- end card body -->
                         </div><!-- end card -->
@@ -337,8 +337,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title mb-3">About</h5>
-                                <p>Hi I'm Anna Adame, It will be as simple as Occidental; in fact, it will be Occidental. To an English person, it will seem like simplified English, as a skeptical Cambridge friend of mine told me what Occidental is European languages are members of the same family.</p>
-                                <p>A lead designer is responsible for addressing the clients' needs of digital content and coordinating with the design team for the planning and innovation of the visual design and concept. Experiment and play around with the fonts that you already have in the software you’re working with reputable font websites. This may be the most commonly encountered tip I received from the designers I spoke with. They highly encourage that you use different fonts in one design, but do not over-exaggerate and go overboard.</p>
+                                <p>Halo, saya dr. resna pangestu. Saya adalah seorang dokter yang berdedikasi dalam memberikan pelayanan kesehatan terbaik bagi pasien. Saya percaya bahwa pendekatan yang empatik dan berbasis ilmu pengetahuan merupakan kunci utama dalam proses penyembuhan.</p>
+
+                                <p>Sebagai tenaga medis, saya memiliki pengalaman dalam mendiagnosis, merawat, serta memberikan edukasi kesehatan kepada masyarakat. Saya aktif mengikuti perkembangan ilmu kedokteran terkini dan senantiasa meningkatkan kompetensi melalui pelatihan dan seminar medis.</p>
+                                    
+                                <p>Bagi saya, kesehatan pasien adalah prioritas utama. Saya berkomitmen untuk memberikan pelayanan yang profesional, manusiawi, dan beretika.</p>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="d-flex mt-4">
@@ -349,7 +352,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1">Designation :</p>
-                                                <h6 class="text-truncate mb-0">Lead Designer / Developer</h6>
+                                                <h6 class="text-truncate mb-0">Spesialis Penyakit Dalam (Internis)</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -363,7 +366,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1">Website :</p>
-                                                <a href="#" class="fw-semibold text-body">www.PDSI.com</a>
+                                                <a href="#" class="fw-semibold text-body">www.pdsionline.org/resnapangestu</a>
                                             </div>
                                         </div>
                                     </div>
@@ -377,7 +380,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">Mobile :</p>
-                                                <h6 class="text-truncate mb-0">+(241) 12345 67890</h6>
+                                                <h6 class="text-truncate mb-0">+(628) 123 456 789</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -391,7 +394,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">E-mail :</p>
-                                                <h6 class="text-truncate mb-0">edward@PDSI.com</h6>
+                                                <h6 class="text-truncate mb-0">resnapangestu01@gmail.com</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -405,7 +408,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">Location :</p>
-                                                <h6 class="text-truncate mb-0">Phoenix, USA</h6>
+                                                <h6 class="text-truncate mb-0">Kemayoran, Jakarta</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -561,16 +564,26 @@
                                         <div data-simplebar style="max-height: 400px;" class="p-3 pt-0">
                                             <ul class="acitivity-timeline-2 list-unstyled mb-0">
                                                 <li>
-                                                    <h6 class="fs-14">Purchase by James Price</h6>
-                                                    <p>09:24 PM</p>
-                                                    <p class="mb-0">Product noise evolve smartwatch</p>
+                                                    <h6 class="fs-14">Konsultasi Online</h6>
+                                                    <p class="text-muted">09:24 PM</p>
+                                                    <p class="mb-0">Dr. resna pangestu, Sp.PD menyelesaikan konsultasi dengan pasien melalui Telemedicine.</p>
                                                 </li>
                                                 <li>
-                                                    <h6 class="fs-14">New ticket received <span class="badge text-bg-info align-middle ms-1">New</span></h6>
-                                                    <p class="mb-3">4 days ago</p>
-                                                    <p class="text-muted mb-0">User <span class="text-secondary">Erica245</span> submitted a ticket</p>
+                                                    <h6 class="fs-14">Jadwal Praktik Diperbarui <span class="badge text-bg-info align-middle ms-1">New</span></h6>
+                                                    <p class="mb-3 text-muted">4 days ago</p>
+                                                    <p class="mb-0">RS Cipto Mangunkusumo – 09:00 - 14:00 WIB</p>
                                                 </li>
                                                 <li>
+                                                    <h6 class="fs-14">Webinar & Pelatihan</h6>
+                                                    <p class="text-muted">1 minggu yang lalu</p>
+                                                    <p class="mb-0">Dr. Andi Pratama mengikuti Workshop Penanganan Diabetes Mellitus Terkini.</p>
+                                                </li>
+                                                <li>
+                                                    <h6 class="fs-14">Artikel Medis Dipublikasikan</h6>
+                                                    <p class="text-muted">2 minggu yang lalu</p>
+                                                    <p class="mb-0">"Manajemen Hipertensi pada Lansia" telah diterbitkan di Jurnal IDI.</p>
+                                                </li>
+                                                {{-- <li>
                                                     <h6 class="fs-14">Adding a new event with attachments</h6>
                                                     <p class="mb-3">30 days ago</p>
                                                     <div class="row g-3">
@@ -631,8 +644,8 @@
                                                             <!--end row-->
                                                         </div>
                                                     </div>
-                                                </li>
-                                                <li>
+                                                </li> --}}
+                                                {{-- <li>
                                                     <div class="time">01:30 PM</div>
                                                     <p>Lunch time after which sleep just doesn't want to let go of me. 🤝</p>
                                                 </li>
@@ -659,7 +672,7 @@
                                                 <li>
                                                     <div class="time">2:30 PM </div>
                                                     <p>All hail! The time to sleep has finally arrived.😴😴😴😴😴 </p>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                         </div>
                                     </div>
@@ -675,8 +688,8 @@
             <div class="tab-pane fade" id="activities" role="tabpanel">
                 <div class="card">
                     <div class="card-body px-0">
-                        <h5 class="card-title mb-4 px-3">Activity Stream</h5>
-                        <div data-simplebar style="max-height: 405px;" class="p-3 pt-0">
+                        <h5 class="card-title mb-4 px-3">Biodata</h5>
+                        {{-- <div data-simplebar style="max-height: 405px;" class="p-3 pt-0">
                             <ul class="acitivity-timeline-2 list-unstyled mb-0">
                                 <li>
                                     <h6 class="fs-14">Purchase by James Price</h6>
@@ -781,14 +794,15 @@
                                     <p>All hail! The time to sleep has finally arrived.😴😴😴😴😴 </p>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <!--end card-->
 
             </div>
             <!--end tab-pane-->
-            <div class="tab-pane fade" id="projects" role="tabpanel">
+
+            <div class="tab-pane fade" id="education" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -801,7 +815,7 @@
                                                 <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
                                             </div>
                                             <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Chat App Update</a></h5>
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Universitas Indonesia</a></h5>
                                                 <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 year Ago</span></p>
                                             </div>
                                             <div class="flex-shrink-0 ms-2">
@@ -842,16 +856,12 @@
                                                 </div>
                                             </div>
                                             <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-warning bg-warning-subtle fs-10">Inprogress</div>
+                                                <div class="badge text-success  bg-success-subtle fs-10">Completed</div>
                                             </div>
                                         </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fs-12">Progress <span class="text-danger float-end">80%</span></h5>
-                                            <div class="progress progress-bar-alt-danger progress-sm">
-                                                <div class="progress-bar bg-danger progress-animated wow animated animated" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%; visibility: visible; animation-name: animationProgress;">
-                                                </div>
-                                            </div>
+                                        <div class="col mt-3">
+                                            <h5 class="text-muted mt-0 mb-1 fs-13">S1 Kedokteran Umum</h5>
+                                            <a href="#" class="text-reset fs-14 mb-0">2008-2012</a>
                                         </div>
                                     </div>
                                     <!-- end card body -->
@@ -866,11 +876,11 @@
 
                                         <div class="d-flex">
                                             <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-2.png') }}" alt="" width="30px" height="30px" class="">
+                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
                                             </div>
                                             <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">ABC Project Customization</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 month Ago</span></p>
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Universitas Indonesia</a></h5>
+                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 year Ago</span></p>
                                             </div>
                                             <div class="flex-shrink-0 ms-2">
                                                 <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
@@ -911,12 +921,336 @@
                                                 <div class="badge text-primary  bg-primary-subtle fs-10">Progress</div>
                                             </div>
                                         </div>
+                                        <div class="col mt-3">
+                                            <h5 class="text-muted mt-0 mb-1 fs-13">Program Profesi Dokter (Koas)</h5>
+                                            <a href="#" class="text-reset fs-14 mb-0">2012-2014</a>
+                                        </div>
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            </div>
+                            <!--end col-->
 
-                                        <div class="mt-3">
-                                            <h5 class="fs-12">Progress <span class="text-danger float-end">65%</span></h5>
-                                            <div class="progress progress-bar-alt-danger progress-sm">
-                                                <div class="progress-bar bg-danger progress-animated wow animated animated" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" style="width: 65%; visibility: visible; animation-name: animationProgress;">
+                            <div class="col-xxl-3 col-sm-6">
+                                <div class="card profile-project-card shadow-none mt-3">
+                                    <div class="card-body p-4">
+
+                                        <div class="d-flex">
+                                            <div class="text-center mb-4 me-3">
+                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
+                                            </div>
+                                            <div class="flex-grow-1 text-muted overflow-hidden">
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Universitas Gadjah Mada</a></h5>
+                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">1 year Ago</span></p>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
+                                                    </ul>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex mt-3 align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div>
+                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
+                                                    </div>
+                                                    <div class="avatar-group">
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="badge text-primary  bg-primary-subtle fs-10">Progress</div>
+                                            </div>
+                                        </div>
+                                        <div class="col mt-3">
+                                            <h5 class="text-muted mt-0 mb-1 fs-13">Spesialis Penyakit Dalam (Sp.PD)</h5>
+                                            <a href="#" class="text-reset fs-14 mb-0">2015-2019</a>
+                                        </div>
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            </div>
+                            <!--end col-->
+
+                            <div class="col-xxl-3 col-sm-6">
+                                <div class="card profile-project-card shadow-none mt-3">
+                                    <div class="card-body p-4">
+
+                                        <div class="d-flex">
+                                            <div class="text-center mb-4 me-3">
+                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
+                                            </div>
+                                            <div class="flex-grow-1 text-muted overflow-hidden">
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Pelatihan ACLS & BLS</a></h5>
+                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">6 Month Ago</span></p>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex mt-3 align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div>
+                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
+                                                    </div>
+                                                    <div class="avatar-group">
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="badge text-success  bg-success-subtle fs-10">Completed</div>
+                                            </div>
+                                        </div>
+                                        <div class="col mt-3">
+                                            <h5 class="text-muted mt-0 mb-1 fs-13">PERKI</h5>
+                                            <a href="#" class="text-reset fs-14 mb-0">2020</a>
+                                        </div>
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            </div>
+                            <!--end col-->
+
+                            <div class="col-xxl-3 col-sm-6">
+                                <div class="card profile-project-card shadow-none mt-3">
+                                    <div class="card-body p-4">
+
+                                        <div class="d-flex">
+                                            <div class="text-center mb-4 me-3">
+                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
+                                            </div>
+                                            <div class="flex-grow-1 text-muted overflow-hidden">
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Workshop EKG Lanjut</a></h5>
+                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">3 Month Ago</span></p>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex mt-3 align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div>
+                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
+                                                    </div>
+                                                    <div class="avatar-group">
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="badge text-success  bg-success-subtle fs-10">Completed</div>
+                                            </div>
+                                        </div>
+                                        <div class="col mt-3">
+                                            <h5 class="text-muted mt-0 mb-1 fs-13">IDI Jakarta</h5>
+                                            <a href="#" class="text-reset fs-14 mb-0">2021</a>
+                                        </div>
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            </div>
+                            <!--end col-->
+
+                            <!--end col-->
+                            <div class="col-lg-12">
+                                <div class="mt-4">
+                                    <ul class="pagination pagination-separated justify-content-center mb-0">
+                                        <li class="page-item disabled">
+                                            <a href="javascript:void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
+                                        </li>
+                                        <li class="page-item active">
+                                            <a href="javascript:void(0);" class="page-link">1</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a href="javascript:void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end row-->
+                    </div>
+                    <!--end card-body-->
+                </div>
+                <!--end card-->
+            </div>
+            <!--end tab-pane-->
+
+            <div class="tab-pane fade" id="projects" role="tabpanel">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xxl-3 col-sm-6">
+                                <div class="card profile-project-card shadow-none mt-3">
+                                    <div class="card-body p-4">
+
+                                        <div class="d-flex">
+                                            <div class="flex-grow-1 text-muted overflow-hidden">
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">RS Cipto Mangunkusumo</a></h5>
+                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 year Ago</span></p>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex mt-3 align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div>
+                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
+                                                    </div>
+                                                    <div class="avatar-group">
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <div class="avatar-title rounded-circle bg-light text-primary">
+                                                                    J
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="badge text-primary bg-primary-subtle fs-10">Tersedia</div>
+                                            </div>
+                                        </div>
+
+                                        {{-- <div class="mt-3">
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="badge text-primary bg-primary-subtle fs-10">Tersedia</div>
+                                            </div>
+                                        </div> --}}
+                                    </div>
+                                    <!-- end card body -->
+                                </div>
+                                <!-- end card -->
+                            </div>
+                            <!--end col-->
+
+                            <div class="col-xxl-3 col-sm-6">
+                                <div class="card profile-project-card shadow-none mt-3">
+                                    <div class="card-body p-4">
+
+                                        <div class="d-flex">
+                                            <div class="flex-grow-1 text-muted overflow-hidden">
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Klinik Medika Sehat </a></h5>
+                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 month Ago</span></p>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
+                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex mt-3 align-items-center">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div>
+                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
+                                                    </div>
+                                                    <div class="avatar-group">
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="avatar-group-item">
+                                                            <div class="avatar-xs">
+                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-shrink-0 ms-2">
+                                                <div class="badge text-primary bg-primary-subtle fs-10">Tersedia</div>
                                             </div>
                                         </div>
                                     </div>
@@ -930,11 +1264,8 @@
                                     <div class="card-body p-4">
 
                                         <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-3.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
                                             <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Client - Frank Hook</a></h5>
+                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">RS Mitra Keluarga</a></h5>
                                                 <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">1 year Ago</span></p>
                                             </div>
                                             <div class="flex-shrink-0 ms-2">
@@ -976,15 +1307,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-info bg-info-subtle fs-10">New</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fs-12">Progress <span class="text-danger float-end">50%</span></h5>
-                                            <div class="progress progress-bar-alt-danger progress-sm">
-                                                <div class="progress-bar bg-danger progress-animated wow animated animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%; visibility: visible; animation-name: animationProgress;">
-                                                </div>
+                                                <div class="badge text-info bg-info-subtle fs-10">Praktik Berakhir</div>
                                             </div>
                                         </div>
                                     </div>
@@ -993,342 +1316,6 @@
                                 <!-- end card -->
                             </div>
                             <!--end col-->
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-5.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">PDSI Project</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">11 year Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-5.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-success  bg-success-subtle fs-10">Completed</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fs-12">Progress <span class="text-danger float-end">95%</span></h5>
-                                            <div class="progress progress-bar-alt-danger progress-sm">
-                                                <div class="progress-bar bg-danger progress-animated wow animated animated" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%; visibility: visible; animation-name: animationProgress;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-6.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Brand Logo Design</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">10 min Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <div class="avatar-title rounded-circle bg-light text-primary">
-                                                                    E
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-info bg-info-subtle fs-10">New</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fs-12">Progress <span class="text-danger float-end">38%</span></h5>
-                                            <div class="progress progress-bar-alt-danger progress-sm">
-                                                <div class="progress-bar bg-danger progress-animated wow animated animated" role="progressbar" aria-valuenow="38" aria-valuemin="0" aria-valuemax="100" style="width: 38%; visibility: visible; animation-name: animationProgress;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-4.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Chat App</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">8 hr Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <div class="avatar-title rounded-circle bg-light text-primary">
-                                                                    R
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-warning bg-warning-subtle fs-10">Inprogress</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fs-12">Progress <span class="text-danger float-end">76%</span></h5>
-                                            <div class="progress progress-bar-alt-danger progress-sm">
-                                                <div class="progress-bar bg-danger progress-animated wow animated animated" role="progressbar" aria-valuenow="76" aria-valuemin="0" aria-valuemax="100" style="width: 76%; visibility: visible; animation-name: animationProgress;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-8.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Bsuiness Template - UI/UX design</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">7 month Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-6.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-8.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <div class="avatar-title rounded-circle bg-light text-primary">
-                                                                    R
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-success  bg-success-subtle fs-10">Completed</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fs-12">Progress <span class="text-danger float-end">87%</span></h5>
-                                            <div class="progress progress-bar-alt-danger progress-sm">
-                                                <div class="progress-bar bg-danger progress-animated wow animated animated" role="progressbar" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100" style="width: 87%; visibility: visible; animation-name: animationProgress;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-7.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Project Update</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">48 min Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-6.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-5.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-primary  bg-primary-subtle fs-10">progress</div>
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-3">
-                                            <h5 class="fs-12">Progress <span class="text-danger float-end">69%</span></h5>
-                                            <div class="progress progress-bar-alt-danger progress-sm">
-                                                <div class="progress-bar bg-danger progress-animated wow animated animated" role="progressbar" aria-valuenow="69" aria-valuemin="0" aria-valuemax="100" style="width: 69%; visibility: visible; animation-name: animationProgress;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-
 
                             <!--end col-->
                             <div class="col-lg-12">
@@ -1339,18 +1326,6 @@
                                         </li>
                                         <li class="page-item active">
                                             <a href="javascript:void(0);" class="page-link">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="javascript:void(0);" class="page-link">2</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="javascript:void(0);" class="page-link">3</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="javascript:void(0);" class="page-link">4</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="javascript:void(0);" class="page-link">5</a>
                                         </li>
                                         <li class="page-item">
                                             <a href="javascript:void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
@@ -1388,9 +1363,9 @@
                                         </div>
                                         <div class="text-center">
                                             <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                <h5 class="fs-17">Cristofer Leblanc</h5>
+                                                <h5 class="fs-17">Dr. Andi Pratama, Sp.PD</h5>
                                             </a>
-                                            <span class="badge text-secondary bg-secondary-subtle">Product Manager</span>
+                                            <span class="badge text-secondary bg-secondary-subtle">Spesialis Penyakit Dalam</span>
                                         </div>
                                         <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
                                             <div class="avatar-xs">
@@ -1424,9 +1399,9 @@
                                         </div>
                                         <div class="text-center">
                                             <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                <h5 class="fs-17">Jordan Villareal</h5>
+                                                <h5 class="fs-17">Dr. Jordan Villareal SpB</h5>
                                             </a>
-                                            <span class="badge text-secondary bg-secondary-subtle">Software Engineer</span>
+                                            <span class="badge text-secondary bg-secondary-subtle">Spesialis Bedah</span>
                                         </div>
                                         <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
                                             <div class="avatar-xs">
@@ -1460,9 +1435,9 @@
                                         </div>
                                         <div class="text-center">
                                             <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                <h5 class="fs-17">Damon Boxter</h5>
+                                                <h5 class="fs-17">Dr. Damon Boxter SpA</h5>
                                             </a>
-                                            <span class="badge text-secondary bg-secondary-subtle">UI/UX Designer</span>
+                                            <span class="badge text-secondary bg-secondary-subtle">Spesialis Anak</span>
                                         </div>
                                         <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
                                             <div class="avatar-xs">
@@ -1496,9 +1471,9 @@
                                         </div>
                                         <div class="text-center">
                                             <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                <h5 class="fs-17">Bryant Diaz</h5>
+                                                <h5 class="fs-17">Dr. Bryant Diaz SpOG</h5>
                                             </a>
-                                            <span class="badge text-secondary bg-secondary-subtle">Engineering Manager</span>
+                                            <span class="badge text-secondary bg-secondary-subtle">Spesialis Kandungan & Kebidanan</span>
                                         </div>
                                         <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
                                             <div class="avatar-xs">
@@ -1567,7 +1542,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0)" class="text-body">Artboard-documents.zip</a>
+                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0)" class="text-body">documents.zip</a>
                                                             </h6>
                                                         </div>
                                                     </div>
@@ -1603,7 +1578,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">Bank Management System</a></h6>
+                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">Ijazah</a></h6>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -1625,6 +1600,76 @@
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <th scope="col">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar-sm">
+                                                            <div class="avatar-title bg-transparent text-danger rounded fs-20">
+                                                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ms-3 flex-grow-1">
+                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">STR</a></h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>PDF File</td>
+                                                <td>8.89 MB</td>
+                                                <td>24 Nov 2022</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="true">
+                                                            <i class="bi bi-sliders2"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink3">
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
+                                                            <li class="dropdown-divider"></li>
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="col">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
+                                                    </div>
+                                                </th>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar-sm">
+                                                            <div class="avatar-title bg-transparent text-danger rounded fs-20">
+                                                                <i class="bi bi-file-earmark-pdf-fill"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ms-3 flex-grow-1">
+                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">SIP</a></h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>PDF File</td>
+                                                <td>8.89 MB</td>
+                                                <td>24 Nov 2022</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="true">
+                                                            <i class="bi bi-sliders2"></i>
+                                                        </a>
+                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink3">
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
+                                                            <li class="dropdown-divider"></li>
+                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {{-- <tr>
                                                 <th scope="col">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
@@ -1658,8 +1703,8 @@
                                                         </ul>
                                                     </div>
                                                 </td>
-                                            </tr>
-                                            <tr>
+                                            </tr> --}}
+                                            {{-- <tr>
                                                 <th scope="col">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
@@ -1693,7 +1738,7 @@
                                                         </ul>
                                                     </div>
                                                 </td>
-                                            </tr>
+                                            </tr> --}}
                                             <tr>
                                                 <th scope="col">
                                                     <div class="form-check">
@@ -1746,7 +1791,7 @@
                                                         </div>
                                                         <div class="ms-3 flex-grow-1">
                                                             <h6 class="fs-15 mb-0">
-                                                                <a href="javascript:void(0);" class="text-body">PDSI-logo.png</a>
+                                                                <a href="javascript:void(0);" class="text-body">Photo.png</a>
                                                             </h6>
                                                         </div>
                                                     </div>
