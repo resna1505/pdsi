@@ -59,5 +59,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/member', function () {
         return view('admin.member');
     });
+    Route::get('/training', function () {
+        return view('admin.training');
+    });
+    Route::get('/announcement', function () {
+        return view('admin.announcement');
+    });
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

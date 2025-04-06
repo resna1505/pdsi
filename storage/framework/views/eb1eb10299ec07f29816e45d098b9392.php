@@ -43,12 +43,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon">
+                    <a class="nav-link menu-link" href="training">
                         <i class="ri-briefcase-line	"></i> <span data-key="t-authentication">Pelatihan</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon">
+                    <a class="nav-link menu-link" href="announcement">
                         <i class="ri-megaphone-line	"></i> <span data-key="t-authentication">Announcement</span>
                     </a>
                 </li>
