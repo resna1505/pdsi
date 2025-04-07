@@ -35,21 +35,21 @@
                     <a href="index" class="nav-link menu-link"> <i class=" ri-pie-chart-line"></i> <span data-key="t-dashboard">@lang('translation.dashboards')</span> </a>
                 </li>
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">User Menu</span></li>
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">@lang('translation.user-menu')</span></li>
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="member">
-                        <i class=" ri-user-line"></i> <span data-key="t-member">Member</span>
+                        <i class=" ri-user-line"></i> <span data-key="t-member">@lang('translation.member')</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="training">
-                        <i class="ri-briefcase-line	"></i> <span data-key="t-training">Pelatihan</span>
+                        <i class="ri-briefcase-line	"></i> <span data-key="t-training">@lang('translation.training')</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="announcement">
-                        <i class="ri-megaphone-line	"></i> <span data-key="t-announcement">Announcement</span>
+                        <i class="ri-megaphone-line	"></i> <span data-key="t-announcement">@lang('translation.announcement')</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -76,37 +76,32 @@
 
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="bi bi-person-circle"></i> <span data-key="t-authentication">User</span>
+                        <i class="bi bi-person-circle"></i> <span data-key="t-authentication">@lang('translation.user')</span>
                     </a>
                     <div class="collapse menu-dropdown" id="sidebarAuth">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="pengajuan-admin" class="nav-link" data-key="t-basic">Admin</a>
+                                <a href="pengajuan-admin" class="nav-link" data-key="t-basic">@lang('translation.admin')</a>
                             </li>
                             <li class="nav-item">
-                                <a href="pengajuan-anggota" class="nav-link" data-key="t-basic-2">Anggota</a>
+                                <a href="pengajuan-anggota" class="nav-link" data-key="t-basic-2">@lang('translation.member')</a>
                             </li>
                         </ul>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon">
-                        <i class="ri-calendar-line"></i> <span data-key="t-authentication">Jadwal</span>
+                    <a class="nav-link menu-link" href="workshops">
+                        <i class="ri-calendar-line"></i> <span data-key="t-workshops">@lang('translation.workshops')</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="news-management">
+                        <i class="ri-volume-up-line"></i> <span data-key="t-news-management">@lang('translation.news')</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="pages-coming-soon">
-                        <i class="ri-stethoscope-line"></i> <span data-key="t-authentication">Dokter</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon">
-                        <i class="ri-hospital-line"></i> <span data-key="t-authentication">Education</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="manajemen-berita">
-                        <i class="ri-volume-up-line"></i> <span data-key="t-manajemen-berita">News Management</span>
+                        <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
                     </a>
                 </li>
             </ul>

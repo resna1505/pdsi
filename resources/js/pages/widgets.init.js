@@ -282,10 +282,11 @@ if (vectorMapUsaColors)
 
 // Total Portfolio Donut Charts
 var donutchartportfolioColors = getChartColorsArray("portfolio_donut_charts");
+if (chart) chart.destroy();
 if (donutchartportfolioColors) {
     var options = {
-        series: [19405, 40552, 15824, 30635],
-        labels: ["Bitcoin", "Ethereum", "Litecoin", "Dash"],
+        series: [320, 250, 130, 5],
+        labels: ["Dr. Umum", "Dr. Gigi", "Dr. Spesialist", "Dr. Sub Spesialist"],
         chart: {
             type: "donut",
             height: 210,
@@ -312,20 +313,20 @@ if (donutchartportfolioColors) {
                             fontWeight: 500,
                             offsetY: 5,
                             formatter: function (val) {
-                                return "$" + val
-                            }
+                                return val + " Dokter";
+                            }                            
                         },
                         total: {
                             show: true,
                             fontSize: '13px',
-                            label: 'Total value',
+                            label: 'Total Doctors',
                             color: '#9599ad',
                             fontWeight: 500,
                             formatter: function (w) {
-                                return "$" + w.globals.seriesTotals.reduce(function (a, b) {
+                                return w.globals.seriesTotals.reduce(function (a, b) {
                                     return a + b
-                                }, 0)
-                            }
+                                }, 0) + " Dokter";
+                            }                            
                         }
                     }
                 },

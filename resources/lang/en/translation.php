@@ -291,5 +291,14 @@ return [
     "hot" => "Hot",
     "our-social-media" => "Our Social Media",
     "recommendations" =>  "Recommendations",
-    "relocations" =>  "Relocations"
+    "relocations" =>  "Relocations",
+    "user-menu" => "User Menu",
+    "user" => "User",
+    "admin" => "Admin",
+    "news" => "News",
+    "table" => "Table",
+    "member" => "Member",
+    "training" => "Training",
+    "announcement" => "Announcement",
+    "workshops" => "Workshops",
 ];

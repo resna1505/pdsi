@@ -277,5 +277,14 @@ return [
     "hot" => "Hot",
     "our-social-media" => "Sosial Media Kami",
     "recommendations" =>  "Rekomendasi",
-    "relocations" =>  "Perpindahan"
+    "relocations" =>  "Perpindahan",
+    "user-menu" => "Menu Pengguna",
+    "user" => "Pengguna",
+    "admin" => "Admin",
+    "news" => "Berita",
+    "table" => "Tabel",
+    "member" => "Anggota",
+    "training" => "Pelatihan",
+    "announcement" => "Pengumuman",
+    "workshops" => "Seminar",
 ];

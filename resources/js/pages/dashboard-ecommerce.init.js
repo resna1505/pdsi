@@ -43,12 +43,12 @@ var linechartcustomerColors = getChartColorsArray("customer_impression_charts");
 if (linechartcustomerColors) {
     var options = {
         series: [{
-            name: "Orders",
+            name: "daftar",
             type: "area",
             data: [34, 65, 46, 68, 49, 61, 42, 44, 78, 52, 63, 67],
         },
         {
-            name: "Earnings",
+            name: "aktif",
             type: "bar",
             data: [
                 89.25, 98.58, 68.74, 108.87, 77.54, 84.03, 51.24, 28.57, 92.57, 42.36,
@@ -56,7 +56,7 @@ if (linechartcustomerColors) {
             ],
         },
         {
-            name: "Refunds",
+            name: "non aktif",
             type: "line",
             data: [8, 12, 7, 17, 21, 11, 5, 9, 7, 29, 12, 35],
         },

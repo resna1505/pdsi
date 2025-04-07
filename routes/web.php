@@ -71,7 +71,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pengajuan-anggota', function () {
         return view('admin.pengajuan-anggota');
     });
-    Route::get('/manajemen-berita', function () {
+    Route::get('/workshops', function () {
+        return view('admin.workshops');
+    });
+    Route::get('/news-management', function () {
         return view('admin.news-management');
     });
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
