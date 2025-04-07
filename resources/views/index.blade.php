@@ -1067,12 +1067,14 @@
 
 <!-- dashboard init -->
 <script src="{{ URL::asset('build/libs/list.js/list.min.js') }}"></script>
-<script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script>
+{{-- <script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script> --}}
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/timeline.init.js') }}"></script>
 
     <!-- for basic area chart -->
-    <script src="https://img.ICT PDSI.com/velzon/apexchart-js/stock-prices.js"></script>
+    {{-- <script src="https://img.ICT PDSI.com/velzon/apexchart-js/stock-prices.js"></script> --}}
     <script src="{{ URL::asset('build/js/maps/us-merc-en.js') }}"></script>
-    <script src="{{ URL::asset('build/js/pages/widgets.init.js') }}"></script>
+    {{-- <script src="{{ URL::asset('build/js/pages/widgets.init.js') }}"></script> --}}
+    <script src="{{ asset('build/js/pages/chart-dokter.init.js') }}"></script>
+
 @endsection

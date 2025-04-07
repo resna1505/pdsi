@@ -1521,7 +1521,7 @@
                     </div>
                 </div><!-- end cardheader -->
                 <div class="card-body">
-                    <div id="portfolio_donut_charts"
+                    <div id="portfolio_donut_charts123"
                         data-colors='["--tb-primary", "--tb-info", "--tb-warning", "--tb-success"]' class="apex-charts"
                         dir="ltr"></div>
 
