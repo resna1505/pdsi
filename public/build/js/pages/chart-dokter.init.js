@@ -231,7 +231,7 @@ if (linechartcustomerColors) {
             {
                 formatter: function (y) {
                     if (typeof y !== "undefined") {
-                        return "$" + y.toFixed(2) + "k";
+                        return y.toFixed(2);
                     }
                     return y;
                 },
@@ -239,7 +239,7 @@ if (linechartcustomerColors) {
             {
                 formatter: function (y) {
                     if (typeof y !== "undefined") {
-                        return y.toFixed(0) + " Sales";
+                        return y.toFixed(0);
                     }
                     return y;
                 },
