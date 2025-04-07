@@ -95,7 +95,7 @@ if (donutchartportfolioColors) {
         yaxis: {
             labels: {
                 formatter: function (value) {
-                    return "$" + value;
+                    return value;
                 }
             }
         },
@@ -122,8 +122,7 @@ if (linechartcustomerColors) {
             name: "aktif",
             type: "bar",
             data: [
-                89.25, 98.58, 68.74, 108.87, 77.54, 84.03, 51.24, 28.57, 92.57, 42.36,
-                88.51, 36.57,
+                89, 98, 68, 108, 77, 84, 51, 28, 92, 42, 88, 36,
             ],
         },
         {
