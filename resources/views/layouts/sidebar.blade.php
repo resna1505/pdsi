@@ -44,12 +44,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="training">
-                        <i class="ri-briefcase-line	"></i> <span data-key="t-authentication">Pelatihan</span>
+                        <i class="ri-briefcase-line	"></i> <span data-key="t-training">Pelatihan</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="announcement">
-                        <i class="ri-megaphone-line	"></i> <span data-key="t-authentication">Announcement</span>
+                        <i class="ri-megaphone-line	"></i> <span data-key="t-announcement">Announcement</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -81,10 +81,10 @@
                     <div class="collapse menu-dropdown" id="sidebarAuth">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="auth-signin-basic" class="nav-link" data-key="t-basic">Admin</a>
+                                <a href="pengajuan-admin" class="nav-link" data-key="t-basic">Admin</a>
                             </li>
                             <li class="nav-item">
-                                <a href="auth-signin-basic-2" class="nav-link" data-key="t-basic-2">Anggota</a>
+                                <a href="pengajuan-anggota" class="nav-link" data-key="t-basic-2">Anggota</a>
                             </li>
                         </ul>
                     </div>
@@ -105,8 +105,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon">
-                        <i class="ri-volume-up-line"></i> <span data-key="t-authentication">Announcement Type</span>
+                    <a class="nav-link menu-link" href="manajemen-berita">
+                        <i class="ri-volume-up-line"></i> <span data-key="t-manajemen-berita">News Management</span>
                     </a>
                 </li>
             </ul>

@@ -1,170 +1,283 @@
 @extends('layouts.master')
-@section('title')
-    @lang('translation.starter')
-@endsection
+@section('title') @lang('translation.contact') @endsection
 @section('css')
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-
-    <style>
-        .btn-icon {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        }
-
-        .dataTables_wrapper .dataTables_filter {
-            float: right;
-            width: 100%;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
-            border-radius: 6px;
-            border: 1px solid #dee2e6;
-            padding: 5px 12px;
-            margin-left: 5px;
-            width: 100%;
-        }
-
-        .dataTables_wrapper .dataTables_length select {
-            border-radius: 6px;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .paginate_button {
-            border-radius: 50% !important;
-            margin: 2px;
-        }
-
-        .dataTables_wrapper .dataTables_paginate .current {
-            background-color: #0d6efd !important;
-            color: white !important;
-        }
-
-        .card-body {
-            padding: 24px;
-        }
-
-        .action-btn {
-            display: flex;
-            gap: 6px;
-        }
-
-        @media (max-width: 576px) {
-            .action-btn {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn-icon {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-    </style>
+<link href="{{ URL::asset('build/libs/gridjs/theme/mermaid.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
-    @component('components.breadcrumb')
-        @slot('li_1')
-            Menu
-        @endslot
-        @slot('title')
-            Member
-        @endslot
-    @endcomponent
-    
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
-                    <i class="ri-user-add-line align-middle me-1"></i> Add Member
-                </button>
 
-                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
-                    <i class="ri-user-add-line align-middle me-1"></i> Export Excel
-                </button>
-        
-                <div class="table-responsive mt-4">
-                    <table id="siswaTable" class="table table-nowrap" style="width: 100%">
-                        <thead style="background-color: #438EFF;">
-                            <tr>
-                                <th class="text-center text-white">Nama Lengkap</th>
-                                <th class="text-center text-white">NPA</th>
-                                <th class="text-center text-white">Asal Wilayah</th>
-                                <th class="text-center text-white">Asal Cabang</th>
-                                
-                                <th class="text-center text-white">Tempat Lahir</th>
-                                <th class="text-center text-white">Tanggal Lahir</th>
-                                <th class="text-center text-white">Tanggal Daftar</th>
-                                <th class="text-center text-white">Status Aktivasi</th>
-                                <th class="text-center text-white">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for($i = 0; $i < 15; $i++)
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="flex-shrink-0 me-2">
-                                            <img src="{{ URL::asset('build/images/users/avatar-'. ($i + 1) . '.jpg') }}" alt="" class="avatar-xs rounded-circle" />
-                                        </div>
-                                        <div class="flex-grow-1">Terry White</div>
-                                    </div>
-                                </td>                                <td class="text-center">245944</td>
-                                <td class="text-center">Bengkulu</td>
-                                <td class="text-center">Kaur</td>
-                                
-                                <td class="text-center">Tegal Sari</td>
-                                <td class="text-center">08 Dec 1998</td>
-                                <td class="text-center">12 Sept 2023</td>
-                                <td class="text-center"><span class="badge bg-success">Aktif</span></td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-primary"><i class="ri-eye-line"></i></button>
-                                    <button class="btn btn-sm btn-warning"><i class="ri-pencil-line"></i></button>
-                                    <button class="btn btn-sm btn-danger"><i class="ri-delete-bin-line"></i></button>
-                                </td>
-                            </tr>
-                            
-                            @endfor
-                        </tbody>
-                    </table>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mt-n4 mx-n4 border-0 rounded-0 bg-primary-subtle">
+            <div class="card-body pb-0 px-4">
+                <div class="row justify-content-between align-items-center g-3 mb-5 pb-1 pt-3">
+                    <div class="col-lg-4">
+                        <h4 class="mb-0">Members</h4>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="search-box">
+                            <input type="text" class="form-control border-0" id="searchResultList" placeholder="Search for name or number..." autocomplete="off">
+                            <i class="ri-search-line search-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end card body -->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+</div>
+
+<div class="row mt-n5">
+    <div class="col-lg-3">
+        <div class="card" style="min-height: calc(100vh - 70px - 60px - 142px);">
+            <div class="card-body">
+                <button type="button" class="btn btn-primary w-100 addContact-modal" data-bs-toggle="modal" data-bs-target="#addContactModal"><i class="bi bi-plus align-middle"></i> Add Member</button>
+                <div class="mt-3 mx-n4 px-4 contact-sidebar-menu" data-simplebar>
+                    <ul class="list-unstyled contact-menu-list">
+                        <li>
+                            <a href="#!" class="active"><i class="ri-folder-2-line align-bottom me-2"></i> <span class="menu-list-link" data-tab="all">All Doctors</span></a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="ri-history-line align-bottom me-2"></i> <span class="menu-list-link" data-tab="frequently">Recently Viewed</span></a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="ri-star-line align-bottom me-2"></i> <span class="menu-list-link" data-tab="important">Favorites</span></a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="ri-group-line align-bottom me-2"></i> <span class="menu-list-link" data-tab="groups">Groups</span></a>
+                        </li>
+                        <li>
+                            <a href="#!"><i class="ri-delete-bin-line align-bottom me-2"></i> <span class="menu-list-link" data-tab="trash">Deleted</span></a>
+                        </li>
+                    </ul>
+
+                    <p class="text-muted mb-2">Profession</p>
+                    <ul class="list-unstyled contact-menu-list">
+                        <li>
+                            <a href="#!" class="text-body"><i class="bi bi-tag-fill align-middle me-2 text-secondary"></i> <span class="menu-list-link" data-label="Dokter Umum">Dokter Umum</span></a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-body"><i class="bi bi-tag-fill align-middle me-2 text-success"></i> <span class="menu-list-link" data-label="Dokter Gigi">Dokter Gigi</span></a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-body"><i class="bi bi-tag-fill align-middle me-2 text-info"></i> <span class="menu-list-link" data-label="Dokter Spesialis">Dokter Spesialis</span></a>
+                        </li>
+                        <li>
+                            <a href="#!" class="text-body"><i class="bi bi-tag-fill align-middle me-2 text-danger"></i> <span class="menu-list-link" data-label="Dokter Subspesialis">Dokter Subspesialis</span></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+    <!--end col-->
+    <div class="col-lg-9">
+        <div class="card">
+            <div class="card-body">
+                <div id="recomended-jobs" class="table-card"></div>
+            </div>
+        </div>
+    </div>
+    <!--end col-->
+</div>
+<!--end row-->
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="viewContactoffcanvas" aria-labelledby="viewContactoffcanvasLabel">
+    <div class="offcanvas-header">
+        <ul class="list-unstyled hstack gap-2 mb-0 justify-content-end w-100 me-2">
+            <li>
+                <a href="#!" class="btn btn-sm btn-icon btn-ghost-info"><i class="ri-pushpin-line fs-15"></i></a>
+            </li>
+            <li>
+                <a href="#!" class="btn btn-sm btn-icon btn-ghost-success"><i class="ri-edit-line fs-15"></i></a>
+            </li>
+            <li>
+                <a href="#!" class="btn btn-sm btn-icon btn-ghost-secondary"><i class="ri-more-2-fill fs-15"></i></a>
+            </li>
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="text-center">
+            <div class="mb-3">
+                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="avatar-lg d-block mx-auto rounded-circle overview-userimg" />
+            </div>
+            <h5 class="offcanvas-title mb-2 overview-name" id="viewContactoffcanvasLabel">Danielle Wright</h5>
+            <p class="text-muted mb-4 overview-location">Ukraine</p>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <th scope="row">Name</th>
+                        <td class="overview-name">Danielle Wright</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone Number</th>
+                        <td class="overview-phone">+(380) 39 489 7330</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td class="overview-email">danielle@example.com</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Birthday</th>
+                        <td>19 Nov, 1999</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Gender</th>
+                        <td>Male</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Location</th>
+                        <td class="overview-location">Ukraine</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Label</th>
+                        <td class="overview-tags">Family</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Age</th>
+                        <td>25</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="hstack gap-2">
+            <button type="button" class="btn btn-secondary w-100">Audio Call</button>
+            <button type="button" class="btn btn-info w-100">Video Call</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="addContactModal" tabindex="-1" aria-labelledby="addContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header p-4 pb-0 m-2">
+                <h1 class="modal-title fs-5 fw-bold" id="addContactModalLabel">Add Contact</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="addContact-btnClose" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0 p-4">
+                <form id="contactlist-form" autocomplete="off" class="needs-validation p-2" novalidate>
+                    <input type="hidden" id="contactid-input" class="form-control" value="">
+                    <div class="text-center mb-3">
+                        <div class="position-relative d-inline-block">
+                            <div class="position-absolute bottom-0 end-0">
+                                <label for="contact-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select contact user Image">
+                                    <div class="avatar-xs">
+                                        <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
+                                            <i class="ri-image-fill"></i>
+                                        </div>
+                                    </div>
+                                </label>
+                                <input class="form-control d-none" value="" id="contact-image-input" type="file" accept="image/png, image/gif, image/jpeg">
+                            </div>
+                            <div class="avatar-lg">
+                                <div class="avatar-title bg-light rounded-circle">
+                                    <img src="{{ URL::asset('build/images/users/user-dummy-img.jpg') }}" id="contact-img" class="avatar-md rounded-circle" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column gap-3">
+                        <div>
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required />
+                            <div class="invalid-feedback">
+                                Please enter a name.
+                            </div>
+                        </div>
+                        <div>
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required />
+                            <div class="invalid-feedback">
+                                Please enter an email.
+                            </div>
+                        </div>
+                        <div>
+                            <label for="phoneNumber" class="form-label">Phone Number</label>
+                            <input type="phone" class="form-control" id="phoneNumber" placeholder="Enter your number" required />
+                            <div class="invalid-feedback">
+                                Please enter phone number.
+                            </div>
+                        </div>
+                        <div>
+                            <label for="country" class="form-label">Country</label>
+                            <select class="form-select" id="country" required>
+                                <option value="">Select Country</option>
+                                <option value="Angola">Angola</option>
+                                <option value="Belgium">Belgium</option>
+                                <option value="Brazil">Brazil</option>
+                                <option value="Jersey">Jersey</option>
+                                <option value="Namibia">Namibia</option>
+                                <option value="Spain">Spain</option>
+                                <option value="USA">USA</option>
+                                <option value="Ukraine">Ukraine</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a country.
+                            </div>
+                        </div>
+                        <div>
+                            <label for="label" class="form-label">Label</label>
+                            <select class="form-select" id="label" required>
+                                <option value="">Select Label</option>
+                                <option value="Family">Family</option>
+                                <option value="Friends">Friends</option>
+                                <option value="Business">Business</option>
+                                <option value="Imported">Imported</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a label.
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-secondary" id="addNewContact">Add Contact</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- removeContactModal -->
+<div id="removeContactModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="removeContactModalbtn-close"></button>
+            </div>
+            <div class="modal-body p-md-5">
+                <div class="text-center">
+                    <div class="text-danger">
+                        <i class="bi bi-trash display-4"></i>
+                    </div>
+                    <div class="mt-4 fs-15">
+                        <h4 class="mb-1">Remove Contact ?</h4>
+                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this contact ?</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn w-sm btn-danger" id="remove-contact">Yes, Delete It!</button>
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 @endsection
 @section('script')
     <script src="{{ URL::asset('build/libs/tom-select/js/tom-select.base.min.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/prismjs/prism.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/gridjs/gridjs.umd.js') }}"></script>
+    <script src="{{ URL::asset('build/js/pages/contact.init.js') }}"></script>
+
     <script src="{{ URL::asset('build/js/app.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#siswaTable').DataTable({
-                responsive: false,
-                autoWidth: false,
-                scrollX: true, // aktifkan horizontal scroll dari DataTables juga
-
-                language: {
-                    search: "Cari Data:",
-                    lengthMenu: "Tampilkan _MENU_ entri",
-                    zeroRecords: "Tidak ada data ditemukan",
-                    info: "Menampilkan halaman _PAGE_ dari _PAGES_",
-                    infoEmpty: "Tidak ada data tersedia",
-                    // infoFiltered: "(difilter dari total _MAX_ entri)",
-                    paginate: {
-                        previous: "<",
-                        next: ">"
-                    }
-                }
-            });
-        });
-    </script>
 @endsection

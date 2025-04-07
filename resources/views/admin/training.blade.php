@@ -30,7 +30,6 @@
             </div>
         </div>
         
-        
         <div class="col-xl-4 col-md-6 col-sm-12 mb-4 training-card">
             <div class="card d-flex flex-column">
                 <img class="card-img-top img-fluid" style="height: 200px;object-fit: cover; object-position: center;" src="{{ URL::asset('build/images/small/seminar.jpeg') }}" alt="Card image cap" />

@@ -1,5 +1,5 @@
 /*
-Template Name: Hybrix - Admin & Dashboard Template
+Template Name: pdsi - Admin & Dashboard Template
 Author: Themesbrand
 Website: https://Themesbrand.com/
 Contact: Themesbrand@gmail.com
@@ -11,299 +11,222 @@ var contactData = [
         "id": 1,
         "user": {
             "img": "build/images/users/avatar-1.jpg",
-            "name": "Danielle Wright"
+            "name": "dr. Andi Setiawan"
         },
-        "email": "danielle@example.com",
-        "phone": "+(380) 39 489 7330",
-        "country": "Ukraine",
-        "label": "Family",
+        "email": "andi.setiawan@pdsi.com",
+        "phone": "+62 812 3456 7890",
+        "area": "Jakarta",
+        "label": "Dokter Umum",
         "tab" : "frequently",
     }, {
         "id": 2,
         "user": {
             "img": "build/images/users/avatar-2.jpg",
-            "name": "Stephen Bird"
+            "name": "dr. Siti Aminah"
         },
-        "email": "stephen@example.com",
-        "phone": "+(907) 225-4144",
-        "country": "USA",
-        "label": "Imported",
+        "email": "siti.aminah@pdsi.com",
+        "phone": "+62 813 4567 8901",
+        "area": "Surabaya",
+        "label": "Dokter Subspesialis",
         "tab" : "important",
     }, {
         "id": 3,
         "user": {
             "img": "build/images/users/avatar-3.jpg",
-            "name": "Jeffrey Hunt"
+            "name": "dr. Budi Wibowo"
         },
-        "email": "jeffrey@example.com",
-        "phone": "+(907) 694-7675",
-        "country": "USA",
-        "label": "Business",
+        "email": "budi.wibowo@pdsi.com",
+        "phone": "+62 811 2345 6789",
+        "area": "Bandung",
+        "label": "Dokter Umum",
         "tab" : "groups",
     }, {
         "id": 4,
         "user": {
             "img": "build/images/users/avatar-4.jpg",
-            "name": "Michael Brown"
+            "name": "dr. Sri Wahyuni"
         },
-        "email": "michael@example.com",
-        "phone": "+(244) 948 701 110",
-        "country": "Angola",
-        "label": "Imported",
+        "email": "sri.wahyuni@pdsi.com",
+        "phone": "+62 812 3456 7890",
+        "area": "Yogyakarta",
+        "label": "Dokter Subspesialis",
         "tab" : "trash",
     }, {
         "id": 5,
         "user": {
             "img": "build/images/users/avatar-5.jpg",
-            "name": "David Daly"
+            "name": "dr. M. Fadli"
         },
-        "email": "david@example.com",
-        "phone": "+(244) 948 701 110",
-        "country": "Angola",
-        "label": "Imported",
+        "email": "m.fadli@pdsi.com",
+        "phone": "+62 813 4567 8901",
+        "area": "Semarang",
+        "label": "Dokter Umum",
         "tab" : "frequently",
     }, {
         "id": 6,
         "user": {
-            "img": "build/images/users/avatar-5.jpg",
-            "name": "Terry White"
+            "img": "build/images/users/avatar-6.jpg",
+            "name": "dr. Retno Widayanti"
         },
-        "email": "terry@example.com",
-        "phone": "+(32) 493 33 65 89",
-        "country": "Belgium",
-        "label": "Family",
+        "email": "retno.widayanti@pdsi.com",
+        "phone": "+62 811 2345 6789",
+        "area": "Medan",
+        "label": "Dokter Gigi",
         "tab" : "groups",
     }, {
         "id": 7,
         "user": {
             "img": "build/images/users/avatar-7.jpg",
-            "name": "Daniel Gonzalez"
+            "name": "dr. Siti Fatimah"
         },
-        "email": "daniel@example.com",
-        "phone": "+(55) 93 90819-1376",
-        "country": "Brazil",
-        "label": "Business",
+        "email": "siti.fatimah@pdsi.com",
+        "phone": "+62 812 3456 7890",
+        "area": "Palembang",
+        "label": "Dokter Spesialis",
         "tab" : "groups",
     }, {
         "id": 8,
         "user": {
             "img": "build/images/users/avatar-8.jpg",
-            "name": "Stephen Garrison"
+            "name": "dr. M. Ilyas"
         },
-        "email": "stephen@example.com",
-        "phone": "+(44) 7937 756071",
-        "country": "Jersey",
-        "label": "Family",
+        "email": "m.ilyas@pdsi.com",
+        "phone": "+62 813 4567 8901",
+        "area": "Bogor",
+        "label": "Dokter Umum",
         "tab" : "frequently",
     }, {
         "id": 9,
         "user": {
             "img": "build/images/users/avatar-9.jpg",
-            "name": "Ashley Silva"
+            "name": "dr. Sri Hartati"
         },
-        "email": "ashley@example.com",
-        "phone": "+(55) 21 92608-8982",
-        "country": "Brazil",
-        "label": "Friends",
+        "email": "sri.hartati@pdsi.com",
+        "phone": "+62 811 2345 6789",
+        "area": "Makassar",
+        "label": "Dokter Gigi",
         "tab" : "frequently",
     }, {
         "id": 10,
         "user": {
             "img": "build/images/users/avatar-10.jpg",
-            "name": "Charles Welch"
+            "name": "dr. Bambang S."
         },
-        "email": "welch@example.com",
-        "phone": "+(264) 81 063 8558",
-        "country": "Namibia",
-        "label": "Friends",
+        "email": "bambang.s@pdsi.com",
+        "phone": "+62 812 3456 7890",
+        "area": "Malang",
+        "label": "Dokter Subspesialis",
         "tab" : "important",
     }, {
         "id": 11,
         "user": {
             "img": "build/images/users/avatar-1.jpg",
-            "name": "Aaron Bauer"
+            "name": "dr. Endang S."
         },
-        "email": "aaron@example.com",
-        "phone": "+(34) 723 26 58 31",
-        "country": "Spain",
-        "label": "Imported",
+        "email": "endang.s@pdsi.com",
+        "phone": "+62 813 4567 8901",
+        "area": "Solo",
+        "label": "Dokter Umum",
         "tab" : "trash",
     }, {
         "id": 12,
         "user": {
             "img": "build/images/users/avatar-2.jpg",
-            "name": "Heather Jimenez"
+            "name": "dr. M. Ali"
         },
-        "email": "heather@example.com",
-        "phone": "+(380) 39 085 1057",
-        "country": "Ukraine",
-        "label": "Family",
+        "email": "m.ali@pdsi.com",
+        "phone": "+62 811 2345 6789",
+        "area": "Pontianak",
+        "label": "Dokter Gigi",
         "tab" : "",
     }, {
         "id": 13,
         "user": {
             "img": "build/images/users/avatar-3.jpg",
-            "name": "Scott Wilson"
+            "name": "dr. M. Iqbal"
         },
-        "email": "scott@example.com",
-        "phone": "+(54) 9 3327 46-0897",
-        "country": "Argentina",
-        "label": "Friends",
+        "email": "m.iqbal@pdsi.com",
+        "phone": "+62 812 3456 7890",
+        "area": "Banjarmasin",
+        "label": "Dokter Spesialis",
         "tab" : "",
     }, {
         "id": 14,
         "user": {
             "img": "build/images/users/avatar-4.jpg",
-            "name": "James Wolfe"
+            "name": "dr. M. Zain"
         },
-        "email": "wolfe@example.com",
-        "phone": "+(264) 60 778 1765",
-        "country": "Namibia",
-        "label": "Business",
+        "email": "m.zain@pdsi.com",
+        "phone": "+62 813 4567 8901",
+        "area": "Balikpapan",
+        "label": "Dokter Subspesialis",
         "tab" : "",
     }, {
         "id": 15,
         "user": {
             "img": "build/images/users/avatar-5.jpg",
-            "name": "Michelle Peterson"
+            "name": "dr. M. Taufiq"
         },
-        "email": "michelle@example.com",
-        "phone": "+(244) 948 701 110",
-        "country": "Angola",
-        "label": "Imported",
+        "email": "m.taufiq@pdsi.com",
+        "phone": "+62 811 2345 6789",
+        "area": "Manado",
+        "label": "Dokter Umum",
         "tab" : "",
     }, {
         "id": 16,
         "user": {
             "img": "build/images/users/avatar-6.jpg",
-            "name": "Denise Bowers"
+            "name": "dr. M. Yusuf"
         },
-        "email": "denise@example.com",
-        "phone": "+(32) 493 33 65 89",
-        "country": "Belgium",
-        "label": "Family",
+        "email": "m.yusuf@pdsi.com",
+        "phone": "+62 812 3456 7890",
+        "area": "Padang",
+        "label": "Dokter Gigi",
         "tab" : "",
     }, {
         "id": 17,
         "user": {
             "img": "build/images/users/avatar-7.jpg",
-            "name": "William Hensley"
+            "name": "dr. M. Zulkifli"
         },
-        "email": "william@example.com",
-        "phone": "+(55) 22 95640-1280",
-        "country": "Brazil",
-        "label": "Business",
+        "email": "m.zulkifli@pdsi.com",
+        "phone": "+62 813 4567 8901",
+        "area": "Samarinda",
+        "label": "Dokter Spesialis",
         "tab" : "",
     }, {
         "id": 18,
         "user": {
             "img": "build/images/users/avatar-8.jpg",
-            "name": "Sharon Brewer"
+            "name": "dr. M. Zainuddin"
         },
-        "email": "sharon@example.com",
-        "phone": "+(44) 7797 929140",
-        "country": "Jersey",
-        "label": "Family",
+        "email": "m.zainuddin@pdsi.com",
+        "phone": "+62 811 2345 6789",
+        "area": "Tangerang",
+        "label": "Dokter Umum",
         "tab" : "",
     }, {
         "id": 19,
         "user": {
             "img": "build/images/users/avatar-9.jpg",
-            "name": "Barbara Nelson"
+            "name": "dr. M. Husni"
         },
-        "email": "nelson@example.com",
-        "phone": "+(264) 85 162 8897",
-        "country": "Namibia",
-        "label": "Friends",
+        "email": "m.husni@pdsi.com",
+        "phone": "+62 812 3456 7890",
+        "area": "Bekasi",
+        "label": "Dokter Gigi",
         "tab" : "",
     }, {
         "id": 20,
         "user": {
             "img": "build/images/users/avatar-10.jpg",
-            "name": "Victoria Medina"
+            "name": "dr. M. Rizal"
         },
-        "email": "victoria@example.com",
-        "phone": "+(264) 85 162 8897",
-        "country": "Namibia",
-        "label": "Friends",
+        "email": "m.rizal@pdsi.com",
+        "phone": "+62 813 4567 8901",
+        "area": "Cirebon",
+        "label": "Dokter Subspesialis",
         "tab" : "",
-    }, {
-        "id": 21,
-        "user": {
-            "img": "build/images/users/avatar-1.jpg",
-            "name": "Stacy Martin"
-        },
-        "email": "stacy@example.com",
-        "phone": "+(34) 590 60 09 06",
-        "country": "Spain",
-        "label": "Imported",
-        "tab" : "",
-    }, {
-        "id": 22,
-        "user": {
-            "img": "build/images/users/avatar-2.jpg",
-            "name": "Leslie Fink"
-        },
-        "email": "leslie@example.com",
-        "phone": "+(55) 93 90819-1376",
-        "country": "Brazil",
-        "label": "Business",
-        "tab" : "",
-    }, {
-        "id": 23,
-        "user": {
-            "img": "build/images/users/avatar-3.jpg",
-            "name": "Sean Walker"
-        },
-        "email": "sean@example.com",
-        "phone": "+(55) 93 90819-1376",
-        "country": "Brazil",
-        "label": "Business",
-        "tab" : "",
-    }, {
-        "id": 24,
-        "user": {
-            "img": "build/images/users/avatar-4.jpg",
-            "name": "Kristen Gray"
-        },
-        "email": "gray@example.com",
-        "phone": "+(44) 7937 756071",
-        "country": "Jersey",
-        "label": "Family",
-        "tab" : "frequently",
-    }, {
-        "id": 25,
-        "user": {
-            "img": "build/images/users/avatar-5.jpg",
-            "name": "Zachary Brown"
-        },
-        "email": "brown@example.com",
-        "phone": "+(55) 21 92608-8982",
-        "country": "Brazil",
-        "label": "Friends",
-        "tab" : "important",
-    }, {
-        "id": 26,
-        "user": {
-            "img": "build/images/users/avatar-6.jpg",
-            "name": "Dana Trevino"
-        },
-        "email": "dana@example.com",
-        "phone": "+(264) 81 063 8558",
-        "country": "Namibia",
-        "label": "Friends",
-        "tab" : "groups",
-    }, {
-        "id": 27,
-        "user": {
-            "img": "build/images/users/avatar-10.jpg",
-            "name": "Tonya Noble"
-        },
-        "email": "tonyanoble@hybrix.com	",
-        "phone": "+(34) 414 453 5725",
-        "country": "Germany",
-        "label": "Business",
-        "tab" : "trash",
     }
 ];
 
@@ -349,10 +272,10 @@ if (document.getElementById("recomended-jobs")) {
                 name: 'Phone'
             },
             {
-                name: 'Country'
+                name: 'Area'
             },
             {
-                name: 'Label',
+                name: 'Profesi',
                 data: (function (row) {
                     return gridjs.html(isStatus(row.label));
                 })
@@ -379,13 +302,13 @@ if (document.getElementById("recomended-jobs")) {
 
 function isStatus(val) {
     switch (val) {
-        case "Family":
+        case "Dokter Umum":
             return ('<span class="badge badge-soft-success">' + val + "</span>");
-        case "Friends":
+        case "Dokter Gigi":
             return ('<span class="badge badge-soft-secondary">' + val + "</span>");
-        case "Business":
+        case "Dokter Spesialis":
             return ('<span class="badge badge-soft-info">' + val + "</span>");
-        case "Imported":
+        case "Dokter Subspesialis":
             return ('<span class="badge badge-soft-danger">' + val + "</span>");
     }
 }
@@ -426,10 +349,10 @@ document.querySelector("#contact-image-input").addEventListener("change", functi
                     var inputName = document.getElementById('name').value;
                     var inputEmail = document.getElementById('email').value;
                     var inputPhone = document.getElementById('phoneNumber').value;
-                    var inputCountry = document.getElementById('country').value;
+                    var inputArea = document.getElementById('area').value;
                     var inputlabel = document.getElementById('label').value;
 
-                    if (inputName !== "" && inputEmail !== "" && inputPhone !== "" && inputCountry !== "" && !editlist) {
+                    if (inputName !== "" && inputEmail !== "" && inputPhone !== "" && inputArea !== "" && !editlist) {
                         var newMemberId = findNextId();
                         var newMember = {
                             'id': newMemberId,
@@ -439,13 +362,13 @@ document.querySelector("#contact-image-input").addEventListener("change", functi
                             },
                             "email": inputEmail,
                             "phone": inputPhone,
-                            "country": inputCountry,
+                            "area": inputArea,
                             "label": inputlabel
                         };
 
                         contactData.push(newMember);
                         sortElementsById();
-                    } if (inputName !== "" && inputEmail !== "" && inputPhone !== "" && inputCountry !== "" && editlist) {
+                    } if (inputName !== "" && inputEmail !== "" && inputPhone !== "" && inputArea !== "" && editlist) {
                         var getEditid = 0;
                         getEditid = document.getElementById("contactid-input").value;
                         contactData = contactData.map(function (item) {
@@ -458,7 +381,7 @@ document.querySelector("#contact-image-input").addEventListener("change", functi
                                     },
                                     "email": inputEmail,
                                     "phone": inputPhone,
-                                    "country": inputCountry,
+                                    "area": inputArea,
                                     "label": inputlabel
                                 }
                                 return editObj;
@@ -500,7 +423,7 @@ Array.from(document.querySelectorAll(".addContact-modal")).forEach(function (ele
       document.getElementById("name").value = "";
       document.getElementById("email").value = "";
       document.getElementById("phoneNumber").value = "";
-      document.getElementById("country").value = "";
+      document.getElementById("area").value = "";
       document.getElementById("label").value = "";
 
       document.getElementById("contact-img").src = "build/images/users/user-dummy-img.jpg";
@@ -522,7 +445,7 @@ function editMemberList(elem) {
             document.getElementById("name").value = item.user.name;
             document.getElementById("email").value = item.email;
             document.getElementById("phoneNumber").value = item.phone;
-            document.getElementById("country").value = item.country;
+            document.getElementById("area").value = item.area;
             document.getElementById("label").value = item.label;
         }
         return item;
@@ -558,7 +481,7 @@ function overviewList(){
     var userName = rowElem.querySelector(".user-name").innerHTML;
     var userEmail = rowElem.querySelector("[data-column-id='email']").innerHTML;
     var userPhone = rowElem.querySelector("[data-column-id='phone']").innerHTML;
-    var userCountry = rowElem.querySelector("[data-column-id='country']").innerHTML;
+    var userArea = rowElem.querySelector("[data-column-id='area']").innerHTML;
     var userLabel = rowElem.querySelector("[data-column-id='label'] .badge").innerHTML;
 
     document.querySelector("#viewContactoffcanvas .overview-userimg").src = userImg;
@@ -568,7 +491,7 @@ function overviewList(){
     document.querySelector("#viewContactoffcanvas .overview-email").innerHTML = userEmail;
     document.querySelector("#viewContactoffcanvas .overview-phone").innerHTML = userPhone;
     document.querySelectorAll("#viewContactoffcanvas .overview-location").forEach(function(elem){
-        elem.innerHTML = userCountry;
+        elem.innerHTML = userArea;
     });
     document.querySelector("#viewContactoffcanvas .overview-tags").innerHTML = userLabel;
 }
@@ -581,7 +504,7 @@ searchProductList.addEventListener("keyup", function () {
 	var inputVal = searchProductList.value.toLowerCase();
 	function filterItems(arr, query) {
 		return arr.filter(function (el) {
-			return el.user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 || el.email.toLowerCase().indexOf(query.toLowerCase()) !== -1 || el.phone.toLowerCase().indexOf(query.toLowerCase()) !== -1 || el.country.toLowerCase().indexOf(query.toLowerCase()) !== -1 || el.label.toLowerCase().indexOf(query.toLowerCase()) !== -1
+			return el.user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1 || el.email.toLowerCase().indexOf(query.toLowerCase()) !== -1 || el.phone.toLowerCase().indexOf(query.toLowerCase()) !== -1 || el.area.toLowerCase().indexOf(query.toLowerCase()) !== -1 || el.label.toLowerCase().indexOf(query.toLowerCase()) !== -1
 		})
 	}
 

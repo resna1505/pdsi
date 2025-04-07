@@ -65,5 +65,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/announcement', function () {
         return view('admin.announcement');
     });
+    Route::get('/pengajuan-admin', function () {
+        return view('admin.pengajuan-admin');
+    });
+    Route::get('/pengajuan-anggota', function () {
+        return view('admin.pengajuan-anggota');
+    });
+    Route::get('/manajemen-berita', function () {
+        return view('admin.news-management');
+    });
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });
