@@ -61,7 +61,7 @@
                                         </span>
                                     </div>
                                     <div class="text-end flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-13">Seminar</p>
+                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-13">Total Seminar</p>
                                         <h4 class="fs-22 fw-semibold mb-3"><span class="counter-value" data-target="187">0</span></h4>
                                         <div class="d-flex align-items-center justify-content-end gap-2">
                                             <h5 class="text-danger fs-12 mb-0">
@@ -90,13 +90,13 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-13">SKP</p>
+                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-13">Total SKP</p>
                                         <h4 class="fs-22 fw-semibold mb-3"><span class="counter-value" data-target="385">0</span></h4>
                                         <div class="d-flex align-items-center gap-2">
                                             <h5 class="text-success fs-12 mb-0">
                                                 <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +29.08 %
                                             </h5>
-                                            <p class="text-muted mb-0">than last week</p>
+                                            <p class="text-muted mb-0">than last year</p>
                                         </div>
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
@@ -185,7 +185,7 @@
             <div class="col-xl-4">
                 <div class="card card-height-100">
                     <div class="card-header border-bottom-dashed align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Statistik</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Distribusi Tenaga Dokter</h4>
                         <div>
                             <div class="dropdown">
                                 <button class="btn btn-soft-primary btn-sm" href="#" data-bs-toggle="dropdown"
@@ -212,7 +212,7 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xs">
                                         <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/svg/crypto-icons/btc.svg') }}" class="img-fluid"
+                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
                                                 alt="">
                                         </span>
                                     </div>
@@ -228,7 +228,7 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xs">
                                         <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/svg/crypto-icons/eth.svg') }}" class="img-fluid"
+                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
                                                 alt="">
                                         </span>
                                     </div>
@@ -244,7 +244,7 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xs">
                                         <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/svg/crypto-icons/ltc.svg') }}" class="img-fluid"
+                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
                                                 alt="">
                                         </span>
                                     </div>
@@ -260,7 +260,7 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xs">
                                         <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/svg/crypto-icons/dash.svg') }}" class="img-fluid"
+                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
                                                 alt="">
                                         </span>
                                     </div>
@@ -280,7 +280,7 @@
             <div class="col-xl-8">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Stock Report</h4>
+                        <h4 class="card-title mb-0 flex-grow-1">Best Selling Seminar</h4>
                         <div class="flex-shrink-0">
                             <button type="button" class="btn btn-soft-info btn-sm">
                                 <i class="ri-file-list-3-line align-middle"></i> Generate Report
@@ -293,141 +293,149 @@
                             <table class="table table-borderless table-centered table-hover align-middle table-nowrap mb-0">
                                 <thead class=" table-light">
                                     <tr>
-                                        <th scope="col">Product ID</th>
                                         <th scope="col">Product Name</th>
-                                        <th scope="col">Updated Date</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Stock Status</th>
-                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Order</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <a href="#!" class="fw-medium link-primary">#00541</a>
-                                        </td>
-                                        <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0 me-2">
                                                     <img src="{{ URL::asset('build/images/products/img-1.png') }}" alt="" class="avatar-xs rounded-circle" />
                                                 </div>
-                                                <div class="flex-grow-1">Rockerz Ear Bluetooth Headphones</div>
+                                                <div class="flex-grow-1">Seminar 1</div>
                                             </div>
                                         </td>
-                                        <td>16 Aug, 2022</td>
                                         <td>
-                                            <span class="text-secondary">$658.00</span>
+                                            <span class="text-secondary">150.000</span>
                                         </td>
                                         <td>
-                                            <span class="badge text-success  bg-success-subtle">In Stock</span>
+                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
                                         </td>
-                                        <td>15 PCS</td>
+                                        <td>325</td>
                                     </tr><!-- end tr -->
                                     <tr>
-                                        <td>
-                                            <a href="#!" class="fw-medium link-primary">#07484</a>
-                                        </td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0 me-2">
                                                     <img src="{{ URL::asset('build/images/products/img-5.png') }}" alt="" class="avatar-xs rounded-circle" />
                                                 </div>
-                                                <div class="flex-grow-1">United Colors Of Benetton</div>
+                                                <div class="flex-grow-1">Seminar 2</div>
                                             </div>
                                         </td>
-                                        <td>05 Sep, 2022</td>
                                         <td>
-                                            <span class="text-secondary">$145.00</span>
+                                            <span class="text-secondary">99.000</span>
                                         </td>
                                         <td>
-                                            <span class="badge text-warning bg-warning-subtle">Low Stock</span>
+                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
                                         </td>
-                                        <td>05 PCS</td>
+                                        <td>105</td>
                                     </tr><!-- end tr -->
                                     <tr>
-                                        <td>
-                                            <a href="#!" class="fw-medium link-primary">#01641</a>
-                                        </td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0 me-2">
                                                     <img src="{{ URL::asset('build/images/products/img-4.png') }}" alt="" class="avatar-xs rounded-circle" />
                                                 </div>
-                                                <div class="flex-grow-1">Striped Baseball Cap</div>
+                                                <div class="flex-grow-1">Seminar 3</div>
                                             </div>
                                         </td>
-                                        <td>28 Sep, 2022</td>
                                         <td>
-                                            <span class="text-secondary">$215.00</span>
+                                            <span class="text-secondary">150.000</span>
                                         </td>
                                         <td>
-                                            <span class="badge text-danger  bg-danger-subtle">Out of Stock</span>
+                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
                                         </td>
-                                        <td>0 PCS</td>
+                                        <td>100</td>
                                     </tr><!-- end tr -->
                                     <tr>
-                                        <td>
-                                            <a href="#!" class="fw-medium link-primary">#00065</a>
-                                        </td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0 me-2">
                                                     <img src="{{ URL::asset('build/images/products/img-3.png') }}" alt="" class="avatar-xs rounded-circle" />
                                                 </div>
-                                                <div class="flex-grow-1">350 ml Glass Grocery Container</div>
+                                                <div class="flex-grow-1">Seminar 4</div>
                                             </div>
                                         </td>
-                                        <td>02 Oct, 2022</td>
                                         <td>
-                                            <span class="text-secondary">$79.99</span>
+                                            <span class="text-secondary">99.000</span>
                                         </td>
                                         <td>
-                                            <span class="badge text-success  bg-success-subtle">In Stock</span>
+                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
                                         </td>
-                                        <td>37 PCS</td>
-                                    </tr><!-- end tr -->
+                                        <td>98</td>
+                                    </tr>
                                     <tr>
-                                        <td>
-                                            <a href="#!" class="fw-medium link-primary">#00156</a>
-                                        </td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0 me-2">
                                                     <img src="{{ URL::asset('build/images/products/img-2.png') }}" alt="" class="avatar-xs rounded-circle" />
                                                 </div>
-                                                <div class="flex-grow-1">One Seater Sofa</div>
+                                                <div class="flex-grow-1">Seminar 5</div>
                                             </div>
                                         </td>
-                                        <td>11 Oct, 2022</td>
                                         <td>
-                                            <span class="text-secondary">$264.99</span>
+                                            <span class="text-secondary">150.000</span>
                                         </td>
                                         <td>
-                                            <span class="badge text-success  bg-success-subtle">In Stock</span>
+                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
                                         </td>
-                                        <td>23 PCS</td>
-                                    </tr><!-- end tr -->
+                                        <td>80</td>
+                                    </tr>
                                     <tr>
-                                        <td>
-                                            <a href="#!" class="fw-medium link-primary">#09102</a>
-                                        </td>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div class="flex-shrink-0 me-2">
                                                     <img src="{{ URL::asset('build/images/products/img-8.png') }}" alt="" class="avatar-xs rounded-circle" />
                                                 </div>
-                                                <div class="flex-grow-1">Men's Running Shoes Active Grip</div>
+                                                <div class="flex-grow-1">Seminar 6</div>
                                             </div>
                                         </td>
-                                        <td>19 Nov, 2022</td>
                                         <td>
-                                            <span class="text-secondary">$264.99</span>
+                                            <span class="text-secondary">99.000</span>
                                         </td>
                                         <td>
-                                            <span class="badge text-warning bg-warning-subtle">Low Stock</span>
+                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
                                         </td>
-                                        <td>23 PCS</td>
-                                    </tr><!-- end tr -->
+                                        <td>75</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0 me-2">
+                                                    <img src="{{ URL::asset('build/images/products/img-10.png') }}" alt="" class="avatar-xs rounded-circle" />
+                                                </div>
+                                                <div class="flex-grow-1">Seminar 7</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text-secondary">99.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
+                                        </td>
+                                        <td>43</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-shrink-0 me-2">
+                                                    <img src="{{ URL::asset('build/images/products/img-9.png') }}" alt="" class="avatar-xs rounded-circle" />
+                                                </div>
+                                                <div class="flex-grow-1">Seminar 8</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text-secondary">99.000</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
+                                        </td>
+                                        <td>21</td>
+                                    </tr><!-- end tr --><!-- end tr -->
                                 </tbody><!-- end tbody -->
                             </table><!-- end table -->
                         </div>
@@ -439,7 +447,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div>
-                    <h5>Timeline</h5>
+                    <h5>Agenda Kegiatan</h5>
                     <div class="horizontal-timeline my-3">
                         <div class="swiper timelineSlider">
                             <div class="swiper-wrapper">

@@ -67,7 +67,7 @@ if (donutchartportfolioColors) {
                             fontWeight: 500,
                             offsetY: 5,
                             formatter: function (val) {
-                                return val + " Dokter";
+                                return val;
                             }                            
                         },
                         total: {
@@ -79,7 +79,7 @@ if (donutchartportfolioColors) {
                             formatter: function (w) {
                                 return w.globals.seriesTotals.reduce(function (a, b) {
                                     return a + b
-                                }, 0) + " Dokter";
+                                }, 0);
                             }                            
                         }
                     }
@@ -230,7 +230,7 @@ if (linechartcustomerColors) {
             {
                 formatter: function (y) {
                     if (typeof y !== "undefined") {
-                        return y.toFixed(2);
+                        return y.toFixed(0);
                     }
                     return y;
                 },
