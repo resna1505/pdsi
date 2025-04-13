@@ -37,31 +37,73 @@
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">@lang('translation.user-menu')</span></li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="member">
-                        <i class=" ri-user-line"></i> <span data-key="t-member">@lang('translation.member')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="training">
-                        <i class="ri-briefcase-line	"></i> <span data-key="t-training">@lang('translation.training')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="announcement">
-                        <i class="ri-megaphone-line	"></i> <span data-key="t-announcement">@lang('translation.announcement')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon">
-                        <i class="  ri-file-list-3-line"></i> <span data-key="t-authentication">@lang('translation.recommendations')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon">
-                        <i class="   ri-pin-distance-line"></i> <span data-key="t-authentication">@lang('translation.relocations')</span>
-                    </a>
-                </li>
+                @if (Auth::user()->level == 'Admin')
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="member">
+                            <i class=" ri-user-line"></i> <span data-key="t-member">@lang('translation.member')</span>
+                        </a>
+                    </li>
+                @endif
+
+                @if (Auth::user()->level == 'Dokter')
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="training">
+                            <i class="ri-briefcase-line	"></i> <span data-key="t-training">@lang('translation.training')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="announcement">
+                            <i class="ri-megaphone-line	"></i> <span data-key="t-announcement">@lang('translation.announcement')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="pages-coming-soon">
+                            <i class="  ri-file-list-3-line"></i> <span data-key="t-authentication">LMS Kemenkes</span>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
+                        <a class="nav-link menu-link" href="pages-coming-soon">
+                            <i class="   ri-pin-distance-line"></i> <span data-key="t-authentication">Tautan</span>
+                        </a>
+                    </li> --}}
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                            <i class=" ri-pin-distance-line"></i> <span data-key="t-authentication">Tautan</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarAuth">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="https://kemkes.go.id/id/layanan/transformasi-kesehatan-indonesia" class="nav-link" data-key="t-basic" target="_blank">Transformasi Kesehatan Indonesia</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://kemkes.go.id/id/layanan/gerakan-masyarakat-hidup-sehat" class="nav-link" data-key="t-basic-2" target="_blank">Gerakan Masyarakat Hidup Sehat</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://kemkes.go.id/id/layanan/tenaga-kesehatan" class="nav-link" data-key="t-basic-2" target="_blank">Tenaga Kesehatan</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://kemkes.go.id/id/layanan/fasilitas-kesehatan" class="nav-link" data-key="t-basic-2" target="_blank">Fasilitas Kesehatan</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://satusehat.kemkes.go.id/platform" class="nav-link" data-key="t-basic-2" target="_blank">Platform Satu Sehat</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://kemkes.go.id/id/layanan/penanggulangan-penyakit" class="nav-link" data-key="t-basic-2" target="_blank">Penanggulangan Penyakit</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://kemkes.go.id/id/layanan/farmasi-dan-alat-kesehatan" class="nav-link" data-key="t-basic-2" target="_blank">Farmasi Dan Alat Kesehatan</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://kemkes.go.id/id/layanan/kebijakan-kesehatan" class="nav-link" data-key="t-basic-2" target="_blank">Kebijakan Kesehatan</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://kemkes.go.id/id/dashboard-krisis-kesehatan" class="nav-link" data-key="t-basic-2" target="_blank">Pantauan Kejadian Krisis Kesehatan</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                @endif
+                
                 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">@lang('translation.apps')</span></li>
                 
@@ -72,38 +114,41 @@
                     <a href="apps-leaderboards" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard">@lang('translation.leaderboard')</span> </a>
                 </li>
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
+                @if (Auth::user()->level == 'Admin')
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
 
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                        <i class="bi bi-person-circle"></i> <span data-key="t-authentication">@lang('translation.user')</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarAuth">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="pengajuan-admin" class="nav-link" data-key="t-basic">@lang('translation.admin')</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pengajuan-anggota" class="nav-link" data-key="t-basic-2">@lang('translation.member')</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="workshops">
-                        <i class="ri-calendar-line"></i> <span data-key="t-workshops">@lang('translation.workshops')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="news-management">
-                        <i class="ri-volume-up-line"></i> <span data-key="t-news-management">@lang('translation.news')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="pages-coming-soon">
-                        <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
+                            <i class="bi bi-person-circle"></i> <span data-key="t-authentication">@lang('translation.user')</span>
+                        </a>
+                        <div class="collapse menu-dropdown" id="sidebarAuth">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a href="pengajuan-admin" class="nav-link" data-key="t-basic">@lang('translation.admin')</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pengajuan-anggota" class="nav-link" data-key="t-basic-2">@lang('translation.member')</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="workshops">
+                            <i class="ri-calendar-line"></i> <span data-key="t-workshops">@lang('translation.workshops')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="news-management">
+                            <i class="ri-volume-up-line"></i> <span data-key="t-news-management">@lang('translation.news')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="pages-coming-soon">
+                            <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
+                        </a>
+                    </li>
+                @endif
+                
             </ul>
         </div>
         <!-- Sidebar -->

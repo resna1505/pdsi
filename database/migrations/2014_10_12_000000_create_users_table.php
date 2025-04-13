@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(false);
             $table->string('email')->unique();
             $table->string('name');
+            $table->string('level')->default('Dokter');
             $table->string('tempat_lahir');
             $table->timestamp('tanggal_lahir');
             $table->string('no_hp');
@@ -36,6 +37,7 @@ return new class extends Migration
         User::create([
             'email' => 'admin@ictpdsi.com', // Email sebaiknya lowercase
             'name' => 'Admin ICT PDSI',
+            'level' => 'Admin',
             'tempat_lahir' => 'Jakarta',
             'tanggal_lahir' => '1990-01-01 00:00:00', // Format timestamp yang valid
             'no_hp' => '08123456789',
@@ -59,5 +61,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('level');
+        });
     }
 };

@@ -293,9 +293,9 @@
                             <table class="table table-borderless table-centered table-hover align-middle table-nowrap mb-0">
                                 <thead class=" table-light">
                                     <tr>
-                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Name</th>
                                         <th scope="col">Amount</th>
-                                        <th scope="col">Stock Status</th>
+                                        <th scope="col">Doctor</th>
                                         <th scope="col">Order</th>
                                     </tr>
                                 </thead>

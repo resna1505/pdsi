@@ -117,6 +117,7 @@ class Register extends Component
         User::create([
             'email' => $this->email,
             'name' => $this->name,
+            'level' => 'Dokter',
             'tempat_lahir' => $this->tempat_lahir,
             'tanggal_lahir' => $this->tanggal_lahir,
             'no_hp' => $this->no_hp,
