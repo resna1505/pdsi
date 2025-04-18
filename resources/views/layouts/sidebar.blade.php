@@ -37,15 +37,15 @@
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">@lang('translation.user-menu')</span></li>
 
-                {{-- @if (Auth::user()->level == 'Admin') --}}
+                @if (Auth::user()->level == 'Admin')
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="member">
                             <i class=" ri-user-line"></i> <span data-key="t-member">@lang('translation.member')</span>
                         </a>
                     </li>
-                {{-- @endif --}}
+                @endif
 
-                {{-- @if (Auth::user()->level == 'Dokter') --}}
+                @if (Auth::user()->level == 'Dokter')
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="training">
                             <i class="ri-briefcase-line	"></i> <span data-key="t-training">@lang('translation.training')</span>
@@ -61,11 +61,6 @@
                             <i class="  ri-file-list-3-line"></i> <span data-key="t-authentication">LMS Kemenkes</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link menu-link" href="pages-coming-soon">
-                            <i class="   ri-pin-distance-line"></i> <span data-key="t-authentication">Tautan</span>
-                        </a>
-                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                             <i class=" ri-pin-distance-line"></i> <span data-key="t-authentication">Tautan</span>
@@ -102,7 +97,7 @@
                             </ul>
                         </div>
                     </li>
-                {{-- @endif --}}
+                @endif
                 
                 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">@lang('translation.apps')</span></li>
@@ -114,7 +109,7 @@
                     <a href="apps-leaderboards" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard">@lang('translation.leaderboard')</span> </a>
                 </li>
 
-                {{-- @if (Auth::user()->level == 'Admin') --}}
+                @if (Auth::user()->level == 'Admin')
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
 
                     <li class="nav-item">
@@ -147,7 +142,7 @@
                             <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
                         </a>
                     </li>
-                {{-- @endif --}}
+                @endif
                 
             </ul>
         </div>
