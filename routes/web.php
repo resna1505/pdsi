@@ -48,12 +48,15 @@ Route::get('/auth-offline', function () {
 })->name('auth.offline');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/test', function () {
-        return view('widgets');
-    });
-
     Route::get('/', function () {
-        return view('index');
+        $user = Auth::user();
+        if (strtolower($user->level) === 'admin') {
+            return view('admin.index'); // view untuk admin
+        }
+
+        if (strtolower($user->level) === 'dokter') {
+            return view('member.index'); // view untuk pengguna
+        }
     });
 
     Route::get('/member', function () {

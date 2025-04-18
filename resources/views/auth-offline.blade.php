@@ -10,7 +10,7 @@
             <div class="col-lg-5">
                 <div class="auth-card card bg-primary h-100 rounded-0 rounded-start border-0 d-flex align-items-center justify-content-center overflow-hidden p-4">
                     <div class="auth-image">
-                        <img src="{{ URL::asset('build/images/logo-light-full.png') }}" alt="" height="42" />
+                        <img src="{{ URL::asset('build/images/logo-light-full.png') }}" alt="" height="120" />
                         <img src="{{ URL::asset('build/images/effect-pattern/auth-effect-2.png') }}" alt="" class="auth-effect-2" />
                         <img src="{{ URL::asset('build/images/effect-pattern/auth-effect.png') }}" alt="" class="auth-effect" />
                         <img src="{{ URL::asset('build/images/effect-pattern/auth-effect.png') }}" alt="" class="auth-effect-3" />
