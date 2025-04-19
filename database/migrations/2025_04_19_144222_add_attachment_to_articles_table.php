@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('f_a_q_items', function (Blueprint $table) {
-            $table->id();
-            $table->char('faq_category_id', 36);
-            $table->string('question');
-            $table->text('answer');
-            $table->timestamps();
+        Schema::table('articles', function (Blueprint $table) {
+            $table->string('attachment')->nullable()->after('video_url');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('f_a_q_items');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->dropColumn('attachment');
+        });
     }
 };

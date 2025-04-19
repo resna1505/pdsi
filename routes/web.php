@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
+use App\Http\Controllers\AnnouncementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,9 +70,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/training', function () {
         return view('admin.training');
     });
-    Route::get('/announcement', function () {
-        return view('admin.announcement');
-    });
+
+    Route::get('/announcement', [AnnouncementController::class, 'index']);
+    Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcement.show');
+
+
     Route::get('/pengajuan-admin', function () {
         return view('admin.pengajuan-admin');
     });

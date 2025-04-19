@@ -22,32 +22,26 @@
                     </div>
                 </div>
                 <div class="mt-4">
+                    @php use Illuminate\Support\Str; @endphp
+
                     <ul class="nav nav-tabs nav-tabs-custom nav-secondary" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#all" role="tab" aria-selected="false">
                                 All Results
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" id="edukasi-tab" href="#edukasi" role="tab" aria-selected="true">
-                                Tips & Edukasi
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#infografis" role="tab" aria-selected="false">
-                                Infografis Kesehatan
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#wawancara" role="tab" aria-selected="false">
-                                Wawancara Tokoh Medis
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#opini" role="tab" aria-selected="false">
-                                Opini / Editorial
-                            </a>
-                        </li>
+                        @foreach ($categories as $category)
+                            <li class="nav-item">
+                                <a class="nav-link" 
+                                data-bs-toggle="tab" 
+                                id="{{ Str::slug($category->name) }}-tab" 
+                                href="#{{ Str::slug($category->name) }}" 
+                                role="tab" 
+                                aria-selected="false">
+                                    {{ $category->name }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -57,364 +51,47 @@
                         <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
                         <div class="row">
                             <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/eJV7Dqu6DMU" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                            
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Cegah Diabetes Sejak Dini dengan Gaya Hidup Sehat</h5>
-                                                </a>
+                                @forelse ($allArticles as $article)
+                                    <div class="list-element">
+                                        <div class="d-flex flex-column flex-sm-row mb-5">
+                                            <div class="flex-shrink-0">
+                                                <iframe 
+                                                    src="{{ $article->video_url }}" 
+                                                    title="YouTube video" 
+                                                    allowfullscreen 
+                                                    class="rounded">
+                                                </iframe>
                                             </div>
-                                            <p class="text-muted mb-2">Diabetes tipe 2 bukan hanya penyakit orang tua — anak muda pun kini rentan. Artikel ini membahas bagaimana perubahan kecil seperti mengganti nasi putih dengan karbohidrat kompleks, membatasi konsumsi minuman manis, hingga menyempatkan olahraga ringan 30 menit setiap hari bisa menurunkan risiko diabetes secara signifikan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Dinda Sari, Sp.PD 
-                                                        </div>
+                                            <a href="{{ route('announcement.show', $article->id) }}" class="text-decoration-none text-reset">
+                                                <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
+                                                    <div class="position-relative">
+                                                        {{-- <a href="{{ route('announcement.show', $article->id) }}" class="stretched-link"> --}}
+                                                            <h5 class="mb-3">{{ $article->title }}</h5>
+                                                        {{-- </a> --}}
                                                     </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
+                                                    <p class="text-muted mb-2">{{ $article->description }}</p>
+                                                    <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
+                                                        <li>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0">
+                                                                    <i class="ri-user-line"></i>
+                                                                </div>
+                                                                <div class="flex-grow-1 fs-13 ms-1">
+                                                                    {{ $article->author }}
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li><i class="ph-clock-bold align-middle"></i> {{ $article->created_at->diffForHumans() }}</li>
+                                                    </ul>
+                                                </div>
+                                            </a>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/-qmelRdFtmk" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Cara Sederhana Menjaga Kesehatan Mental di Tempat Kerja</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Rasa cemas, kelelahan, dan burnout menjadi hal lumrah di lingkungan kerja modern. Tapi itu bukan berarti harus diabaikan. Artikel ini memberikan tips praktis untuk mengelola stres harian—mulai dari teknik pernapasan 4-7-8, manajemen waktu yang efektif, hingga pentingnya membuka komunikasi sehat dengan atasan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Fikri Ramadhan 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/UGEUqLnwk4I" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Mengenal Gejala Awal Kanker Payudara yang Sering Diabaikan</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Banyak wanita mengira benjolan kecil di payudara adalah hal biasa, padahal bisa menjadi tanda awal kanker. Artikel ini menjelaskan gejala awal kanker payudara yang sering diabaikan, pentingnya pemeriksaan payudara sendiri (SADARI), serta kapan waktu yang tepat untuk berkonsultasi ke dokter.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Ratna Wulandari, Sp.B-Onk 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/eJV7Dqu6DMU" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Panduan Visual Konsumsi Gizi Seimbang untuk Anak Sekolah</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Infografis ini menyajikan porsi makan sehat harian untuk anak usia sekolah. Disusun berdasarkan pedoman gizi seimbang Kemenkes, konten ini mempermudah orang tua menyusun menu harian yang mencakup karbohidrat, protein, sayur, buah, dan susu. Dilengkapi ikon lucu dan warna menarik agar anak juga tertarik belajar.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Infografis PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/-qmelRdFtmk" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Tahapan Perkembangan Bayi 0–12 Bulan</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Setiap bulan perkembangan bayi membawa keajaiban baru. Infografis ini merinci milestone perkembangan motorik, kognitif, dan bahasa dari usia 0 hingga 12 bulan. Disertai panduan stimulasi sederhana yang bisa dilakukan di rumah dan peringatan jika ada tanda keterlambatan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Redaksi Visual PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/UGEUqLnwk4I" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">5 Penyakit Menular yang Dapat Dicegah dengan Vaksinasi</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Vaksin bukan hanya untuk anak-anak. Infografis ini menjelaskan lima penyakit menular yang dapat dicegah vaksin—TBC, Polio, Hepatitis B, Campak, dan DPT—dengan visual yang mudah dipahami oleh publik umum. Edukasi ini penting untuk meningkatkan cakupan imunisasi dasar lengkap.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Divisi Edukasi Visual 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/UGEUqLnwk4I" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Teknologi MRI 7 Tesla adalah Lompatan Besar” — Prof. dr. Herman</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Dalam wawancara ini, Prof. Herman menjelaskan bagaimana MRI 7 Tesla mampu menghasilkan citra otak dan organ dalam dengan resolusi luar biasa. Ia juga berbicara soal tantangan penerapan teknologi ini di rumah sakit daerah dan harapannya agar pemerataan layanan diagnostik jadi prioritas nasional.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Wawancara Medis 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">dr. Tiara: Tantangan Menjadi Dokter di Daerah Terpencil</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">dr. Tiara, lulusan kedokteran yang kini bertugas di pedalaman Papua, membagikan kisahnya membangun kepercayaan dengan warga adat, menghadapi keterbatasan fasilitas, dan bagaimana satu tas medis bisa menyelamatkan nyawa dalam perjalanan lintas hutan berjam-jam.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Eksklusif PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">“Skrining Kanker Itu Investasi Kesehatan” — dr. Alif, Onkolog</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Menurut dr. Alif, masyarakat masih menganggap skrining kanker hanya untuk yang sudah sakit. Ia menjelaskan perbedaan deteksi dini dan diagnosis, serta mengapa pemeriksaan seperti Pap Smear dan USG payudara bisa menyelamatkan ribuan nyawa setiap tahun.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Redaksi 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Ketika Data Pasien Menjadi Komoditas: Di Mana Etika Medis?</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Di era digital, rekam medis pasien kini disimpan dalam sistem elektronik—tapi bagaimana jika datanya disalahgunakan oleh pihak ketiga? Editorial ini membahas urgensi regulasi privasi medis yang ketat dan bagaimana dokter serta rumah sakit seharusnya menjadi pelindung utama data pasien.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Redaksi PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Mengapa Literasi Kesehatan Masyarakat Masih Rendah</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Banyak istilah medis masih sulit dipahami masyarakat awam. Dalam opini ini, dr. Yanuar mengulas perlunya pendekatan humanis dalam komunikasi dokter-pasien dan bagaimana penggunaan bahasa sederhana bisa menjadi alat pencegahan penyakit paling kuat.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Eksklusif PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Perlukah Indonesia Punya “Medical Fact Checker”?</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Di tengah gelombang hoaks kesehatan yang meresahkan, artikel ini mengusulkan pembentukan lembaga verifikasi medis independen untuk memerangi misinformasi. Bisa jadi kolaborasi antara dokter, jurnalis, dan akademisi.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Editorial 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                @empty
+                                    <p class="text-muted">Belum ada artikel tersedia.</p>
+                                @endforelse
                             </div>
-
-                            <!--end col-->
+                    
                             <div class="d-flex align-items-center border-top pt-3">
                                 <div class="flex-grow-1">
                                     <div class="text-muted pagination-info mb-2"></div>
@@ -422,427 +99,64 @@
                                 <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane" id="edukasi" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
-                        <div class="row">
-                            <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Cegah Diabetes Sejak Dini dengan Gaya Hidup Sehat</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Diabetes tipe 2 bukan hanya penyakit orang tua — anak muda pun kini rentan. Artikel ini membahas bagaimana perubahan kecil seperti mengganti nasi putih dengan karbohidrat kompleks, membatasi konsumsi minuman manis, hingga menyempatkan olahraga ringan 30 menit setiap hari bisa menurunkan risiko diabetes secara signifikan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Dinda Sari, Sp.PD 
-                                                        </div>
+                    </div>                    
+                    
+                    @foreach ($categories as $category)
+                        <div class="tab-pane fade" id="{{ Str::slug($category->name) }}" role="tabpanel">
+                            <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
+                            <div class="row">
+                                <div class="col-xxl-8 video-lists">
+                                    @forelse ($category->articles as $article)
+                                        <div class="list-element">
+                                            <div class="d-flex flex-column flex-sm-row mb-5">
+                                                <div class="flex-shrink-0">
+                                                    <iframe 
+                                                        src="{{ $article->video_url }}" 
+                                                        title="YouTube video" 
+                                                        allowfullscreen 
+                                                        class="rounded">
+                                                    </iframe>
+                                                </div>
+                                                <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
+                                                    <div class="position-relative">
+                                                        <a href="javascript:void(0);" class="stretched-link">
+                                                            <h5 class="mb-3">{{ $article->title }}</h5>
+                                                        </a>
                                                     </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Cara Sederhana Menjaga Kesehatan Mental di Tempat Kerja</h5>
-                                                </a>
+                                                    <p class="text-muted mb-2">{{ $article->description }}</p>
+                                                    <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
+                                                        <li>
+                                                            <div class="d-flex align-items-center">
+                                                                <div class="flex-shrink-0">
+                                                                    <i class="ri-user-line"></i>
+                                                                </div>
+                                                                <div class="flex-grow-1 fs-13 ms-1">
+                                                                    {{ $article->author }}
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li><i class="ph-clock-bold align-middle"></i> {{ $article->created_at->diffForHumans() }}</li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <p class="text-muted mb-2">Rasa cemas, kelelahan, dan burnout menjadi hal lumrah di lingkungan kerja modern. Tapi itu bukan berarti harus diabaikan. Artikel ini memberikan tips praktis untuk mengelola stres harian—mulai dari teknik pernapasan 4-7-8, manajemen waktu yang efektif, hingga pentingnya membuka komunikasi sehat dengan atasan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Fikri Ramadhan 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
                                         </div>
+                                    @empty
+                                        <p class="text-muted">Belum ada artikel di kategori ini.</p>
+                                    @endforelse
+                                </div>
+                                <div class="d-flex align-items-center border-top pt-3">
+                                    <div class="flex-grow-1">
+                                        <div class="text-muted pagination-info mb-2"></div>
                                     </div>
+                                    <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
                                 </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Mengenal Gejala Awal Kanker Payudara yang Sering Diabaikan</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Banyak wanita mengira benjolan kecil di payudara adalah hal biasa, padahal bisa menjadi tanda awal kanker. Artikel ini menjelaskan gejala awal kanker payudara yang sering diabaikan, pentingnya pemeriksaan payudara sendiri (SADARI), serta kapan waktu yang tepat untuk berkonsultasi ke dokter.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Ratna Wulandari, Sp.B-Onk 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="d-flex align-items-center border-top pt-3">
-                                <div class="flex-grow-1">
-                                    <div class="text-muted pagination-info mb-2"></div>
-                                </div>
-                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
                             </div>
                         </div>
-                    </div>
-                    <!--end tab-pane-->
-                    <div class="tab-pane" id="infografis" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
-                        <div class="row">
-                            <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Panduan Visual Konsumsi Gizi Seimbang untuk Anak Sekolah</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Infografis ini menyajikan porsi makan sehat harian untuk anak usia sekolah. Disusun berdasarkan pedoman gizi seimbang Kemenkes, konten ini mempermudah orang tua menyusun menu harian yang mencakup karbohidrat, protein, sayur, buah, dan susu. Dilengkapi ikon lucu dan warna menarik agar anak juga tertarik belajar.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Infografis PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Tahapan Perkembangan Bayi 0–12 Bulan</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Setiap bulan perkembangan bayi membawa keajaiban baru. Infografis ini merinci milestone perkembangan motorik, kognitif, dan bahasa dari usia 0 hingga 12 bulan. Disertai panduan stimulasi sederhana yang bisa dilakukan di rumah dan peringatan jika ada tanda keterlambatan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Redaksi Visual PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">5 Penyakit Menular yang Dapat Dicegah dengan Vaksinasi</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Vaksin bukan hanya untuk anak-anak. Infografis ini menjelaskan lima penyakit menular yang dapat dicegah vaksin—TBC, Polio, Hepatitis B, Campak, dan DPT—dengan visual yang mudah dipahami oleh publik umum. Edukasi ini penting untuk meningkatkan cakupan imunisasi dasar lengkap.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Divisi Edukasi Visual 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="d-flex align-items-center border-top pt-3">
-                                <div class="flex-grow-1">
-                                    <div class="text-muted pagination-info mb-2"></div>
-                                </div>
-                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end tab-pane-->
-                    <div class="tab-pane" id="wawancara" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
-                        <div class="row">
-                            <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Teknologi MRI 7 Tesla adalah Lompatan Besar” — Prof. dr. Herman</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Dalam wawancara ini, Prof. Herman menjelaskan bagaimana MRI 7 Tesla mampu menghasilkan citra otak dan organ dalam dengan resolusi luar biasa. Ia juga berbicara soal tantangan penerapan teknologi ini di rumah sakit daerah dan harapannya agar pemerataan layanan diagnostik jadi prioritas nasional.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Wawancara Medis 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">dr. Tiara: Tantangan Menjadi Dokter di Daerah Terpencil</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">dr. Tiara, lulusan kedokteran yang kini bertugas di pedalaman Papua, membagikan kisahnya membangun kepercayaan dengan warga adat, menghadapi keterbatasan fasilitas, dan bagaimana satu tas medis bisa menyelamatkan nyawa dalam perjalanan lintas hutan berjam-jam.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Eksklusif PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">“Skrining Kanker Itu Investasi Kesehatan” — dr. Alif, Onkolog</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Menurut dr. Alif, masyarakat masih menganggap skrining kanker hanya untuk yang sudah sakit. Ia menjelaskan perbedaan deteksi dini dan diagnosis, serta mengapa pemeriksaan seperti Pap Smear dan USG payudara bisa menyelamatkan ribuan nyawa setiap tahun.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Redaksi 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="d-flex align-items-center border-top pt-3">
-                                <div class="flex-grow-1">
-                                    <div class="text-muted pagination-info mb-2"></div>
-                                </div>
-                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end tab-pane-->
-                    <div class="tab-pane" id="opini" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
-                        <div class="row">
-                            <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Ketika Data Pasien Menjadi Komoditas: Di Mana Etika Medis?</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Di era digital, rekam medis pasien kini disimpan dalam sistem elektronik—tapi bagaimana jika datanya disalahgunakan oleh pihak ketiga? Editorial ini membahas urgensi regulasi privasi medis yang ketat dan bagaimana dokter serta rumah sakit seharusnya menjadi pelindung utama data pasien.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Redaksi PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Mengapa Literasi Kesehatan Masyarakat Masih Rendah</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Banyak istilah medis masih sulit dipahami masyarakat awam. Dalam opini ini, dr. Yanuar mengulas perlunya pendekatan humanis dalam komunikasi dokter-pasien dan bagaimana penggunaan bahasa sederhana bisa menjadi alat pencegahan penyakit paling kuat.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Eksklusif PDSI 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Perlukah Indonesia Punya “Medical Fact Checker”?</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Di tengah gelombang hoaks kesehatan yang meresahkan, artikel ini mengusulkan pembentukan lembaga verifikasi medis independen untuk memerangi misinformasi. Bisa jadi kolaborasi antara dokter, jurnalis, dan akademisi.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Editorial 
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="d-flex align-items-center border-top pt-3">
-                                <div class="flex-grow-1">
-                                    <div class="text-muted pagination-info mb-2"></div>
-                                </div>
-                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
-                <!--end tab-content-->
-
             </div>
-            <!--end card-body-->
         </div>
-        <!--end card -->
     </div>
-    <!--end card -->
 </div>
 <!--end row-->
 

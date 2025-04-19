@@ -3,14 +3,6 @@
     @lang('translation.starter')
 @endsection
 @section('content')
-    {{-- @component('components.breadcrumb')
-        @slot('li_1')
-            Menu
-        @endslot
-        @slot('title')
-            Pelatihan
-        @endslot
-    @endcomponent --}}
     <div class="row g-3">
         <div class="mb-4">
             <h2 class="fw-bold d-flex align-items-center">
@@ -152,12 +144,12 @@
                 starSize: 20,
                 rateCallback: function (rating, done) {
                     console.log('Rating:', rating);
-                    done(); // jika pakai ajax simpan rating, taruh di sini
+                    done();
                 }
             });
 
-            rater.setRating(5); // bisa kamu ubah sesuai nilai dinamis
-            rater.disable(); // kalau nggak mau bisa diubah
+            rater.setRating(5);
+            rater.disable();
         });
 
         const searchInput = document.getElementById('searchInput');
