@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\FAQController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/member', function () {
         return view('admin.member');
     });
+
+    Route::get('/faq', [FAQController::class, 'index']);
+
     Route::get('/training', function () {
         return view('admin.training');
     });

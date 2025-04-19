@@ -99,7 +99,6 @@
                     </li>
                 @endif
                 
-                
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">@lang('translation.apps')</span></li>
                 
                 <li class="nav-item">
@@ -143,6 +142,12 @@
                         </a>
                     </li>
                 @endif
+
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">Faq</span></li>
+                
+                <li class="nav-item">
+                    <a href="faq" class="nav-link menu-link"> <i class=" ri-question-line"></i> <span data-key="t-faq">Faq</span> </a>
+                </li>
                 
             </ul>
         </div>
