@@ -49,8 +49,6 @@
                             download="{{ basename($article->attachment) }}">
                              <i class="ri-download-2-line me-1"></i> Unduh
                          </a>
-                         
-                         
                     </div>
                 @endif
 

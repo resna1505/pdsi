@@ -52,7 +52,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="announcement">
+                        <a class="nav-link menu-link" href="{{ route('announcement.index') }}">
                             <i class="ri-megaphone-line	"></i> <span data-key="t-announcement">@lang('translation.announcement')</span>
                         </a>
                     </li>

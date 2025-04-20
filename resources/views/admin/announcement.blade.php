@@ -65,12 +65,12 @@
                                             <a href="{{ route('announcement.show', $article->id) }}" class="text-decoration-none text-reset">
                                                 <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
                                                     <div class="position-relative">
-                                                        {{-- <a href="{{ route('announcement.show', $article->id) }}" class="stretched-link"> --}}
-                                                            <h5 class="mb-3">{{ $article->title }}</h5>
-                                                        {{-- </a> --}}
+                                                        <h5 class="mb-3">{{ $article->title }}</h5>
                                                     </div>
-                                                    <p class="text-muted mb-2">{{ $article->description }}</p>
-                                                    <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
+                                                    <p class="text-muted mb-2">
+                                                        {{ \Illuminate\Support\Str::limit(strip_tags($article->description), 300, '...') }}
+                                                    </p>
+                                                        <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
                                                         <li>
                                                             <div class="d-flex align-items-center">
                                                                 <div class="flex-shrink-0">
@@ -117,27 +117,29 @@
                                                         class="rounded">
                                                     </iframe>
                                                 </div>
-                                                <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                                    <div class="position-relative">
-                                                        <a href="javascript:void(0);" class="stretched-link">
+                                                <a href="{{ route('announcement.show', $article->id) }}" class="text-decoration-none text-reset">
+                                                    <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
+                                                        <div class="position-relative">
                                                             <h5 class="mb-3">{{ $article->title }}</h5>
-                                                        </a>
+                                                        </div>
+                                                        <p class="text-muted mb-2">
+                                                            {{ \Illuminate\Support\Str::limit(strip_tags($article->description), 300, '...') }}
+                                                        </p>
+                                                        <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
+                                                            <li>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="flex-shrink-0">
+                                                                        <i class="ri-user-line"></i>
+                                                                    </div>
+                                                                    <div class="flex-grow-1 fs-13 ms-1">
+                                                                        {{ $article->author }}
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li><i class="ph-clock-bold align-middle"></i> {{ $article->created_at->diffForHumans() }}</li>
+                                                        </ul>
                                                     </div>
-                                                    <p class="text-muted mb-2">{{ $article->description }}</p>
-                                                    <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                        <li>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="ri-user-line"></i>
-                                                                </div>
-                                                                <div class="flex-grow-1 fs-13 ms-1">
-                                                                    {{ $article->author }}
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li><i class="ph-clock-bold align-middle"></i> {{ $article->created_at->diffForHumans() }}</li>
-                                                    </ul>
-                                                </div>
+                                                </a>
                                             </div>
                                         </div>
                                     @empty
