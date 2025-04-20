@@ -57,31 +57,34 @@
                                             </div>
     
                                             <ul class="list-group mb-3">
-                                                <li class="list-group-item d-flex justify-content-between lh-sm">
-                                                    <div>
-                                                        <h6 class="my-0">Iuran Bulanan</h6>
-                                                        <small class="text-muted">Januari 2025</small>
-                                                    </div>
-                                                    <span class="text-muted">Rp. 50.000</span>
-                                                </li>
-                                                <li class="list-group-item d-flex justify-content-between lh-sm">
-                                                    <div>
-                                                        <h6 class="my-0">Iuran Bulanan</h6>
-                                                        <small class="text-muted">Februari 2025</small>
-                                                    </div>
-                                                    <span class="text-muted">Rp. 50.000</span>
-                                                </li>
-                                                <li class="list-group-item d-flex justify-content-between lh-sm">
-                                                    <div>
-                                                        <h6 class="my-0">Iuran Bulanan</h6>
-                                                        <small class="text-muted">Maret 2025</small>
-                                                    </div>
-                                                    <span class="text-muted">Rp. 50.000</span>
-                                                </li>
+                                                <ul class="list-group mb-3">
+                                                    @php $total = 0; @endphp
+                                                    @foreach($iurans as $iuran)
+                                                        <li class="list-group-item d-flex justify-content-between lh-sm">
+                                                            <div>
+                                                                <h6 class="my-0">{{ $iuran->masterIuran->nama_iuran }}</h6>
+                                                                <small class="text-muted">{{ \Carbon\Carbon::parse($iuran->masterIuran->periode)->translatedFormat('F Y') }}</small>
+                                                            </div>
+                                                            <span class="text-muted">Rp {{ number_format($iuran->masterIuran->jumlah, 0, ',', '.') }}</span>
+                                                        </li>
+                                                        @php $total += $iuran->masterIuran->jumlah; @endphp
+                                                    @endforeach
+                                                </ul>
                                             </ul>
     
                                             <div class="d-flex align-items-start gap-3 mt-4">
-                                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-bill-address-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go to Payment</button>
+                                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-bill-address-tab" data-iuranid="{{ $anggota->id }}" id="goToPaymentBtn">
+                                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                                                    Go to Payment
+                                                </button>
+                                                {{-- <button 
+                                                    type="button" 
+                                                    class="btn btn-success btn-label right ms-auto nexttab nexttab" 
+                                                    data-iuranid="{{ $anggota->id }}" 
+                                                    id="goToPaymentBtn">
+                                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                                                    Go to Payment
+                                                </button> --}}
                                             </div>
                                         </div>
                                         <!-- end tab pane -->
@@ -185,7 +188,7 @@
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>Total</span>
-                                        <strong>Rp. 175.000</strong>
+                                        <strong>Rp {{ number_format($total + 25000, 0, ',', '.') }}</strong>
                                     </li>
                                 </ul>
                             </div>
@@ -202,7 +205,7 @@
 @endsection
 @section('script')
     <script src="{{ URL::asset('build/libs/tom-select/js/tom-select.base.min.js') }}"></script>
-    <script src="{{ URL::asset('build/js/pages/form-wizard.init.js') }}"></script>
+    {{-- <script src="{{ URL::asset('build/js/pages/form-wizard.init.js') }}"></script> --}}
     <script src="{{ URL::asset('build/js/app.js') }}"></script>
 
     
@@ -260,5 +263,60 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentStatus = {{ $currentStatus }};
+            let steps = [
+                'v-pills-bill-info-tab',
+                'v-pills-bill-address-tab',
+                'v-pills-payment-tab',
+                'v-pills-finish-tab'
+            ];
     
+            let contents = [
+                'v-pills-bill-info',
+                'v-pills-bill-address',
+                'v-pills-payment',
+                'v-pills-finish'
+            ];
+    
+            // Aktifkan tab sesuai status
+            for (let i = 0; i <= currentStatus; i++) {
+                document.getElementById(steps[i]).disabled = false;
+            }
+    
+            // Trigger tab yang sesuai status
+            document.getElementById(steps[currentStatus]).click();
+    
+            // Tambah class 'active show' ke tab-pane
+            contents.forEach(id => document.getElementById(id).classList.remove('active', 'show'));
+            document.getElementById(contents[currentStatus]).classList.add('active', 'show');
+        });
+    </script>
+    {{-- <script>
+        document.getElementById("goToPaymentBtn").addEventListener("click", function () {
+            var anggotaId = this.getAttribute("data-iuranid");  // Mengambil data-iuranid
+            console.log(anggotaId); // Cek apakah nilai data-iuranid sudah benar
+
+            // Mengirimkan data ke server menggunakan fetch
+            fetch('/iuran/update-status/' + anggotaId, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ anggota_id: anggotaId })
+            })
+
+            .then(response => response.json())  // Mengonversi respons menjadi JSON
+            .then(data => {
+                console.log("Status updated:", data); // Menampilkan pesan dari server
+                // Lanjutkan ke tab berikutnya
+                document.querySelector(`[data-nexttab="v-pills-bill-address-tab"]`).click();
+            })
+            .catch(error => {
+                console.error('Error:', error); // Menangani error jika terjadi masalah saat fetch
+            });
+        });
+    </script> --}}
 @endsection

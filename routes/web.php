@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\PembayaranIuranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,9 +76,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement.index');
     Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcement.show');
 
-    Route::get('/pembayaran-iuran', function () {
-        return view('member.pembayaran-iuran');
-    });
+    // Iuran
+    Route::get('/pembayaran-iuran', [PembayaranIuranController::class, 'index']);
+    Route::post('/iuran/update-status/{anggota}', [PembayaranIuranController::class, 'updateStatus']);
 
     Route::get('/pengajuan-admin', function () {
         return view('admin.pengajuan-admin');
