@@ -75,6 +75,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement.index');
     Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcement.show');
 
+    Route::get('/pembayaran-iuran', function () {
+        return view('member.pembayaran-iuran');
+    });
+
     Route::get('/pengajuan-admin', function () {
         return view('admin.pengajuan-admin');
     });

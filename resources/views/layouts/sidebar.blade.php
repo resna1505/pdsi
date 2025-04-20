@@ -47,6 +47,11 @@
 
                 @if (Auth::user()->level == 'Dokter')
                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="pembayaran-iuran">
+                            <i class="ri-briefcase-line	"></i> <span data-key="t-pembayaran-iuran">Iuran Anggota</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link menu-link" href="training">
                             <i class="ri-briefcase-line	"></i> <span data-key="t-training">@lang('translation.training')</span>
                         </a>
