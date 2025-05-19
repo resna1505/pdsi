@@ -3,5 +3,6 @@
         "resources/lang",
         "resources/libs/apexcharts/locales",
         "resources/libs/moment/locale"
-    ]
+    ],
+    "i18n-ally.keystyle": "nested"
 }

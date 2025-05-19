@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\Profile\aboutController;
+use App\Http\Controllers\Api\Profile\DokterController;
+use App\Http\Controllers\Api\Profile\indexController;
+use App\Http\Controllers\VisiMisiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +21,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/index', [indexController::class, 'index']);
+Route::get('/about', [aboutController::class, 'index']);
+Route::get('/visimisi', [VisiMisiController::class, 'index']);
+Route::get('/dokter', [DokterController::class, 'index']);

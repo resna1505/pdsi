@@ -5,34 +5,36 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model
+class Mitra extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'image',
         'title',
-        'author',
-        'video_url',
-        'attachment',
-        'description',
-        'created_at',
-        'updated_at',
+        'telephone',
+        'email',
+        'address',
+        'type',
+        'website',
+        'is_active',
+        'order_column'
     ];
 
-    // protected $casts = [
-    //     'is_active' => 'boolean'
-    // ];
+    protected $casts = [
+        'is_active' => 'boolean'
+    ];
 
-    // // Scope untuk mitra aktif
-    // public function scopeActive($query)
-    // {
-    //     return $query->where('is_active', true);
-    // }
+    // Scope untuk mitra aktif
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
 
     // Scope untuk diurutkan
     public function scopeOrdered($query)
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->orderBy('order_column');
     }
 
     // Accessor untuk gambar

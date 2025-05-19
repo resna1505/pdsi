@@ -631,7 +631,7 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
                                                 <i class="ri-checkbox-circle-fill text-success"></i>
                                             </div>
                                             <div class="flex-grow-1 ms-2">
-                                                <p class="text-muted mb-0">Sistem Informasi Aplikasi Data Anggota berbasiskan web Perkumpulan Dokter Seluruh Indonesia (PDSI) yang terintegrasi di dalam Website www.pdsionline.com ini dibangun dan dikembangkan oleh Tim ICT PDSI. Biaya pembangunan dan pengembangan berasal dari iuran anggota yang disetorkan ke rekening PDSI Pusat.</p>
+                                                <p class="text-muted mb-0">Sistem Informasi Aplikasi Data Anggota berbasiskan web Perkumpulan Dokter Seluruh Indonesia (PDSI) yang terintegrasi di dalam Website www.pdsionline.org ini dibangun dan dikembangkan oleh Tim ICT PDSI. Biaya pembangunan dan pengembangan berasal dari iuran anggota yang disetorkan ke rekening PDSI Pusat.</p>
                                             </div>
                                         </div>
                                         <div class="d-flex mt-2">
@@ -639,7 +639,7 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
                                                 <i class="ri-checkbox-circle-fill text-success"></i>
                                             </div>
                                             <div class="flex-grow-1 ms-2 ">
-                                                <p class="text-muted mb-0">Aktivasi data dilakukan berdasarkan kesesuaian jawaban dengan data yang tersimpan di data base Anggota Perkumpulan Dokter Seluruh Indonesia. Jika anda merasa data jawaban telah benar namun tidak dapat masuk ke tahapan selanjutnya, harap hubungi Admin Tim ICT dan Layanan Informasi (PUSDALIN) Pengurus Besar PDSI di Email ke register@pdsionline.com, (Balasan email paling lambat 2 x 24 jam di hari kerja, Email aktif di hari kerja senin – jumat dari jam 08’30 – 16’00). Selanjutnya admin PUSDALIN akan melakukan validasi laporan anda.</p>
+                                                <p class="text-muted mb-0">Aktivasi data dilakukan berdasarkan kesesuaian jawaban dengan data yang tersimpan di data base Anggota Perkumpulan Dokter Seluruh Indonesia. Jika anda merasa data jawaban telah benar namun tidak dapat masuk ke tahapan selanjutnya, harap hubungi Admin Tim ICT dan Layanan Informasi (PUSDATIN ( Pusat Data dan Informasi )) Pengurus Besar PDSI di Email ke register@pdsionline.org, (Balasan email paling lambat 2 x 24 jam di hari kerja, Email aktif di hari kerja senin – jumat dari jam 08’30 – 16’00). Selanjutnya admin PUSDATIN ( Pusat Data dan Informasi ) akan melakukan validasi laporan anda.</p>
                                             </div>
                                         </div>
                                         <div class="d-flex mt-2">
@@ -691,7 +691,7 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
                                                 <i class=" ri-close-circle-fill text-danger"></i>
                                             </div>
                                             <div class="flex-grow-1 ms-2 ">
-                                                <p class="text-muted mb-0">Tidak ada data transaksi iuran di rekening PDSI Pusat  yang sesuai dengan informasi yang diberikan PSDI Cabang atau entri data iuran.</p>
+                                                <p class="text-muted mb-0">Tidak ada data transaksi iuran di rekening PDSI Pusat  yang sesuai dengan informasi yang diberikan PDSI Cabang atau entri data iuran.</p>
                                             </div>
                                         </div>
                                         <div class="d-flex mt-2">
