@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FAQCategory extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
     public function items()
     {
         return $this->hasMany(FAQItem::class, 'faq_category_id'); // foreignKey harus benar

@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\Profile\aboutController;
+use App\Http\Controllers\Api\Profile\AgendaController;
 use App\Http\Controllers\Api\Profile\DokterController;
+use App\Http\Controllers\Api\Profile\FaqController;
 use App\Http\Controllers\Api\Profile\indexController;
+use App\Http\Controllers\Api\Profile\NewsController;
 use App\Http\Controllers\Api\Profile\ProgramKerjaController;
 use App\Http\Controllers\VisiMisiController;
 use Illuminate\Http\Request;
@@ -28,3 +31,6 @@ Route::get('/about', [aboutController::class, 'index']);
 Route::get('/visimisi', [VisiMisiController::class, 'index']);
 Route::get('/dokter', [DokterController::class, 'index']);
 Route::get('/program-kerja', [ProgramKerjaController::class, 'index']);
+Route::get('/faqs', [FaqController::class, 'index']);
+Route::get('/news', [NewsController::class, 'index']);
+Route::get('/agenda', [AgendaController::class, 'index']);

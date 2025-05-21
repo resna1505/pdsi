@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class FAQItem extends Model
 {
     use HasFactory;
+    protected $fillable = ['faq_category_id', 'question', 'answer'];
 
     public function category()
     {
-        return $this->belongsTo(FAQCategory::class, 'faq_category_id'); // foreignKey harus sesuai
+        return $this->belongsTo(FAQCategory::class, 'faq_category_id');
     }
 }
