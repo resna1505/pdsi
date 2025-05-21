@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Profile\aboutController;
 use App\Http\Controllers\Api\Profile\DokterController;
 use App\Http\Controllers\Api\Profile\indexController;
+use App\Http\Controllers\Api\Profile\ProgramKerjaController;
 use App\Http\Controllers\VisiMisiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,4 @@ Route::get('/index', [indexController::class, 'index']);
 Route::get('/about', [aboutController::class, 'index']);
 Route::get('/visimisi', [VisiMisiController::class, 'index']);
 Route::get('/dokter', [DokterController::class, 'index']);
+Route::get('/program-kerja', [ProgramKerjaController::class, 'index']);
