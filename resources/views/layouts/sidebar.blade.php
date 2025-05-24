@@ -127,7 +127,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="pengajuan-anggota" class="nav-link" data-key="t-basic-2">@lang('translation.member')</a>
-                                </li>
+                                </li>                               
                             </ul>
                         </div>
                     </li>
@@ -144,6 +144,11 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="pages-coming-soon">
                             <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="mitra">
+                            <i class=" ri-user-line"></i> <span data-key="t-mitra">Mitra</span>
                         </a>
                     </li>
                 @endif

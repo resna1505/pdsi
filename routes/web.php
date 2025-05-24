@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
 
 /*
@@ -65,6 +66,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/member', function () {
         return view('admin.member');
     });
+
+    Route::resource('mitra', MitraController::class);
 
     Route::get('/faq', [FAQController::class, 'index']);
 
