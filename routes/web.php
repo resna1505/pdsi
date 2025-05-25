@@ -68,7 +68,6 @@ Route::group(['middleware' => 'auth'], function () {
         return view('admin.member');
     });
 
-    Route::resource('mitra', MitraController::class);
 
     Route::get('/faq', [FAQController::class, 'index']);
 
@@ -96,11 +95,17 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/news-management', function () {
     //     return view('admin.news-management');
     // });
-    Route::get('/news-management', [ArticleController::class, 'index']);
+    Route::get('/articles', [ArticleController::class, 'index']);
     Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
     Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
     Route::get('/articles/{id}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
     Route::put('/articles/{id}', [ArticleController::class, 'update'])->name('articles.update');
+
+    Route::get('/mitra', [MitraController::class, 'index']);
+    Route::post('/mitra', [MitraController::class, 'store'])->name('mitra.store');
+    Route::delete('/mitra/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy');
+    Route::get('/mitra/{id}/edit', [MitraController::class, 'edit'])->name('mitra.edit');
+    Route::put('/mitra/{id}', [MitraController::class, 'update'])->name('mitra.update');
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

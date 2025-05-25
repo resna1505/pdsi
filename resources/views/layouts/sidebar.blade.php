@@ -137,18 +137,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="news-management">
+                        <a class="nav-link menu-link" href="articles">
                             <i class="ri-volume-up-line"></i> <span data-key="t-news-management">@lang('translation.news')</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link menu-link" href="pages-coming-soon">
-                            <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
                         </a>
                     </li>
                      <li class="nav-item">
                         <a class="nav-link menu-link" href="mitra">
                             <i class=" ri-user-line"></i> <span data-key="t-mitra">Mitra</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="pages-coming-soon">
+                            <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
                         </a>
                     </li>
                 @endif

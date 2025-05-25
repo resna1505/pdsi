@@ -141,7 +141,7 @@ class ArticleController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Article updated successfully!');
-        } catch (ValidationException $e) {
+        } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Throwable $e) {
             Log::error('Article update error: ' . $e->getMessage(), [
