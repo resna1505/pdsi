@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
 
@@ -92,8 +93,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/workshops', function () {
         return view('admin.workshops');
     });
-    Route::get('/news-management', function () {
-        return view('admin.news-management');
-    });
+    // Route::get('/news-management', function () {
+    //     return view('admin.news-management');
+    // });
+    Route::get('/news-management', [ArticleController::class, 'index']);
+    Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+    Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+    Route::get('/articles/{id}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('/articles/{id}', [ArticleController::class, 'update'])->name('articles.update');
+
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

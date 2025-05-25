@@ -28,31 +28,18 @@
                 </div>
                 <div class="mt-4">
                     <ul class="nav nav-tabs nav-tabs-custom nav-secondary" role="tablist">
-                        <li class="nav-item">
+                       <li class="nav-item">
                             <a class="nav-link active" data-bs-toggle="tab" href="#all" role="tab" aria-selected="false">
                                 All Results
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" id="edukasi-tab" href="#edukasi" role="tab" aria-selected="true">
-                                Tips & Edukasi
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#infografis" role="tab" aria-selected="false">
-                                Infografis Kesehatan
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#wawancara" role="tab" aria-selected="false">
-                                Wawancara Tokoh Medis
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#opini" role="tab" aria-selected="false">
-                                Opini / Editorial
-                            </a>
-                        </li>
+                       @foreach ($categories as $item)
+                           <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#category-{{$item->id}}" role="tab" aria-selected="false">
+                                    {{$item->name}}
+                                </a>
+                            </li>
+                       @endforeach
                     </ul>
                 </div>
             </div>
@@ -62,473 +49,61 @@
                         <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
                         <div class="row">
                             <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/eJV7Dqu6DMU" title="YouTube video" allowfullscreen class="rounded"></iframe>
-
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Cegah Diabetes Sejak Dini dengan Gaya Hidup Sehat</h5>
-                                                </a>
+                                @foreach($articles as $article)
+                                    <div class="list-element">
+                                        <div class="d-flex flex-column flex-sm-row mb-5">
+                                            <div class="flex-shrink-0">
+                                                <img src="{{ asset('storage/articles/' . $article->attachment) }}" alt="est" width="125" class="rounded" />
                                             </div>
-                                            <p class="text-muted mb-2">Diabetes tipe 2 bukan hanya penyakit orang tua — anak muda pun kini rentan. Artikel ini membahas bagaimana perubahan kecil seperti mengganti nasi putih dengan karbohidrat kompleks, membatasi konsumsi minuman manis, hingga menyempatkan olahraga ringan 30 menit setiap hari bisa menurunkan risiko diabetes secara signifikan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
+                                            <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
+                                                <div class="position-relative">
+                                                    <a href="javascript:void(0);" class="stretched-link">
+                                                        <h5 class="mb-3">{{ $article->title }}</h5>
+                                                    </a>
+                                                </div>
+                                                @php
+                                                    $paragraphs = explode('</p>', $article->description);
+                                                    $limitedContent = implode('</p>', array_slice($paragraphs, 0, 4)) . '</p>';
+                                                @endphp
+                                                <p class="text-muted mb-2">{{ \Illuminate\Support\Str::limit(strip_tags($article->description), 500) }}</p>
+                                                <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
+                                                    <li>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-shrink-0">
+                                                                <i class="ri-user-line"></i>
+                                                            </div>
+                                                            <div class="flex-grow-1 fs-13 ms-1">
+                                                                {{ $article->author }}
+                                                            </div>
                                                         </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Dinda Sari, Sp.PD
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#editmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
+                                                    </li>
+                                                    <li>
+                                                        <i class="ph-clock-bold align-middle"></i>
+                                                        {{ $article->created_at->diffForHumans() }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col text-end dropdown">
+                                                <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="ri-more-2-fill fs-17"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <a class="dropdown-item edit-list" href="#editmemberModal" data-bs-toggle="modal" data-edit-id="{{ $article->id }}">
+                                                            <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $article->id }}">
+                                                            <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/-qmelRdFtmk" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Cara Sederhana Menjaga Kesehatan Mental di Tempat Kerja</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Rasa cemas, kelelahan, dan burnout menjadi hal lumrah di lingkungan kerja modern. Tapi itu bukan berarti harus diabaikan. Artikel ini memberikan tips praktis untuk mengelola stres harian—mulai dari teknik pernapasan 4-7-8, manajemen waktu yang efektif, hingga pentingnya membuka komunikasi sehat dengan atasan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Fikri Ramadhan
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/UGEUqLnwk4I" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Mengenal Gejala Awal Kanker Payudara yang Sering Diabaikan</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Banyak wanita mengira benjolan kecil di payudara adalah hal biasa, padahal bisa menjadi tanda awal kanker. Artikel ini menjelaskan gejala awal kanker payudara yang sering diabaikan, pentingnya pemeriksaan payudara sendiri (SADARI), serta kapan waktu yang tepat untuk berkonsultasi ke dokter.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Ratna Wulandari, Sp.B-Onk
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/eJV7Dqu6DMU" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Panduan Visual Konsumsi Gizi Seimbang untuk Anak Sekolah</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Infografis ini menyajikan porsi makan sehat harian untuk anak usia sekolah. Disusun berdasarkan pedoman gizi seimbang Kemenkes, konten ini mempermudah orang tua menyusun menu harian yang mencakup karbohidrat, protein, sayur, buah, dan susu. Dilengkapi ikon lucu dan warna menarik agar anak juga tertarik belajar.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Infografis PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/-qmelRdFtmk" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Tahapan Perkembangan Bayi 0–12 Bulan</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Setiap bulan perkembangan bayi membawa keajaiban baru. Infografis ini merinci milestone perkembangan motorik, kognitif, dan bahasa dari usia 0 hingga 12 bulan. Disertai panduan stimulasi sederhana yang bisa dilakukan di rumah dan peringatan jika ada tanda keterlambatan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Redaksi Visual PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/UGEUqLnwk4I" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">5 Penyakit Menular yang Dapat Dicegah dengan Vaksinasi</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Vaksin bukan hanya untuk anak-anak. Infografis ini menjelaskan lima penyakit menular yang dapat dicegah vaksin—TBC, Polio, Hepatitis B, Campak, dan DPT—dengan visual yang mudah dipahami oleh publik umum. Edukasi ini penting untuk meningkatkan cakupan imunisasi dasar lengkap.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Divisi Edukasi Visual
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/UGEUqLnwk4I" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Teknologi MRI 7 Tesla adalah Lompatan Besar” — Prof. dr. Herman</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Dalam wawancara ini, Prof. Herman menjelaskan bagaimana MRI 7 Tesla mampu menghasilkan citra otak dan organ dalam dengan resolusi luar biasa. Ia juga berbicara soal tantangan penerapan teknologi ini di rumah sakit daerah dan harapannya agar pemerataan layanan diagnostik jadi prioritas nasional.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Wawancara Medis
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">dr. Tiara: Tantangan Menjadi Dokter di Daerah Terpencil</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">dr. Tiara, lulusan kedokteran yang kini bertugas di pedalaman Papua, membagikan kisahnya membangun kepercayaan dengan warga adat, menghadapi keterbatasan fasilitas, dan bagaimana satu tas medis bisa menyelamatkan nyawa dalam perjalanan lintas hutan berjam-jam.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Eksklusif PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">“Skrining Kanker Itu Investasi Kesehatan” — dr. Alif, Onkolog</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Menurut dr. Alif, masyarakat masih menganggap skrining kanker hanya untuk yang sudah sakit. Ia menjelaskan perbedaan deteksi dini dan diagnosis, serta mengapa pemeriksaan seperti Pap Smear dan USG payudara bisa menyelamatkan ribuan nyawa setiap tahun.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Redaksi
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Ketika Data Pasien Menjadi Komoditas: Di Mana Etika Medis?</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Di era digital, rekam medis pasien kini disimpan dalam sistem elektronik—tapi bagaimana jika datanya disalahgunakan oleh pihak ketiga? Editorial ini membahas urgensi regulasi privasi medis yang ketat dan bagaimana dokter serta rumah sakit seharusnya menjadi pelindung utama data pasien.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Redaksi PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Mengapa Literasi Kesehatan Masyarakat Masih Rendah</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Banyak istilah medis masih sulit dipahami masyarakat awam. Dalam opini ini, dr. Yanuar mengulas perlunya pendekatan humanis dalam komunikasi dokter-pasien dan bagaimana penggunaan bahasa sederhana bisa menjadi alat pencegahan penyakit paling kuat.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Eksklusif PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Perlukah Indonesia Punya “Medical Fact Checker”?</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Di tengah gelombang hoaks kesehatan yang meresahkan, artikel ini mengusulkan pembentukan lembaga verifikasi medis independen untuk memerangi misinformasi. Bisa jadi kolaborasi antara dokter, jurnalis, dan akademisi.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Editorial
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
-
-                            <!--end col-->
                             <div class="d-flex align-items-center border-top pt-3">
                                 <div class="flex-grow-1">
                                     <div class="text-muted pagination-info mb-2"></div>
@@ -537,526 +112,71 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="tab-pane" id="edukasi" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
-                        <div class="row">
-                            <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Cegah Diabetes Sejak Dini dengan Gaya Hidup Sehat</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Diabetes tipe 2 bukan hanya penyakit orang tua — anak muda pun kini rentan. Artikel ini membahas bagaimana perubahan kecil seperti mengganti nasi putih dengan karbohidrat kompleks, membatasi konsumsi minuman manis, hingga menyempatkan olahraga ringan 30 menit setiap hari bisa menurunkan risiko diabetes secara signifikan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Dinda Sari, Sp.PD
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Cara Sederhana Menjaga Kesehatan Mental di Tempat Kerja</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Rasa cemas, kelelahan, dan burnout menjadi hal lumrah di lingkungan kerja modern. Tapi itu bukan berarti harus diabaikan. Artikel ini memberikan tips praktis untuk mengelola stres harian—mulai dari teknik pernapasan 4-7-8, manajemen waktu yang efektif, hingga pentingnya membuka komunikasi sehat dengan atasan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Fikri Ramadhan
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Mengenal Gejala Awal Kanker Payudara yang Sering Diabaikan</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Banyak wanita mengira benjolan kecil di payudara adalah hal biasa, padahal bisa menjadi tanda awal kanker. Artikel ini menjelaskan gejala awal kanker payudara yang sering diabaikan, pentingnya pemeriksaan payudara sendiri (SADARI), serta kapan waktu yang tepat untuk berkonsultasi ke dokter.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            dr. Ratna Wulandari, Sp.B-Onk
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="d-flex align-items-center border-top pt-3">
-                                <div class="flex-grow-1">
-                                    <div class="text-muted pagination-info mb-2"></div>
-                                </div>
-                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <!--end tab-pane-->
-                    <div class="tab-pane" id="infografis" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
-                        <div class="row">
-                            <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Panduan Visual Konsumsi Gizi Seimbang untuk Anak Sekolah</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Infografis ini menyajikan porsi makan sehat harian untuk anak usia sekolah. Disusun berdasarkan pedoman gizi seimbang Kemenkes, konten ini mempermudah orang tua menyusun menu harian yang mencakup karbohidrat, protein, sayur, buah, dan susu. Dilengkapi ikon lucu dan warna menarik agar anak juga tertarik belajar.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Infografis PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
+                    @foreach ($categories as $category)
+                        <div class="tab-pane" id="category-{{ $category->id }}" role="tabpanel">
+                            <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
+                             <div class="row">
+                                <div class="col-xxl-8 video-lists">
+                                    @php
+                                        $filtered = $articles->where('category_id', $category->id);
+                                    @endphp
 
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Tahapan Perkembangan Bayi 0–12 Bulan</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Setiap bulan perkembangan bayi membawa keajaiban baru. Infografis ini merinci milestone perkembangan motorik, kognitif, dan bahasa dari usia 0 hingga 12 bulan. Disertai panduan stimulasi sederhana yang bisa dilakukan di rumah dan peringatan jika ada tanda keterlambatan.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Redaksi Visual PDSI
-                                                        </div>
+                                    @if ($filtered->isEmpty())
+                                        <p class="text-muted">Belum ada artikel pada kategori ini.</p>
+                                    @else
+                                        @foreach ($filtered as $article)
+                                        <div class="list-element">
+                                            <div class="d-flex flex-column flex-sm-row mb-5">
+                                                <div class="flex-shrink-0">
+                                                    <img src="{{ asset('storage/articles/' . $article->attachment) }}" alt="est" width="125" class="rounded" />
+                                                </div>
+                                                <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
+                                                    <div class="position-relative">
+                                                        <a href="javascript:void(0);" class="stretched-link">
+                                                            <h5 class="mb-3">{{ $article->title }}</h5>
+                                                        </a>
                                                     </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">5 Penyakit Menular yang Dapat Dicegah dengan Vaksinasi</h5>
-                                                </a>
+                                                    <p class="text-muted mb-2">{{ \Illuminate\Support\Str::limit(strip_tags($article->description), 500) }}</p>
+                                                    <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
+                                                        <li>
+                                                            <div class="d-flex align-items-center">
+                                                                <i class="ri-user-line"></i>
+                                                                <span class="ms-1 fs-13">{{ $article->author }}</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <i class="ph-clock-bold align-middle"></i>
+                                                            {{ $article->created_at->diffForHumans() }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col text-end dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="ri-more-2-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <a class="dropdown-item edit-list" href="#editmemberModal" data-bs-toggle="modal" data-edit-id="{{ $article->id }}">
+                                                                <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $article->id }}">
+                                                                <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <p class="text-muted mb-2">Vaksin bukan hanya untuk anak-anak. Infografis ini menjelaskan lima penyakit menular yang dapat dicegah vaksin—TBC, Polio, Hepatitis B, Campak, dan DPT—dengan visual yang mudah dipahami oleh publik umum. Edukasi ini penting untuk meningkatkan cakupan imunisasi dasar lengkap.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Divisi Edukasi Visual
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
                                         </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                        @endforeach
+                                    @endif
                                 </div>
-                            </div>
-                            <!--end col-->
-                            <div class="d-flex align-items-center border-top pt-3">
-                                <div class="flex-grow-1">
-                                    <div class="text-muted pagination-info mb-2"></div>
-                                </div>
-                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                            </div>
+                             </div>
                         </div>
-                    </div>
-                    <!--end tab-pane-->
-                    <div class="tab-pane" id="wawancara" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
-                        <div class="row">
-                            <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Teknologi MRI 7 Tesla adalah Lompatan Besar” — Prof. dr. Herman</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Dalam wawancara ini, Prof. Herman menjelaskan bagaimana MRI 7 Tesla mampu menghasilkan citra otak dan organ dalam dengan resolusi luar biasa. Ia juga berbicara soal tantangan penerapan teknologi ini di rumah sakit daerah dan harapannya agar pemerataan layanan diagnostik jadi prioritas nasional.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Wawancara Medis
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">dr. Tiara: Tantangan Menjadi Dokter di Daerah Terpencil</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">dr. Tiara, lulusan kedokteran yang kini bertugas di pedalaman Papua, membagikan kisahnya membangun kepercayaan dengan warga adat, menghadapi keterbatasan fasilitas, dan bagaimana satu tas medis bisa menyelamatkan nyawa dalam perjalanan lintas hutan berjam-jam.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Eksklusif PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">“Skrining Kanker Itu Investasi Kesehatan” — dr. Alif, Onkolog</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Menurut dr. Alif, masyarakat masih menganggap skrining kanker hanya untuk yang sudah sakit. Ia menjelaskan perbedaan deteksi dini dan diagnosis, serta mengapa pemeriksaan seperti Pap Smear dan USG payudara bisa menyelamatkan ribuan nyawa setiap tahun.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Redaksi
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="d-flex align-items-center border-top pt-3">
-                                <div class="flex-grow-1">
-                                    <div class="text-muted pagination-info mb-2"></div>
-                                </div>
-                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end tab-pane-->
-                    <div class="tab-pane" id="opini" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
-                        <div class="row">
-                            <div class="col-xxl-8 video-lists">
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Ketika Data Pasien Menjadi Komoditas: Di Mana Etika Medis?</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Di era digital, rekam medis pasien kini disimpan dalam sistem elektronik—tapi bagaimana jika datanya disalahgunakan oleh pihak ketiga? Editorial ini membahas urgensi regulasi privasi medis yang ketat dan bagaimana dokter serta rumah sakit seharusnya menjadi pelindung utama data pasien.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Redaksi PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 1 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Mengapa Literasi Kesehatan Masyarakat Masih Rendah</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Banyak istilah medis masih sulit dipahami masyarakat awam. Dalam opini ini, dr. Yanuar mengulas perlunya pendekatan humanis dalam komunikasi dokter-pasien dan bagaimana penggunaan bahasa sederhana bisa menjadi alat pencegahan penyakit paling kuat.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Wawancara Eksklusif PDSI
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 2 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--end list-element-->
-
-                                <div class="list-element">
-                                    <div class="d-flex flex-column flex-sm-row mb-5">
-                                        <div class="flex-shrink-0">
-                                            <iframe src="https://www.youtube.com/embed/GfSZtaoc5bw" title="YouTube video" allowfullscreen class="rounded"></iframe>
-                                        </div>
-                                        <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
-                                            <div class="position-relative">
-                                                <a href="javascript:void(0);" class="stretched-link">
-                                                    <h5 class="mb-3">Perlukah Indonesia Punya “Medical Fact Checker”?</h5>
-                                                </a>
-                                            </div>
-                                            <p class="text-muted mb-2">Di tengah gelombang hoaks kesehatan yang meresahkan, artikel ini mengusulkan pembentukan lembaga verifikasi medis independen untuk memerangi misinformasi. Bisa jadi kolaborasi antara dokter, jurnalis, dan akademisi.</p>
-                                            <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                <li>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="flex-shrink-0">
-                                                            <i class=" ri-user-line"></i>
-                                                        </div>
-                                                        <div class="flex-grow-1 fs-13 ms-1">
-                                                            Tim Editorial
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li><i class="ph-clock-bold align-middle"></i> 3 Month ago</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col text-end dropdown">
-                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class=" ri-more-2-fill fs-17"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="d-flex align-items-center border-top pt-3">
-                                <div class="flex-grow-1">
-                                    <div class="text-muted pagination-info mb-2"></div>
-                                </div>
-                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -1064,139 +184,147 @@
 </div>
 
 <div class="modal fade" id="addmemberModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header p-4 pb-0">
                 <h5 class="modal-title" id="createMemberLabel">Add News</h5>
                 <button type="button" class="btn-close" id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form autocomplete="off" id="memberlist-form" class="needs-validation" novalidate>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <input type="hidden" id="memberid-input" class="form-control" value="">
-                            <div class="text-center mb-4">
-                                <div class="position-relative d-inline-block">
-                                    <div class="position-absolute top-100 start-100 translate-middle">
-                                        <label for="member-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Member Image">
-                                            <div class="avatar-xs">
-                                                <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                                    <i class="ri-image-fill"></i>
-                                                </div>
-                                            </div>
-                                        </label>
-                                        <input class="form-control d-none" value="" id="member-image-input" type="file" accept="image/png, image/gif, image/jpeg">
-                                    </div>
-                                    <div class="avatar-lg">
-                                        <div class="avatar-title bg-light rounded-3">
-                                            <img src="{{ URL::asset('build/images/users/user-dummy-img.jpg') }}" id="member-img" class="avatar-md rounded-3 h-auto" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3 mt-4">
-                                <label for="teammembersName" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="teammembersName" placeholder="Enter name" required>
-                                <div class="invalid-feedback">Please Enter a member name.</div>
-                            </div>
+                <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data" id="memberlist-form" class="needs-validation" novalidate>
+                @csrf
 
-                            <div class="mb-3">
-                                <label for="designation" class="form-label">Description</label>
-                                <input type="text" class="form-control" id="designation" placeholder="Enter designation" required>
-                                <div class="invalid-feedback">Please Enter a designation.</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="designation" class="form-label">User</label>
-                                <select class="form-control" data-choices name="choices-single-default" id="choices-single-default">
-                                    <option value="">Select Here</option>
-                                    <option value="Dr. Dummy 1">Dr. Dummy 1</option>
-                                    <option value="Dr. Dummy 2">Dr. Dummy 2</option>
-                                    <option value="Dr. Dummy 3">Dr. Dummy 3</option>
-                                </select>
-                            </div>
-
-                            <div class="hstack gap-2 justify-content-end">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success" id="addNewMember">Add Member</button>
-                            </div>
-                        </div>
+                {{-- Error Display --}}
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                </form>
+                @endif
+
+                <div class="row">
+                    <div class="col-md-12 mb-3">
+                        <label for="image" class="form-label">Foto</label>
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image" accept="image/png, image/gif, image/jpeg">
+                        @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="category_id" class="form-label">Category</label>
+                        <select class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="category_id" required>
+                            <option value="">Select Here</option>
+                            @foreach ($categories as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required>
+                        @error('title')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="description" id="description" class="ckeditor-classic form-control @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" name="author" class="form-control @error('author') is-invalid @enderror" id="author" value="{{ old('author') }}" required>
+                        @error('author')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Add News</button>
+                    </div>
+                </div>
+            </form>
+
             </div>
         </div>
-        <!--end modal-content-->
     </div>
-    <!--end modal-dialog-->
 </div>
 
 <div class="modal fade" id="editmemberModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="createMemberLabel">Edit News</h5>
-                <button type="button" class="btn-close" id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="editMemberLabel">Edit News</h5>
+                <button type="button" class="btn-close" id="editMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form autocomplete="off" id="memberlist-form" class="needs-validation" novalidate>
+                <form method="POST" action="" enctype="multipart/form-data" id="edit-form" class="needs-validation" novalidate>
+                    @csrf
+                    @method('PUT')
+
+                    {{-- Error Display --}}
+                    <div id="edit-errors" class="alert alert-danger d-none">
+                        <ul class="mb-0" id="edit-error-list"></ul>
+                    </div>
+
                     <div class="row">
-                        <div class="col-lg-12">
-                            <input type="hidden" id="memberid-input" class="form-control" value="">
-                            <div class="text-center mb-4">
-                                <div class="position-relative d-inline-block">
-                                    <div class="position-absolute top-100 start-100 translate-middle">
-                                        <label for="member-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Member Image">
-                                            <div class="avatar-xs">
-                                                <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                                    <i class="ri-image-fill"></i>
-                                                </div>
-                                            </div>
-                                        </label>
-                                        <input class="form-control d-none" value="" id="member-image-input" type="file" accept="image/png, image/gif, image/jpeg">
-                                    </div>
-                                    <div class="avatar-lg">
-                                        <div class="avatar-title bg-light rounded-3">
-                                            <img src="{{ URL::asset('build/images/users/user-dummy-img.jpg') }}" id="member-img" class="avatar-md rounded-3 h-auto" />
-                                        </div>
-                                    </div>
-                                </div>
+                        <!-- Current Image Preview -->
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">Current Image</label>
+                            <div id="current-image-preview">
+                                <!-- Image will be loaded here -->
                             </div>
-                            <div class="mb-3 mt-4">
-                                <label for="teammembersName" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="teammembersName" placeholder="Enter name" required>
-                                <div class="invalid-feedback">Please Enter a member name.</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="designation" class="form-label">Description</label>
-                                <input type="text" class="form-control" id="designation" placeholder="Enter designation" required>
-                                <div class="invalid-feedback">Please Enter a designation.</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="designation" class="form-label">User</label>
-                                <select class="form-control" data-choices name="choices-single-default" id="choices-single-default">
-                                    <option value="">Select Here</option>
-                                    <option value="Dr. Dummy 1">Dr. Dummy 1</option>
-                                    <option value="Dr. Dummy 2">Dr. Dummy 2</option>
-                                    <option value="Dr. Dummy 3">Dr. Dummy 3</option>
-                                </select>
-                            </div>
-
-                            <div class="hstack gap-2 justify-content-end">
-                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success" id="addNewMember">Add Member</button>
-                            </div>
+                        </div>
+                        
+                        <div class="col-md-12 mb-3">
+                            <label for="edit-image" class="form-label">New Image (optional)</label>
+                            <input type="file" class="form-control" name="image" id="edit-image" accept="image/png, image/gif, image/jpeg">
+                            <small class="text-muted">Leave empty to keep current image</small>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-category_id" class="form-label">Category</label>
+                            <select class="form-control" name="category_id" id="edit-category_id" required>
+                                <option value="">Select Here</option>
+                                @foreach ($categories as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="edit-title" name="title" required>
+                        </div>
+                        
+                        <div class="col-md-12 mb-3">
+                            <label for="edit-description" class="form-label">Description</label>
+                            <textarea name="description" id="edit-description" class="form-control" rows="5" required></textarea>
+                        </div>
+                        
+                        <div class="col-md-12 mb-4">
+                            <label for="edit-author" class="form-label">Author</label>
+                            <input type="text" name="author" class="form-control" id="edit-author" required>
+                        </div>
+                        
+                        <div class="hstack gap-2 justify-content-end">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Update News</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <!--end modal-content-->
     </div>
-    <!--end modal-dialog-->
 </div>
-
 <div id="removeMemberModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -1213,7 +341,12 @@
                 </div>
                 <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
                     <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn w-sm btn-danger" id="remove-item">Yes, Delete It!</button>
+                    <form id="deleteForm" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn w-sm btn-danger" id="remove-item">Yes, Delete It!</button>
+                    </form>
+                    {{-- <button type="button" class="btn w-sm btn-danger" id="remove-item">Yes, Delete It!</button> --}}
                 </div>
             </div>
         </div><!-- /.modal-content -->
@@ -1222,10 +355,14 @@
 @endsection
 
 @section('script')
+{{-- <script src="{{ URL::asset('build/js/pages/team.init.js') }}"></script> --}}
 <script src="{{ URL::asset('build/libs/glightbox/js/glightbox.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/search-result.init.js') }}"></script>
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
+
+<script src="{{ URL::asset('build/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
+<script src="{{ URL::asset('build/js/pages/form-editor.init.js') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const itemsPerPage = 5;
@@ -1359,5 +496,82 @@
             });
         }
     });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle modal delete
+    const removeLinks = document.querySelectorAll('.remove-list');
+    const deleteForm = document.getElementById('deleteForm');
+    
+    removeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const articleId = this.getAttribute('data-remove-id');
+            const actionUrl = `/articles/${articleId}`;
+            deleteForm.setAttribute('action', actionUrl);
+        });
+    });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle edit modal
+    const editLinks = document.querySelectorAll('.edit-list');
+    const editForm = document.getElementById('edit-form');
+    
+    editLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const articleId = this.getAttribute('data-edit-id');
+            
+            // Fetch article data
+            fetch(`/articles/${articleId}/edit`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const article = data.article;
+                        
+                        // Set form action
+                        editForm.setAttribute('action', `/articles/${articleId}`);
+                        
+                        // Fill form fields
+                        document.getElementById('edit-title').value = article.title;
+                        document.getElementById('edit-description').value = article.description;
+                        document.getElementById('edit-author').value = article.author;
+                        document.getElementById('edit-category_id').value = article.category_id;
+                        
+                        // Show current image
+                        const imagePreview = document.getElementById('current-image-preview');
+                        if (article.attachment) {
+                            imagePreview.innerHTML = `
+                                <img src="{{ asset('storage/articles/') }}/${article.attachment}" 
+                                     alt="Current Image" width="150" class="rounded">
+                            `;
+                        } else {
+                            imagePreview.innerHTML = '<p class="text-muted">No image</p>';
+                        }
+                        
+                        // Clear previous errors
+                        document.getElementById('edit-errors').classList.add('d-none');
+                        
+                        // If using CKEditor, update it
+                        if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
+                            CKEDITOR.instances['edit-description'].setData(article.description);
+                        }
+                    } else {
+                        alert('Error loading article data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error loading article data');
+                });
+        });
+    });
+});
+</script>
+<script>
+// Initialize CKEditor for edit modal
+if (typeof CKEDITOR !== 'undefined') {
+    CKEDITOR.replace('edit-description');
+}
 </script>
 @endsection
