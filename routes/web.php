@@ -37,6 +37,11 @@ Route::get('/migrate-fresh', function () {
     return "Database telah di-reset dan migrasi ulang berhasil!";
 });
 
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Symlink storage → public/storage berhasil dibuat!';
+});
+
 Route::get('/login', \App\Http\Livewire\Auth\Login::class)->name('login');
 Route::get('/register', \App\Http\Livewire\Auth\Register::class)->name('register');
 Route::get('/forget-password', \App\Http\Livewire\Auth\ForgetPassword::class)->name('password.reset');

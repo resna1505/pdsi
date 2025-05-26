@@ -21,14 +21,17 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
         try {
             $request->validate([
                 'image' => 'nullable|image',
                 'category_id' => 'required|integer',
-                'title' => 'required|string|max:255',
+                'title' => 'required|string',
                 'description' => 'required|string',
                 'author' => 'required|string|max:100',
             ]);
+
 
             $imagePath = null;
             if ($request->hasFile('image')) {
