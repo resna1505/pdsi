@@ -146,5 +146,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/faq/{id}/edit', [FAQController::class, 'edit'])->name('faq.edit');
     Route::put('/faq/{id}', [FAQController::class, 'update'])->name('faq.update');
 
-    Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->where('any', '^(?!storage).*$');
 });
