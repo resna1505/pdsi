@@ -14,13 +14,13 @@ return new class extends Migration
         if (!Schema::hasTable('testimonials')) {
             Schema::create('testimonials', function (Blueprint $table) {
                 $table->id();
-                $table->integer('anggota_id');
+                $table->unsignedBigInteger('anggota_id');
                 $table->text('testimonial_text');
                 $table->tinyInteger('rating')->default(5);
                 $table->boolean('is_active')->default(true);
                 $table->timestamps();
 
-                $table->foreign('anggota_id')->references('id')->on('anggota')->onDelete('cascade');
+                $table->foreign('anggota_id')->references('id')->on('anggotas')->onDelete('cascade');
             });
         }
     }
