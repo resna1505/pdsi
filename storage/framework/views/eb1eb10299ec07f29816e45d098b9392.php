@@ -146,6 +146,16 @@
                             <i class=" ri-user-line"></i> <span data-key="t-mitra">Mitra</span>
                         </a>
                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="about">
+                            <i class=" ri-user-line"></i> <span data-key="t-about">About</span>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="visimisi">
+                            <i class=" ri-user-line"></i> <span data-key="t-visimisi">Visi Misi</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="pages-coming-soon">
                             <i class="bi bi-table"></i> <span data-key="t-authentication"><?php echo app('translator')->get('translation.table'); ?></span>

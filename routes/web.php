@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\AboutController as ControllersAboutController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\Api\Profile\aboutController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
+use App\Http\Controllers\VisiMisiValueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,6 +109,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/mitra/{id}', [MitraController::class, 'destroy'])->name('mitra.destroy');
     Route::get('/mitra/{id}/edit', [MitraController::class, 'edit'])->name('mitra.edit');
     Route::put('/mitra/{id}', [MitraController::class, 'update'])->name('mitra.update');
+
+    Route::get('/about', [ControllersAboutController::class, 'index']);
+    Route::post('/about', [ControllersAboutController::class, 'store'])->name('about.store');
+    Route::delete('/about/{id}', [ControllersAboutController::class, 'destroy'])->name('about.destroy');
+    Route::get('/about/{id}/edit', [ControllersAboutController::class, 'edit'])->name('about.edit');
+    Route::put('/about/{id}', [ControllersAboutController::class, 'update'])->name('about.update');
+
+    Route::get('/visimisi', [VisiMisiValueController::class, 'index']);
+    Route::post('/visimisi', [VisiMisiValueController::class, 'store'])->name('visimisi.store');
+    Route::delete('/visimisi/{id}', [VisiMisiValueController::class, 'destroy'])->name('visimisi.destroy');
+    Route::get('/visimisi/{id}/edit', [VisiMisiValueController::class, 'edit'])->name('visimisi.edit');
+    Route::put('/visimisi/{id}', [VisiMisiValueController::class, 'update'])->name('visimisi.update');
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });
