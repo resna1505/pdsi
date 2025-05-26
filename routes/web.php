@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
-use App\Http\Controllers\Api\Profile\aboutController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
+use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
 use App\Http\Controllers\VisiMisiValueController;
 
 /*
@@ -121,6 +121,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/visimisi/{id}', [VisiMisiValueController::class, 'destroy'])->name('visimisi.destroy');
     Route::get('/visimisi/{id}/edit', [VisiMisiValueController::class, 'edit'])->name('visimisi.edit');
     Route::put('/visimisi/{id}', [VisiMisiValueController::class, 'update'])->name('visimisi.update');
+
+    Route::get('/programkerja', [ControllersProgramKerjaController::class, 'index']);
+    Route::post('/programkerja', [ControllersProgramKerjaController::class, 'store'])->name('programkerja.store');
+    Route::delete('/programkerja/{id}', [ControllersProgramKerjaController::class, 'destroy'])->name('programkerja.destroy');
+    Route::get('/programkerja/{id}/edit', [ControllersProgramKerjaController::class, 'edit'])->name('programkerja.edit');
+    Route::put('/programkerja/{id}', [ControllersProgramKerjaController::class, 'update'])->name('programkerja.update');
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

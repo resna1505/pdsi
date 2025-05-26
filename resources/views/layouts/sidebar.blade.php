@@ -151,9 +151,14 @@
                             <i class=" ri-user-line"></i> <span data-key="t-about">About</span>
                         </a>
                     </li>
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link menu-link" href="visimisi">
                             <i class=" ri-user-line"></i> <span data-key="t-visimisi">Visi Misi</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="programkerja">
+                            <i class=" ri-user-line"></i> <span data-key="t-programkerja">Program Kerja</span>
                         </a>
                     </li>
                     <li class="nav-item">
