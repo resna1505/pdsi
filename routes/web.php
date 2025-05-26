@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController as ControllersAboutController;
+use App\Http\Controllers\AgendaController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -103,6 +104,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
     Route::get('/articles/{id}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
     Route::put('/articles/{id}', [ArticleController::class, 'update'])->name('articles.update');
+
+    Route::get('/agenda', [AgendaController::class, 'index']);
+    Route::post('/agenda', [AgendaController::class, 'store'])->name('agenda.store');
+    Route::delete('/agenda/{id}', [AgendaController::class, 'destroy'])->name('agenda.destroy');
+    Route::get('/agenda/{id}/edit', [AgendaController::class, 'edit'])->name('agenda.edit');
+    Route::put('/agenda/{id}', [AgendaController::class, 'update'])->name('agenda.update');
 
     Route::get('/mitra', [MitraController::class, 'index']);
     Route::post('/mitra', [MitraController::class, 'store'])->name('mitra.store');

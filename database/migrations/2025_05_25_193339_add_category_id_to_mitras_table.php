@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('mitras', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->nullable()->after('id');
+        // Schema::table('mitras', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('category_id')->nullable()->after('id');
 
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('category_mitra')
-                ->onDelete('set null');
-        });
+        //     $table->foreign('category_id')
+        //         ->references('id')
+        //         ->on('category_mitra')
+        //         ->onDelete('set null');
+        // });
     }
 
     /**

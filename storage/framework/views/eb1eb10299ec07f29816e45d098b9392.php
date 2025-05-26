@@ -141,47 +141,49 @@
                             <i class="ri-volume-up-line"></i> <span data-key="t-news-management"><?php echo app('translator')->get('translation.news'); ?></span>
                         </a>
                     </li>
-                     <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="agenda">
+                            <i class=" ri-image-add-line"></i> <span data-key="t-agenda">Agenda</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link menu-link" href="mitra">
-                            <i class=" ri-user-line"></i> <span data-key="t-mitra">Mitra</span>
+                            <i class="ri-building-2-line"></i> <span data-key="t-mitra">Mitra</span>
                         </a>
                     </li>
                      <li class="nav-item">
                         <a class="nav-link menu-link" href="about">
-                            <i class=" ri-user-line"></i> <span data-key="t-about">About</span>
+                            <i class=" ri-list-unordered"></i> <span data-key="t-about">About</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="visimisi">
-                            <i class=" ri-user-line"></i> <span data-key="t-visimisi">Visi Misi</span>
+                            <i class=" ri-invision-line"></i> <span data-key="t-visimisi">Visi Misi</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="programkerja">
-                            <i class=" ri-user-line"></i> <span data-key="t-programkerja">Program Kerja</span>
+                            <i class="ri-briefcase-line"></i> <span data-key="t-programkerja">Program Kerja</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="faq">
-                            <i class=" ri-user-line"></i> <span data-key="t-faq">FAQ</span>
+                            <i class=" ri-questionnaire-line"></i> <span data-key="t-faq">FAQ</span>
                         </a>
                     </li>
                     
                 <?php endif; ?>
 
-                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">Faq</span></li>
-                
-                <li class="nav-item">
-                    <a href="faq" class="nav-link menu-link"> <i class=" ri-question-line"></i> <span data-key="t-faq">Faq</span> </a>
-                </li>
-                
+                <?php if(Auth::user()->level == 'Dokter'): ?>                
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">Faq</span></li>
+                    
+                    <li class="nav-item">
+                        <a href="faq" class="nav-link menu-link"> <i class=" ri-question-line"></i> <span data-key="t-faq">Faq</span> </a>
+                    </li>
+                <?php endif; ?>                
             </ul>
         </div>
-        <!-- Sidebar -->
     </div>
-
     <div class="sidebar-background"></div>
 </div>
-<!-- Left Sidebar End -->
-<!-- Vertical Overlay-->
 <div class="vertical-overlay"></div><?php /**PATH D:\Project\pdsi\resources\views/layouts/sidebar.blade.php ENDPATH**/ ?>
