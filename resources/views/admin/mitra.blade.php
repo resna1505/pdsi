@@ -308,26 +308,31 @@
                                     <option value="{{$item->id}}">{{$item->name}}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        
+                        </div>                        
                         <div class="col-md-6 mb-3">
-                            <label for="edit-title" class="form-label">Title</label>
+                            <label for="edit-title" class="form-label">Name</label>
                             <input type="text" class="form-control" id="edit-title" name="title" required>
+                        </div>                        
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-telephone" class="form-label">Telephone</label>
+                            <input type="number" class="form-control" id="edit-telephone" name="telephone" required>
                         </div>
-                        
-                        <div class="col-md-12 mb-3">
-                            <label for="edit-description" class="form-label">Description</label>
-                            <textarea name="description" id="edit-description" class="form-control" rows="5" required></textarea>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="edit-email" name="email" required>
                         </div>
-                        
-                        <div class="col-md-12 mb-4">
-                            <label for="edit-author" class="form-label">Author</label>
-                            <input type="text" name="author" class="form-control" id="edit-author" required>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="edit-address" name="address" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-website" class="form-label">Website</label>
+                            <input type="text" class="form-control" id="edit-website" name="website" required>
                         </div>
                         
                         <div class="hstack gap-2 justify-content-end">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Update News</button>
+                            <button type="submit" class="btn btn-success">Update Mitra</button>
                         </div>
                     </div>
                 </form>
@@ -516,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function() {
     removeLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const articleId = this.getAttribute('data-remove-id');
-            const actionUrl = `/articles/${articleId}`;
+            const actionUrl = `/mitra/${articleId}`;
             deleteForm.setAttribute('action', actionUrl);
         });
     });
@@ -533,26 +538,28 @@ document.addEventListener('DOMContentLoaded', function() {
             const articleId = this.getAttribute('data-edit-id');
             
             // Fetch article data
-            fetch(`/articles/${articleId}/edit`)
+            fetch(`/mitra/${articleId}/edit`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
                         const article = data.article;
                         
                         // Set form action
-                        editForm.setAttribute('action', `/articles/${articleId}`);
+                        editForm.setAttribute('action', `/mitra/${articleId}`);
                         
                         // Fill form fields
                         document.getElementById('edit-title').value = article.title;
-                        document.getElementById('edit-description').value = article.description;
-                        document.getElementById('edit-author').value = article.author;
+                        document.getElementById('edit-telephone').value = article.telephone;
+                        document.getElementById('edit-email').value = article.email;
+                        document.getElementById('edit-address').value = article.address;
                         document.getElementById('edit-category_id').value = article.category_id;
+                        document.getElementById('edit-website').value = article.website;
                         
                         // Show current image
                         const imagePreview = document.getElementById('current-image-preview');
-                        if (article.attachment) {
+                        if (article.image) {
                             imagePreview.innerHTML = `
-                                <img src="{{ asset('storage/articles/') }}/${article.attachment}" 
+                                <img src="{{ asset('storage/mitras/') }}/${article.image}" 
                                      alt="Current Image" width="150" class="rounded">
                             `;
                         } else {
