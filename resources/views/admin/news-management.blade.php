@@ -7,6 +7,14 @@
 <link href="{{ URL::asset('build/libs/glightbox/css/glightbox.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('content')
+
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">

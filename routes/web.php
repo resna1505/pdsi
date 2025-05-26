@@ -128,5 +128,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/programkerja/{id}/edit', [ControllersProgramKerjaController::class, 'edit'])->name('programkerja.edit');
     Route::put('/programkerja/{id}', [ControllersProgramKerjaController::class, 'update'])->name('programkerja.update');
 
+    Route::get('/faq', [FAQController::class, 'index']);
+    Route::post('/faq', [FAQController::class, 'store'])->name('faq.store');
+    Route::delete('/faq/{id}', [FAQController::class, 'destroy'])->name('faq.destroy');
+    Route::get('/faq/{id}/edit', [FAQController::class, 'edit'])->name('faq.edit');
+    Route::put('/faq/{id}', [FAQController::class, 'update'])->name('faq.update');
+
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

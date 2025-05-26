@@ -162,10 +162,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="faq">
+                            <i class=" ri-user-line"></i> <span data-key="t-faq">FAQ</span>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
                         <a class="nav-link menu-link" href="pages-coming-soon">
                             <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">Faq</span></li>

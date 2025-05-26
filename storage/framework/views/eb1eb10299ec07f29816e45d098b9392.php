@@ -162,10 +162,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="pages-coming-soon">
-                            <i class="bi bi-table"></i> <span data-key="t-authentication"><?php echo app('translator')->get('translation.table'); ?></span>
+                        <a class="nav-link menu-link" href="faq">
+                            <i class=" ri-user-line"></i> <span data-key="t-faq">FAQ</span>
                         </a>
                     </li>
+                    
                 <?php endif; ?>
 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">Faq</span></li>
