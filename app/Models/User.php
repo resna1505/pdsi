@@ -22,18 +22,7 @@ class User extends Authenticatable
         'is_active',
         'level',
         'email',
-        'name',
-        'tempat_lahir',
-        'tanggal_lahir',
-        'no_hp',
-        'alamat',
-        'kota',
-        'provinsi',
-        'profesi',
-        'ktp',
-        'npwp',
         'password',
-        'avatar',
         'remember_token'
     ];
 

@@ -18,7 +18,16 @@ class Anggota extends Model
         'pengalaman_tahun',
         'jumlah_peserta',
         'jumlah_minat',
-        'jumlah_materi'
+        'jumlah_materi',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'kota',
+        'provinsi',
+        'profesi',
+        'ktp',
+        'npwp',
+        'avatar',
+        'user_id'
     ];
 
     public function iurans()
