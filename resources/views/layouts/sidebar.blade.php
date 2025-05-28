@@ -115,8 +115,7 @@
 
                 @if (Auth::user()->level == 'Admin')
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
-
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                             <i class="bi bi-person-circle"></i> <span data-key="t-authentication">@lang('translation.user')</span>
                         </a>
@@ -130,12 +129,18 @@
                                 </li>                               
                             </ul>
                         </div>
+                    </li> --}}
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="user">
+                            <i class="bi bi-person-circle"></i> <span data-key="t-user">@lang('translation.user')</span>
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="workshops">
                             <i class="ri-calendar-line"></i> <span data-key="t-workshops">@lang('translation.workshops')</span>
                         </a>
                     </li>
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Profile</span></li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="articles">
                             <i class="ri-volume-up-line"></i> <span data-key="t-news-management">@lang('translation.news')</span>

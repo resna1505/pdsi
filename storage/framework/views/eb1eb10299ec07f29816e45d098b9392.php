@@ -115,27 +115,18 @@
 
                 <?php if(Auth::user()->level == 'Admin'): ?>
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
-
+                    
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                            <i class="bi bi-person-circle"></i> <span data-key="t-authentication"><?php echo app('translator')->get('translation.user'); ?></span>
+                        <a class="nav-link menu-link" href="user">
+                            <i class="bi bi-person-circle"></i> <span data-key="t-user"><?php echo app('translator')->get('translation.user'); ?></span>
                         </a>
-                        <div class="collapse menu-dropdown" id="sidebarAuth">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="pengajuan-admin" class="nav-link" data-key="t-basic"><?php echo app('translator')->get('translation.admin'); ?></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pengajuan-anggota" class="nav-link" data-key="t-basic-2"><?php echo app('translator')->get('translation.member'); ?></a>
-                                </li>                               
-                            </ul>
-                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="workshops">
                             <i class="ri-calendar-line"></i> <span data-key="t-workshops"><?php echo app('translator')->get('translation.workshops'); ?></span>
                         </a>
                     </li>
+                    <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Profile</span></li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="articles">
                             <i class="ri-volume-up-line"></i> <span data-key="t-news-management"><?php echo app('translator')->get('translation.news'); ?></span>

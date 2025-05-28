@@ -11,6 +11,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
 use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisiMisiValueController;
 
 /*
@@ -92,18 +93,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pembayaran-iuran', [PembayaranIuranController::class, 'index']);
     Route::post('/iuran/update-status/{anggota}', [PembayaranIuranController::class, 'updateStatus']);
 
-    Route::get('/pengajuan-admin', function () {
-        return view('admin.pengajuan-admin');
-    });
-    Route::get('/pengajuan-anggota', function () {
-        return view('admin.pengajuan-anggota');
-    });
+    // Route::get('/pengajuan-admin', function () {
+    //     return view('admin.pengajuan-admin');
+    // });
+    // Route::get('/pengajuan-anggota', function () {
+    //     return view('admin.pengajuan-anggota');
+    // });
     Route::get('/workshops', function () {
         return view('admin.workshops');
     });
-    // Route::get('/news-management', function () {
-    //     return view('admin.news-management');
-    // });
+
+    Route::get('/user', [UserController::class, 'index']);
+
     Route::get('/articles', [ArticleController::class, 'index']);
     Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
     Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
@@ -146,5 +147,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/faq/{id}/edit', [FAQController::class, 'edit'])->name('faq.edit');
     Route::put('/faq/{id}', [FAQController::class, 'update'])->name('faq.update');
 
-    // Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->where('any', '^(?!storage).*$');
+    Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index'])->where('any', '^(?!storage).*$');
 });
