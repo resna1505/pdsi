@@ -77,111 +77,22 @@ class Register extends Component
         session()->flash('success', 'OTP has been sent to your email.');
     }
 
-    // public function submit()
-    // {
-    //     // validate the data
-    //     $this->validate();
-
-    //     // Cek OTP di database
-    //     $otpRecord = Otp::where('email', $this->email)
-    //         ->where('otp', $this->otp)
-    //         ->where('expires_at', '>', now()) // OTP tidak expired
-    //         ->first();
-
-    //     if (!$otpRecord) {
-    //         session()->flash('error', 'Invalid or expired OTP.');
-    //         return;
-    //     }
-
-    //     // Hapus OTP setelah digunakan
-    //     $otpRecord->delete();
-
-    //     if ($this->ktp != null) {
-    //         $ktp = $this->ktp;
-    //         $ktpName = time() . '.' . $ktp->getClientOriginalExtension();
-    //         Storage::putFileAs('public/images/users', $ktp, $ktpName);
-    //     }
-    //     if ($this->npwp != null) {
-    //         $npwp = $this->npwp;
-    //         $npwpName = time() . '.' . $npwp->getClientOriginalExtension();
-    //         Storage::putFileAs('public/images/users', $npwp, $npwpName);
-    //     }
-    //     if ($this->avatar != null) {
-    //         $avatar = $this->avatar;
-    //         $avatarName = time() . '.' . $avatar->getClientOriginalExtension();
-    //         Storage::putFileAs('public/images/users', $avatar, $avatarName);
-    //     }
-    //     if ($this->profesi == 'other') {
-    //         $this->profesi = $this->otherProfesi;
-    //     }
-    //     $token = bin2hex(random_bytes(20));
-
-    //     // User::create([
-    //     //     'email' => $this->email,
-    //     //     'name' => $this->name,
-    //     //     'level' => 'Dokter',
-    //     //     'tempat_lahir' => $this->tempat_lahir,
-    //     //     'tanggal_lahir' => $this->tanggal_lahir,
-    //     //     'no_hp' => $this->no_hp,
-    //     //     'alamat' => $this->alamat,
-    //     //     'kota' => $this->kota,
-    //     //     'provinsi' => $this->provinsi,
-    //     //     'profesi' => $this->profesi,
-    //     //     'ktp' => $ktpName,
-    //     //     'npwp' => $npwpName,
-    //     //     'password' => Hash::make($this->password),
-    //     //     'email_verified_at' => now(),
-    //     //     'avatar' => $avatarName,
-    //     //     'remember_token' => $token,
-    //     //     'created_at' => now(),
-    //     // ]);
-
-    //     $user = User::create([
-    //         'email' => $this->email,
-    //         'level' => 'Dokter',
-    //         'password' => Hash::make($this->password),
-    //         'email_verified_at' => now(),
-    //         'remember_token' => $token,
-    //         'created_at' => now(),
-    //     ]);
-
-    //     Anggota::create([
-    //         'user_id' => $user->id,
-    //         'email' => $this->email,
-    //         'nama' => $this->name,
-    //         'tempat_lahir' => $this->tempat_lahir,
-    //         'tanggal_lahir' => $this->tanggal_lahir,
-    //         'no_hp' => $this->no_hp,
-    //         'alamat' => $this->alamat,
-    //         'kota' => $this->kota,
-    //         'provinsi' => $this->provinsi,
-    //         'profesi' => $this->profesi,
-    //         'spesialis' => $this->profesi,
-    //         'ktp' => $ktpName,
-    //         'npwp' => $npwpName,
-    //         'avatar' => $avatarName,
-    //     ]);
-
-    //     return redirect('login')->with('success', 'User registered successfully.!');
-    // }
-
     public function submit()
     {
         $this->validate();
 
-        // $otpRecord = Otp::where('email', $this->email)
-        //     ->where('otp', $this->otp)
-        //     ->where('expires_at', '>', now())
-        //     ->first();
+        $otpRecord = Otp::where('email', $this->email)
+            ->where('otp', $this->otp)
+            ->where('expires_at', '>', now())
+            ->first();
 
-        // if (!$otpRecord) {
-        //     session()->flash('error', 'Invalid or expired OTP.');
-        //     return;
-        // }
+        if (!$otpRecord) {
+            session()->flash('error', 'Invalid or expired OTP.');
+            return;
+        }
 
-        // $otpRecord->delete();
+        $otpRecord->delete();
 
-        // Upload file jika ada
         $ktpName = $this->ktp ? time() . '_ktp.' . $this->ktp->getClientOriginalExtension() : null;
         if ($this->ktp) Storage::putFileAs('public/images/users', $this->ktp, $ktpName);
 

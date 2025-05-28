@@ -12,7 +12,7 @@
     <!-- Konten Utama -->
     <div class="col-xl-9 col-lg-8"> <!-- Sesuaikan lebar sesuai kebutuhan -->
         <!-- Isi konten utama Anda di sini -->
-        <div class="row">
+        {{-- <div class="row">
             <!-- Card statistik -->
             <div class="col-xl-4">
                 <div class="row">
@@ -179,9 +179,9 @@
                     </div><!-- end card body -->
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-xl-4">
                 <div class="card card-height-100">
                     <div class="card-header border-bottom-dashed align-items-center d-flex">
@@ -442,7 +442,7 @@
                     </div>
                 </div> <!-- .card-->
             </div>
-        </div>
+        </div> --}}
         
         <div class="row">
             <div class="col-lg-12">

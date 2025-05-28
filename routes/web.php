@@ -63,14 +63,17 @@ Route::get('/auth-offline', function () {
 })->name('auth.offline');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/index', function () {
+        return redirect('/');
+    });
     Route::get('/', function () {
         $user = Auth::user();
         if (strtolower($user->level) === 'admin') {
-            return view('admin.index'); // view untuk admin
+            return view('admin.index');
         }
 
         if (strtolower($user->level) === 'dokter') {
-            return view('member.index'); // view untuk pengguna
+            return view('member.index');
         }
     });
 
@@ -78,13 +81,13 @@ Route::group(['middleware' => 'auth'], function () {
         return view('admin.member');
     });
 
-
     Route::get('/faq', [FAQController::class, 'index']);
 
     Route::get('/training', function () {
         return view('admin.training');
     });
 
+    // -> Dokter
     // Berita
     Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement.index');
     Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcement.show');
@@ -93,18 +96,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pembayaran-iuran', [PembayaranIuranController::class, 'index']);
     Route::post('/iuran/update-status/{anggota}', [PembayaranIuranController::class, 'updateStatus']);
 
-    // Route::get('/pengajuan-admin', function () {
-    //     return view('admin.pengajuan-admin');
-    // });
-    // Route::get('/pengajuan-anggota', function () {
-    //     return view('admin.pengajuan-anggota');
-    // });
+    // -> Admin
+    // Workshop
     Route::get('/workshops', function () {
         return view('admin.workshops');
     });
 
     Route::get('/user', [UserController::class, 'index']);
 
+    // Profile
     Route::get('/articles', [ArticleController::class, 'index']);
     Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
     Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');

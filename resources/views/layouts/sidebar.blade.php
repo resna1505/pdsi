@@ -43,6 +43,11 @@
                             <i class=" ri-user-line"></i> <span data-key="t-member">@lang('translation.member')</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="iuran">
+                            <i class=" ri-user-line"></i> <span data-key="t-iuran">Iuran</span>
+                        </a>
+                    </li>
                 @endif
 
                 @if (Auth::user()->level == 'Dokter')

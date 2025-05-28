@@ -24,21 +24,22 @@ class Login extends Component
 
     public function submit()
     {
-        // validate the data
         $this->validate();
 
-        $user = array(
+        $credentials = [
             'email' => $this->email,
             'password' => $this->password,
-        );
+            'is_active' => 1,  // hanya user aktif yang bisa login
+        ];
 
-        if (Auth::attempt($user)) {
+        if (Auth::attempt($credentials)) {
             return redirect()->intended('/');
         } else {
             $this->addError('email', trans('auth.failed'));
             return redirect()->back();
         }
     }
+
 
     public function render()
     {
