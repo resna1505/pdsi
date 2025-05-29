@@ -103,6 +103,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/user', [UserController::class, 'index']);
+    Route::post('/verifikasi-user/{id}', [UserController::class, 'verifikasi']);
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
     // Profile
     Route::get('/articles', [ArticleController::class, 'index']);

@@ -314,20 +314,22 @@
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
+                            {{-- Nama dari anggota --}}
                             <img class="rounded-circle header-profile-user"
-                                src="@if (Auth::user()->avatar) {{ URL::asset('storage/images/users/' . Auth::user()->avatar) }} @else {{ URL::asset('build/images/users/avatar-1.jpg') }} @endif"
-                                {{-- src="{{ URL::asset('storage/images/users/' . Auth::user()->avatar) }}" --}}
-                                alt="Header Avatar">
+                                src="{{ Auth::user()->anggota?->avatar
+                                    ? asset('storage/images/users/' . Auth::user()->anggota->avatar)
+                                    : asset('build/images/users/avatar-1.jpg') }}"
+                                alt="User Avatar">
                             <span class="text-start ms-xl-2">
                                 <span
-                                    class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ Auth::user()->name }}</span>
-                                <span class="d-none d-xl-block ms-1 fs-13 text-reset user-name-sub-text">{{ Auth::user()->profesi }}</span>
+                                    class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ Auth::user()->anggota?->nama }}</span>
+                                <span class="d-none d-xl-block ms-1 fs-13 text-reset user-name-sub-text">{{ Auth::user()->anggota?->profesi }}</span>
                             </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
                         <!-- item-->
-                        <h6 class="dropdown-header">Welcome {{ Auth::user()->name }} {{ Auth::user()->last_name }}!</h6>
+                        <h6 class="dropdown-header">Welcome {{ Auth::user()->anggota?->nama }} {{ Auth::user()->last_name }}!</h6>
                             <a class="dropdown-item" href="pages-profile"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span>

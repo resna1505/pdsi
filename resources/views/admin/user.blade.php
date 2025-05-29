@@ -61,21 +61,45 @@
                                             <div class="row mb-4 pb-2">
                                                 <div class="col">
                                                     <div class="flex-shrink-0 me-2">
-                                                        <button type="button" class="btn btn-outline-danger custom-toggle rounded-circle btn-icon btn-sm" data-bs-toggle="button">
-                                                            <span class="icon-on"><i class="ri-heart-line fs-14"></i></span>
-                                                            <span class="icon-off"><i class="ri-heart-fill fs-14"></i></span>
+                                                        <button type="button"
+                                                        class="btn btn-outline-success custom-toggle rounded-circle btn-icon btn-sm"
+                                                        data-bs-toggle="offcanvas"
+                                                        data-bs-target="#viewVerification"
+                                                        data-id="{{ $item->user_id }}"
+                                                        data-nama="{{ $item->nama }}"
+                                                        data-ktp="{{ $item->ktp }}"
+                                                        data-npwp="{{ $item->npwp }}"
+                                                        data-lahir="{{ $item->tempat_lahir }}"
+                                                        data-birthday="{{ $item->tanggal_lahir }}"
+                                                        data-email="{{ $item->email }}"
+                                                        data-phone="{{ $item->no_hp }}"
+                                                        data-address="{{ $item->alamat }}"
+                                                        data-city="{{ $item->kota }}"
+                                                        data-provinsi="{{ $item->provinsi }}"
+                                                        data-profesi="{{ $item->profesi }}"
+                                                        data-avatar="{{  URL::asset("storage/images/users/{$item->avatar}") }}"
+                                                        >
+                                                            <i class="ri-eye-fill"></i>
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-fill fs-17"></i> </a>
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
+                                                        {{-- <li>
+                                                            <a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12">
+                                                            <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                            </a>
+                                                        </li> --}}
+                                                        <li>
+                                                            <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $item->user_id }}">
+                                                            <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="text-center mb-4">
-                                                <img src="{{ URL::asset('build/images/users/avatar-9.jpg') }}" alt="" class="avatar-md rounded-3" />
+                                                <img src="{{  URL::asset("storage/images/users/{$item->avatar}") }}" alt="" class="avatar-md rounded-3" />
                                             </div>
                                             <div class="text-center">
                                                 <a href="#member-overview" data-bs-toggle="offcanvas">
@@ -105,21 +129,45 @@
                                             <div class="row mb-4 pb-2">
                                                 <div class="col">
                                                     <div class="flex-shrink-0 me-2">
-                                                        <button type="button" class="btn btn-outline-danger custom-toggle rounded-circle btn-icon btn-sm" data-bs-toggle="button">
-                                                            <span class="icon-on"><i class="ri-heart-line fs-14"></i></span>
-                                                            <span class="icon-off"><i class="ri-heart-fill fs-14"></i></span>
+                                                        <button type="button"
+                                                        class="btn btn-outline-success custom-toggle rounded-circle btn-icon btn-sm"
+                                                        data-bs-toggle="offcanvas"
+                                                        data-bs-target="#viewVerification"
+                                                        data-id="{{ $item->user_id }}"
+                                                        data-nama="{{ $item->nama }}"
+                                                        data-ktp="{{ $item->ktp }}"
+                                                        data-npwp="{{ $item->npwp }}"
+                                                        data-lahir="{{ $item->tempat_lahir }}"
+                                                        data-birthday="{{ $item->tanggal_lahir }}"
+                                                        data-email="{{ $item->email }}"
+                                                        data-phone="{{ $item->no_hp }}"
+                                                        data-address="{{ $item->alamat }}"
+                                                        data-city="{{ $item->kota }}"
+                                                        data-provinsi="{{ $item->provinsi }}"
+                                                        data-profesi="{{ $item->profesi }}"
+                                                        data-avatar="{{  URL::asset("storage/images/users/{$item->avatar}") }}"
+                                                        >
+                                                            <i class="ri-eye-fill"></i>
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-fill fs-17"></i> </a>
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
+                                                        {{-- <li>
+                                                            <a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12">
+                                                            <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                            </a>
+                                                        </li> --}}
+                                                        <li>
+                                                            <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $item->user_id }}">
+                                                            <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div class="text-center mb-4">
-                                                <img src="{{ URL::asset('build/images/users/avatar-9.jpg') }}" alt="" class="avatar-md rounded-3" />
+                                                <img src="{{  URL::asset("storage/images/users/{$item->avatar}") }}" alt="" class="avatar-md rounded-3" />
                                             </div>
                                             <div class="text-center">
                                                 <a href="#member-overview" data-bs-toggle="offcanvas">
@@ -130,7 +178,7 @@
                                         </div>
                                     </div>
                                 </div>  
-                            @endforeach                                                          
+                            @endforeach                                                        
                         </div>
                         <div class="d-flex align-items-center border-top pt-3">
                             <div class="flex-grow-1">
@@ -200,6 +248,71 @@
         <!--end modal-content-->
     </div>
     <!--end modal-dialog-->
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="viewVerification" aria-labelledby="viewVerificationLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="text-center">
+            <div class="mb-3">
+                <img src="" alt="" class="avatar-lg d-block mx-auto rounded-circle overview-userimg overview-avatar" />
+            </div>
+            <h5 class="offcanvas-title mb-2 overview-name" id="viewVerificationLabel">-</h5>
+            <p class="text-muted mb-4 overview-profesi">-</p>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                <tbody>
+                    <form id="verifikasiForm" method="POST" style="display:none;">
+                    @csrf
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td class="overview-email"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">KTP</th>
+                        <td class="overview-ktp">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">NPWP</th>
+                        <td class="overview-npwp">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone Number</th>
+                        <td class="overview-phone">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tempat Tinggal</th>
+                        <td class="overview-address">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Kota</th>
+                        <td class="overview-city">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Provinsi</th>
+                        <td class="overview-provinsi">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tempat Lahir</th>
+                        <td class="overview-lahir">-</td>
+                    </tr>                    
+                    <tr>
+                        <th scope="row">Tanggal Lahir</th>
+                        <td class="overview-birthday">-</td>
+                    </tr>                    
+                    </form>
+                </tbody>
+            </table>
+        </div>
+        <div class="hstack gap-2 w-100">
+            <button type="button" class="btn btn-secondary w-100" id="btnVerifikasi" data-anggota-id="{{ Auth::user()->anggota?->id ?? '' }}">
+                Verifikasi
+            </button>
+        </div>
+    </div>
 </div>
 
 <div id="removeMemberModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
@@ -375,80 +488,70 @@
     });
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle modal delete
-    const removeLinks = document.querySelectorAll('.remove-list');
-    const deleteForm = document.getElementById('deleteForm');
-    
-    removeLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const articleId = this.getAttribute('data-remove-id');
-            const actionUrl = `/articles/${articleId}`;
-            deleteForm.setAttribute('action', actionUrl);
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle modal delete
+        const removeLinks = document.querySelectorAll('.remove-list');
+        const deleteForm = document.getElementById('deleteForm');
+        
+        removeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const articleId = this.getAttribute('data-remove-id');
+                const actionUrl = `/user/${articleId}`;
+                deleteForm.setAttribute('action', actionUrl);
+            });
         });
     });
-});
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle edit modal
-    const editLinks = document.querySelectorAll('.edit-list');
-    const editForm = document.getElementById('edit-form');
-    
-    editLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const articleId = this.getAttribute('data-edit-id');
-            
-            // Fetch article data
-            fetch(`/articles/${articleId}/edit`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const article = data.article;
-                        
-                        // Set form action
-                        editForm.setAttribute('action', `/articles/${articleId}`);
-                        
-                        // Fill form fields
-                        document.getElementById('edit-title').value = article.title;
-                        document.getElementById('edit-description').value = article.description;
-                        document.getElementById('edit-author').value = article.author;
-                        document.getElementById('edit-category_id').value = article.category_id;
-                        
-                        // Show current image
-                        const imagePreview = document.getElementById('current-image-preview');
-                        if (article.attachment) {
-                            imagePreview.innerHTML = `
-                                <img src="{{ asset('storage/articles/') }}/${article.attachment}" 
-                                     alt="Current Image" width="150" class="rounded">
-                            `;
-                        } else {
-                            imagePreview.innerHTML = '<p class="text-muted">No image</p>';
-                        }
-                        
-                        // Clear previous errors
-                        document.getElementById('edit-errors').classList.add('d-none');
-                        
-                        // If using CKEditor, update it
-                        if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
-                            CKEDITOR.instances['edit-description'].setData(article.description);
-                        }
-                    } else {
-                        alert('Error loading article data');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error loading article data');
-                });
+    const viewVerification = document.getElementById('viewVerification');
+    viewVerification.addEventListener('show.bs.offcanvas', function (event) {
+        const button = event.relatedTarget;
+        // const id = button.getAttribute('data-id');
+        const nama = button.getAttribute('data-nama');
+        const ktp = button.getAttribute('data-ktp');
+        const npwp = button.getAttribute('data-npwp');
+        const lahir = button.getAttribute('data-lahir');
+        const birthday = button.getAttribute('data-birthday');
+        const email = button.getAttribute('data-email');
+        const phone = button.getAttribute('data-phone');
+        const address = button.getAttribute('data-address');
+        const city = button.getAttribute('data-city');
+        const provinsi = button.getAttribute('data-provinsi');
+        const profesi = button.getAttribute('data-profesi');
+        const avatar = button.getAttribute('data-avatar');
+
+        // viewVerification.querySelector('.overview-id').textContent = id;
+        viewVerification.querySelector('.overview-name').textContent = nama;
+        viewVerification.querySelector('.overview-email').textContent = email;
+        viewVerification.querySelector('.overview-phone').textContent = phone;
+        viewVerification.querySelector('.overview-address').textContent = address;
+        viewVerification.querySelector('.overview-city').textContent = city;
+        viewVerification.querySelector('.overview-provinsi').textContent = provinsi;
+        viewVerification.querySelector('.overview-profesi').textContent = profesi;
+        viewVerification.querySelector('.overview-ktp').textContent = ktp;
+        viewVerification.querySelector('.overview-npwp').textContent = npwp;
+        viewVerification.querySelector('.overview-lahir').textContent = lahir;
+        viewVerification.querySelector('.overview-birthday').textContent = birthday;
+        viewVerification.querySelector('.overview-avatar').src = avatar;
+        // Tambahkan yang lain sesuai kebutuhan
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const verifikasiForm = document.getElementById('verifikasiForm');
+        const btnVerifikasi = document.getElementById('btnVerifikasi');
+
+        btnVerifikasi.addEventListener('click', function () {
+            const anggotaId = this.getAttribute('data-anggota-id');
+            if (!anggotaId) {
+                alert('ID anggota tidak ditemukan!');
+                return;
+            }
+            // set action URL ke route post verifikasi
+            verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
+            verifikasiForm.submit();
         });
     });
-});
 </script>
-<script>
-// Initialize CKEditor for edit modal
-if (typeof CKEDITOR !== 'undefined') {
-    CKEDITOR.replace('edit-description');
-}
-</script>
+
 @endsection
