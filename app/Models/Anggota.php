@@ -39,4 +39,10 @@ class Anggota extends Model
     {
         return $this->hasMany(Testimonial::class);
     }
+
+    // app/Models/Anggota.php
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

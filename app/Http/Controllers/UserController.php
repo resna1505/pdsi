@@ -12,12 +12,21 @@ class UserController extends Controller
 {
     public function index()
     {
-        $admin = Anggota::where('spesialis', '=', '')->get();
-        $dokter = Anggota::where('spesialis', '!=', '')->get();
+        $admin = Anggota::where('spesialis', '')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
 
-        // dd($dokter);
+        $dokter = Anggota::where('spesialis', '!=', '')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->get();
+
         return view('admin.user', compact('admin', 'dokter'));
     }
+
 
     public function verifikasi($id)
     {
@@ -27,10 +36,6 @@ class UserController extends Controller
             $user->is_active = 1;
             $user->save();
 
-            // return response()->json([
-            //     'success' => true,
-            //     'message' => 'User berhasil diverifikasi.'
-            // ]);
             return redirect()->back()->with('success', 'User added successfully!');
         } catch (\Throwable $e) {
             Log::error('Article store error: ' . $e->getMessage(), [
