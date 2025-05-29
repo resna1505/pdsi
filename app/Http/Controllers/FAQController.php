@@ -18,7 +18,7 @@ class FAQController extends Controller
         $articles = FAQItem::orderBy('created_at', 'desc')->get();
         $categories = FAQCategory::with('items')->get();
 
-        return view('admin.faq', compact('articles', 'categories'));
+        return view('member.faq', compact('articles', 'categories'));
     }
 
     public function store(Request $request)

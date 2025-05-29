@@ -52,7 +52,7 @@
                             <div class="col-xxl-8 video-lists">
                                 @foreach($data as $item)
                                     <div class="list-element">
-                                        <div class="d-flex flex-column flex-sm-row mb-3">
+                                        <div class="d-flex flex-column flex-sm-row mb-4">
                                             <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
                                                 <div class="position-relative">
                                                     <a href="javascript:void(0);" class="stretched-link">

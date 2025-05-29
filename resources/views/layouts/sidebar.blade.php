@@ -197,7 +197,7 @@
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">Faq</span></li>
                     
                     <li class="nav-item">
-                        <a href="faq" class="nav-link menu-link"> <i class=" ri-question-line"></i> <span data-key="t-faq">Faq</span> </a>
+                        <a href="faq-dokter" class="nav-link menu-link"> <i class=" ri-question-line"></i> <span data-key="t-faq-dokter">Faq</span> </a>
                     </li>
                 @endif                
             </ul>

@@ -82,7 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('admin.member');
     });
 
-    Route::get('/faq', [FAQController::class, 'index']);
+    Route::get('/faq-dokter', [FAQController::class, 'index']);
 
     Route::get('/training', function () {
         return view('admin.training');
@@ -95,7 +95,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Iuran
     Route::get('/pembayaran-iuran', [PembayaranIuranController::class, 'index']);
-    Route::post('/iuran/update-status/{anggota}', [PembayaranIuranController::class, 'updateStatus']);
+    Route::post('/iuran/update-status-payment', [PembayaranIuranController::class, 'updateStatusPayment'])->name('iuran.updateStatusPayment');
+    Route::post('/iuran/update-status', [PembayaranIuranController::class, 'updateStatus'])->name('iuran.updateStatus');
 
     // -> Admin
     // Workshop

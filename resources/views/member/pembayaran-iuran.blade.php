@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('title')
-    @lang('translation.starter')
+    {{-- @lang('translation.starter') --}}
+    Iuran Anggota
 @endsection
 @section('content')
     @component('components.breadcrumb')
@@ -20,25 +21,25 @@
                         <div class="row gy-5">
                             <div class="col-lg-3">
                                 <div class="nav flex-column custom-nav nav-pills" role="tablist" aria-orientation="vertical">
-                                    <button class="nav-link step-nav-tab active" id="v-pills-bill-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bill-info" type="button" role="tab" aria-controls="v-pills-bill-info" aria-selected="true" disabled>
+                                    <button class="nav-link step-nav-tab {{ $currentStatus == 0 ? 'active' : '' }}" id="v-pills-bill-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bill-info" type="button" role="tab" aria-controls="v-pills-bill-info" aria-selected="true" disabled>
                                         <span class="step-title me-2">
                                             <i class="ri-close-circle-fill step-icon me-2"></i> Step 1
                                         </span>
                                         Billing Info
                                     </button>
-                                    <button class="nav-link step-nav-tab" id="v-pills-bill-address-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bill-address" type="button" role="tab" aria-controls="v-pills-bill-address" aria-selected="false" disabled>
+                                    <button class="nav-link step-nav-tab {{ $currentStatus == 1 ? 'active' : '' }}" id="v-pills-bill-address-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bill-address" type="button" role="tab" aria-controls="v-pills-bill-address" aria-selected="false" disabled>
                                         <span class="step-title me-2">
                                             <i class="ri-close-circle-fill step-icon me-2"></i> Step 2
                                         </span>
                                         Payment
                                     </button>
-                                    <button class="nav-link step-nav-tab" id="v-pills-payment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-payment" type="button" role="tab" aria-controls="v-pills-payment" aria-selected="false" disabled>
+                                    <button class="nav-link step-nav-tab {{ $currentStatus == 2 ? 'active' : '' }}" id="v-pills-payment-tab" data-bs-toggle="pill" data-bs-target="#v-pills-payment" type="button" role="tab" aria-controls="v-pills-payment" aria-selected="false" disabled>
                                         <span class="step-title me-2">
                                             <i class="ri-close-circle-fill step-icon me-2"></i> Step 3
                                         </span>
                                         Verification
                                     </button>
-                                    <button class="nav-link step-nav-tab" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false" disabled>
+                                    <button class="nav-link step-nav-tab {{ $currentStatus == 3 ? 'active' : '' }}" id="v-pills-finish-tab" data-bs-toggle="pill" data-bs-target="#v-pills-finish" type="button" role="tab" aria-controls="v-pills-finish" aria-selected="false" disabled>
                                         <span class="step-title me-2">
                                             <i class="ri-close-circle-fill step-icon me-2"></i> Step 4
                                         </span>
@@ -77,14 +78,6 @@
                                                     <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
                                                     Go to Payment
                                                 </button>
-                                                {{-- <button 
-                                                    type="button" 
-                                                    class="btn btn-success btn-label right ms-auto nexttab nexttab" 
-                                                    data-iuranid="{{ $anggota->id }}" 
-                                                    id="goToPaymentBtn">
-                                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
-                                                    Go to Payment
-                                                </button> --}}
                                             </div>
                                         </div>
                                         <!-- end tab pane -->
@@ -131,8 +124,19 @@
                                                 </div>
                                             </div>
                                             <div class="d-flex align-items-start gap-3 mt-4">
-                                                <button type="button" class="btn btn-light btn-label previestab" data-previous="v-pills-bill-info-tab"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i> Back to Billing Info</button>
-                                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-payment-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go to Verification</button>
+                                                <button type="button" class="btn btn-light btn-label previestab" 
+                                                        data-previous="v-pills-bill-info-tab" 
+                                                        data-status="0" 
+                                                        data-anggota-id="{{ $anggotaId }}">
+                                                    <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i> Back to Billing Info
+                                                </button>
+                                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" 
+                                                        data-nexttab="v-pills-payment-tab"
+                                                        data-status="2" 
+                                                        data-anggota-id="{{ $anggotaId }}"
+                                                        id="goToVerificationBtn">
+                                                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Go to Verification
+                                                </button>
                                             </div>
                                         </div>
                                         <!-- end tab pane -->
@@ -150,10 +154,10 @@
                                                   <p class="text-muted">Your proof of payment is being verified. Please wait.</p>                                                  
                                             </div>
     
-                                            <div class="d-flex align-items-start gap-3 mt-4">
+                                            {{-- <div class="d-flex align-items-start gap-3 mt-4">
                                                 <button type="button" class="btn btn-light btn-label previestab" data-previous="v-pills-bill-address-tab"><i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i> Back to Payment Info</button>
                                                 <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-finish-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i> Order Complete</button>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <!-- end tab pane -->
                                         <div class="tab-pane fade" id="v-pills-finish" role="tabpanel" aria-labelledby="v-pills-finish-tab">
@@ -184,7 +188,7 @@
                                             <h6 class="my-0">Denda</h6>
                                             <small>Telat bayar iuran</small>
                                         </div>
-                                        <span class="text-danger">+ Rp 25.000</span>
+                                        <span class="text-danger">+ Rp 0</span>
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>Total</span>
@@ -205,118 +209,165 @@
 @endsection
 @section('script')
     <script src="{{ URL::asset('build/libs/tom-select/js/tom-select.base.min.js') }}"></script>
-    {{-- <script src="{{ URL::asset('build/js/pages/form-wizard.init.js') }}"></script> --}}
     <script src="{{ URL::asset('build/js/app.js') }}"></script>
-
-    
     <script>
-        function copyRekening() {
-            // Ambil isi dari elemen dengan id noRek
-            var copyText = document.getElementById("noRek").innerText;
-            
-            // Gunakan clipboard API
-            navigator.clipboard.writeText(copyText).then(function() {
-                alert("Nomor rekening berhasil disalin: " + copyText);
-            }, function(err) {
-                alert("Gagal menyalin");
-            });
-        }
+    function copyRekening() {
+        // Ambil isi dari elemen dengan id noRek
+        var copyText = document.getElementById("noRek").innerText;
         
-        // Cegah klik manual step-tab
-        document.querySelectorAll('.step-nav-tab').forEach(function (tab) {
-            tab.addEventListener('click', function (e) {
-                e.preventDefault();
-            });
+        // Gunakan clipboard API
+        navigator.clipboard.writeText(copyText).then(function() {
+            alert("Nomor rekening berhasil disalin: " + copyText);
+        }, function(err) {
+            alert("Gagal menyalin");
         });
-    
-        // Fungsi untuk navigasi otomatis ke step berikutnya
-        document.querySelectorAll('.nexttab').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var nextTab = document.querySelector(`#${this.dataset.nexttab}`);
-                if (nextTab) {
-                    // Hapus class active dari semua
-                    document.querySelectorAll('.step-nav-tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
-    
-                    // Aktifkan tab tujuan
-                    nextTab.classList.add('active');
-                    const targetContent = document.querySelector(nextTab.dataset.bsTarget);
-                    targetContent.classList.add('show', 'active');
-                }
-            });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let currentStatus = {{ $currentStatus }};
+        let steps = [
+            'v-pills-bill-info-tab',
+            'v-pills-bill-address-tab',
+            'v-pills-payment-tab',
+            'v-pills-finish-tab'
+        ];
+
+        let contents = [
+            'v-pills-bill-info',
+            'v-pills-bill-address',
+            'v-pills-payment',
+            'v-pills-finish'
+        ];
+
+        // Aktifkan tab sesuai status
+        for (let i = 0; i <= currentStatus; i++) {
+            document.getElementById(steps[i]).disabled = false;
+        }
+
+        // Trigger tab yang sesuai status
+        document.getElementById(steps[currentStatus]).click();
+
+        // Tambah class 'active show' ke tab-pane
+        contents.forEach(id => document.getElementById(id).classList.remove('active', 'show'));
+        document.getElementById(contents[currentStatus]).classList.add('active', 'show');
+    });
+
+    // PENTING: Cegah klik manual step-tab - JANGAN BIARKAN STEP BISA DIKLIK
+    document.querySelectorAll('.step-nav-tab').forEach(function (tab) {
+        tab.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
         });
-    
-        // Fungsi untuk navigasi sebelumnya (opsional)
-        document.querySelectorAll('.previestab').forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                var prevTab = document.querySelector(`#${this.dataset.previous}`);
-                if (prevTab) {
-                    // Hapus class active dari semua
-                    document.querySelectorAll('.step-nav-tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
-    
-                    // Aktifkan tab tujuan
-                    prevTab.classList.add('active');
-                    const targetContent = document.querySelector(prevTab.dataset.bsTarget);
-                    targetContent.classList.add('show', 'active');
-                }
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            let currentStatus = {{ $currentStatus }};
-            let steps = [
-                'v-pills-bill-info-tab',
-                'v-pills-bill-address-tab',
-                'v-pills-payment-tab',
-                'v-pills-finish-tab'
-            ];
-    
-            let contents = [
-                'v-pills-bill-info',
-                'v-pills-bill-address',
-                'v-pills-payment',
-                'v-pills-finish'
-            ];
-    
-            // Aktifkan tab sesuai status
-            for (let i = 0; i <= currentStatus; i++) {
-                document.getElementById(steps[i]).disabled = false;
+        
+        // Tambahan: hapus pointer cursor dan buat tidak bisa diklik
+        tab.style.pointerEvents = 'none';
+        tab.style.cursor = 'default';
+        
+        // Tambahkan class disabled untuk memastikan
+        tab.classList.add('disabled');
+    });
+
+    // Fungsi untuk update status
+    function updateStatus(anggotaId, status, callback) {
+        fetch('{{ route("iuran.updateStatus") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({
+                anggota_id: anggotaId,
+                status: status
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Status berhasil diupdate ke:', status);
+                if (callback) callback();
+            } else {
+                alert('Gagal mengupdate status: ' + data.message);
             }
-    
-            // Trigger tab yang sesuai status
-            document.getElementById(steps[currentStatus]).click();
-    
-            // Tambah class 'active show' ke tab-pane
-            contents.forEach(id => document.getElementById(id).classList.remove('active', 'show'));
-            document.getElementById(contents[currentStatus]).classList.add('active', 'show');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat mengupdate status');
         });
-    </script>
-    {{-- <script>
-        document.getElementById("goToPaymentBtn").addEventListener("click", function () {
-            var anggotaId = this.getAttribute("data-iuranid");  // Mengambil data-iuranid
-            console.log(anggotaId); // Cek apakah nilai data-iuranid sudah benar
+    }
 
-            // Mengirimkan data ke server menggunakan fetch
-            fetch('/iuran/update-status/' + anggotaId, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ anggota_id: anggotaId })
-            })
-
-            .then(response => response.json())  // Mengonversi respons menjadi JSON
-            .then(data => {
-                console.log("Status updated:", data); // Menampilkan pesan dari server
-                // Lanjutkan ke tab berikutnya
-                document.querySelector(`[data-nexttab="v-pills-bill-address-tab"]`).click();
-            })
-            .catch(error => {
-                console.error('Error:', error); // Menangani error jika terjadi masalah saat fetch
+    // Fungsi untuk navigasi tab - HANYA BISA DIPANGGIL MELALUI TOMBOL
+    function navigateToTab(targetTabId) {
+        var targetTab = document.querySelector(`#${targetTabId}`);
+        if (targetTab) {
+            // Hapus class active dari semua tab dan content
+            document.querySelectorAll('.step-nav-tab').forEach(t => {
+                t.classList.remove('active');
+                // Pastikan tetap disabled
+                t.style.pointerEvents = 'none';
+                t.style.cursor = 'default';
             });
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+
+            // Aktifkan HANYA tab tujuan (tetap tidak bisa diklik)
+            targetTab.classList.add('active');
+            targetTab.style.pointerEvents = 'none'; // Tetap tidak bisa diklik
+            targetTab.style.cursor = 'default';
+            
+            const targetContent = document.querySelector(targetTab.dataset.bsTarget);
+            if (targetContent) {
+                targetContent.classList.add('show', 'active');
+            }
+        }
+    }
+
+    // Fungsi khusus untuk tombol Go to Payment
+    document.getElementById('goToPaymentBtn').addEventListener('click', function() {
+        const anggotaId = this.dataset.iuranid;
+        const nextTab = this.dataset.nexttab;
+        
+        // Update status ke 1, lalu navigasi
+        updateStatus(anggotaId, 1, function() {
+            navigateToTab(nextTab);
         });
-    </script> --}}
+    });
+
+    // Fungsi khusus untuk tombol Go to Verification
+    document.getElementById('goToVerificationBtn').addEventListener('click', function() {
+        const anggotaId = this.dataset.anggotaId;
+        const nextTab = this.dataset.nexttab;
+        
+        // Update status ke 2, lalu navigasi
+        updateStatus(anggotaId, 2, function() {
+            navigateToTab(nextTab);
+        });
+    });
+
+    // Fungsi untuk tombol Back to Billing Info
+    document.querySelector('[data-previous="v-pills-bill-info-tab"]').addEventListener('click', function() {
+        const anggotaId = this.dataset.anggotaId;
+        const prevTab = this.dataset.previous;
+        
+        // Update status ke 0, lalu navigasi
+        updateStatus(anggotaId, 0, function() {
+            navigateToTab(prevTab);
+        });
+    });
+
+    // Fungsi untuk navigasi otomatis ke step berikutnya (untuk tombol lainnya yang tidak memerlukan update status)
+    document.querySelectorAll('.nexttab:not(#goToPaymentBtn):not(#goToVerificationBtn)').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const nextTab = this.dataset.nexttab;
+            navigateToTab(nextTab);
+        });
+    });
+
+    // Fungsi untuk navigasi sebelumnya (untuk tombol yang tidak memerlukan update status)
+    document.querySelectorAll('.previestab:not([data-previous="v-pills-bill-info-tab"])').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const prevTab = this.dataset.previous;
+            navigateToTab(prevTab);
+        });
+    });
+    </script>
 @endsection
