@@ -45,7 +45,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="iuran">
-                            <i class=" ri-user-line"></i> <span data-key="t-iuran">Iuran</span>
+                            <i class=" ri-user-line"></i> <span data-key="t-iuran">Iuran Anggota</span>
                         </a>
                     </li>
                 @endif
@@ -143,6 +143,11 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="workshops">
                             <i class="ri-calendar-line"></i> <span data-key="t-workshops">@lang('translation.workshops')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="masteriuran">
+                            <i class="ri-money-dollar-circle-line"></i> <span data-key="t-masteriuran">Iuran</span>
                         </a>
                     </li>
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Profile</span></li>

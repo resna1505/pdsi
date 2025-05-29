@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\MasterIuranController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
 use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
@@ -105,6 +106,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user', [UserController::class, 'index']);
     Route::post('/verifikasi-user/{id}', [UserController::class, 'verifikasi']);
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    Route::get('/masteriuran', [MasterIuranController::class, 'index']);
+    Route::post('/masteriuran', [MasterIuranController::class, 'store'])->name('masteriuran.store');
+    Route::delete('/masteriuran/{id}', [MasterIuranController::class, 'destroy'])->name('masteriuran.destroy');
+    Route::get('/masteriuran/{id}/edit', [MasterIuranController::class, 'edit'])->name('masteriuran.edit');
+    Route::put('/masteriuran/{id}', [MasterIuranController::class, 'update'])->name('masteriuran.update');
 
     // Profile
     Route::get('/articles', [ArticleController::class, 'index']);

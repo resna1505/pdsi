@@ -13,6 +13,8 @@
     @include('layouts.head-css')
     @livewireStyles
 </head>
+<script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
+
 <body>
     <!-- Begin page -->
     <div id="layout-wrapper">
