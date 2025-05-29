@@ -97,6 +97,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pembayaran-iuran', [PembayaranIuranController::class, 'index']);
     Route::post('/iuran/update-status-payment', [PembayaranIuranController::class, 'updateStatusPayment'])->name('iuran.updateStatusPayment');
     Route::post('/iuran/update-status', [PembayaranIuranController::class, 'updateStatus'])->name('iuran.updateStatus');
+    Route::post('/iuran/update-status-with-payment', [PembayaranIuranController::class, 'updateStatusWithPayment'])->name('iuran.updateStatusWithPayment');
 
     // -> Admin
     // Workshop

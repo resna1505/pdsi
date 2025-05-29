@@ -212,162 +212,215 @@
     <script src="{{ URL::asset('build/js/app.js') }}"></script>
     <script>
     function copyRekening() {
-        // Ambil isi dari elemen dengan id noRek
-        var copyText = document.getElementById("noRek").innerText;
-        
-        // Gunakan clipboard API
-        navigator.clipboard.writeText(copyText).then(function() {
-            alert("Nomor rekening berhasil disalin: " + copyText);
-        }, function(err) {
-            alert("Gagal menyalin");
-        });
+    // Ambil isi dari elemen dengan id noRek
+    var copyText = document.getElementById("noRek").innerText;
+    
+    // Gunakan clipboard API
+    navigator.clipboard.writeText(copyText).then(function() {
+        alert("Nomor rekening berhasil disalin: " + copyText);
+    }, function(err) {
+        alert("Gagal menyalin");
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    let currentStatus = {{ $currentStatus }};
+    let steps = [
+        'v-pills-bill-info-tab',
+        'v-pills-bill-address-tab',
+        'v-pills-payment-tab',
+        'v-pills-finish-tab'
+    ];
+
+    let contents = [
+        'v-pills-bill-info',
+        'v-pills-bill-address',
+        'v-pills-payment',
+        'v-pills-finish'
+    ];
+
+    // Aktifkan tab sesuai status
+    for (let i = 0; i <= currentStatus; i++) {
+        document.getElementById(steps[i]).disabled = false;
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        let currentStatus = {{ $currentStatus }};
-        let steps = [
-            'v-pills-bill-info-tab',
-            'v-pills-bill-address-tab',
-            'v-pills-payment-tab',
-            'v-pills-finish-tab'
-        ];
+    // Trigger tab yang sesuai status
+    document.getElementById(steps[currentStatus]).click();
 
-        let contents = [
-            'v-pills-bill-info',
-            'v-pills-bill-address',
-            'v-pills-payment',
-            'v-pills-finish'
-        ];
+    // Tambah class 'active show' ke tab-pane
+    contents.forEach(id => document.getElementById(id).classList.remove('active', 'show'));
+    document.getElementById(contents[currentStatus]).classList.add('active', 'show');
+});
 
-        // Aktifkan tab sesuai status
-        for (let i = 0; i <= currentStatus; i++) {
-            document.getElementById(steps[i]).disabled = false;
-        }
-
-        // Trigger tab yang sesuai status
-        document.getElementById(steps[currentStatus]).click();
-
-        // Tambah class 'active show' ke tab-pane
-        contents.forEach(id => document.getElementById(id).classList.remove('active', 'show'));
-        document.getElementById(contents[currentStatus]).classList.add('active', 'show');
+// PENTING: Cegah klik manual step-tab - JANGAN BIARKAN STEP BISA DIKLIK
+document.querySelectorAll('.step-nav-tab').forEach(function (tab) {
+    tab.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
     });
+    
+    // Tambahan: hapus pointer cursor dan buat tidak bisa diklik
+    tab.style.pointerEvents = 'none';
+    tab.style.cursor = 'default';
+    
+    // Tambahkan class disabled untuk memastikan
+    tab.classList.add('disabled');
+});
 
-    // PENTING: Cegah klik manual step-tab - JANGAN BIARKAN STEP BISA DIKLIK
-    document.querySelectorAll('.step-nav-tab').forEach(function (tab) {
-        tab.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-        });
-        
-        // Tambahan: hapus pointer cursor dan buat tidak bisa diklik
-        tab.style.pointerEvents = 'none';
-        tab.style.cursor = 'default';
-        
-        // Tambahkan class disabled untuk memastikan
-        tab.classList.add('disabled');
-    });
-
-    // Fungsi untuk update status
-    function updateStatus(anggotaId, status, callback) {
-        fetch('{{ route("iuran.updateStatus") }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({
-                anggota_id: anggotaId,
-                status: status
-            })
+// Fungsi untuk update status biasa
+function updateStatus(anggotaId, status, callback) {
+    fetch('{{ route("iuran.updateStatus") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            anggota_id: anggotaId,
+            status: status
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                console.log('Status berhasil diupdate ke:', status);
-                if (callback) callback();
-            } else {
-                alert('Gagal mengupdate status: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat mengupdate status');
-        });
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Status berhasil diupdate ke:', status);
+            if (callback) callback();
+        } else {
+            alert('Gagal mengupdate status: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat mengupdate status');
+    });
+}
+
+// Fungsi untuk upload bukti bayar dan update status
+function updateStatusWithPayment(anggotaId, callback) {
+    const fileInput = document.getElementById('formFile');
+    const descriptionInput = document.getElementById('des-info-description-input');
+    
+    // Validasi file
+    if (!fileInput.files.length) {
+        alert('Silakan upload bukti bayar terlebih dahulu!');
+        return;
     }
 
-    // Fungsi untuk navigasi tab - HANYA BISA DIPANGGIL MELALUI TOMBOL
-    function navigateToTab(targetTabId) {
-        var targetTab = document.querySelector(`#${targetTabId}`);
-        if (targetTab) {
-            // Hapus class active dari semua tab dan content
-            document.querySelectorAll('.step-nav-tab').forEach(t => {
-                t.classList.remove('active');
-                // Pastikan tetap disabled
-                t.style.pointerEvents = 'none';
-                t.style.cursor = 'default';
-            });
-            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+    const file = fileInput.files[0];
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
 
-            // Aktifkan HANYA tab tujuan (tetap tidak bisa diklik)
-            targetTab.classList.add('active');
-            targetTab.style.pointerEvents = 'none'; // Tetap tidak bisa diklik
-            targetTab.style.cursor = 'default';
-            
-            const targetContent = document.querySelector(targetTab.dataset.bsTarget);
-            if (targetContent) {
-                targetContent.classList.add('show', 'active');
-            }
+    if (file.size > maxSize) {
+        alert('Ukuran file maksimal 2MB!');
+        return;
+    }
+
+    if (!allowedTypes.includes(file.type)) {
+        alert('Format file harus JPEG, PNG, JPG, atau PDF!');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('anggota_id', anggotaId);
+    formData.append('bukti_bayar', file);
+    formData.append('description', descriptionInput.value);
+
+    fetch('{{ route("iuran.updateStatusWithPayment") }}', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('Data pembayaran berhasil disimpan');
+            alert('Bukti pembayaran berhasil diupload dan sedang diverifikasi!');
+            if (callback) callback();
+        } else {
+            alert('Gagal menyimpan data: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Terjadi kesalahan saat menyimpan data');
+    });
+}
+
+// Fungsi untuk navigasi tab - HANYA BISA DIPANGGIL MELALUI TOMBOL
+function navigateToTab(targetTabId) {
+    var targetTab = document.querySelector(`#${targetTabId}`);
+    if (targetTab) {
+        // Hapus class active dari semua tab dan content
+        document.querySelectorAll('.step-nav-tab').forEach(t => {
+            t.classList.remove('active');
+            // Pastikan tetap disabled
+            t.style.pointerEvents = 'none';
+            t.style.cursor = 'default';
+        });
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('show', 'active'));
+
+        // Aktifkan HANYA tab tujuan (tetap tidak bisa diklik)
+        targetTab.classList.add('active');
+        targetTab.style.pointerEvents = 'none'; // Tetap tidak bisa diklik
+        targetTab.style.cursor = 'default';
+        
+        const targetContent = document.querySelector(targetTab.dataset.bsTarget);
+        if (targetContent) {
+            targetContent.classList.add('show', 'active');
         }
     }
+}
 
-    // Fungsi khusus untuk tombol Go to Payment
-    document.getElementById('goToPaymentBtn').addEventListener('click', function() {
-        const anggotaId = this.dataset.iuranid;
-        const nextTab = this.dataset.nexttab;
-        
-        // Update status ke 1, lalu navigasi
-        updateStatus(anggotaId, 1, function() {
-            navigateToTab(nextTab);
-        });
+// Fungsi khusus untuk tombol Go to Payment
+document.getElementById('goToPaymentBtn').addEventListener('click', function() {
+    const anggotaId = this.dataset.iuranid;
+    const nextTab = this.dataset.nexttab;
+    
+    // Update status ke 1, lalu navigasi
+    updateStatus(anggotaId, 1, function() {
+        navigateToTab(nextTab);
     });
+});
 
-    // Fungsi khusus untuk tombol Go to Verification
-    document.getElementById('goToVerificationBtn').addEventListener('click', function() {
-        const anggotaId = this.dataset.anggotaId;
-        const nextTab = this.dataset.nexttab;
-        
-        // Update status ke 2, lalu navigasi
-        updateStatus(anggotaId, 2, function() {
-            navigateToTab(nextTab);
-        });
+// Fungsi khusus untuk tombol Go to Verification (DENGAN VALIDASI DAN UPLOAD)
+document.getElementById('goToVerificationBtn').addEventListener('click', function() {
+    const anggotaId = this.dataset.anggotaId;
+    const nextTab = this.dataset.nexttab;
+    
+    // Upload bukti bayar dan update status ke 2, lalu navigasi
+    updateStatusWithPayment(anggotaId, function() {
+        navigateToTab(nextTab);
     });
+});
 
-    // Fungsi untuk tombol Back to Billing Info
-    document.querySelector('[data-previous="v-pills-bill-info-tab"]').addEventListener('click', function() {
-        const anggotaId = this.dataset.anggotaId;
+// Fungsi untuk tombol Back to Billing Info
+document.querySelector('[data-previous="v-pills-bill-info-tab"]').addEventListener('click', function() {
+    const anggotaId = this.dataset.anggotaId;
+    const prevTab = this.dataset.previous;
+    
+    // Update status ke 0, lalu navigasi
+    updateStatus(anggotaId, 0, function() {
+        navigateToTab(prevTab);
+    });
+});
+
+// Fungsi untuk navigasi otomatis ke step berikutnya (untuk tombol lainnya yang tidak memerlukan update status)
+document.querySelectorAll('.nexttab:not(#goToPaymentBtn):not(#goToVerificationBtn)').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+        const nextTab = this.dataset.nexttab;
+        navigateToTab(nextTab);
+    });
+});
+
+// Fungsi untuk navigasi sebelumnya (untuk tombol yang tidak memerlukan update status)
+document.querySelectorAll('.previestab:not([data-previous="v-pills-bill-info-tab"])').forEach(function (btn) {
+    btn.addEventListener('click', function () {
         const prevTab = this.dataset.previous;
-        
-        // Update status ke 0, lalu navigasi
-        updateStatus(anggotaId, 0, function() {
-            navigateToTab(prevTab);
-        });
+        navigateToTab(prevTab);
     });
-
-    // Fungsi untuk navigasi otomatis ke step berikutnya (untuk tombol lainnya yang tidak memerlukan update status)
-    document.querySelectorAll('.nexttab:not(#goToPaymentBtn):not(#goToVerificationBtn)').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            const nextTab = this.dataset.nexttab;
-            navigateToTab(nextTab);
-        });
-    });
-
-    // Fungsi untuk navigasi sebelumnya (untuk tombol yang tidak memerlukan update status)
-    document.querySelectorAll('.previestab:not([data-previous="v-pills-bill-info-tab"])').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            const prevTab = this.dataset.previous;
-            navigateToTab(prevTab);
-        });
-    });
+});
     </script>
 @endsection

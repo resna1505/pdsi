@@ -47,7 +47,54 @@ class PembayaranIuranController extends Controller
         return view('member.pembayaran-iuran', compact('iurans', 'currentStatus', 'anggotaId'));
     }
 
-    // Tambahkan method ini di Controller yang menangani halaman iuran anggota
+    public function updateStatusWithPayment(Request $request)
+    {
+        try {
+            // Validasi input
+            $request->validate([
+                'anggota_id' => 'required',
+                'bukti_bayar' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048', // max 2MB
+                'description' => 'nullable|string|max:500'
+            ]);
+
+            $anggotaId = $request->anggota_id;
+            $description = $request->description;
+
+            // Handle file upload
+            $buktibayarPath = null;
+            if ($request->hasFile('bukti_bayar')) {
+                $file = $request->file('bukti_bayar');
+                $fileName = time() . '_' . $anggotaId . '.' . $file->getClientOriginalExtension();
+                $buktibayarPath = $file->storeAs('bukti_bayar', $fileName, 'public');
+            }
+
+            // Update database dengan bukti bayar dan description
+            DB::table('iuran_anggotas')
+                ->where('anggota_id', $anggotaId)
+                ->update([
+                    'status' => 2, // Status verification
+                    'bukti_bayar' => $buktibayarPath,
+                    'keterangan' => $description,
+                    'updated_at' => now()
+                ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Data pembayaran berhasil disimpan dan status diupdate'
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->validator->errors()->first()
+            ], 422);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menyimpan data: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function updateStatusPayment(Request $request)
     {
         try {
