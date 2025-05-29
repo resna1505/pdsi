@@ -73,7 +73,7 @@
                                             </ul>
     
                                             <div class="d-flex align-items-start gap-3 mt-4">
-                                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-bill-address-tab" data-iuranid="{{ $anggota->id }}" id="goToPaymentBtn">
+                                                <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab" data-nexttab="v-pills-bill-address-tab" data-iuranid="{{ $anggotaId }}" id="goToPaymentBtn">
                                                     <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
                                                     Go to Payment
                                                 </button>
