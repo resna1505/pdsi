@@ -35,9 +35,9 @@ Route::get('/clear-cache', function () {
     return "Cache dan konfigurasi telah dibersihkan!";
 });
 
-Route::get('/migrate-fresh', function () {
-    Artisan::call('migrate:fresh');
-    return "Database telah di-reset dan migrasi ulang berhasil!";
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    return "Migrasi database berhasil tanpa menghapus data!";
 });
 
 Route::get('/storage-link', function () {
