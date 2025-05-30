@@ -224,7 +224,7 @@ FAQ
                         </div>
                         <div class="col-md-12 mb-4">
                             <label for="answer" class="form-label">Answer</label>
-                            <input type="text" name="answer" class="form-control @error('answer') is-invalid @enderror" id="answer" value="{{ old('answer') }}" required>
+                            <textarea name="answer" class="form-control @error('answer') is-invalid @enderror" id="answer" rows="5" required>{{ old('answer') }}</textarea>
                             @error('answer')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
