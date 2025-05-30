@@ -35,7 +35,8 @@ class MitraController extends Controller
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $filename = $image->hashName();
-                $image->storeAs('public/mitras', $filename);
+                // $image->storeAs('public/mitras', $filename);
+                $image->move(public_path('storage/mitras'), $filename);
                 $imagePath = $filename;
             }
 

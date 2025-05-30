@@ -32,9 +32,9 @@ class AgendaController extends Controller
             $imagePath = null;
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $filename = $image->hashName(); // atau time().'.'.$image->getClientOriginalExtension()
-                $image->storeAs('public/articles', $filename);
-                $imagePath = $filename; // Hanya nama file, tanpa folder
+                $filename = $image->hashName();
+                $image->move(public_path('storage/articles'), $filename);
+                $imagePath = $filename;
             }
 
             Agenda::create([
