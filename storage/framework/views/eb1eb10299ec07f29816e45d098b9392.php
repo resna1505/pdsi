@@ -44,8 +44,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="iuran">
-                            <i class=" ri-user-line"></i> <span data-key="t-iuran">Iuran Anggota</span>
+                        <a class="nav-link menu-link" href="verifikasi-iuran">
+                            <i class=" ri-donut-chart-line"></i> <span data-key="t-verifikasi-iuran">Verifikasi Iuran</span>
                         </a>
                     </li>
                 <?php endif; ?>
@@ -53,7 +53,7 @@
                 <?php if(Auth::user()->level == 'Dokter'): ?>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="pembayaran-iuran">
-                            <i class="ri-briefcase-line	"></i> <span data-key="t-pembayaran-iuran">Iuran Anggota</span>
+                            <i class=" ri-funds-line	"></i> <span data-key="t-pembayaran-iuran">Iuran Anggota</span>
                         </a>
                     </li>
                     <li class="nav-item">

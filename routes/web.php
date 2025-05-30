@@ -13,6 +13,7 @@ use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
 use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VerifikasiIuranController;
 use App\Http\Controllers\VisiMisiValueController;
 
 /*
@@ -108,6 +109,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user', [UserController::class, 'index']);
     Route::post('/verifikasi-user/{id}', [UserController::class, 'verifikasi']);
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    Route::get('/verifikasi-iuran', [VerifikasiIuranController::class, 'index']);
+    Route::post('/data-verifikasi-iuran/{id}', [VerifikasiIuranController::class, 'verifikasi']);
+    Route::delete('/verifikasi-iuran/{id}', [VerifikasiIuranController::class, 'destroy'])->name('verifikasi-iuran.destroy');
 
     Route::get('/masteriuran', [MasterIuranController::class, 'index']);
     Route::post('/masteriuran', [MasterIuranController::class, 'store'])->name('masteriuran.store');
