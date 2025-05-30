@@ -549,6 +549,7 @@
     verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
     verifikasiForm.submit();
 });
+// test
 
 </script>
 
