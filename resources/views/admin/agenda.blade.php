@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-@lang('translation.search-results')
+Agenda
 @endsection
 @section('css')
 <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
@@ -238,7 +238,7 @@
                     </div>
                     <div class="col-md-12 mb-4">
                         <label for="author" class="form-label">Author</label>
-                        <input type="text" name="author" class="form-control @error('author') is-invalid @enderror" id="author" value="{{ old('author') }}" required>
+                        <input type="text" name="author" class="form-control @error('author') is-invalid @enderror" id="author" value="{{ Auth::user()->anggota?->nama }}" required>
                         @error('author')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById('edit-title').value = article.title;
                         document.getElementById('edit-description').value = article.description;
                         document.getElementById('edit-author').value = article.author;
-                        document.getElementById('edit-category_id').value = article.id;
+                        document.getElementById('edit-category_id').value = article.category_id;
                         
                         // Show current image
                         const imagePreview = document.getElementById('current-image-preview');

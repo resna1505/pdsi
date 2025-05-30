@@ -18,7 +18,7 @@ class FAQController extends Controller
         $articles = FAQItem::orderBy('created_at', 'desc')->get();
         $categories = FAQCategory::with('items')->get();
 
-        return view('member.faq', compact('articles', 'categories'));
+        return view('admin.faq', compact('articles', 'categories'));
     }
 
     public function store(Request $request)
@@ -105,17 +105,17 @@ class FAQController extends Controller
                 'answer' => $request->answer,
             ]);
 
-            return redirect()->back()->with('success', 'Article updated successfully!');
+            return redirect()->back()->with('success', 'FAQ updated successfully!');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Throwable $e) {
-            Log::error('Article update error: ' . $e->getMessage(), [
-                'article_id' => $id,
+            Log::error('FAQ update error: ' . $e->getMessage(), [
+                'FAQ_id' => $id,
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
 
-            return redirect()->back()->with('error', 'Failed to update article. Please try again.');
+            return redirect()->back()->with('error', 'Failed to update FAQ. Please try again.');
         }
     }
 }

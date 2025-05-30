@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-@lang('translation.search-results')
+Program Kerja
 @endsection
 @section('css')
 <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
@@ -161,7 +161,7 @@
                         </div>                        
                         <div class="hstack gap-2 justify-content-end">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Update Visi Misi</button>
+                            <button type="submit" class="btn btn-success">Update Program Kerja</button>
                         </div>
                     </div>
                 </form>

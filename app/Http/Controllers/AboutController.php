@@ -20,7 +20,6 @@ class AboutController extends Controller
         $articles = Mitra::orderBy('created_at', 'desc')->get();
         $categories = CategoryMitra::all();
 
-        // dd($articles);
         return view('admin.about', compact('articles', 'categories'));
     }
 

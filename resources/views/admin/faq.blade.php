@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-@lang('translation.search-results')
+FAQ
 @endsection
 @section('css')
 <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
@@ -492,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         // Fill form fields
                         document.getElementById('edit-question').value = article.question;
                         document.getElementById('edit-answer').value = article.answer;
-                        document.getElementById('edit-category_id').value = article.id;
+                        document.getElementById('edit-category_id').value = article.faq_category_id;
                         
                         // Show current image
                         // const imagePreview = document.getElementById('current-image-preview');

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-@lang('translation.search-results')
+Workshops
 @endsection
 @section('css')
 <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />

@@ -81,11 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
         }
     });
 
-    // Route::get('/training', function () {
-    //     return view('admin.training');
-    // });
     Route::get('/training', [ProductController::class, 'index'])->name('training.index');
-
     Route::get('/product-detail', [ProductDetailController::class, 'index'])->name('product-detail.index');
 
     // -> Dokter

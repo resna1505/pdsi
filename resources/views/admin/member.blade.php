@@ -1,5 +1,7 @@
 @extends('layouts.master')
-@section('title') @lang('translation.contact') @endsection
+@section('title') 
+Member 
+@endsection
 @section('css')
 <link href="{{ URL::asset('build/libs/gridjs/theme/mermaid.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection

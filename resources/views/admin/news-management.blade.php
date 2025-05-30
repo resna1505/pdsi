@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('title')
-@lang('translation.search-results')
+{{-- @lang('translation.search-results') --}}
+News
 @endsection
 @section('css')
 <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
@@ -202,17 +203,6 @@
                 <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data" id="memberlist-form" class="needs-validation" novalidate>
                 @csrf
 
-                {{-- Error Display --}}
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul class="mb-0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="image" class="form-label">Foto</label>
@@ -249,7 +239,7 @@
                     </div>
                     <div class="col-md-12 mb-4">
                         <label for="author" class="form-label">Author</label>
-                        <input type="text" name="author" class="form-control @error('author') is-invalid @enderror" id="author" value="{{ old('author') }}" required>
+                        <input type="text" name="author" class="form-control @error('author') is-invalid @enderror" id="author" value="{{ Auth::user()->anggota?->nama }}" required>
                         @error('author')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
