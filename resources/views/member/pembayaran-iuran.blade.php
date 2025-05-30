@@ -192,7 +192,7 @@
                                     </li>
                                     <li class="list-group-item d-flex justify-content-between">
                                         <span>Total</span>
-                                        <strong>Rp {{ number_format($total + 25000, 0, ',', '.') }}</strong>
+                                        <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong>
                                     </li>
                                 </ul>
                             </div>

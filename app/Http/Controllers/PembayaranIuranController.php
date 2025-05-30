@@ -28,7 +28,6 @@ class PembayaranIuranController extends Controller
                 ->where('master_iuran_id', $masterIuran->id)
                 ->exists();
 
-            // dd($anggotaId);
             if (!$sudahAda) {
                 IuranAnggota::create([
                     'anggota_id' => $anggotaId,
@@ -40,9 +39,10 @@ class PembayaranIuranController extends Controller
 
         $iurans = IuranAnggota::with('masterIuran')
             ->where('anggota_id', $anggotaId)
+            ->where('status', '<>', 3)
             ->get();
 
-        $currentStatus = $iurans->where('status', '<', 3)->sortByDesc('updated_at')->first()->status ?? 0;
+        $currentStatus = $iurans->sortByDesc('updated_at')->first()->status ?? 3;
 
         return view('member.pembayaran-iuran', compact('iurans', 'currentStatus', 'anggotaId'));
     }
