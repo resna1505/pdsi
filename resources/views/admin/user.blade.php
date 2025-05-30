@@ -255,6 +255,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+        <input type="hidden" id="targetUserId">
         <div class="text-center">
             <div class="mb-3">
                 <img src="" alt="" class="avatar-lg d-block mx-auto rounded-circle overview-userimg overview-avatar" />
@@ -507,6 +508,7 @@
     viewVerification.addEventListener('show.bs.offcanvas', function (event) {
         const button = event.relatedTarget;
         // const id = button.getAttribute('data-id');
+        const id = button.getAttribute('data-id');
         const nama = button.getAttribute('data-nama');
         const ktp = button.getAttribute('data-ktp');
         const npwp = button.getAttribute('data-npwp');
@@ -520,6 +522,7 @@
         const profesi = button.getAttribute('data-profesi');
         const avatar = button.getAttribute('data-avatar');
 
+        document.getElementById('targetUserId').value = id;
         // viewVerification.querySelector('.overview-id').textContent = id;
         viewVerification.querySelector('.overview-name').textContent = nama;
         viewVerification.querySelector('.overview-email').textContent = email;
@@ -537,21 +540,16 @@
     });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const verifikasiForm = document.getElementById('verifikasiForm');
-        const btnVerifikasi = document.getElementById('btnVerifikasi');
+    btnVerifikasi.addEventListener('click', function () {
+    const anggotaId = document.getElementById('targetUserId').value;
+    if (!anggotaId) {
+        alert('ID anggota tidak ditemukan!');
+        return;
+    }
+    verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
+    verifikasiForm.submit();
+});
 
-        btnVerifikasi.addEventListener('click', function () {
-            const anggotaId = this.getAttribute('data-anggota-id');
-            if (!anggotaId) {
-                alert('ID anggota tidak ditemukan!');
-                return;
-            }
-            // set action URL ke route post verifikasi
-            verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
-            verifikasiForm.submit();
-        });
-    });
 </script>
 
 @endsection
