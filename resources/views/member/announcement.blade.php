@@ -55,12 +55,13 @@
                                     <div class="list-element">
                                         <div class="d-flex flex-column flex-sm-row mb-5">
                                             <div class="flex-shrink-0">
-                                                <iframe 
+                                                {{-- <iframe 
                                                     src="{{ $article->video_url }}" 
                                                     title="YouTube video" 
                                                     allowfullscreen 
                                                     class="rounded">
-                                                </iframe>
+                                                </iframe> --}}
+                                                <img src="{{ asset('storage/articles/' . $article->attachment) }}" alt="alt" width="170" class="rounded" />
                                             </div>
                                             <a href="{{ route('announcement.show', $article->id) }}" class="text-decoration-none text-reset">
                                                 <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
@@ -110,12 +111,13 @@
                                         <div class="list-element">
                                             <div class="d-flex flex-column flex-sm-row mb-5">
                                                 <div class="flex-shrink-0">
-                                                    <iframe 
+                                                    {{-- <iframe 
                                                         src="{{ $article->video_url }}" 
                                                         title="YouTube video" 
                                                         allowfullscreen 
                                                         class="rounded">
-                                                    </iframe>
+                                                    </iframe> --}}
+                                                    <img src="{{ asset('storage/articles/' . $article->attachment) }}" alt="alt" width="170" class="rounded" />
                                                 </div>
                                                 <a href="{{ route('announcement.show', $article->id) }}" class="text-decoration-none text-reset">
                                                     <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">

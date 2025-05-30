@@ -13,12 +13,12 @@ class AnnouncementController extends Controller
         $categories = Category::with('articles')->get();
         $allArticles = Article::latest()->get();
 
-        return view('admin.announcement', compact('categories', 'allArticles'));
+        return view('member.announcement', compact('categories', 'allArticles'));
     }
 
     public function show($id)
     {
         $article = Article::where('id', $id)->firstOrFail();
-        return view('admin.announcement-detail', compact('article'));
+        return view('member.announcement-detail', compact('article'));
     }
 }
