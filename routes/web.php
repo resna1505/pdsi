@@ -11,6 +11,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MasterIuranController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikasiIuranController;
@@ -79,15 +81,12 @@ Route::group(['middleware' => 'auth'], function () {
         }
     });
 
-    Route::get('/member', function () {
-        return view('admin.member');
-    });
+    // Route::get('/training', function () {
+    //     return view('admin.training');
+    // });
+    Route::get('/training', [ProductController::class, 'index'])->name('training.index');
 
-    Route::get('/faq-dokter', [FAQController::class, 'index']);
-
-    Route::get('/training', function () {
-        return view('admin.training');
-    });
+    Route::get('/product-detail', [ProductDetailController::class, 'index'])->name('product-detail.index');
 
     // -> Dokter
     // Berita
@@ -100,10 +99,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/iuran/update-status', [PembayaranIuranController::class, 'updateStatus'])->name('iuran.updateStatus');
     Route::post('/iuran/update-status-with-payment', [PembayaranIuranController::class, 'updateStatusWithPayment'])->name('iuran.updateStatusWithPayment');
 
+    // FAQ
+    Route::get('/faq-dokter', [FAQController::class, 'index']);
+
     // -> Admin
     // Workshop
     Route::get('/workshops', function () {
         return view('admin.workshops');
+    });
+
+    Route::get('/member', function () {
+        return view('admin.member');
     });
 
     Route::get('/user', [UserController::class, 'index']);

@@ -1,0 +1,324 @@
+@extends('layouts.master')
+@section('title')
+    Product Detail
+@endsection
+@section('content')    
+    <div class="container-fluid" id="app">            
+            <!-- ##### PRODUCT DETAIL SECTION ##### -->
+        <div class="row">
+            <div class="col-lg-6 col-md-6 mb-4">
+                <!-- Product Image Carousel -->
+                <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://placehold.co/1050x700/FFE57F/767676/" class="d-block w-100 rounded" alt="Product Image 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/1050x700/DCEDC8/767676/" class="d-block w-100 rounded" alt="Product Image 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/1050x700/E1BEE7/767676/" class="d-block w-100 rounded" alt="Product Image 3">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/1050x700/BBDEFB/767676/" class="d-block w-100 rounded" alt="Product Image 4">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/1050x700/388E3C/FFFFFF/" class="d-block w-100 rounded" alt="Product Image 5">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://placehold.co/1050x700/651FFF/FFFFFF/" class="d-block w-100 rounded" alt="Product Image 6">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6">
+                <div class="product-info">
+                    <h6 class="text-muted">Vivamus sit amet</h6>
+                    <h2 class="fw-bold mb-3">The Lorem Ipsum Dolor Sit Amet</h2>
+                    
+                    <!-- Rating and Sales -->
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="text-warning me-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="fw-bold me-2">5.0</span>
+                        <span class="text-muted">| 213 Sales</span>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="text-muted mb-4">Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam. Vestibulum feugiat rhoncus metus.</p>
+                    
+                    <!-- Action Buttons -->
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-outline-primary rounded-pill">Add to Wishlist</button>
+                        <button class="btn btn-primary rounded-pill">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ##### DESCRIPTION SECTION ##### -->
+        <div class="row py-5">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="fw-bold mb-4">Description</h4>
+                        <p>Vestibulum faucibus eget erat eget pretium. Donec commodo convallis eget suscipit orci. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p class="mb-4">Pellentesque ullamcorper aliquet ultrices. Aenean facilisis vitae purus facilisis semper. Nam vitae scelerisque lorem, quis tempus libero. Proin varius, tortor faucibus tempor pharetra, nunc mi consectetur enim, nec posuere ante magna vitae quam.</p>
+                        
+                        <!-- Social Actions -->
+                        <div class="d-flex gap-3">
+                            <button class="btn btn-outline-secondary">
+                                <i class="fas fa-share-alt me-2"></i>Share
+                            </button>
+                            {{-- <button class="btn btn-outline-secondary">
+                                <i class="fas fa-film me-2"></i>Trivia
+                            </button> --}}
+                            <button class="btn btn-outline-secondary">
+                                <i class="fas fa-star me-2"></i>Rate this
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="product-properties">
+                            <h6 class="fw-bold">PROPERTY 1</h6>
+                            <p class="text-muted mb-3">Item 1, Item 2, Item 3, Item 4, Item 5</p>
+                            
+                            <h6 class="fw-bold">PROPERTY 2</h6>
+                            <p class="text-muted mb-3">Item 1, Item 2, Item 3, Item 4, Item 5</p>
+                            
+                            <h6 class="fw-bold">PROPERTY 3</h6>
+                            <p class="text-muted">Item 1, Item 2, Item 3, Item 4, Item 5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ##### RELATED PRODUCTS SECTION ##### -->
+        <div class="row py-5">
+            <div class="col-12">
+                <h4 class="fw-bold mb-4">Related Products</h4>
+                <div class="row g-4">
+                    <!-- Product Card 1 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/1050x700/FFE57F/767676/" class="card-img-top" alt="Product">
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title">Sed lacinia velit</h6>
+                                <p class="card-text text-muted flex-grow-1">Proin pretium arcu eget metus porta consecteturt</p>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <strong>$20</strong>
+                                </div>
+                                <button class="btn btn-outline-primary">See Detail</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Card 2 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/1050x700/DCEDC8/767676/" class="card-img-top" alt="Product">
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title">Sed lacinia velit</h6>
+                                <p class="card-text text-muted flex-grow-1">Proin pretium arcu eget metus porta consecteturt</p>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <strong>$20</strong>
+                                </div>
+                                <button class="btn btn-outline-primary">See Detail</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Card 3 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/1050x700/E1BEE7/767676/" class="card-img-top" alt="Product">
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title">Sed lacinia velit</h6>
+                                <p class="card-text text-muted flex-grow-1">Proin pretium arcu eget metus porta consecteturt</p>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <strong>$20</strong>
+                                </div>
+                                <button class="btn btn-outline-primary">See Detail</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Card 4 -->
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="card h-100">
+                            <img src="https://placehold.co/1050x700/BBDEFB/767676/" class="card-img-top" alt="Product">
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title">Sed lacinia velit</h6>
+                                <p class="card-text text-muted flex-grow-1">Proin pretium arcu eget metus porta consecteturt</p>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-warning">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <strong>$20</strong>
+                                </div>
+                                <button class="btn btn-outline-primary">See Detail</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ##### COMMENTS SECTION ##### -->
+        <div class="row py-5">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4 class="fw-bold mb-4">Comments</h4>
+                        
+                        <!-- Comment Form -->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <img src="./assets/images/avatars/pp_boy3.svg" alt="Avatar" class="rounded-circle me-3" width="40" height="40">
+                                    <div class="flex-grow-1">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Write Comments" id="write_comment">
+                                            <button class="btn btn-primary" type="button">
+                                                <span class="d-none d-sm-inline">Send Message</span>
+                                                <i class="fas fa-paper-plane d-sm-none"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Comments List -->
+                        <div class="comments-list">
+                            <!-- Comment 1 -->
+                            <div class="d-flex mb-4">
+                                <img src="./assets/images/avatars/pp_boy4.svg" alt="John Doe" class="rounded-circle me-3" width="40" height="40">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <h6 class="fw-bold mb-0">John Doe</h6>
+                                        <small class="text-muted">13 Dec 2021</small>
+                                    </div>
+                                    <p class="mb-0">Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam. Vestibulum feugiat rhoncus metus. In non erat et ipsum molestie porta sit amet ut felis. Vestibulum a massa vestibulum, gravida odio id, fringilla ipsum.</p>
+                                </div>
+                            </div>
+                            <hr>
+                            
+                            <!-- Comment 2 -->
+                            <div class="d-flex mb-4">
+                                <img src="./assets/images/avatars/pp_boy4.svg" alt="John Doe" class="rounded-circle me-3" width="40" height="40">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <h6 class="fw-bold mb-0">John Doe</h6>
+                                        <small class="text-muted">13 Dec 2021</small>
+                                    </div>
+                                    <p class="mb-0">Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam. Vestibulum feugiat rhoncus metus. In non erat et ipsum molestie porta sit amet ut felis. Vestibulum a massa vestibulum, gravida odio id, fringilla ipsum.</p>
+                                </div>
+                            </div>
+                            <hr>
+                            
+                            <!-- Comment 3 -->
+                            <div class="d-flex mb-4">
+                                <img src="./assets/images/avatars/pp_boy4.svg" alt="John Doe" class="rounded-circle me-3" width="40" height="40">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <h6 class="fw-bold mb-0">John Doe</h6>
+                                        <small class="text-muted">13 Dec 2021</small>
+                                    </div>
+                                    <p class="mb-0">Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam. Vestibulum feugiat rhoncus metus. In non erat et ipsum molestie porta sit amet ut felis. Vestibulum a massa vestibulum, gravida odio id, fringilla ipsum.</p>
+                                </div>
+                            </div>
+                            <hr>
+                            
+                            <!-- Comment 4 -->
+                            <div class="d-flex">
+                                <img src="./assets/images/avatars/pp_boy4.svg" alt="John Doe" class="rounded-circle me-3" width="40" height="40">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <h6 class="fw-bold mb-0">John Doe</h6>
+                                        <small class="text-muted">13 Dec 2021</small>
+                                    </div>
+                                    <p class="mb-0">Maecenas nisl libero, tincidunt id odio id, feugiat vulputate quam. Vestibulum feugiat rhoncus metus. In non erat et ipsum molestie porta sit amet ut felis. Vestibulum a massa vestibulum, gravida odio id, fringilla ipsum.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar Actions -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-info-circle text-primary me-3"></i>
+                                    <span>Report this item</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-question-circle text-primary me-3"></i>
+                                    <span>Report this item</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-dot-circle text-primary me-3"></i>
+                                    <span>Other option 1</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                                    <i class="fas fa-check-circle text-primary me-3"></i>
+                                    <span>Other option 2</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('script')
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="{{ URL::asset('build/libs/tom-select/js/tom-select.base.min.js') }}"></script>
+    <script src="{{ URL::asset('build/js/app.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/prismjs/prism.js') }}"></script>
+@endsection

@@ -8,535 +8,287 @@
 @endsection
 @section('content')
 
+
 <div class="row">
-    <!-- Konten Utama -->
-    <div class="col-xl-9 col-lg-8"> <!-- Sesuaikan lebar sesuai kebutuhan -->
-        <!-- Isi konten utama Anda di sini -->
-        {{-- <div class="row">
-            <!-- Card statistik -->
-            <div class="col-xl-4">
-                <div class="row">
-                    <div class="col-xl-12 col-md-6">
-                        <!-- card -->
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-13">Total Member</p>
-                                        <h4 class="fs-22 fw-semibold mb-3">Rp. <span class="counter-value" data-target="12300000">0</span></h4>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <h5 class="text-success fs-12 mb-0">
-                                                <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +18.30 %
-                                            </h5>
-                                            <p class="text-muted mb-0">than last year</p>
-                                        </div>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-success-subtle rounded fs-3">
-                                            <i class="bx bx-dollar-circle text-success"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                            <div class="animation-effect-6 text-success opacity-25 fs-18">
-                                <i class="bi bi-currency-dollar"></i>
-                            </div>
-                            <div class="animation-effect-4 text-success opacity-25 fs-18">
-                                <i class="bi bi-currency-pound"></i>
-                            </div>
-                            <div class="animation-effect-3 text-success opacity-25 fs-18">
-                                <i class="bi bi-currency-euro"></i>
-                            </div>
-                        </div><!-- end card -->
-                    </div><!-- end col -->
-
-                    <div class="col-xl-12 col-md-6">
-                        <!-- card -->
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-info-subtle rounded fs-3">
-                                            <i class="bx bx-shopping-bag text-info"></i>
-                                        </span>
-                                    </div>
-                                    <div class="text-end flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-13">Total Seminar</p>
-                                        <h4 class="fs-22 fw-semibold mb-3"><span class="counter-value" data-target="187">0</span></h4>
-                                        <div class="d-flex align-items-center justify-content-end gap-2">
-                                            <h5 class="text-danger fs-12 mb-0">
-                                                <i class="ri-arrow-right-down-line fs-13 align-middle"></i> -2.74 %
-                                            </h5>
-                                            <p class="text-muted mb-0">than last year</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                            <div class="animation-effect-6 text-info opacity-25 left fs-18">
-                                <i class="bi bi-handbag"></i>
-                            </div>
-                            <div class="animation-effect-4 text-info opacity-25 left fs-18">
-                                <i class="bi bi-shop"></i>
-                            </div>
-                            <div class="animation-effect-3 text-info opacity-25 left fs-18">
-                                <i class="bi bi-bag-check"></i>
-                            </div>
-                        </div><!-- end card -->
-                    </div><!-- end col -->
-
-                    <div class="col-xl-12 col-md-6">
-                        <!-- card -->
-                        <div class="card card-animate">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div class="flex-grow-1">
-                                        <p class="text-uppercase fw-medium text-muted text-truncate fs-13">Total SKP</p>
-                                        <h4 class="fs-22 fw-semibold mb-3"><span class="counter-value" data-target="385">0</span></h4>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <h5 class="text-success fs-12 mb-0">
-                                                <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +29.08 %
-                                            </h5>
-                                            <p class="text-muted mb-0">than last year</p>
-                                        </div>
-                                    </div>
-                                    <div class="avatar-sm flex-shrink-0">
-                                        <span class="avatar-title bg-warning-subtle rounded fs-3">
-                                            <i class="bx bx-user-circle text-warning"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                            <div class="animation-effect-6 text-warning opacity-25 fs-18">
-                                <i class="bi bi-person"></i>
-                            </div>
-                            <div class="animation-effect-4 text-warning opacity-25 fs-18">
-                                <i class="bi bi-person-fill"></i>
-                            </div>
-                            <div class="animation-effect-3 text-warning opacity-25 fs-18">
-                                <i class="bi bi-people"></i>
-                            </div>
-                        </div><!-- end card -->
-                    </div><!-- end col -->
-                </div>
-            </div>
-            <div class="col-xl-8">
-                <div class="card">
-                    <div class="card-header border-0 align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Dokter</h4>
+    <div class="col">
+        <div class="row">
+        <div class="col-xxl-3 col-md-6">
+            <div class="card card-animate card-height-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
                         <div>
-                            <button type="button" class="btn btn-soft-secondary btn-sm">
-                                ALL
-                            </button>
-                            <button type="button" class="btn btn-soft-secondary btn-sm">
-                                1M
-                            </button>
-                            <button type="button" class="btn btn-soft-secondary btn-sm">
-                                6M
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-sm">
-                                1Y
-                            </button>
+                            <p class="fw-medium text-muted mb-0">Successful conversions</p>
+                            <h2 class="mt-4 fw-semibold"><span class="counter-value" data-target="50"></span></h2>
+                            <p class="mb-0 text-muted"><span class="badge bg-light text-success mb-0"><i
+                                        class="ri-arrow-up-line align-middle"></i> 8.24 % </span> 7 last week</p>
                         </div>
-                    </div><!-- end card header -->
-
-                    <div class="card-header p-0 border-0 bg-light-subtle">
-                        <div class="row g-0 text-center">
-                            <div class="col-6 col-sm-3">
-                                <div class="p-3 border border-dashed border-start-0">
-                                    <h5 class="mb-1"><span class="counter-value" data-target="765">0</span></h5>
-                                    <p class="text-muted mb-0">Daftar</p>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="col-6 col-sm-3">
-                                <div class="p-3 border border-dashed border-start-0">
-                                    <h5 class="mb-1"><span class="counter-value" data-target="715">0</span></h5>
-                                    <p class="text-muted mb-0">Aktif</p>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="col-6 col-sm-3">
-                                <div class="p-3 border border-dashed border-start-0">
-                                    <h5 class="mb-1"><span class="counter-value" data-target="50">0</span></h5>
-                                    <p class="text-muted mb-0">Non Aktif</p>
-                                </div>
-                            </div>
-                            <!--end col-->
-                            <div class="col-6 col-sm-3">
-                                <div class="p-3 border border-dashed border-start-0 border-end-0">
-                                    <h5 class="mb-1 text-success"><span class="counter-value" data-target="18.92">0</span>%</h5>
-                                    <p class="text-muted mb-0">Conversation Ratio</p>
-                                </div>
-                            </div>
-                            <!--end col-->
-                        </div>
-                    </div><!-- end card header -->
-
-                    <div class="card-body p-0 pb-2">
-                        <div class="w-100">
-                            <div id="customer_impression_charts" data-colors='["--tb-dark", "--tb-primary", "--tb-secondary"]' class="apex-charts" dir="ltr"></div>
-                        </div>
-                    </div><!-- end card body -->
-                </div>
-            </div>
-        </div> --}}
-
-        {{-- <div class="row">
-            <div class="col-xl-4">
-                <div class="card card-height-100">
-                    <div class="card-header border-bottom-dashed align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Distribusi Tenaga Dokter</h4>
                         <div>
-                            <div class="dropdown">
-                                <button class="btn btn-soft-primary btn-sm" href="#" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <span class="text-uppercase">ALL<i
-                                            class="mdi mdi-chevron-down align-middle ms-1"></i></span>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">DRU</a>
-                                    <a class="dropdown-item" href="#">DRG</a>
-                                    <a class="dropdown-item" href="#">DRS</a>
-                                    <a class="dropdown-item" href="#">DRSS</a>
-                                </div>
+                            <div class="avatar-sm flex-shrink-0">
+                                <span class="avatar-title bg-success-subtle text-success rounded-circle fs-2">
+                                    <i class="ph-check-square-offset"></i>
+                                </span>
                             </div>
-                        </div>
-                    </div><!-- end cardheader -->
-                    <div class="card-body">
-                        <div id="portfolio_donut_charts"
-                            data-colors='["--tb-primary", "--tb-info", "--tb-warning", "--tb-success"]' class="apex-charts"
-                            dir="ltr"></div>
-
-                        <ul class="list-group list-group-flush border-dashed mb-0">
-                            <li class="list-group-item px-0">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0 avatar-xs">
-                                        <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
-                                                alt="">
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-1">Dr. Umum</h6>
-                                    </div>
-                                    <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">320</h6>
-                                    </div>
-                                </div>
-                            </li><!-- end -->
-                            <li class="list-group-item px-0">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0 avatar-xs">
-                                        <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
-                                                alt="">
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-1">Dr. Gigi</h6>
-                                    </div>
-                                    <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">250</h6>
-                                    </div>
-                                </div>
-                            </li><!-- end -->
-                            <li class="list-group-item px-0">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0 avatar-xs">
-                                        <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
-                                                alt="">
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-1">Dr. Spesialist</h6>
-                                    </div>
-                                    <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">130</h6>
-                                    </div>
-                                </div>
-                            </li><!-- end -->
-                            <li class="list-group-item px-0 pb-0">
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0 avatar-xs">
-                                        <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
-                                                alt="">
-                                        </span>
-                                    </div>
-                                    <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-1">Dr. Sub Spesialist</h6>
-                                    </div>
-                                    <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">5</h6>
-                                    </div>
-                                </div>
-                            </li><!-- end -->
-                        </ul><!-- end -->
-                    </div><!-- end card body -->
-                </div><!-- end card -->
-            </div><!-- end col -->
-
-            <div class="col-xl-8">
-                <div class="card">
-                    <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Best Selling Seminar</h4>
-                        <div class="flex-shrink-0">
-                            <button type="button" class="btn btn-soft-info btn-sm">
-                                <i class="ri-file-list-3-line align-middle"></i> Generate Report
-                            </button>
-                        </div>
-                    </div><!-- end card header -->
-
-                    <div class="card-body">
-                        <div class="table-responsive table-card">
-                            <table class="table table-borderless table-centered table-hover align-middle table-nowrap mb-0">
-                                <thead class=" table-light">
-                                    <tr>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Doctor</th>
-                                        <th scope="col">Order</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-1.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 1</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">150.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>325</td>
-                                    </tr><!-- end tr -->
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-5.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 2</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>105</td>
-                                    </tr><!-- end tr -->
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-4.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 3</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">150.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>100</td>
-                                    </tr><!-- end tr -->
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-3.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 4</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>98</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-2.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 5</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">150.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>80</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-8.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 6</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>75</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-10.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 7</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>43</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-9.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 8</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>21</td>
-                                    </tr><!-- end tr --><!-- end tr -->
-                                </tbody><!-- end tbody -->
-                            </table><!-- end table -->
                         </div>
                     </div>
-                </div> <!-- .card-->
+                </div><!-- end card body -->
             </div>
-        </div> --}}
-        
-        <div class="row">
-            <div class="col-lg-12">
-                <div>
-                    <h5>Agenda Kegiatan</h5>
-                    <div class="horizontal-timeline my-3">
-                        <div class="swiper timelineSlider">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted fw-medium mb-2">April, 2025</p>
-                                                <h6 class="mb-0 fs-15">Seminar edukasi tentang hipertensi</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">23 Apr</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Mei, 2025</p>
-                                                <h6 class="mb-0 fs-15">Kerja bakti bersih-bersih puskesmas</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">2 Mei</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Mei, 2025</p>
-                                                <h6 class="mb-0 fs-15">Bakti sosial cek kesehatan gratis</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">24 Mei</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Juni, 2025</p>
-                                                <h6 class="mb-0 fs-15">Pelatihan kader kesehatan desa</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">14 Jun</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Juli, 2025</p>
-                                                <h6 class="mb-0 fs-15">Diskusi inovasi pelayanan kesehatan</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">2 Jul</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Agustus, 2025</p>
-                                                <h6 class="mb-0 fs-15">Diskusi inovasi pelayanan kesehatan</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">11 Agu</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                            </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
+        </div>
+        <!--end col-->
+        <div class="col-xxl-3 col-md-6">
+            <div class="card card-animate card-height-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="fw-medium text-muted mb-0">Failed conversions</p>
+                            <h2 class="mt-4 fw-semibold"><span class="counter-value" data-target="8"></span></h2>
+                            <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0"><i
+                                        class="ri-arrow-down-line align-middle"></i> 25.87 % </span> 7 last week</p>
                         </div>
+                        <div>
+                            <div class="avatar-sm flex-shrink-0">
+                                <span class="avatar-title bg-danger-subtle text-danger rounded-circle fs-2">
+                                    <i class="ph-warning"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div>
+        </div>
+        <!--end col-->
+        <div class="col-xxl-3 col-md-6">
+            <div class="card card-height-100">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Developer Plan</h5>
+                    <div class="progress animated-progress custom-progress mb-1">
+                        <div class="progress-bar" role="progressbar" style="width: 38%" aria-valuenow="38" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
+                    <p class="text-muted mb-2">You used 215 of 2000 of your API</p>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-info btn-sm create-btn" data-bs-toggle="modal"
+                            data-bs-target="#api-key-modal">Create API Key</button>
                     </div>
                 </div>
             </div>
         </div>
+        <!--end col-->
+        <div class="col-xxl-3 col-md-6">
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <div class="align-items-center d-flex mb-3">
+                        <h4 class="card-title fs-14 mb-0 flex-grow-1">API Key Report</h4>
+                        <div class="flex-shrink-0">
+                            <div class="dropdown card-header-dropdown">
+                                <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <span class="fw-semibold text-uppercase fs-12">Sort by:
+                                    </span><span class="text-muted">Today<i class="mdi mdi-chevron-down ms-1"></i></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">Today</a>
+                                    <a class="dropdown-item" href="#">Yesterday</a>
+                                    <a class="dropdown-item" href="#">Last 7 Days</a>
+                                    <a class="dropdown-item" href="#">Last 30 Days</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                    <a class="dropdown-item" href="#">Last Month</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="hours_spent_chart"
+                        data-colors='["--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary", "--tb-primary"]'
+                        class="apex-chart"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <!-- Panel Recent Chat -->
-    <div class="col-xl-3 col-lg-4"> <!-- Sesuaikan lebar sesuai kebutuhan -->
+    <!-- end row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card" id="apiKeyList">
+                <div class="card-header d-flex align-items-center">
+                    <h5 class="card-title flex-grow-1 mb-0">API Keys</h5>
+                    <div class="d-flex gap-1 flex-wrap">
+                        <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i
+                                class="ri-delete-bin-2-line"></i></button>
+                        {{-- <button type="button" class="btn btn-success create-btn" data-bs-toggle="modal"
+                            data-bs-target="#api-key-modal"><i class="ri-add-line align-bottom me-1"></i>Add API
+                            Key</button> --}}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="table-responsive table-card mb-3">
+                            <table class="table align-middle table-nowrap mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col" style="width: 50px;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="checkAll"
+                                                    value="option">
+                                            </div>
+                                        </th>
+                                        <th class="sort d-none" data-sort="id" scope="col">Id</th>
+                                        <th class="sort" data-sort="name" scope="col">Name</th>
+                                        <th class="sort" data-sort="createBy" scope="col">Created By</th>
+                                        <th class="sort" data-sort="apikey" scope="col">API Key</th>
+                                        <th class="sort" data-sort="status" scope="col">Status</th>
+                                        <th class="sort" data-sort="create_date" scope="col">Create Date</th>
+                                        <th class="sort" data-sort="expiry_date" scope="col">Expiry Date</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="list form-check-all">
+                                    <tr>
+                                        <th scope="row">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="chk_child"
+                                                    value="option1">
+                                            </div>
+                                        </th>
+                                        <td class="id" style="display:none;"><a href="javascript:void(0);"
+                                                class="fw-medium link-primary">#VZ001</a></td>
+                                        <td class="name">Streamlab</td>
+                                        <td class="createBy">Nicholas Ball</td>
+                                        <td class="apikey">
+                                            <input type="text" class="form-control apikey-value" readonly
+                                                value="b5815DE8A7224438932eb296Z5">
+                                        </td>
+                                        <td class="status"><span
+                                                class="badge text-danger  bg-danger-subtle">Disable</span></td>
+                                        <td class="create_date">24 Sep, 2022</td>
+                                        <td class="expiry_date">24 Jan, 2023</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="ri-more-fill align-middle"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li><a class="dropdown-item edit-item-btn" href="#api-key-modal"
+                                                            data-bs-toggle="modal">Rename</a></li>
+                                                    <li><a class="dropdown-item regenerate-api-btn" href="#api-key-modal"
+                                                            data-bs-toggle="modal">Regenerate Key</a></li>
+                                                    <li><a class="dropdown-item disable-btn"
+                                                            href="javascript:void(0);">Disable</a></li>
+                                                    <li><a class="dropdown-item remove-item-btn" data-bs-toggle="modal"
+                                                            href="#deleteApiKeyModal">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="noresult" style="display: none">
+                                <div class="text-center">
+                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
+                                        colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
+                                    </lord-icon>
+                                    <h5 class="mt-2">Sorry! No Result Found</h5>
+                                    <p class="text-muted mb-0">We've searched more than 150+ API Keys We did not find any
+                                        API for you search.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <div class="pagination-wrap hstack gap-2">
+                                <a class="page-item pagination-prev disabled" href="#">
+                                    Previous
+                                </a>
+                                <ul class="pagination listjs-pagination mb-0"></ul>
+                                <a class="page-item pagination-next" href="#">
+                                    Next
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end card body -->
+            </div>
+            <!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="api-key-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create API Key</h5>
+                    <button type="button" class="btn-close" id="close-modal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form autocomplete="off">
+                        <div id="api-key-error-msg" class="alert alert-danger py-2 d-none"></div>
+                        <input type="hidden" id="apikeyId">
+                        <div class="mb-3">
+                            <label for="api-key-name" class="form-label">API Key Name <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="api-key-name"
+                                placeholder="Enter api key name">
+                        </div>
+                        <div class="mb-3" id="apikey-element" style="display: none;">
+                            <label for="api-key" class="form-label">API Key</label>
+                            <input type="text" class="form-control" id="api-key" disabled
+                                value="b5815DE8A7224438932eb296Z5">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="hstack gap-2 justify-content-end">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="createApi-btn">Create API</button>
+                        <button type="button" class="btn btn-primary" id="add-btn">Add</button>
+                        <button type="button" class="btn btn-primary" id="edit-btn">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+            <!-- modal content -->
+        </div>
+    </div>
+    <!-- end modal -->
+
+    <!-- Modal -->
+    <div class="modal fade zoomIn" id="deleteApiKeyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="deleteRecord-close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mt-2 text-center">
+                        <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+                            colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                        <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                            <h4>Are you sure ?</h4>
+                            <p class="text-muted mx-4 mb-0">Are you sure you want to remove this API Key ?</p>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                        <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn w-sm btn-danger " id="delete-record">Yes, Delete It!</button>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div>
+    </div>
+    <!--end modal -->
+
+    </div> 
+    <!-- end col -->
+
+    <div class="col-auto layout-rightside-col">
+        <div class="overlay"></div>
         <div class="layout-rightside">
-            <!-- Isi panel chat di sini -->
             <div class="card h-100 rounded-0">
                 <div class="widget-userlist" data-simplebar>
                     <div class="card-body pb-0">
@@ -548,7 +300,7 @@
                                         <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" class="avatar-sm rounded-circle chatlist-user-image" alt="">
                                         <span class="user-status"></span>
                                     </div>
-                                    <p class="text-muted mb-0 mt-2 text-truncate chatlist-user-name">Ashley Silva</p>
+                                    <p class="text-muted mb-0 mt-2 text-truncate chatlist-user-name">Admin 1</p>
                                 </a>
                             </li>
                             <li>
@@ -557,7 +309,7 @@
                                         <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" class="avatar-sm rounded-circle chatlist-user-image" alt="">
                                         <span class="user-status"></span>
                                     </div>
-                                    <p class="text-muted mb-0 mt-2 text-truncate chatlist-user-name">Misty Taylor</p>
+                                    <p class="text-muted mb-0 mt-2 text-truncate chatlist-user-name">Admin 2</p>
                                 </a>
                             </li>
                             <li>
@@ -566,27 +318,9 @@
                                         <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" class="avatar-sm rounded-circle chatlist-user-image" alt="">
                                         <span class="user-status"></span>
                                     </div>
-                                    <p class="text-muted mb-0 mt-2 text-truncate chatlist-user-name">Scott Wilson</p>
+                                    <p class="text-muted mb-0 mt-2 text-truncate chatlist-user-name">Admin 3</p>
                                 </a>
-                            </li>
-                            <li>
-                                <a href="#!" class="text-center avatar-sm h-auto d-block">
-                                    <div class="chat-user-img online">
-                                        <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" class="avatar-sm rounded-circle chatlist-user-image" alt="">
-                                        <span class="user-status"></span>
-                                    </div>
-                                    <p class="text-muted mb-0 mt-2 text-truncate chatlist-user-name">Patricia Wilson</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#!" class="text-center avatar-sm h-auto d-block">
-                                    <div class="chat-user-img away">
-                                        <img src="{{ URL::asset('build/images/users/avatar-5.jpg') }}" class="avatar-sm rounded-circle chatlist-user-image" alt="">
-                                        <span class="user-status"></span>
-                                    </div>
-                                    <p class="text-muted mb-0 mt-2 text-truncate chatlist-user-name">Allyson Wigfall</p>
-                                </a>
-                            </li>
+                            </li>                            
                         </ul>
                     </div>
                     <div class="card-body">
@@ -647,198 +381,6 @@
                                     <div class="text-end">
                                         <p class="mb-1 text-muted fs-12">12:04 PM</p>
                                         <span class="badge text-info bg-info-subtle rounded-circle fs-10">8</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Patricia Wilson</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Hey! there I'm available</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">11:11 AM</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-5.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Allyson Wigfall</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">I've finished it! See you so</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">09:24 AM</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-6.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Martha Griffin</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Wow that's great</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">16/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-7.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Mark Sargent</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Nice to meet you</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">16/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-8.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Ray Stricklin</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Hey, Hi Ray Stricklin ...!</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">16/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-9.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Frank Taylor</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Happy holiday 🙂</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">15/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-10.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Karla Basso</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Okay, Sure.</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">14/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Sally McPherson</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Thanks</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">14/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Lizzie Beil</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Our next meeting tomorrow at 10.00 AM</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">13/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Mark Williams</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">See you tomorrow</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">12/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Vina Scott</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Yeah everything is fine...</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">11/11</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-5.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Keli Henry</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-muted mb-0 text-truncate">Good afternoon</p>
-                                    </div>
-                                    <div class="text-end align-self-start">
-                                        <p class="mb-1 text-muted fs-12">11/11</p>
                                     </div>
                                 </div>
                             </li>
@@ -1056,8 +598,9 @@
                     </div>
                 </div>
             </div> <!-- end card-->
-        </div>
-    </div>
+        </div> <!-- end .rightbar-->
+    </div> 
+    <!-- end col -->
 </div>
 
 <div>
@@ -1075,14 +618,10 @@
 
 <!-- dashboard init -->
 <script src="{{ URL::asset('build/libs/list.js/list.min.js') }}"></script>
-{{-- <script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script> --}}
+<script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script>
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
-<script src="{{ URL::asset('build/js/pages/timeline.init.js') }}"></script>
 
-    <!-- for basic area chart -->
-    {{-- <script src="https://img.ICT PDSI.com/velzon/apexchart-js/stock-prices.js"></script> --}}
-    <script src="{{ URL::asset('build/js/maps/us-merc-en.js') }}"></script>
-    {{-- <script src="{{ URL::asset('build/js/pages/widgets.init.js') }}"></script> --}}
-    <script src="{{ asset('build/js/pages/chart-dokter.init.js') }}"></script>
-
+<script src="{{ URL::asset('build/libs/list.pagination.js/list.pagination.min.js') }}"></script>
+<script src="{{ URL::asset('build/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+{{-- <script src="{{ URL::asset('build/js/pages/api-key.init.js') }}"></script> --}}
 @endsection
