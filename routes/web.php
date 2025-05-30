@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\FAQDokterController;
 use App\Http\Controllers\MasterIuranController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
@@ -40,11 +41,6 @@ Route::get('/clear-cache', function () {
 Route::get('/migrate', function () {
     Artisan::call('migrate');
     return "Migrasi database berhasil tanpa menghapus data!";
-});
-
-Route::get('/storage-link', function () {
-    Artisan::call('storage:link');
-    return 'Symlink storage → public/storage berhasil dibuat!';
 });
 
 Route::get('/login', \App\Http\Livewire\Auth\Login::class)->name('login');
@@ -96,7 +92,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/iuran/update-status-with-payment', [PembayaranIuranController::class, 'updateStatusWithPayment'])->name('iuran.updateStatusWithPayment');
 
     // FAQ
-    Route::get('/faq-dokter', [FAQController::class, 'index']);
+    Route::get('/faq-dokter', [FAQDokterController::class, 'index']);
 
     // -> Admin
     // Workshop
