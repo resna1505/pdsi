@@ -22,16 +22,16 @@
                 <div class="pt-3">
                     <div class="row justify-content-between gy-4">
                         <div class="col-xl-5 col-lg-5">
-                            <h5 class="fs-17">{{ Auth::user()->name }} {{ Auth::user()->last_name }}</h5>
+                            <h5 class="fs-17">{{ Auth::user()->anggota->nama }}</h5>
                             <div class="hstack gap-1 mb-3 text-muted">
-                                <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>Kemayoran, Jakarta</div>
+                                <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>{{ $anggota->kota }}, {{ $anggota->provinsi }}</div>
                                 <div>
                                     <i class="ri-building-line me-1 fs-16 align-middle"></i>Universitas Dummy
                                 </div>
                             </div>
-                            <p>Dr. SpPD</p>
+                            <p>{{ $anggota->profesi }}</p>
 
-                            <div class="hstack gap-2">
+                            {{-- <div class="hstack gap-2">
                                 <button type="button" class="btn btn-success custom-toggle" data-bs-toggle="button" aria-pressed="false">
                                     <span class="icon-on"><i class="ri-user-add-line align-bottom me-1"></i> Connect</span>
                                     <span class="icon-off"><i class="ri-check-fill align-bottom me-1"></i> Unconnect</span>
@@ -47,36 +47,18 @@
                                         <li><a class="dropdown-item" href="#">Update Ilmiah & Seminar</a></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="col-xl-3 col-lg-5">
                             <div>
                                 <p class="text-muted fw-medium mb-2">place of practice</p>
                                 <ul class="list-inline mb-4">
                                     <li class="list-inline-item">
-                                        <span class="badge text-info bg-info-subtle">Rumah Sakit Cipto Mangunkusumo (RSCM)</span>
+                                        <span class="badge text-info bg-info-subtle">Dummy</span>
                                     </li>
                                     <li class="list-inline-item">
-                                        <span class="badge text-info bg-info-subtle">Klinik Medika Sehat</span>
+                                        <span class="badge text-info bg-info-subtle">Dummy</span>
                                     </li>
-                                </ul>
-                            </div>
-
-                            <div>
-                                <p class="text-muted fw-medium mb-2">Professional Certification</p>
-                                <ul class="d-flex gap-2 flex-wrap list-unstyled mb-0">
-                                    <li>
-                                        <span class="badge text-body-emphasis  bg-dark-subtle">Sertifikasi USG Dasar</span>
-                                    </li>
-                                    <li>
-                                        <span class="badge text-body-emphasis  bg-dark-subtle">Hiperkes & Keselamatan Kerja</span>
-                                    </li>
-                                    <li>
-                                        <span class="badge text-body-emphasis  bg-dark-subtle">Sertifikasi Dokter Pemeriksa Kesehatan Kerja</span>
-                                    </li>
-                                    {{-- <li>
-                                        <span class="badge text-body-emphasis  bg-dark-subtle">Estetika Medik Profesional</span>
-                                    </li> --}}
                                 </ul>
                             </div>
                         </div>
@@ -220,7 +202,7 @@
                                 <h5 class="card-title mb-4">Portfolio</h5>
                                 <div class="d-flex flex-wrap gap-2">
                                     <div>
-                                        <a href="javascript:void(0);" class="avatar-xs d-block">
+                                        <a href="{{ $anggota->twitter_url }}" target="_blank" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-dark text-white">
                                                 <i class="  ri-twitter-fill"></i>
                                             </span>
@@ -234,7 +216,7 @@
                                         </a>
                                     </div>
                                     <div>
-                                        <a href="javascript:void(0);" class="avatar-xs d-block">
+                                        <a href="{{ $anggota->linkedin_url }}" target="_blank" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-success">
                                                 <i class=" ri-linkedin-box-fill"></i>
                                             </span>
@@ -251,7 +233,7 @@
                             </div><!-- end card body -->
                         </div><!-- end card -->
 
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title mb-4">Additional Expertise</h5>
                                 <div class="d-flex flex-wrap gap-2 fs-15">
@@ -262,9 +244,10 @@
                                     <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Kesehatan Masyarakat</a>
                                 </div>
                             </div><!-- end card body -->
-                        </div><!-- end card -->
+                        </div> --}}
+                        <!-- end card -->
 
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-4">
                                     <div class="flex-grow-1">
@@ -329,7 +312,7 @@
                                     </div>
                                 </div>
                             </div><!-- end card body -->
-                        </div>
+                        </div> --}}
                         <!--end card-->
                     </div>
                     <!--end col-->
@@ -337,11 +320,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title mb-3">About</h5>
-                                <p>Halo, saya dr. resna pangestu. Saya adalah seorang dokter yang berdedikasi dalam memberikan pelayanan kesehatan terbaik bagi pasien. Saya percaya bahwa pendekatan yang empatik dan berbasis ilmu pengetahuan merupakan kunci utama dalam proses penyembuhan.</p>
-
-                                <p>Sebagai tenaga medis, saya memiliki pengalaman dalam mendiagnosis, merawat, serta memberikan edukasi kesehatan kepada masyarakat. Saya aktif mengikuti perkembangan ilmu kedokteran terkini dan senantiasa meningkatkan kompetensi melalui pelatihan dan seminar medis.</p>
-                                    
-                                <p>Bagi saya, kesehatan pasien adalah prioritas utama. Saya berkomitmen untuk memberikan pelayanan yang profesional, manusiawi, dan beretika.</p>
+                                <p>{{ $anggota->description }}</p>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="d-flex mt-4">
@@ -351,8 +330,8 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
-                                                <p class="mb-1">Designation :</p>
-                                                <h6 class="text-truncate mb-0">Spesialis Penyakit Dalam (Internis)</h6>
+                                                <p class="mb-1">Specialist :</p>
+                                                <h6 class="text-truncate mb-0">-</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -366,7 +345,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1">Website :</p>
-                                                <a href="#" class="fw-semibold text-body">www.pdsionline.org/resnapangestu</a>
+                                                <a href="#" class="fw-semibold text-body">www.pdsionline.org/{{ Auth::user()->anggota->nama }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -380,7 +359,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">Mobile :</p>
-                                                <h6 class="text-truncate mb-0">+(628) 123 456 789</h6>
+                                                <h6 class="text-truncate mb-0">{{ $anggota->no_hp }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -394,12 +373,12 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">E-mail :</p>
-                                                <h6 class="text-truncate mb-0">resnapangestu01@gmail.com</h6>
+                                                <h6 class="text-truncate mb-0">{{ $anggota->email }}</h6>
                                             </div>
                                         </div>
                                     </div>
                                     <!--end col-->
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                                 <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
@@ -408,10 +387,10 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">Location :</p>
-                                                <h6 class="text-truncate mb-0">Kemayoran, Jakarta</h6>
+                                                <h6 class="text-truncate mb-0">{{ $anggota->kota }}, {{ $anggota->provinsi }}</h6>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <!--end col-->
                                     <div class="col-md-4">
                                         <div class="d-flex mt-4">
@@ -422,7 +401,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">Joining Date :</p>
-                                                <h6 class="text-truncate mb-0">16 Aug 2023</h6>
+                                                <h6 class="text-truncate mb-0">{{ \Carbon\Carbon::parse(Auth::user()->anggota->created_at)->translatedFormat('d M Y') }}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -434,7 +413,7 @@
                         </div><!-- end card -->
 
                         <div class="row">
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6">
                                 <div class="card">
                                     <div class="card-header d-flex align-items-center">
                                         <div class="flex-grow-1">
@@ -548,9 +527,9 @@
                                     </div>
                                 </div>
                                 <!--end card-->
-                            </div>
+                            </div> --}}
                             <!--end col-->
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header d-flex align-items-center">
                                         <h5 class="card-title mb-0 flex-grow-1">Activity Stream</h5>
@@ -677,13 +656,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end card-->
                             </div>
                         </div>
                     </div>
-                    <!--end col-->
                 </div>
-                <!--end row-->
             </div>
             <div class="tab-pane fade" id="activities" role="tabpanel">
                 <div class="card">

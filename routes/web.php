@@ -15,6 +15,7 @@ use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetailController;
+use App\Http\Controllers\ProfileDokterController;
 use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikasiIuranController;
@@ -83,12 +84,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // -> Dokter
     // Profile
-    Route::get('/profile-dokter', function () {
-        return view('member.profile-dokter');
-    });
-    // Route::get('/edit-profile-dokter', function () {
-    //     return view('member.edit-profile-dokter');
-    // });    
+    Route::get('/profile-dokter', [ProfileDokterController::class, 'index'])->name('profile-dokter.index');
+
     Route::get('/edit-profile-dokter', [EditProfileController::class, 'index'])->name('edit-profile-dokter.index');
     Route::post('/edit-profile-dokter', [EditProfileController::class, 'update'])->name('edit-profile-dokter.update');
     Route::post('/change-password', [EditProfileController::class, 'changePassword'])->name('change-password');
