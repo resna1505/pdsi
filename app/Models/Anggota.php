@@ -27,7 +27,10 @@ class Anggota extends Model
         'ktp',
         'npwp',
         'avatar',
-        'user_id'
+        'user_id',
+        'linkedin_url',
+        'twitter_url',
+        'description',
     ];
 
     public function iurans()

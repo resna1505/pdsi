@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\FAQDokterController;
 use App\Http\Controllers\MasterIuranController;
 use App\Http\Controllers\MitraController;
@@ -81,6 +82,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/product-detail', [ProductDetailController::class, 'index'])->name('product-detail.index');
 
     // -> Dokter
+    // Profile
+    Route::get('/profile-dokter', function () {
+        return view('member.profile-dokter');
+    });
+    // Route::get('/edit-profile-dokter', function () {
+    //     return view('member.edit-profile-dokter');
+    // });    
+    Route::get('/edit-profile-dokter', [EditProfileController::class, 'index'])->name('edit-profile-dokter.index');
+    Route::post('/edit-profile-dokter', [EditProfileController::class, 'update'])->name('edit-profile-dokter.update');
+    Route::post('/change-password', [EditProfileController::class, 'changePassword'])->name('change-password');
+    Route::put('/edit-photo-dokter/{id}', [EditProfileController::class, 'updatePhoto'])->name('edit-photo-dokter.update');
+
+    Route::get('/workshops', function () {
+        return view('admin.workshops');
+    });
     // Berita
     Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement.index');
     Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcement.show');
