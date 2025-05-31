@@ -26,7 +26,7 @@
                             <div class="hstack gap-1 mb-3 text-muted">
                                 <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>{{ $anggota->kota }}, {{ $anggota->provinsi }}</div>
                                 <div>
-                                    <i class="ri-building-line me-1 fs-16 align-middle"></i>Universitas Dummy
+                                    <i class="ri-building-line me-1 fs-16 align-middle"></i>-
                                 </div>
                             </div>
                             <p>{{ $anggota->profesi }}</p>
@@ -88,11 +88,11 @@
                                     <i class="ri-price-tag-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Practice</span>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link fs-14" data-bs-toggle="tab" href="#friends" role="tab">
                                     <i class="ri-folder-4-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Friends</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link fs-14" data-bs-toggle="tab" href="#documents" role="tab">
                                     <i class="ri-folder-4-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Documents</span>
@@ -119,7 +119,6 @@
             <div class="tab-pane active" id="overview-tab" role="tabpanel">
                 <div class="row">
                     <div class="col-xxl-3">
-
                         <div class="card">
                             <div class="card-body p-2">
                                 <!-- With Indicators -->
@@ -140,7 +139,7 @@
                                                             border-radius: 50%; 
                                                             overflow: hidden;
                                                             border: 2px solid white;">
-                                                    <img src="{{ URL::asset('storage/images/users/' . Auth::user()->avatar) }}" 
+                                                    <img src="{{ URL::asset('storage/images/users/' . Auth::user()->anggota->avatar) }}" 
                                                         alt="First slide" 
                                                         style="width: 100%; 
                                                                 height: 100%; 
@@ -150,13 +149,13 @@
                                                     
                                                 </div>
                                                 <div style="position: absolute; bottom: 100px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    Nama : {{ Auth::user()->name }} {{ Auth::user()->last_name }}
+                                                    Nama : {{ Auth::user()->anggota->nama }}
                                                 </div>
                                                 <div style="position: absolute; bottom: 80px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    Id : {{ Auth::user()->id }}
+                                                    Id : {{ Auth::user()->anggota->id }}
                                                 </div>
                                                 <div style="position: absolute; bottom: 60px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    No.Urut Anggota : {{ Auth::user()->id }}
+                                                    No.Urut Anggota : {{ Auth::user()->anggota->id }}
                                                 </div>
                                             </div>
                                         </div>
@@ -662,119 +661,316 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="activities" role="tabpanel">
-                <div class="card">
-                    <div class="card-body px-0">
-                        <h5 class="card-title mb-4 px-3">Biodata</h5>
-                        {{-- <div data-simplebar style="max-height: 405px;" class="p-3 pt-0">
-                            <ul class="acitivity-timeline-2 list-unstyled mb-0">
-                                <li>
-                                    <h6 class="fs-14">Purchase by James Price</h6>
-                                    <p>09:24 PM</p>
-                                    <p class="mb-0">Product noise evolve smartwatch</p>
-                                </li>
-                                <li>
-                                    <h6 class="fs-14">New ticket received <span class="badge text-bg-info align-middle ms-1">New</span></h6>
-                                    <p class="mb-3">4 days ago</p>
-                                    <p class="text-muted mb-0">User <span class="text-secondary">Erica245</span> submitted a ticket</p>
-                                </li>
-                                <li>
-                                    <h6 class="fs-14">Adding a new event with attachments</h6>
-                                    <p class="mb-3">30 days ago</p>
-                                    <div class="border border-dashed p-2 rounded-3">
-                                        <div class="row g-3">
-                                            <div class="col-auto">
-                                                <div class="d-flex position-relative gap-2">
-                                                    <div class="flex-shrink-0">
-                                                        <i class="bi bi-file-earmark-image fs-17 text-danger"></i>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-2">
-                                                        <a href="javascript:void(0);" class="stretched-link">
-                                                            <h6>UI/UX design</h6>
-                                                        </a>
-                                                        <small>685 KB</small>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-auto">
-                                                <div class="d-flex position-relative gap-2">
-                                                    <div class="flex-shrink-0">
-                                                        <i class="bi bi-file-pdf fs-17 text-info"></i>
-                                                    </div>
-                                                    <div class="flex-grow-1 ms-2">
-                                                        <a href="javascript:void(0);" class="stretched-link">
-                                                            <h6>PDSI Invoice</h6>
-                                                        </a>
-                                                        <small>342 KB</small>
-                                                    </div>
-                                                </div>
+                <div class="col-xxl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Keanggotaan</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class="bi bi-person-bounding-box"></i>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h6 class="fs-14">Templates layout upload</h6>
-                                    <p class="mb-3">1 week ago</p>
-                                    <p class="text-muted fst-italic">
-                                        Powerful, clean & modern responsive bootstrap 5 admin template. The maximum file size for uploads in this demo :
-                                    </p>
-                                    <div class="row mt-2">
-                                        <div class="col-xxl-10">
-                                            <div class="row border border-dashed gx-2 p-2">
-                                                <div class="col-3">
-                                                    <img src="{{ URL::asset('build/images/small/img-3.jpg') }}" alt="" class="img-fluid rounded">
-                                                </div>
-                                                <!--end col-->
-                                                <div class="col-3">
-                                                    <img src="{{ URL::asset('build/images/small/img-5.jpg') }}" alt="" class="img-fluid rounded">
-                                                </div>
-                                                <!--end col-->
-                                                <div class="col-3">
-                                                    <img src="{{ URL::asset('build/images/small/img-7.jpg') }}" alt="" class="img-fluid rounded">
-                                                </div>
-                                                <!--end col-->
-                                                <div class="col-3">
-                                                    <img src="{{ URL::asset('build/images/small/img-9.jpg') }}" alt="" class="img-fluid rounded">
-                                                </div>
-                                                <!--end col-->
-                                            </div>
-                                            <!--end row-->
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-1">Status :</p>
+                                            <h6 class="text-truncate mb-0">Anggota</h6>
                                         </div>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="time">01:30 PM</div>
-                                    <p>Lunch time after which sleep just doesn't want to let go of me. 🤝</p>
-                                </li>
-                                <li>
-                                    <div class="time">3:30 PM</div>
-                                    <p>Drink the magical chai, it will ward off sleep they said. 🤷‍</p>
-                                </li>
-                                <li>
-                                    <div class="time">4:30 PM </div>
-                                    <p>The only time I don't feel sleepy cause it's work out time. I mean walking time. 😹</p>
-                                </li>
-                                <li>
-                                    <div class="time">07:00 PM </div>
-                                    <p>Food my tummy needs, sleep my body needs.👿</p>
-                                </li>
-                                <li>
-                                    <div class="time">07:30 PM </div>
-                                    <p>My tummy's happy time 🍝</p>
-                                </li>
-                                <li>
-                                    <div class="time">10:00 PM </div>
-                                    <p>uh oh!!! fuel low, get some snacks but wait should I just take a quick nap?🤓 </p>
-                                </li>
-                                <li>
-                                    <div class="time">2:30 PM </div>
-                                    <p>All hail! The time to sleep has finally arrived.😴😴😴😴😴 </p>
-                                </li>
-                            </ul>
-                        </div> --}}
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-customer-service-2-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">ID :</p>
+                                            <h6 class="text-truncate mb-0">{{ $anggota->id }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class="bi bi-envelope"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">E-mail :</p>
+                                            <h6 class="text-truncate mb-0">{{ $anggota->email }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!--end card-->
 
+                <div class="col-xxl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Pendidikan Dokter</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-government-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-1">Asal Negara Universitas :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-hotel-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-1">Asal Universitas :</p>
+                                            <a href="#" class="fw-semibold text-body">-</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-pages-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">No Ijazah :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-file-reduce-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Tanggal Ijazah :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-file-paper-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Dokumen Ijazah :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Data Pribadi</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class="ri-file-user-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-1">No. Identitas :</p>
+                                            <h6 class="text-truncate mb-0">{{ $anggota->ktp }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-input-method-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-1">Nama :</p>
+                                            <a href="#" class="fw-semibold text-body">{{ $anggota->nama }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class="bi bi-telephone"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Mobile :</p>
+                                            <h6 class="text-truncate mb-0">{{ $anggota->no_hp }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-calendar-2-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Tempat / Tanggal Lahir :</p>
+                                            <h6 class="text-truncate mb-0">{{ $anggota->tempat_lahir }} / {{ $anggota->tanggal_lahir }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-user-follow-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Jenis Kelamin :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-team-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Agama :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xxl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">Alamat</h5>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-map-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-1">Alamat :</p>
+                                            <h6 class="text-truncate mb-0">{{ $anggota->alamat }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-map-2-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-1">Provinsi :</p>
+                                            <a href="#" class="fw-semibold text-body">{{ $anggota->provinsi }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-map-pin-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Kab / Kota :</p>
+                                            <h6 class="text-truncate mb-0">{{ $anggota->kota }}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--end col-->
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-map-pin-5-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Kelurahan :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-map-pin-4-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">RT / RW :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0 avatar-sm align-self-center me-3">
+                                            <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
+                                                <i class=" ri-map-pin-user-line"></i>
+                                            </div>
+                                        </div>
+                                        <div class="flex-grow-1 overflow-hidden">
+                                            <p class="mb-2">Kode Pos :</p>
+                                            <h6 class="text-truncate mb-0">-</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--end tab-pane-->
 
@@ -1318,7 +1514,7 @@
             </div>
             <!--end tab-pane-->
 
-            <div class="tab-pane fade" id="friends" role="tabpanel">
+            {{-- <div class="tab-pane fade" id="friends" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4">
@@ -1472,7 +1668,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!--end tab-pane-->
 
             <div class="tab-pane fade" id="documents" role="tabpanel">

@@ -17,10 +17,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <p class="fw-medium text-muted mb-0">Successful conversions</p>
-                            <h2 class="mt-4 fw-semibold"><span class="counter-value" data-target="50"></span></h2>
+                            <p class="fw-medium text-muted mb-0">Pembayaran Sukses</p>
+                            <h2 class="mt-4 fw-semibold"><span class="counter-value" data-target="15"></span></h2>
                             <p class="mb-0 text-muted"><span class="badge bg-light text-success mb-0"><i
-                                        class="ri-arrow-up-line align-middle"></i> 8.24 % </span> 7 last week</p>
+                                        class="ri-arrow-up-line align-middle"></i> 8.24 % </span> last month</p>
                         </div>
                         <div>
                             <div class="avatar-sm flex-shrink-0">
@@ -39,10 +39,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <p class="fw-medium text-muted mb-0">Failed conversions</p>
-                            <h2 class="mt-4 fw-semibold"><span class="counter-value" data-target="8"></span></h2>
+                            <p class="fw-medium text-muted mb-0">Gagal Bayar Iuran</p>
+                            <h2 class="mt-4 fw-semibold"><span class="counter-value" data-target="3"></span></h2>
                             <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0"><i
-                                        class="ri-arrow-down-line align-middle"></i> 25.87 % </span> 7 last week</p>
+                                        class="ri-arrow-down-line align-middle"></i> 10.25 % </span> last month</p>
                         </div>
                         <div>
                             <div class="avatar-sm flex-shrink-0">
@@ -59,47 +59,12 @@
         <div class="col-xxl-3 col-md-6">
             <div class="card card-height-100">
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Developer Plan</h5>
+                    <h5 class="card-title mb-3">Progress SKP</h5>
                     <div class="progress animated-progress custom-progress mb-1">
                         <div class="progress-bar" role="progressbar" style="width: 38%" aria-valuenow="38" aria-valuemin="0"
                             aria-valuemax="100"></div>
                     </div>
-                    <p class="text-muted mb-2">You used 215 of 2000 of your API</p>
-                    <div class="text-end">
-                        <button type="button" class="btn btn-info btn-sm create-btn" data-bs-toggle="modal"
-                            data-bs-target="#api-key-modal">Create API Key</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--end col-->
-        <div class="col-xxl-3 col-md-6">
-            <div class="card">
-
-                <div class="card-body pb-0">
-                    <div class="align-items-center d-flex mb-3">
-                        <h4 class="card-title fs-14 mb-0 flex-grow-1">API Key Report</h4>
-                        <div class="flex-shrink-0">
-                            <div class="dropdown card-header-dropdown">
-                                <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <span class="fw-semibold text-uppercase fs-12">Sort by:
-                                    </span><span class="text-muted">Today<i class="mdi mdi-chevron-down ms-1"></i></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end">
-                                    <a class="dropdown-item" href="#">Today</a>
-                                    <a class="dropdown-item" href="#">Yesterday</a>
-                                    <a class="dropdown-item" href="#">Last 7 Days</a>
-                                    <a class="dropdown-item" href="#">Last 30 Days</a>
-                                    <a class="dropdown-item" href="#">This Month</a>
-                                    <a class="dropdown-item" href="#">Last Month</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="hours_spent_chart"
-                        data-colors='["--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary","--tb-primary", "--tb-primary"]'
-                        class="apex-chart"></div>
+                    <p class="text-muted mb-2">You used 40 of 100 of your SKP</p>
                 </div>
             </div>
         </div>
@@ -110,111 +75,120 @@
         <div class="col-lg-12">
             <div class="card" id="apiKeyList">
                 <div class="card-header d-flex align-items-center">
-                    <h5 class="card-title flex-grow-1 mb-0">API Keys</h5>
+                    <h5 class="card-title flex-grow-1 mb-0">Agenda Kegiatan</h5>
                     <div class="d-flex gap-1 flex-wrap">
-                        <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()"><i
-                                class="ri-delete-bin-2-line"></i></button>
-                        {{-- <button type="button" class="btn btn-success create-btn" data-bs-toggle="modal"
-                            data-bs-target="#api-key-modal"><i class="ri-add-line align-bottom me-1"></i>Add API
-                            Key</button> --}}
+                        <button class="btn btn-soft-danger" id="remove-actions" onClick="deleteMultiple()">
+                            <i class="ri-delete-bin-2-line"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div>
+                    <div id="agendaList">
                         <div class="table-responsive table-card mb-3">
                             <table class="table align-middle table-nowrap mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th scope="col" style="width: 50px;">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="checkAll"
-                                                    value="option">
-                                            </div>
-                                        </th>
-                                        <th class="sort d-none" data-sort="id" scope="col">Id</th>
-                                        <th class="sort" data-sort="name" scope="col">Name</th>
-                                        <th class="sort" data-sort="createBy" scope="col">Created By</th>
-                                        <th class="sort" data-sort="apikey" scope="col">API Key</th>
-                                        <th class="sort" data-sort="status" scope="col">Status</th>
-                                        <th class="sort" data-sort="create_date" scope="col">Create Date</th>
-                                        <th class="sort" data-sort="expiry_date" scope="col">Expiry Date</th>
-                                        <th scope="col">Action</th>
+                                        <th class="sort" data-sort="name">Nama Kegiatan</th>
+                                        <th class="sort" data-sort="kategori">Kategori</th>
+                                        <th class="sort" data-sort="tanggal">Tanggal</th>
+                                        <th class="sort" data-sort="lokasi">Lokasi</th>
+                                        <th class="sort" data-sort="skp">SKP</th>
+                                        <th class="sort" data-sort="status">Status</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
-                                <tbody class="list form-check-all">
+                                <tbody class="list">
                                     <tr>
-                                        <th scope="row">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="chk_child"
-                                                    value="option1">
-                                            </div>
-                                        </th>
-                                        <td class="id" style="display:none;"><a href="javascript:void(0);"
-                                                class="fw-medium link-primary">#VZ001</a></td>
-                                        <td class="name">Streamlab</td>
-                                        <td class="createBy">Nicholas Ball</td>
-                                        <td class="apikey">
-                                            <input type="text" class="form-control apikey-value" readonly
-                                                value="b5815DE8A7224438932eb296Z5">
-                                        </td>
-                                        <td class="status"><span
-                                                class="badge text-danger  bg-danger-subtle">Disable</span></td>
-                                        <td class="create_date">24 Sep, 2022</td>
-                                        <td class="expiry_date">24 Jan, 2023</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn btn-soft-secondary btn-sm dropdown" type="button"
-                                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="ri-more-fill align-middle"></i>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                    <li><a class="dropdown-item edit-item-btn" href="#api-key-modal"
-                                                            data-bs-toggle="modal">Rename</a></li>
-                                                    <li><a class="dropdown-item regenerate-api-btn" href="#api-key-modal"
-                                                            data-bs-toggle="modal">Regenerate Key</a></li>
-                                                    <li><a class="dropdown-item disable-btn"
-                                                            href="javascript:void(0);">Disable</a></li>
-                                                    <li><a class="dropdown-item remove-item-btn" data-bs-toggle="modal"
-                                                            href="#deleteApiKeyModal">Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
+                                        <td class="name">Pelatihan ACLS</td>
+                                        <td class="kategori">Pelatihan</td>
+                                        <td class="tanggal">10 Juli 2025</td>
+                                        <td class="lokasi">RSUD Kota X</td>
+                                        <td class="skp">5</td>
+                                        <td class="status"><span class="badge text-success bg-success-subtle">Terdaftar</span></td>
+                                        <td><a href="#" class="btn btn-sm btn-primary">Lihat Detail</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="name">Webinar SKP BPJS</td>
+                                        <td class="kategori">Zoom</td>
+                                        <td class="tanggal">15 Agustus 2025</td>
+                                        <td class="lokasi">Online (Zoom)</td>
+                                        <td class="skp">3</td>
+                                        <td class="status"><span class="badge text-warning bg-warning-subtle">Belum Daftar</span></td>
+                                        <td><a href="#" class="btn btn-sm btn-outline-primary">Daftar</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="name">Bakti Sosial Ramadan</td>
+                                        <td class="kategori">Bakti Sosial</td>
+                                        <td class="tanggal">18 April 2025</td>
+                                        <td class="lokasi">Puskesmas Y</td>
+                                        <td class="skp">2</td>
+                                        <td class="status"><span class="badge text-secondary bg-secondary-subtle">Selesai</span></td>
+                                        <td><a href="#" class="btn btn-sm btn-success">Sertifikat</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="name">Seminar Etika Kedokteran</td>
+                                        <td class="kategori">Seminar</td>
+                                        <td class="tanggal">22 Mei 2025</td>
+                                        <td class="lokasi">Aula X Jakarta</td>
+                                        <td class="skp">4</td>
+                                        <td class="status"><span class="badge text-secondary bg-secondary-subtle">Terdaftar</span></td>
+                                        <td><a href="#" class="btn btn-sm btn-primary">Lihat Detail</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="name">Workshop Geriatri Nasional</td>
+                                        <td class="kategori">Workshop</td>
+                                        <td class="tanggal">2 September 2025</td>
+                                        <td class="lokasi">RSUP Dr. Sardjito</td>
+                                        <td class="skp">6</td>
+                                        <td class="status"><span class="badge text-warning bg-warning-subtle">Belum Daftar</span></td>
+                                        <td><a href="#" class="btn btn-sm btn-outline-primary">Daftar</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="name">Pelatihan BLS</td>
+                                        <td class="kategori">Pelatihan</td>
+                                        <td class="tanggal">5 Oktober 2025</td>
+                                        <td class="lokasi">RS Jakarta</td>
+                                        <td class="skp">4</td>
+                                        <td class="status"><span class="badge text-success bg-success-subtle">Terdaftar</span></td>
+                                        <td><a href="#" class="btn btn-sm btn-primary">Lihat Detail</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="name">Seminar Kardiologi</td>
+                                        <td class="kategori">Seminar</td>
+                                        <td class="tanggal">12 November 2025</td>
+                                        <td class="lokasi">Hotel Borobudur</td>
+                                        <td class="skp">5</td>
+                                        <td class="status"><span class="badge text-warning bg-warning-subtle">Belum Daftar</span></td>
+                                        <td><a href="#" class="btn btn-sm btn-outline-primary">Daftar</a></td>
                                     </tr>
                                 </tbody>
                             </table>
+
                             <div class="noresult" style="display: none">
                                 <div class="text-center">
-                                    <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                        colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
-                                    </lord-icon>
-                                    <h5 class="mt-2">Sorry! No Result Found</h5>
-                                    <p class="text-muted mb-0">We've searched more than 150+ API Keys We did not find any
-                                        API for you search.</p>
+                                    <div style="width:75px;height:75px; margin: 0 auto; background: #f8f9fa; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <i class="ri-search-line" style="font-size: 24px; color: #6c757d;"></i>
+                                    </div>
+                                    <h5 class="mt-2">Maaf! Tidak Ada Hasil</h5>
+                                    <p class="text-muted mb-0">Kami tidak menemukan kegiatan sesuai pencarian Anda.</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end mt-3">
-                            <div class="pagination-wrap hstack gap-2">
-                                <a class="page-item pagination-prev disabled" href="#">
-                                    Previous
-                                </a>
+                        
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="text-muted small">
+                                Menampilkan <span id="showing-start">1</span> - <span id="showing-end">5</span> dari <span id="total-items">10</span> data
+                            </div>
+                            <div class="pagination-wrap">
                                 <ul class="pagination listjs-pagination mb-0"></ul>
-                                <a class="page-item pagination-next" href="#">
-                                    Next
-                                </a>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
-                <!-- end card body -->
             </div>
-            <!-- end card -->
         </div>
-        <!-- end col -->
     </div>
-    <!-- end row -->
-
-
     <!-- Modal -->
     <div class="modal fade" id="api-key-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -623,5 +597,171 @@
 
 <script src="{{ URL::asset('build/libs/list.pagination.js/list.pagination.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-{{-- <script src="{{ URL::asset('build/js/pages/api-key.init.js') }}"></script> --}}
+<script src="{{ URL::asset('build/js/pages/api-key.init.js') }}"></script>
+
+<script>
+    // Script yang diperbaiki untuk pagination List.js
+    document.addEventListener('DOMContentLoaded', function() {
+        // Konfigurasi List.js
+        const options = {
+            valueNames: ['name', 'kategori', 'tanggal', 'lokasi', 'skp', 'status'],
+            page: 5, // Items per halaman
+            pagination: {
+                innerWindow: 1,
+                outerWindow: 1,
+                left: 1,
+                right: 1,
+                paginationClass: 'listjs-pagination'
+            }
+        };
+
+        // Inisialisasi List.js
+        const agendaList = new List('agendaList', options);
+
+        // Fungsi untuk update info pagination
+        function updatePaginationInfo() {
+            const totalItems = agendaList.matchingItems.length;
+            const itemsPerPage = agendaList.page;
+            const currentPage = agendaList.i;
+            
+            if (totalItems === 0) {
+                document.getElementById('showing-start').textContent = '0';
+                document.getElementById('showing-end').textContent = '0';
+                document.getElementById('total-items').textContent = '0';
+            } else {
+                const start = ((currentPage - 1) * itemsPerPage) + 1;
+                const end = Math.min(currentPage * itemsPerPage, totalItems);
+                
+                document.getElementById('showing-start').textContent = start;
+                document.getElementById('showing-end').textContent = end;
+                document.getElementById('total-items').textContent = totalItems;
+            }
+        }
+
+        // Event listeners
+        agendaList.on('updated', function() {
+            updatePaginationInfo();
+            
+            // Show/hide no results message
+            const noResultDiv = document.querySelector('.noresult');
+            if (agendaList.matchingItems.length === 0) {
+                noResultDiv.style.display = 'block';
+            } else {
+                noResultDiv.style.display = 'none';
+            }
+        });
+
+        // Event listener untuk search
+        const searchInput = document.getElementById('searchResultList');
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function() {
+                agendaList.search(this.value);
+            });
+        }
+
+        // Inisialisasi pertama kali
+        updatePaginationInfo();
+
+        // Fungsi untuk multiple delete
+        window.deleteMultiple = function() {
+            const selectedItems = document.querySelectorAll('input[type="checkbox"]:checked');
+            if (selectedItems.length === 0) {
+                alert('Pilih item yang akan dihapus');
+                return;
+            }
+            
+            if (confirm(`Yakin ingin menghapus ${selectedItems.length} item?`)) {
+                // Implementasi hapus multiple di sini
+                selectedItems.forEach(item => {
+                    const row = item.closest('tr');
+                    if (row) {
+                        row.remove();
+                    }
+                });
+                
+                // Update list setelah penghapusan
+                agendaList.reIndex();
+                updatePaginationInfo();
+                
+                alert('Item berhasil dihapus');
+            }
+        };
+
+        // Custom styling untuk pagination
+        const style = document.createElement('style');
+        style.textContent = `
+            .listjs-pagination {
+                display: flex;
+                gap: 5px;
+                justify-content: center;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .listjs-pagination li {
+                list-style: none;
+            }
+            
+            .listjs-pagination li a {
+                display: block;
+                padding: 8px 12px;
+                text-decoration: none;
+                border: 1px solid #dee2e6;
+                color: #6c757d;
+                border-radius: 4px;
+                transition: all 0.2s;
+                cursor: pointer;
+            }
+            
+            .listjs-pagination li a:hover {
+                background-color: #e9ecef;
+                border-color: #adb5bd;
+                color: #495057;
+            }
+            
+            .listjs-pagination li.active a {
+                background-color: #0d6efd;
+                border-color: #0d6efd;
+                color: white !important;
+            }
+            
+            .listjs-pagination li.disabled a {
+                color: #6c757d !important;
+                background-color: #fff;
+                border-color: #dee2e6;
+                cursor: not-allowed;
+                opacity: 0.5;
+            }
+            
+            .btn-soft-danger {
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+                color: #721c24;
+            }
+            
+            .btn-soft-danger:hover {
+                background-color: #f1aeb5;
+                border-color: #e85d75;
+                color: #721c24;
+            }
+            
+            .table-responsive {
+                margin-bottom: 1rem;
+            }
+            
+            .noresult {
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .pagination-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        `;
+        document.head.appendChild(style);
+    });
+</script>
+
 @endsection
