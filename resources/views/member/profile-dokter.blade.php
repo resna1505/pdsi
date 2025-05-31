@@ -1677,315 +1677,74 @@
                         <div class="d-flex align-items-center mb-4">
                             <h5 class="card-title flex-grow-1 mb-0">Documents</h5>
                             <div class="flex-shrink-0">
-                                <input class="form-control d-none" type="file" id="formFile">
-                                <label for="formFile" class="btn btn-danger"><i class="ri-upload-2-fill me-1 align-bottom"></i> Upload File</label>
+                                {{-- <input class="form-control d-none" type="file" id="formFile">
+                                <label for="formFile" class="btn btn-danger"><i class="ri-upload-2-fill me-1 align-bottom"></i> Upload File</label> --}}
+                                <form method="POST" action="{{ route('documents.store') }}" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="file" id="formFile" class="d-none" onchange="this.form.submit()">
+                                    <label for="formFile" class="btn btn-danger">
+                                        <i class="ri-upload-2-fill me-1 align-bottom"></i> Upload File
+                                    </label>
+                                </form>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive">
-                                    <table class="table table-borderless align-middle mb-0">
+                                    <table class="table table-borderless align-middle mb-0 mt-3">
                                         <thead class="table-light">
                                             <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <th scope="col">File Name</th>
-                                                <th scope="col">Type</th>
-                                                <th scope="col">Size</th>
-                                                <th scope="col">Upload Date</th>
-                                                <th scope="col">Action</th>
+                                                <th>Nama File</th>
+                                                <th>Tipe</th>
+                                                <th>Ukuran</th>
+                                                <th>Tanggal Upload</th>
+                                                <th>Nama Anggota</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-transparent text-primary rounded fs-20">
-                                                                <i class="bi bi-file-earmark-zip-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0)" class="text-body">documents.zip</a>
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>Zip File</td>
-                                                <td>4.57 MB</td>
-                                                <td>12 Dec 2022</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink15" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="bi bi-sliders2"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink15">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-transparent text-danger rounded fs-20">
-                                                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">Ijazah</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>PDF File</td>
-                                                <td>8.89 MB</td>
-                                                <td>24 Nov 2022</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="bi bi-sliders2"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink3">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-transparent text-danger rounded fs-20">
-                                                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">STR</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>PDF File</td>
-                                                <td>8.89 MB</td>
-                                                <td>24 Nov 2022</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="bi bi-sliders2"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink3">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-transparent text-danger rounded fs-20">
-                                                                <i class="bi bi-file-earmark-pdf-fill"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">SIP</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>PDF File</td>
-                                                <td>8.89 MB</td>
-                                                <td>24 Nov 2022</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink3" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="bi bi-sliders2"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink3">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            {{-- <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-transparent text-secondary rounded fs-20">
-                                                                <i class="bi bi-file-earmark-play"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">Tour-video.mp4</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>MP4 File</td>
-                                                <td>14.62 MB</td>
-                                                <td>19 Nov 2022</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink4" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="bi bi-sliders2"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink4">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr> --}}
-                                            {{-- <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-transparent text-success rounded fs-20">
-                                                                <i class="bi bi-filetype-exe"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0"><a href="javascript:void(0);" class="text-body">Account-statement.xsl</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>XSL File</td>
-                                                <td>2.38 KB</td>
-                                                <td>14 Nov 2022</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink5" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="bi bi-sliders2"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink5">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle text-muted"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download</a></li>
-                                                            <li class="dropdown-divider"></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr> --}}
-                                            <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-transparent text-info rounded fs-20">
-                                                                <i class="bi bi-folder"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0">
-                                                                <a href="javascript:void(0);" class="text-body">Project Screenshots Collection</a></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>Floder File</td>
-                                                <td>87.24 MB</td>
-                                                <td>08 Nov 2022</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink6" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="bi bi-sliders2"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink6">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle"></i>View</a></li>
-                                                            <li>
-                                                                <a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle"></i>Download</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle"></i>Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="col">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" name="chk_child" value="option1">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar-sm">
-                                                            <div class="avatar-title bg-transparent text-danger rounded fs-20">
-                                                                <i class="bi bi-images"></i>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ms-3 flex-grow-1">
-                                                            <h6 class="fs-15 mb-0">
-                                                                <a href="javascript:void(0);" class="text-body">Photo.png</a>
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>PNG File</td>
-                                                <td>879 KB</td>
-                                                <td>02 Nov 2022</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink7" data-bs-toggle="dropdown" aria-expanded="true">
-                                                            <i class="bi bi-sliders2"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink7">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-eye-fill me-2 align-middle"></i>View</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i class="ri-download-2-fill me-2 align-middle"></i>Download</a></li>
-                                                            <li>
-                                                                <a class="dropdown-item" href="javascript:void(0);"><i class="ri-delete-bin-5-line me-2 align-middle"></i>Delete</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            @foreach ($documents as $doc)
+                                                <tr>
+                                                    <td>{{ $doc->filename }}</td>
+                                                    <td>{{ $doc->type }}</td>
+                                                    <td>{{ $doc->size }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($doc->upload_date)->format('d M Y') }}</td>
+                                                    <td>{{ $doc->anggota->nama ?? '-' }}</td>
+                                                    {{-- <td>
+                                                        <a href="{{ asset('storage/uploads/' . $doc->filename) }}" target="_blank" class="btn btn-sm btn-info">Download</a>
+                                                    </td> --}}
+                                                    <td>
+    <div class="dropdown">
+        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink{{ $doc->id }}" data-bs-toggle="dropdown" aria-expanded="true">
+            <i class="bi bi-sliders2"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink{{ $doc->id }}">
+            <li>
+                <a class="dropdown-item" href="{{ route('documents.view', $doc->id) }}" target="_blank">
+                    <i class="ri-eye-fill me-2 align-middle text-muted"></i>View
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{ route('documents.download', $doc->id) }}">
+                    <i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download
+                </a>
+            </li>
+            <li class="dropdown-divider"></li>
+            <li>
+                <form action="{{ route('documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus file ini?')">
+                    @csrf
+                    @method('DELETE')
+                    <button class="dropdown-item text-danger" type="submit">
+                        <i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</td>
+
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

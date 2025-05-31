@@ -85,6 +85,10 @@ Route::group(['middleware' => 'auth'], function () {
     // -> Dokter
     // Profile
     Route::get('/profile-dokter', [ProfileDokterController::class, 'index'])->name('profile-dokter.index');
+    Route::post('/documents', [ProfileDokterController::class, 'store'])->name('documents.store');
+    Route::get('/documents/{id}/view', [ProfileDokterController::class, 'view'])->name('documents.view');
+    Route::get('/documents/{id}/download', [ProfileDokterController::class, 'download'])->name('documents.download');
+    Route::delete('/documents/{id}', [ProfileDokterController::class, 'destroy'])->name('documents.destroy');
 
     Route::get('/edit-profile-dokter', [EditProfileController::class, 'index'])->name('edit-profile-dokter.index');
     Route::post('/edit-profile-dokter', [EditProfileController::class, 'update'])->name('edit-profile-dokter.update');
