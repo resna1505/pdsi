@@ -66,11 +66,11 @@
                             <i class="ri-megaphone-line	"></i> <span data-key="t-announcement">@lang('translation.announcement')</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link menu-link" href="pages-coming-soon">
                             <i class="  ri-file-list-3-line"></i> <span data-key="t-authentication">LMS Kemenkes</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                             <i class=" ri-pin-distance-line"></i> <span data-key="t-authentication">Tautan</span>
@@ -114,9 +114,11 @@
                 <li class="nav-item">
                     <a href="apps-calendar" class="nav-link menu-link"> <i class="bi bi-calendar3"></i> <span data-key="t-calendar">@lang('translation.calendar')</span> </a>
                 </li>
-                <li class="nav-item">
-                    <a href="apps-leaderboards" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard">@lang('translation.leaderboard')</span> </a>
-                </li>
+                @if (Auth::user()->level == 'Admin')    
+                    <li class="nav-item">
+                        <a href="apps-leaderboards" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard">@lang('translation.leaderboard')</span> </a>
+                    </li>
+                @endif
 
                 @if (Auth::user()->level == 'Admin')
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>

@@ -30,24 +30,6 @@
                                 </div>
                             </div>
                             <p>{{ $anggota->profesi }}</p>
-
-                            {{-- <div class="hstack gap-2">
-                                <button type="button" class="btn btn-success custom-toggle" data-bs-toggle="button" aria-pressed="false">
-                                    <span class="icon-on"><i class="ri-user-add-line align-bottom me-1"></i> Connect</span>
-                                    <span class="icon-off"><i class="ri-check-fill align-bottom me-1"></i> Unconnect</span>
-                                </button>
-                                <button type="button" class="btn btn-soft-secondary btn-icon"><i class="bi bi-chat-left-text"></i></button>
-                                <div class="dropdown">
-                                    <button class="btn btn-soft-danger btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-three-dots-vertical"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Konsultasi</a></li>
-                                        <li><a class="dropdown-item" href="#">Forum Diskusi Medis</a></li>
-                                        <li><a class="dropdown-item" href="#">Update Ilmiah & Seminar</a></li>
-                                    </ul>
-                                </div>
-                            </div> --}}
                         </div>
                         <div class="col-xl-3 col-lg-5">
                             <div>
@@ -231,88 +213,6 @@
                                 </div>
                             </div><!-- end card body -->
                         </div><!-- end card -->
-
-                        {{-- <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title mb-4">Additional Expertise</h5>
-                                <div class="d-flex flex-wrap gap-2 fs-15">
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Manajemen Pasien & Rekam Medis</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Telemedicine & Konsultasi Online</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Penelitian Medis</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Pendidikan & Pelatihan Kedokteran</a>
-                                    <a href="javascript:void(0);" class="badge text-primary  bg-primary-subtle">Kesehatan Masyarakat</a>
-                                </div>
-                            </div><!-- end card body -->
-                        </div> --}}
-                        <!-- end card -->
-
-                        {{-- <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="flex-grow-1">
-                                        <h5 class="card-title mb-0">Suggestions</h5>
-                                    </div>
-                                    <div class="flex-shrink-0">
-                                        <div class="dropdown">
-                                            <a href="#" role="button" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="ri-more-2-fill fs-14"></i>
-                                            </a>
-
-                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
-                                                <li><a class="dropdown-item" href="#">View</a></li>
-                                                <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                <li><a class="dropdown-item" href="#">Delete</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="d-flex align-items-center py-3">
-                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                            <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="img-fluid rounded-circle" />
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <div>
-                                                <h5 class="fs-14 mb-1">Esther James</h5>
-                                                <p class="fs-13 text-muted mb-0">Frontend Developer</p>
-                                            </div>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <button type="button" class="btn btn-sm btn-outline-success"><i class="ri-user-add-line align-middle"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center py-3">
-                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                            <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="img-fluid rounded-circle" />
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <div>
-                                                <h5 class="fs-14 mb-1">Jacqueline Steve</h5>
-                                                <p class="fs-13 text-muted mb-0">UI/UX Designer</p>
-                                            </div>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <button type="button" class="btn btn-sm btn-outline-success"><i class="ri-user-add-line align-middle"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center py-3">
-                                        <div class="avatar-xs flex-shrink-0 me-3">
-                                            <img src="{{ URL::asset('build/images/users/avatar-5.jpg') }}" alt="" class="img-fluid rounded-circle" />
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <div>
-                                                <h5 class="fs-14 mb-1">George Whalen</h5>
-                                                <p class="fs-13 text-muted mb-0">Backend Developer</p>
-                                            </div>
-                                        </div>
-                                        <div class="flex-shrink-0 ms-2">
-                                            <button type="button" class="btn btn-sm btn-outline-success"><i class="ri-user-add-line align-middle"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div><!-- end card body -->
-                        </div> --}}
-                        <!--end card-->
                     </div>
                     <!--end col-->
                     <div class="col-xxl-9">
@@ -376,21 +276,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end col-->
-                                    {{-- <div class="col-md-4">
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0 avatar-sm align-self-center me-3">
-                                                <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                    <i class="bi bi-geo-alt"></i>
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1 overflow-hidden">
-                                                <p class="mb-2">Location :</p>
-                                                <h6 class="text-truncate mb-0">{{ $anggota->kota }}, {{ $anggota->provinsi }}</h6>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <!--end col-->
                                     <div class="col-md-4">
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0 avatar-sm align-self-center me-3">
@@ -409,125 +294,10 @@
                                 <!--end row-->
                             </div>
                             <!--end card-body-->
-                        </div><!-- end card -->
+                        </div>
+                        <!-- end card -->
 
                         <div class="row">
-                            {{-- <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-header d-flex align-items-center">
-                                        <div class="flex-grow-1">
-                                            <h5 class="card-title mb-0">Connections</h5>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                                            <div class="dropdown">
-                                                <a href="#" role="button" id="dropdownMenuLink2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <i class="ri-more-2-fill fs-14"></i>
-                                                </a>
-
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink2">
-                                                    <li><a class="dropdown-item" href="#">View</a></li>
-                                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div>
-                                            <div class="d-flex align-items-center pb-3">
-                                                <div class="avatar-xs flex-shrink-0 me-3">
-                                                    <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="img-fluid rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <div>
-                                                        <h5 class="fs-14 mb-1">Esther James</h5>
-                                                        <p class="fs-13 text-muted mb-0">475 Connections</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex-shrink-0 ms-2">
-                                                    <button type="button" class="btn btn-sm btn-outline-info custom-toggle active" data-bs-toggle="button" aria-pressed="true">
-                                                        <span class="icon-on"><i class="ri-user-follow-line align-bottom me-1"></i> Follow</span>
-                                                        <span class="icon-off"><i class="ri-user-unfollow-line align-bottom me-1"></i> Unfollow</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center py-3">
-                                                <div class="avatar-xs flex-shrink-0 me-3">
-                                                    <img src="{{ URL::asset('build/images/users/avatar-6.jpg') }}" alt="" class="img-fluid rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <div>
-                                                        <h5 class="fs-14 mb-1">Jacqueline Steve</h5>
-                                                        <p class="fs-13 text-muted mb-0">UI/UX Designer</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex-shrink-0 ms-2">
-                                                    <button type="button" class="btn btn-sm btn-outline-info custom-toggle" data-bs-toggle="button" aria-pressed="true">
-                                                        <span class="icon-on"><i class="ri-user-follow-line align-bottom me-1"></i> Follow</span>
-                                                        <span class="icon-off"><i class="ri-user-unfollow-line align-bottom me-1"></i> Unfollow</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center py-3">
-                                                <div class="avatar-xs flex-shrink-0 me-3">
-                                                    <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="img-fluid rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <div>
-                                                        <h5 class="fs-14 mb-1">George Whalen</h5>
-                                                        <p class="fs-13 text-muted mb-0">Backend Developer</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex-shrink-0 ms-2">
-                                                    <button type="button" class="btn btn-sm btn-outline-info custom-toggle" data-bs-toggle="button" aria-pressed="true">
-                                                        <span class="icon-on"><i class="ri-user-follow-line align-bottom me-1"></i> Follow</span>
-                                                        <span class="icon-off"><i class="ri-user-unfollow-line align-bottom me-1"></i> Unfollow</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center py-3">
-                                                <div class="avatar-xs flex-shrink-0 me-3">
-                                                    <img src="{{ URL::asset('build/images/users/avatar-8.jpg') }}" alt="" class="img-fluid rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <div>
-                                                        <h5 class="fs-14 mb-1">George Whalen</h5>
-                                                        <p class="fs-13 text-muted mb-0">Backend Developer</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex-shrink-0 ms-2">
-                                                    <button type="button" class="btn btn-sm btn-outline-info custom-toggle" data-bs-toggle="button" aria-pressed="true">
-                                                        <span class="icon-on"><i class="ri-user-follow-line align-bottom me-1"></i> Follow</span>
-                                                        <span class="icon-off"><i class="ri-user-unfollow-line align-bottom me-1"></i> Unfollow</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex align-items-center py-3">
-                                                <div class="avatar-xs flex-shrink-0 me-3">
-                                                    <img src="{{ URL::asset('build/images/users/avatar-9.jpg') }}" alt="" class="img-fluid rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <div>
-                                                        <h5 class="fs-14 mb-1">George Whalen</h5>
-                                                        <p class="fs-13 text-muted mb-0">Backend Developer</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex-shrink-0 ms-2">
-                                                    <button type="button" class="btn btn-sm btn-outline-info custom-toggle" data-bs-toggle="button" aria-pressed="true">
-                                                        <span class="icon-on"><i class="ri-user-follow-line align-bottom me-1"></i> Follow</span>
-                                                        <span class="icon-off"><i class="ri-user-unfollow-line align-bottom me-1"></i> Unfollow</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- end card body -->
-                                    <div class="card-footer text-center">
-                                        <a href="#!" class="link-secondar">View All Connections <i class="bi bi-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <!--end card-->
-                            </div> --}}
-                            <!--end col-->
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header d-flex align-items-center">
@@ -561,96 +331,6 @@
                                                     <p class="text-muted">2 minggu yang lalu</p>
                                                     <p class="mb-0">"Manajemen Hipertensi pada Lansia" telah diterbitkan di Jurnal IDI.</p>
                                                 </li>
-                                                {{-- <li>
-                                                    <h6 class="fs-14">Adding a new event with attachments</h6>
-                                                    <p class="mb-3">30 days ago</p>
-                                                    <div class="row g-3">
-                                                        <div class="col-auto">
-                                                            <div class="d-flex position-relative gap-2 border border-dashed p-2 rounded-3">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="bi bi-file-earmark-image fs-17 text-danger"></i>
-                                                                </div>
-                                                                <div class="flex-grow-1 ms-2">
-                                                                    <a href="javascript:void(0);" class="stretched-link">
-                                                                        <h6 class="mb-1 fs-12">UI/UX design</h6>
-                                                                    </a>
-                                                                    <small class="text-muted">685 KB</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-auto">
-                                                            <div class="d-flex position-relative gap-2 border border-dashed p-2 rounded-3">
-                                                                <div class="flex-shrink-0">
-                                                                    <i class="bi bi-file-pdf fs-17 text-info"></i>
-                                                                </div>
-                                                                <div class="flex-grow-1 ms-2">
-                                                                    <a href="javascript:void(0);" class="stretched-link">
-                                                                        <h6 class="mb-1 fs-12">PDSI Invoice</h6>
-                                                                    </a>
-                                                                    <small class="text-muted">342 KB</small>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <h6 class="fs-14">Templates layout upload</h6>
-                                                    <p class="mb-3">1 week ago</p>
-                                                    <p class="text-muted fst-italic">
-                                                        Powerful, clean & modern responsive bootstrap 5 admin template. The maximum file size for uploads in this demo :
-                                                    </p>
-                                                    <div class="row mt-2">
-                                                        <div class="col-xxl-10">
-                                                            <div class="row border border-dashed gx-2 p-2">
-                                                                <div class="col-3">
-                                                                    <img src="{{ URL::asset('build/images/small/img-3.jpg') }}" alt="" class="img-fluid rounded">
-                                                                </div>
-                                                                <!--end col-->
-                                                                <div class="col-3">
-                                                                    <img src="{{ URL::asset('build/images/small/img-5.jpg') }}" alt="" class="img-fluid rounded">
-                                                                </div>
-                                                                <!--end col-->
-                                                                <div class="col-3">
-                                                                    <img src="{{ URL::asset('build/images/small/img-7.jpg') }}" alt="" class="img-fluid rounded">
-                                                                </div>
-                                                                <!--end col-->
-                                                                <div class="col-3">
-                                                                    <img src="{{ URL::asset('build/images/small/img-9.jpg') }}" alt="" class="img-fluid rounded">
-                                                                </div>
-                                                                <!--end col-->
-                                                            </div>
-                                                            <!--end row-->
-                                                        </div>
-                                                    </div>
-                                                </li> --}}
-                                                {{-- <li>
-                                                    <div class="time">01:30 PM</div>
-                                                    <p>Lunch time after which sleep just doesn't want to let go of me. 🤝</p>
-                                                </li>
-                                                <li>
-                                                    <div class="time">3:30 PM</div>
-                                                    <p>Drink the magical chai, it will ward off sleep they said. 🤷‍</p>
-                                                </li>
-                                                <li>
-                                                    <div class="time">4:30 PM </div>
-                                                    <p>The only time I don't feel sleepy cause it's work out time. I mean walking time. 😹</p>
-                                                </li>
-                                                <li>
-                                                    <div class="time">07:00 PM </div>
-                                                    <p>Food my tummy needs, sleep my body needs.👿</p>
-                                                </li>
-                                                <li>
-                                                    <div class="time">07:30 PM </div>
-                                                    <p>My tummy's happy time 🍝</p>
-                                                </li>
-                                                <li>
-                                                    <div class="time">10:00 PM </div>
-                                                    <p>uh oh!!! fuel low, get some snacks but wait should I just take a quick nap?🤓 </p>
-                                                </li>
-                                                <li>
-                                                    <div class="time">2:30 PM </div>
-                                                    <p>All hail! The time to sleep has finally arrived.😴😴😴😴😴 </p>
-                                                </li> --}}
                                             </ul>
                                         </div>
                                     </div>
@@ -1364,12 +1044,6 @@
                                                 <div class="badge text-primary bg-primary-subtle fs-10">Tersedia</div>
                                             </div>
                                         </div>
-
-                                        {{-- <div class="mt-3">
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-primary bg-primary-subtle fs-10">Tersedia</div>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                     <!-- end card body -->
                                 </div>
@@ -1483,13 +1157,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- end card body -->
                                 </div>
-                                <!-- end card -->
                             </div>
-                            <!--end col-->
-
-                            <!--end col-->
                             <div class="col-lg-12">
                                 <div class="mt-4">
                                     <ul class="pagination pagination-separated justify-content-center mb-0">
@@ -1506,170 +1175,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!--end row-->
                     </div>
-                    <!--end card-body-->
                 </div>
-                <!--end card-->
             </div>
-            <!--end tab-pane-->
-
-            {{-- <div class="tab-pane fade" id="friends" role="tabpanel">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-4">
-                            <h5 class="card-title flex-grow-1 mb-0">Friends</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-xxl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="dropdown position-absolute end-0 pe-3"> <a class="fs-18" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-2-fill align-baseline"></i> </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="text-center mb-4">
-                                            <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="avatar-md rounded-3" />
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                <h5 class="fs-17">Dr. Andi Pratama, Sp.PD</h5>
-                                            </a>
-                                            <span class="badge text-secondary bg-secondary-subtle">Spesialis Penyakit Dalam</span>
-                                        </div>
-                                        <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-info-subtle text-info"><i class="ri-facebook-fill align-middle"></i></a>
-                                            </div>
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-success-subtle text-success"><i class="ri-twitter-fill align-middle"></i></a>
-                                            </div>
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-danger-subtle text-danger"><i class="ri-linkedin-fill align-middle"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body hstack gap-2 border-top">
-                                        <button class="btn btn-soft-info w-100">Message</button>
-                                        <button class="btn btn-soft-primary w-100">Overview</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xxl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="dropdown position-absolute end-0 pe-3"> <a class="fs-18" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-2-fill align-baseline"></i> </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="text-center mb-4">
-                                            <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="avatar-md rounded-3" />
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                <h5 class="fs-17">Dr. Jordan Villareal SpB</h5>
-                                            </a>
-                                            <span class="badge text-secondary bg-secondary-subtle">Spesialis Bedah</span>
-                                        </div>
-                                        <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-info-subtle text-info"><i class="ri-facebook-fill align-middle"></i></a>
-                                            </div>
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-success-subtle text-success"><i class="ri-twitter-fill align-middle"></i></a>
-                                            </div>
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-danger-subtle text-danger"><i class="ri-linkedin-fill align-middle"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body hstack gap-2 border-top">
-                                        <button class="btn btn-soft-info w-100">Message</button>
-                                        <button class="btn btn-soft-primary w-100">Overview</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xxl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="dropdown position-absolute end-0 pe-3"> <a class="fs-18" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-2-fill align-baseline"></i> </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="text-center mb-4">
-                                            <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="avatar-md rounded-3" />
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                <h5 class="fs-17">Dr. Damon Boxter SpA</h5>
-                                            </a>
-                                            <span class="badge text-secondary bg-secondary-subtle">Spesialis Anak</span>
-                                        </div>
-                                        <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-info-subtle text-info"><i class="ri-facebook-fill align-middle"></i></a>
-                                            </div>
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-success-subtle text-success"><i class="ri-twitter-fill align-middle"></i></a>
-                                            </div>
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-danger-subtle text-danger"><i class="ri-linkedin-fill align-middle"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body hstack gap-2 border-top">
-                                        <button class="btn btn-soft-info w-100">Message</button>
-                                        <button class="btn btn-soft-primary w-100">Overview</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xxl-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="dropdown position-absolute end-0 pe-3"> <a class="fs-18" href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-2-fill align-baseline"></i> </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
-                                                <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="text-center mb-4">
-                                            <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="avatar-md rounded-3" />
-                                        </div>
-                                        <div class="text-center">
-                                            <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                <h5 class="fs-17">Dr. Bryant Diaz SpOG</h5>
-                                            </a>
-                                            <span class="badge text-secondary bg-secondary-subtle">Spesialis Kandungan & Kebidanan</span>
-                                        </div>
-                                        <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-info-subtle text-info"><i class="ri-facebook-fill align-middle"></i></a>
-                                            </div>
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-success-subtle text-success"><i class="ri-twitter-fill align-middle"></i></a>
-                                            </div>
-                                            <div class="avatar-xs">
-                                                <a href="#" class="avatar-title rounded-circle bg-danger-subtle text-danger"><i class="ri-linkedin-fill align-middle"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body hstack gap-2 border-top">
-                                        <button class="btn btn-soft-info w-100">Message</button>
-                                        <button class="btn btn-soft-primary w-100">Overview</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            <!--end tab-pane-->
 
             <div class="tab-pane fade" id="documents" role="tabpanel">
                 <div class="card">
@@ -1677,8 +1185,6 @@
                         <div class="d-flex align-items-center mb-4">
                             <h5 class="card-title flex-grow-1 mb-0">Documents</h5>
                             <div class="flex-shrink-0">
-                                {{-- <input class="form-control d-none" type="file" id="formFile">
-                                <label for="formFile" class="btn btn-danger"><i class="ri-upload-2-fill me-1 align-bottom"></i> Upload File</label> --}}
                                 <form method="POST" action="{{ route('documents.store') }}" enctype="multipart/form-data">
                                     @csrf
                                     <input type="file" name="file" id="formFile" class="d-none" onchange="this.form.submit()">
@@ -1710,39 +1216,35 @@
                                                     <td>{{ $doc->size }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($doc->upload_date)->format('d M Y') }}</td>
                                                     <td>{{ $doc->anggota->nama ?? '-' }}</td>
-                                                    {{-- <td>
-                                                        <a href="{{ asset('storage/uploads/' . $doc->filename) }}" target="_blank" class="btn btn-sm btn-info">Download</a>
-                                                    </td> --}}
                                                     <td>
-    <div class="dropdown">
-        <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink{{ $doc->id }}" data-bs-toggle="dropdown" aria-expanded="true">
-            <i class="bi bi-sliders2"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink{{ $doc->id }}">
-            <li>
-                <a class="dropdown-item" href="{{ route('documents.view', $doc->id) }}" target="_blank">
-                    <i class="ri-eye-fill me-2 align-middle text-muted"></i>View
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="{{ route('documents.download', $doc->id) }}">
-                    <i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download
-                </a>
-            </li>
-            <li class="dropdown-divider"></li>
-            <li>
-                <form action="{{ route('documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus file ini?')">
-                    @csrf
-                    @method('DELETE')
-                    <button class="dropdown-item text-danger" type="submit">
-                        <i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete
-                    </button>
-                </form>
-            </li>
-        </ul>
-    </div>
-</td>
-
+                                                        <div class="dropdown">
+                                                            <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink{{ $doc->id }}" data-bs-toggle="dropdown" aria-expanded="true">
+                                                                <i class="bi bi-sliders2"></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink{{ $doc->id }}">
+                                                                <li>
+                                                                    <a class="dropdown-item" href="{{ route('documents.view', $doc->id) }}" target="_blank">
+                                                                        <i class="ri-eye-fill me-2 align-middle text-muted"></i>View
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="{{ route('documents.download', $doc->id) }}">
+                                                                        <i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download
+                                                                    </a>
+                                                                </li>
+                                                                <li class="dropdown-divider"></li>
+                                                                <li>
+                                                                    <form action="{{ route('documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus file ini?')">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button class="dropdown-item text-danger" type="submit">
+                                                                            <i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete
+                                                                        </button>
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -1756,13 +1258,9 @@
                     </div>
                 </div>
             </div>
-            <!--end tab-pane-->
         </div>
-        <!--end tab-content-->
     </div>
-    <!--end col-->
 </div>
-<!--end row-->
 @endsection
 
 @section('script')
