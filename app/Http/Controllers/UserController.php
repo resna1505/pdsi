@@ -27,7 +27,6 @@ class UserController extends Controller
         return view('admin.user', compact('admin', 'dokter'));
     }
 
-
     public function verifikasi($id)
     {
         try {

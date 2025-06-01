@@ -14,7 +14,8 @@ class ProfileDokterController extends Controller
     public function index()
     {
         $anggota = Anggota::where('user_id', Auth::id())->first();
-        $documents = Document::with('anggota')->orderBy('upload_date', 'desc')->get();
+        $documents = Document::where('user_id', Auth::id())->orderBy('upload_date', 'desc')->get();
+        // dd($documents);
 
         return view('member.profile-dokter', compact('anggota', 'documents'));
     }

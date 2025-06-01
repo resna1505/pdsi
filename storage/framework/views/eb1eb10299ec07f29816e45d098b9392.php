@@ -39,12 +39,12 @@
 
                 <?php if(Auth::user()->level == 'Admin'): ?>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="member">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/member')); ?>">
                             <i class=" ri-user-line"></i> <span data-key="t-member"><?php echo app('translator')->get('translation.member'); ?></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="verifikasi-iuran">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/verifikasi-iuran')); ?>">
                             <i class=" ri-donut-chart-line"></i> <span data-key="t-verifikasi-iuran">Verifikasi Iuran</span>
                         </a>
                     </li>
@@ -52,12 +52,12 @@
 
                 <?php if(Auth::user()->level == 'Dokter'): ?>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="pembayaran-iuran">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/pembayaran-iuran')); ?>">
                             <i class=" ri-funds-line	"></i> <span data-key="t-pembayaran-iuran">Iuran Anggota</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="training">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/training')); ?>">
                             <i class="ri-briefcase-line	"></i> <span data-key="t-training"><?php echo app('translator')->get('translation.training'); ?></span>
                         </a>
                     </li>
@@ -108,11 +108,11 @@
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps"><?php echo app('translator')->get('translation.apps'); ?></span></li>
                 
                 <li class="nav-item">
-                    <a href="apps-calendar" class="nav-link menu-link"> <i class="bi bi-calendar3"></i> <span data-key="t-calendar"><?php echo app('translator')->get('translation.calendar'); ?></span> </a>
+                    <a href="<?php echo e(url('/apps-calendar')); ?>" class="nav-link menu-link"> <i class="bi bi-calendar3"></i> <span data-key="t-calendar"><?php echo app('translator')->get('translation.calendar'); ?></span> </a>
                 </li>
                 <?php if(Auth::user()->level == 'Admin'): ?>    
                     <li class="nav-item">
-                        <a href="apps-leaderboards" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard"><?php echo app('translator')->get('translation.leaderboard'); ?></span> </a>
+                        <a href="<?php echo e(url('/apps-leaderboards')); ?>" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard"><?php echo app('translator')->get('translation.leaderboard'); ?></span> </a>
                     </li>
                 <?php endif; ?>
 
@@ -120,53 +120,53 @@
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
                     
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="user">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/user')); ?>">
                             <i class="bi bi-person-circle"></i> <span data-key="t-user"><?php echo app('translator')->get('translation.user'); ?></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="workshops">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/workshops')); ?>">
                             <i class="ri-calendar-line"></i> <span data-key="t-workshops"><?php echo app('translator')->get('translation.workshops'); ?></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="masteriuran">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/masteriuran')); ?>">
                             <i class="ri-money-dollar-circle-line"></i> <span data-key="t-masteriuran">Iuran</span>
                         </a>
                     </li>
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Profile</span></li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="articles">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/articles')); ?>">
                             <i class="ri-volume-up-line"></i> <span data-key="t-news-management"><?php echo app('translator')->get('translation.news'); ?></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="agenda">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/agenda')); ?>">
                             <i class=" ri-image-add-line"></i> <span data-key="t-agenda">Agenda</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="mitra">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/mitra')); ?>">
                             <i class="ri-building-2-line"></i> <span data-key="t-mitra">Mitra</span>
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link menu-link" href="about">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/about')); ?>">
                             <i class=" ri-list-unordered"></i> <span data-key="t-about">About</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="visimisi">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/visimisi')); ?>">
                             <i class=" ri-invision-line"></i> <span data-key="t-visimisi">Visi Misi</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="programkerja">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/programkerja')); ?>">
                             <i class="ri-briefcase-line"></i> <span data-key="t-programkerja">Program Kerja</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="faq">
+                        <a class="nav-link menu-link" href="<?php echo e(url('/faq')); ?>">
                             <i class=" ri-questionnaire-line"></i> <span data-key="t-faq">FAQ</span>
                         </a>
                     </li>
@@ -177,7 +177,7 @@
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">Faq</span></li>
                     
                     <li class="nav-item">
-                        <a href="faq-dokter" class="nav-link menu-link"> <i class=" ri-question-line"></i> <span data-key="t-faq-dokter">Faq</span> </a>
+                        <a href="<?php echo e(url('/faq-dokter')); ?>" class="nav-link menu-link"> <i class=" ri-question-line"></i> <span data-key="t-faq-dokter">Faq</span> </a>
                     </li>
                 <?php endif; ?>                
             </ul>

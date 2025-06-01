@@ -11,6 +11,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\FAQDokterController;
 use App\Http\Controllers\MasterIuranController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
 use App\Http\Controllers\ProductController;
@@ -95,9 +96,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/change-password', [EditProfileController::class, 'changePassword'])->name('change-password');
     Route::put('/edit-photo-dokter/{id}', [EditProfileController::class, 'updatePhoto'])->name('edit-photo-dokter.update');
 
-    Route::get('/workshops', function () {
-        return view('admin.workshops');
-    });
     // Berita
     Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement.index');
     Route::get('/announcement/{id}', [AnnouncementController::class, 'show'])->name('announcement.show');
@@ -117,9 +115,12 @@ Route::group(['middleware' => 'auth'], function () {
         return view('admin.workshops');
     });
 
-    Route::get('/member', function () {
-        return view('admin.member');
-    });
+    // Route::get('/member', function () {
+    //     return view('admin.member');
+    // });
+
+    Route::get('/member', [MemberController::class, 'index']);
+    Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
 
     Route::get('/user', [UserController::class, 'index']);
     Route::post('/verifikasi-user/{id}', [UserController::class, 'verifikasi']);

@@ -16,13 +16,13 @@
             <div class="card-body">
                 <div class="position-relative">
                     <div class="mt-n5">
-                        <img src="{{ URL::asset('storage/images/users/' . Auth::user()->avatar) }}" alt="" class="avatar-lg rounded-circle p-1 mt-n4">
+                        <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="" class="avatar-lg rounded-circle p-1 mt-n4">
                     </div>
                 </div>
                 <div class="pt-3">
                     <div class="row justify-content-between gy-4">
                         <div class="col-xl-5 col-lg-5">
-                            <h5 class="fs-17">{{ Auth::user()->anggota->nama }}</h5>
+                            <h5 class="fs-17">{{ $anggota->nama }}</h5>
                             <div class="hstack gap-1 mb-3 text-muted">
                                 <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>{{ $anggota->kota }}, {{ $anggota->provinsi }}</div>
                                 <div>
@@ -121,7 +121,7 @@
                                                             border-radius: 50%; 
                                                             overflow: hidden;
                                                             border: 2px solid white;">
-                                                    <img src="{{ URL::asset('storage/images/users/' . Auth::user()->anggota->avatar) }}" 
+                                                    <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" 
                                                         alt="First slide" 
                                                         style="width: 100%; 
                                                                 height: 100%; 
@@ -131,13 +131,13 @@
                                                     
                                                 </div>
                                                 <div style="position: absolute; bottom: 100px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    Nama : {{ Auth::user()->anggota->nama }}
+                                                    Nama : {{ $anggota->nama }}
                                                 </div>
                                                 <div style="position: absolute; bottom: 80px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    Id : {{ Auth::user()->anggota->id }}
+                                                    Id : {{ $anggota->id }}
                                                 </div>
                                                 <div style="position: absolute; bottom: 60px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    No.Urut Anggota : {{ Auth::user()->anggota->id }}
+                                                    No.Urut Anggota : {{ $anggota->id }}
                                                 </div>
                                             </div>
                                         </div>
@@ -149,7 +149,7 @@
                                                             transform: translate(-50%, -50%); 
                                                            
                                                             overflow: hidden;">
-                                                        {!! QrCode::size(80)->generate(Auth::user()->name . ' ' . Auth::user()->last_name . ' ' . Auth::user()->id . ' ' . Auth::user()->created_at) !!}
+                                                        {!! QrCode::size(80)->generate($anggota->name . ' ' . $anggota->last_name . ' ' . $anggota->id . ' ' . $anggota->created_at) !!}
                                                 </div>
                                             </div>
                                         </div>
@@ -244,7 +244,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-1">Website :</p>
-                                                <a href="#" class="fw-semibold text-body">www.pdsionline.org/{{ Auth::user()->anggota->nama }}</a>
+                                                <a href="#" class="fw-semibold text-body">www.pdsionline.org/{{ $anggota->nama }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -285,7 +285,7 @@
                                             </div>
                                             <div class="flex-grow-1 overflow-hidden">
                                                 <p class="mb-2">Joining Date :</p>
-                                                <h6 class="text-truncate mb-0">{{ \Carbon\Carbon::parse(Auth::user()->anggota->created_at)->translatedFormat('d M Y') }}</h6>
+                                                <h6 class="text-truncate mb-0">{{ \Carbon\Carbon::parse($anggota->created_at)->translatedFormat('d M Y') }}</h6>
                                             </div>
                                         </div>
                                     </div>
