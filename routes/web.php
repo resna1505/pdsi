@@ -115,10 +115,6 @@ Route::group(['middleware' => 'auth'], function () {
         return view('admin.workshops');
     });
 
-    // Route::get('/member', function () {
-    //     return view('admin.member');
-    // });
-
     Route::get('/member', [MemberController::class, 'index']);
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
 

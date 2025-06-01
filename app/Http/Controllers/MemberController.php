@@ -31,7 +31,7 @@ class MemberController extends Controller
     public function show($id)
     {
         $anggota = Anggota::where('user_id', $id)->first();
-        $documents = Document::where('user_id', Auth::id())->orderBy('upload_date', 'desc')->get();
+        $documents = Document::where('user_id', $id)->orderBy('upload_date', 'desc')->get();
 
         return view('member.profile-dokter', compact('anggota', 'documents'));
     }
