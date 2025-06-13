@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documents', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('filename');
-            $table->string('type');
-            $table->string('size');
-            $table->date('upload_date');
-            $table->timestamps();
+        if (!Schema::hasTable('documents')) {
+            Schema::create('documents', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('user_id');
+                $table->string('filename');
+                $table->string('type');
+                $table->string('size');
+                $table->date('upload_date');
+                $table->timestamps();
 
-            $table->foreign('user_id')->references('user_id')->on('anggota')->onDelete('cascade');
-        });
+                $table->foreign('user_id')->references('user_id')->on('anggota')->onDelete('cascade');
+            });
+        }
     }
 
     /**

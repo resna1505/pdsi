@@ -9,6 +9,8 @@ class Video extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'url'];
+
     // app/Models/Video.php
     public function learningMethods()
     {

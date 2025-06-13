@@ -4,23 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Models\CategoryMitra;
+use App\Models\LearningMethod;
 use App\Models\Mitra;
 use App\Models\Video;
+use App\Models\VideoLearningMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AboutController extends Controller
 {
     public function index()
     {
-        $video = Video::with('learningMethods')->get();
+        $articles = Video::with('learningMethods')->get();
 
         $activity = Activity::with('photos')->get();
-        $articles = Mitra::orderBy('created_at', 'desc')->get();
+
+        $learning = DB::table('video_learning_method as vlm')
+            ->join('learning_methods as lm', 'lm.id', '=', 'vlm.learning_method_id')
+            ->select('vlm.progress', 'lm.name', 'lm.created_at', 'vlm.id')
+            ->get();
         $categories = CategoryMitra::all();
 
-        return view('admin.about', compact('articles', 'categories'));
+        return view('admin.about', compact('articles', 'categories', 'learning'));
     }
 
     public function store(Request $request)
@@ -28,29 +35,12 @@ class AboutController extends Controller
         try {
             $request->validate([
                 'title' => 'required|string|max:255',
-                'email' => 'required|email',
-                'telephone' => 'required|string|max:50',
-                'address' => 'required|string',
-                'website' => 'required|string',
-                'image' => 'nullable|image|max:2048'
+                'url' => 'required'
             ]);
 
-            $imagePath = null;
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $filename = $image->hashName();
-                $image->storeAs('public/mitras', $filename);
-                $imagePath = $filename;
-            }
-
-            Mitra::create([
-                'image' => $imagePath,
-                'category_id' => $request->category_id,
+            Video::create([
                 'title' => $request->title,
-                'telephone' => $request->telephone,
-                'email' => $request->email,
-                'address' => $request->address,
-                'website' => $request->website,
+                'url' => $request->url,
             ]);
 
             return redirect()->back()->with('success', 'Mitra added successfully!');
@@ -64,39 +54,59 @@ class AboutController extends Controller
         }
     }
 
-    public function destroy($id)
-    {
-        try {
-            $article = Mitra::findOrFail($id);
+    // public function destroy($id)
+    // {
+    //     try {
+    //         $article = Mitra::findOrFail($id);
 
-            if ($article->attachment) {
-                Storage::disk('public')->delete($article->attachment);
-            }
+    //         if ($article->attachment) {
+    //             Storage::disk('public')->delete($article->attachment);
+    //         }
 
-            $article->delete();
+    //         $article->delete();
 
-            return redirect()->back()->with('success', 'Mitra deleted successfully!');
-        } catch (\Throwable $e) {
-            Log::error('Mitra delete error: ' . $e->getMessage(), [
-                'article_id' => $id,
-                'file' => $e->getFile(),
-                'line' => $e->getLine()
-            ]);
+    //         return redirect()->back()->with('success', 'Mitra deleted successfully!');
+    //     } catch (\Throwable $e) {
+    //         Log::error('Mitra delete error: ' . $e->getMessage(), [
+    //             'article_id' => $id,
+    //             'file' => $e->getFile(),
+    //             'line' => $e->getLine()
+    //         ]);
 
-            return redirect()->back()->with('error', 'Failed to delete mitra. Please try again.');
-        }
-    }
+    //         return redirect()->back()->with('error', 'Failed to delete mitra. Please try again.');
+    //     }
+    // }
 
     public function edit($id)
     {
         try {
-            $article = Mitra::findOrFail($id);
-            $categories = CategoryMitra::all(); // Sesuaikan dengan model Category Anda
+            $article = Video::findOrFail($id);
 
             return response()->json([
                 'success' => true,
-                'article' => $article,
-                'categories' => $categories
+                'article' => $article
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Article not found'
+            ], 404);
+        }
+    }
+
+    public function editmetode($id)
+    {
+        try {
+            // $article = VideoLearningMethod::where('id', $id)->first();
+            $article = DB::table('video_learning_method as vlm')
+                ->join('learning_methods as lm', 'lm.id', '=', 'vlm.learning_method_id')
+                ->select('vlm.progress', 'lm.name', 'lm.created_at', 'vlm.id')
+                ->where('vlm.id', $id)
+                ->first();
+
+            return response()->json([
+                'success' => true,
+                'article' => $article
             ]);
         } catch (\Throwable $e) {
             return response()->json([
@@ -110,54 +120,65 @@ class AboutController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $article = Mitra::findOrFail($id);
+            $article = Video::findOrFail($id);
 
             $request->validate([
-                'image' => 'nullable|image',
-                'category_id' => 'required|integer',
                 'title' => 'required|string|max:255',
-                'telephone' => 'required|string',
-                'email' => 'required|string',
-                'address' => 'required|string',
-                'website' => 'required|string',
+                'url' => 'required|url',
             ]);
 
-            $imagePath = $article->image;
+            // Ubah URL menjadi embed YouTube
+            $embedUrl = $this->convertToEmbedUrl($request->url);
 
-            // Handle new image upload
-            if ($request->hasFile('image')) {
-                if ($article->image) {
-                    Storage::disk('public')->delete('mitras/' . $article->image);
-                }
-
-                $image = $request->file('image');
-                $filename = $image->hashName();
-                $image->storeAs('public/mitras', $filename);
-                $imagePath = $filename;
-            }
-
-            // Update article
             $article->update([
-                'image' => $imagePath,
-                'category_id' => $request->category_id,
                 'title' => $request->title,
-                'telephone' => $request->telephone,
-                'email' => $request->email,
-                'address' => $request->address,
-                'website' => $request->website
+                'url' => $embedUrl,
             ]);
 
-            return redirect()->back()->with('success', 'Mitra updated successfully!');
+            return redirect()->back()->with('success', 'Video updated successfully!');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Throwable $e) {
-            Log::error('Mitra update error: ' . $e->getMessage(), [
-                'Mitra_id' => $id,
+            Log::error('Video update error: ' . $e->getMessage(), [
+                'Video_id' => $id,
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
 
-            return redirect()->back()->with('error', 'Failed to update Mitra. Please try again.');
+            return redirect()->back()->with('error', 'Failed to update Video. Please try again.');
+        }
+    }
+
+    public function updatemetode(Request $request, $id)
+    {
+        try {
+            $article = VideoLearningMethod::where('learning_method_id', $id)->first();
+            $learning = LearningMethod::where('id', $id)->first();
+
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'progress' => 'required',
+            ]);
+
+            $article->update([
+                'progress' => $request->progress,
+            ]);
+
+            $learning->update([
+                'name' => $request->name,
+            ]);
+
+            return redirect()->back()->with('success', 'Video updated successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Throwable $e) {
+            Log::error('Video update error: ' . $e->getMessage(), [
+                'Video_id' => $id,
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+
+            return redirect()->back()->with('error', 'Failed to update Video. Please try again.');
         }
     }
 }

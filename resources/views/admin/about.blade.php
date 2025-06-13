@@ -28,17 +28,27 @@ About
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-auto ms-auto">
+                    {{-- <div class="col-sm-auto ms-auto">
                         <div class="list-grid-nav hstack gap-1">
-                            <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Add Mitra</button>
+                            <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Add Video</button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="mt-4">
                     <ul class="nav nav-tabs nav-tabs-custom nav-secondary" role="tablist">
                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#all" role="tab" aria-selected="false">
-                                Jenis Kegiatan
+                            <a class="nav-link active" data-bs-toggle="tab" href="#video" role="tab" aria-selected="false">
+                                Video
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#metode" role="tab" aria-selected="false">
+                                Metode Pembelajaran
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#all" role="tab" aria-selected="false">
+                                Galeri
                             </a>
                         </li>
                     </ul>
@@ -46,7 +56,7 @@ About
             </div>
             <div class="card-body p-4">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="all" role="tabpanel">
+                    <div class="tab-pane active" id="video" role="tabpanel">
                         <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
                         <div class="row">
                             <div class="col-xxl-8 video-lists">
@@ -54,7 +64,12 @@ About
                                     <div class="list-element">
                                         <div class="d-flex flex-column flex-sm-row mb-5">
                                             <div class="flex-shrink-0">
-                                                <img src="{{ asset('storage/mitras/' . $article->image) }}" alt="est" width="125" class="rounded" />
+                                                <iframe 
+                                                    src="{{ $article->url }}" 
+                                                    title="YouTube video" 
+                                                    allowfullscreen 
+                                                    class="rounded">
+                                                </iframe>
                                             </div>
                                             <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
                                                 <div class="position-relative">
@@ -62,9 +77,7 @@ About
                                                         <h5 class="mb-3">{{ $article->title }}</h5>
                                                     </a>
                                                 </div>
-                                                <p class="mb-2"><i class="ri-phone-line"></i> {{ $article->telephone }}</p>
-                                                <p class="mb-2"><i class="ri-mail-line"></i> {{ $article->email }}</p>
-                                                <p class="mb-2"><i class=" ri-chat-poll-line"></i> {{ $article->website }}</p>
+                                                <p class="mb-2"><i class="ri-youtube-line"></i> {{ $article->url }}</p>
                                                 <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
                                                     <li>
                                                         <i class="ph-clock-bold align-middle"></i>
@@ -78,13 +91,8 @@ About
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-menu-end">
                                                     <li>
-                                                        <a class="dropdown-item edit-list" href="#editmemberModal" data-bs-toggle="modal" data-edit-id="{{ $article->id }}">
+                                                        <a class="dropdown-item edit-list" href="#editVideo" data-bs-toggle="modal" data-edit-id="{{ $article->id }}">
                                                             <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $article->id }}">
-                                                            <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -100,22 +108,73 @@ About
                                 <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
+                    
+                    <div class="tab-pane" id="metode" role="tabpanel">
+                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
+                        <div class="row">
+                            <div class="col-xxl-8 video-lists">
+                                @foreach($learning as $article)
+                                    <div class="list-element">
+                                        <div class="d-flex flex-column flex-sm-row mb-5">
+                                            <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
+                                                <div class="position-relative">
+                                                    <a href="javascript:void(0);" class="stretched-link">
+                                                        <h5 class="mb-3">{{ $article->name }}</h5>
+                                                    </a>
+                                                </div>
+                                                <p class="mb-2"><i class=" ri-refresh-line"></i> {{ $article->progress }} %</p>
+                                                <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
+                                                    <li>
+                                                        <i class="ph-clock-bold align-middle"></i>
+                                                        {{ \Carbon\Carbon::parse($article->created_at)->diffForHumans() }}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col text-end dropdown">
+                                                <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="ri-more-2-fill fs-17"></i>
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <a class="dropdown-item edit-metode" href="#editMetode" data-bs-toggle="modal" data-edit-id="{{ $article->id }}">
+                                                            <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                        </a>
+                                                    </li>
+                                                    {{-- <li>
+                                                        <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $article->id }}">
+                                                            <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
+                                                        </a>
+                                                    </li> --}}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="d-flex align-items-center border-top pt-3">
+                                <div class="flex-grow-1">
+                                    <div class="text-muted pagination-info mb-2"></div>
+                                </div>
+                                <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="addmemberModal" tabindex="-1" aria-hidden="true">
+{{-- <div class="modal fade" id="addmemberModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="createMemberLabel">Add Mitra</h5>
+                <h5 class="modal-title" id="createMemberLabel">Add about</h5>
                 <button type="button" class="btn-close" id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form method="POST" action="{{ route('mitra.store') }}" enctype="multipart/form-data" id="memberlist-form" class="needs-validation" novalidate>
+                <form method="POST" action="{{ route('about.store') }}" enctype="multipart/form-data" id="memberlist-form" class="needs-validation" novalidate>
                 @csrf
                 <div class="row">
                     <div class="col-md-12 mb-3">
@@ -174,7 +233,7 @@ About
                     </div>
                     <div class="hstack gap-2 justify-content-end">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Add Mitra</button>
+                        <button type="submit" class="btn btn-success">Add About</button>
                     </div>
                 </div>
             </form>
@@ -182,13 +241,13 @@ About
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
-<div class="modal fade" id="editmemberModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="editVideo" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="editMemberLabel">Edit Mitra</h5>
+                <h5 class="modal-title" id="editMemberLabel">Edit Video</h5>
                 <button type="button" class="btn-close" id="editMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
@@ -201,54 +260,19 @@ About
                         <ul class="mb-0" id="edit-error-list"></ul>
                     </div>
 
-                    <div class="row">
-                        <!-- Current Image Preview -->
-                        <div class="col-md-12 mb-3">
-                            <label class="form-label">Current Image</label>
-                            <div id="current-image-preview">
-                                <!-- Image will be loaded here -->
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-12 mb-3">
-                            <label for="edit-image" class="form-label">New Image (optional)</label>
-                            <input type="file" class="form-control" name="image" id="edit-image" accept="image/png, image/gif, image/jpeg">
-                            <small class="text-muted">Leave empty to keep current image</small>
-                        </div>
-                        
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-category_id" class="form-label">Category</label>
-                            <select class="form-control" name="category_id" id="edit-category_id" required>
-                                <option value="">Select Here</option>
-                                @foreach ($categories as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>                        
+                    <div class="row">                 
                         <div class="col-md-6 mb-3">
                             <label for="edit-title" class="form-label">Name</label>
                             <input type="text" class="form-control" id="edit-title" name="title" required>
                         </div>                        
                         <div class="col-md-6 mb-3">
-                            <label for="edit-telephone" class="form-label">Telephone</label>
-                            <input type="number" class="form-control" id="edit-telephone" name="telephone" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-email" class="form-label">Email</label>
-                            <input type="text" class="form-control" id="edit-email" name="email" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="edit-address" name="address" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-website" class="form-label">Website</label>
-                            <input type="text" class="form-control" id="edit-website" name="website" required>
+                            <label for="edit-url" class="form-label">URL</label>
+                            <input type="text" class="form-control" id="edit-url" name="url" required>
                         </div>
                         
                         <div class="hstack gap-2 justify-content-end">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Update Mitra</button>
+                            <button type="submit" class="btn btn-success">Update About</button>
                         </div>
                     </div>
                 </form>
@@ -256,6 +280,45 @@ About
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="editMetode" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header p-4 pb-0">
+                <h5 class="modal-title" id="editMemberLabel">Edit Metode</h5>
+                <button type="button" class="btn-close" id="editMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form method="POST" action="" enctype="multipart/form-data" id="edit-form-metode" class="needs-validation" novalidate>
+                    @csrf
+                    @method('PUT')
+
+                    {{-- Error Display --}}
+                    <div id="edit-errors" class="alert alert-danger d-none">
+                        <ul class="mb-0" id="edit-error-list"></ul>
+                    </div>
+
+                    <div class="row">                 
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="edit-name" name="name" required>
+                        </div>                        
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-progress" class="form-label">Progress</label>
+                            <input type="text" class="form-control" id="edit-progress" name="progress" required>
+                        </div>
+                        
+                        <div class="hstack gap-2 justify-content-end">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Update About</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="removeMemberModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -429,82 +492,102 @@ About
     });
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle modal delete
-    const removeLinks = document.querySelectorAll('.remove-list');
-    const deleteForm = document.getElementById('deleteForm');
-    
-    removeLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const articleId = this.getAttribute('data-remove-id');
-            const actionUrl = `/mitra/${articleId}`;
-            deleteForm.setAttribute('action', actionUrl);
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle modal delete
+        const removeLinks = document.querySelectorAll('.remove-list');
+        const deleteForm = document.getElementById('deleteForm');
+        
+        removeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const articleId = this.getAttribute('data-remove-id');
+                const actionUrl = `/about/${articleId}`;
+                deleteForm.setAttribute('action', actionUrl);
+            });
         });
     });
-});
 </script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle edit modal
-    const editLinks = document.querySelectorAll('.edit-list');
-    const editForm = document.getElementById('edit-form');
-    
-    editLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const articleId = this.getAttribute('data-edit-id');
-            
-            // Fetch article data
-            fetch(`/mitra/${articleId}/edit`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const article = data.article;
-                        
-                        // Set form action
-                        editForm.setAttribute('action', `/mitra/${articleId}`);
-                        
-                        // Fill form fields
-                        document.getElementById('edit-title').value = article.title;
-                        document.getElementById('edit-telephone').value = article.telephone;
-                        document.getElementById('edit-email').value = article.email;
-                        document.getElementById('edit-address').value = article.address;
-                        document.getElementById('edit-category_id').value = article.category_id;
-                        document.getElementById('edit-website').value = article.website;
-                        
-                        // Show current image
-                        const imagePreview = document.getElementById('current-image-preview');
-                        if (article.image) {
-                            imagePreview.innerHTML = `
-                                <img src="{{ asset('storage/mitras/') }}/${article.image}" 
-                                     alt="Current Image" width="150" class="rounded">
-                            `;
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle edit modal
+        const editLinks = document.querySelectorAll('.edit-list');
+        const editForm = document.getElementById('edit-form');
+        
+        editLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const articleId = this.getAttribute('data-edit-id');
+                
+                // Fetch article data
+                fetch(`/about/${articleId}/edit`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const article = data.article;
+                            
+                            // Set form action
+                            editForm.setAttribute('action', `/about/${articleId}`);
+                            
+                            // Fill form fields
+                            document.getElementById('edit-title').value = article.title;
+                            document.getElementById('edit-url').value = article.url;
+                            
+                            // Show current image
+                            // const imagePreview = document.getElementById('current-image-preview');
+                            // if (article.image) {
+                            //     imagePreview.innerHTML = `
+                            //         <img src="{{ asset('storage/abouts/') }}/${article.image}" 
+                            //              alt="Current Image" width="150" class="rounded">
+                            //     `;
+                            // } else {
+                            //     imagePreview.innerHTML = '<p class="text-muted">No image</p>';
+                            // }
+                            
+                            // Clear previous errors
+                            document.getElementById('edit-errors').classList.add('d-none');
+                            
                         } else {
-                            imagePreview.innerHTML = '<p class="text-muted">No image</p>';
+                            alert('Error loading article data');
                         }
-                        
-                        // Clear previous errors
-                        document.getElementById('edit-errors').classList.add('d-none');
-                        
-                        // If using CKEditor, update it
-                        if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
-                            CKEDITOR.instances['edit-description'].setData(article.description);
-                        }
-                    } else {
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
                         alert('Error loading article data');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error loading article data');
-                });
+                    });
+            });
         });
     });
-});
 </script>
 <script>
-// Initialize CKEditor for edit modal
-if (typeof CKEDITOR !== 'undefined') {
-    CKEDITOR.replace('edit-description');
-}
+    document.addEventListener('DOMContentLoaded', function() {
+        // Handle edit modal
+        const editLinks = document.querySelectorAll('.edit-metode');
+        const editForm = document.getElementById('edit-form-metode');
+        
+        editLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const articleId = this.getAttribute('data-edit-id');
+                
+                fetch(`/about/${articleId}/editmetode`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const article = data.article;
+                            
+                            editForm.setAttribute('action', `/metode/${articleId}`);
+                            
+                            document.getElementById('edit-name').value = article.name;
+                            document.getElementById('edit-progress').value = article.progress;
+                            document.getElementById('edit-errors').classList.add('d-none');
+                            
+                        } else {
+                            alert('Error loading article data');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error loading article data');
+                    });
+            });
+        });
+    });
 </script>
 @endsection
