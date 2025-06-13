@@ -160,6 +160,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/about/{id}/editmetode', [ControllersAboutController::class, 'editmetode'])->name('about.editmetode');
     Route::put('/metode/{id}', [ControllersAboutController::class, 'updatemetode'])->name('about.updatemetode');
 
+    Route::post('/galeri', [ControllersAboutController::class, 'storegaleri'])->name('galeri.storegaleri');
+    Route::get('/galeri/{id}/editgaleri', [ControllersAboutController::class, 'editgaleri'])->name('about.editgaleri');
+    Route::put('/galeri/{id}', [ControllersAboutController::class, 'updategaleri'])->name('galeri.updategaleri');
+
     Route::get('/visimisi', [VisiMisiValueController::class, 'index']);
     Route::post('/visimisi', [VisiMisiValueController::class, 'store'])->name('visimisi.store');
     Route::delete('/visimisi/{id}', [VisiMisiValueController::class, 'destroy'])->name('visimisi.destroy');

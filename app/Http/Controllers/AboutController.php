@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\ActivityPhoto;
 use App\Models\CategoryMitra;
 use App\Models\LearningMethod;
 use App\Models\Mitra;
@@ -19,15 +20,17 @@ class AboutController extends Controller
     {
         $articles = Video::with('learningMethods')->get();
 
-        $activity = Activity::with('photos')->get();
+        $activity = DB::table('activities as act')
+            ->join('activity_photos as ap', 'ap.activity_id', '=', 'act.id')
+            ->select('act.id', 'act.title', 'act.description', 'act.created_at', 'act.location', 'ap.image')
+            ->get();
 
         $learning = DB::table('video_learning_method as vlm')
             ->join('learning_methods as lm', 'lm.id', '=', 'vlm.learning_method_id')
             ->select('vlm.progress', 'lm.name', 'lm.created_at', 'vlm.id')
             ->get();
-        $categories = CategoryMitra::all();
 
-        return view('admin.about', compact('articles', 'categories', 'learning'));
+        return view('admin.about', compact('articles', 'activity', 'learning'));
     }
 
     public function store(Request $request)
@@ -54,28 +57,72 @@ class AboutController extends Controller
         }
     }
 
-    // public function destroy($id)
-    // {
-    //     try {
-    //         $article = Mitra::findOrFail($id);
+    public function storegaleri(Request $request)
+    {
+        try {
+            $request->validate([
+                'image' => 'nullable|image',
+                'location' => 'required',
+                'title' => 'required',
+                'description' => 'required',
+            ]);
 
-    //         if ($article->attachment) {
-    //             Storage::disk('public')->delete($article->attachment);
-    //         }
 
-    //         $article->delete();
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $filename = $image->hashName();
+                $image->move(public_path('storage/galeri'), $filename);
+                $imagePath = $filename;
+            }
 
-    //         return redirect()->back()->with('success', 'Mitra deleted successfully!');
-    //     } catch (\Throwable $e) {
-    //         Log::error('Mitra delete error: ' . $e->getMessage(), [
-    //             'article_id' => $id,
-    //             'file' => $e->getFile(),
-    //             'line' => $e->getLine()
-    //         ]);
+            $activity = Activity::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'location' => $request->location
+            ]);
 
-    //         return redirect()->back()->with('error', 'Failed to delete mitra. Please try again.');
-    //     }
-    // }
+            ActivityPhoto::create([
+                'activity_id' => $activity->id,
+                'image' => $imagePath
+            ]);
+
+            return redirect()->back()->with('success', 'Article added successfully!');
+        } catch (\Throwable $e) {
+            Log::error('Article store error: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+
+            return redirect()->back()->with('error', 'Failed to add article. Please try again.');
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $activity = Activity::findOrFail($id);
+            // $activityphoto = ActivityPhoto::where('activity_id', $id)->first();
+
+            // if ($activityphoto->image) {
+            //     Storage::disk('public/galeri')->delete($activityphoto->image);
+            // }
+
+            // dd($id);
+            $activity->delete();
+            // $activityphoto->delete();
+
+            return redirect()->back()->with('success', 'Galeri deleted successfully!');
+        } catch (\Throwable $e) {
+            Log::error('Galeri delete error: ' . $e->getMessage(), [
+                'article_id' => $id,
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+
+            return redirect()->back()->with('error', 'Failed to delete Galeri. Please try again.');
+        }
+    }
 
     public function edit($id)
     {
@@ -85,6 +132,27 @@ class AboutController extends Controller
             return response()->json([
                 'success' => true,
                 'article' => $article
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Article not found'
+            ], 404);
+        }
+    }
+
+    public function editgaleri($id)
+    {
+        try {
+            $article = DB::table('activities as act')
+                ->join('activity_photos as ap', 'ap.activity_id', '=', 'act.id')
+                ->select('act.title', 'act.description', 'act.location', 'act.created_at', 'act.id', 'ap.image')
+                ->where('act.id', $id)
+                ->first();
+
+            return response()->json([
+                'success' => true,
+                'article' => $article,
             ]);
         } catch (\Throwable $e) {
             return response()->json([
@@ -116,7 +184,6 @@ class AboutController extends Controller
         }
     }
 
-    // // 3. Method update di ArticleController
     public function update(Request $request, $id)
     {
         try {
@@ -146,6 +213,56 @@ class AboutController extends Controller
             ]);
 
             return redirect()->back()->with('error', 'Failed to update Video. Please try again.');
+        }
+    }
+
+    public function updategaleri(Request $request, $id)
+    {
+        try {
+            $activity = Activity::where('id', $id)->first();
+            $activityphoto = ActivityPhoto::where('id', $id)->first();
+
+            $request->validate([
+                'image' => 'nullable|image',
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'location' => 'required|string|max:100',
+            ]);
+
+            $imagePath = $activity->attachment;
+
+            if ($request->hasFile('image')) {
+                if ($activity->attachment) {
+                    Storage::disk('public')->delete('galeri/' . $activity->attachment);
+                }
+
+                $image = $request->file('image');
+                $filename = $image->hashName();
+                $image->storeAs('public/galeri', $filename);
+                $imagePath = $filename;
+            }
+
+            $activity->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'location' => $request->location,
+            ]);
+
+            $activityphoto->update([
+                'image' => $imagePath
+            ]);
+
+            return redirect()->back()->with('success', 'Galeri updated successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Throwable $e) {
+            Log::error('Galeri update error: ' . $e->getMessage(), [
+                'Galeri_id' => $id,
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+
+            return redirect()->back()->with('error', 'Failed to update Galeri. Please try again.');
         }
     }
 

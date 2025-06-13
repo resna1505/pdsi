@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Activity extends Model
 {
+
+    use HasFactory;
+    protected $table = 'activities';
     protected $fillable = ['title', 'location', 'description'];
 
     public function photos()
