@@ -22,7 +22,9 @@ class ProductDetailController extends Controller
                 'ws.created_at',
                 'ws.image',
                 'ws.category_id',
-                'cw.name'
+                'cw.name',
+                'ws.short_description',
+                'ws.tagline'
             )
             ->join('categories_workshops as cw', 'cw.id', '=', 'ws.category_id')
             ->where('ws.id', '=', $id)

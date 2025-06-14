@@ -13,7 +13,7 @@
                         <div class="carousel-item active">
                             <img src="https://placehold.co/1050x700/FFE57F/767676/" class="d-block w-100 rounded" alt="Product Image 1">
                         </div>
-                        <div class="carousel-item">
+                        {{-- <div class="carousel-item">
                             <img src="https://placehold.co/1050x700/DCEDC8/767676/" class="d-block w-100 rounded" alt="Product Image 2">
                         </div>
                         <div class="carousel-item">
@@ -27,7 +27,7 @@
                         </div>
                         <div class="carousel-item">
                             <img src="https://placehold.co/1050x700/651FFF/FFFFFF/" class="d-block w-100 rounded" alt="Product Image 6">
-                        </div>
+                        </div> --}}
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
@@ -40,7 +40,7 @@
             
             <div class="col-lg-6 col-md-6">
                 <div class="product-info">
-                    <h6 class="text-muted">Program Pelatihan Resmi Bersertifikat</h6>
+                    <h6 class="text-muted">{{ $workshops->tagline }}</h6>
                     <h2 class="fw-bold mb-3">{{ $workshops->title }}</h2>                    
                     @php
                         $rate = collect($ratings)->pluck('rounded_rating')->implode(', ');
@@ -60,12 +60,12 @@
                     </div>
                     
                     <!-- Description -->
-                    <p class="text-muted mb-4">Pelatihan ini dirancang untuk meningkatkan keterampilan tenaga medis dalam penanganan kasus kegawatdaruratan dengan pendekatan praktis dan berbasis bukti.</p>
+                    <p class="text-muted mb-4">{{ $workshops->short_description }}</p>
                     
                     <!-- Action Buttons -->
                     <div class="d-flex gap-3">
-                        <button class="btn btn-outline-primary rounded-pill">Add to Wishlist</button>
-                        <button class="btn btn-primary rounded-pill">Add To Cart</button>
+                        {{-- <button class="btn btn-outline-primary rounded-pill">Add to Wishlist</button> --}}
+                        <button class="btn btn-primary rounded-pill">Daftar & Bayar Sekarang</button>
                     </div>
                 </div>
             </div>
