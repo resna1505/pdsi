@@ -125,12 +125,9 @@
                             <h6 class="fw-bold mb-3">Filter Categories</h6>
                             <div class="list-group list-group-flush">
                                 <a href="#" class="list-group-item list-group-item-action active desktop-category" data-category="all">All categories</a>
-                                <a href="#" class="list-group-item list-group-item-action desktop-category" data-category="cat-a">Category A</a>
-                                <a href="#" class="list-group-item list-group-item-action desktop-category" data-category="cat-b">Category B</a>
-                                <a href="#" class="list-group-item list-group-item-action desktop-category" data-category="cat-c">Category C</a>
-                                <a href="#" class="list-group-item list-group-item-action desktop-category" data-category="cat-d">Category D</a>
-                                <a href="#" class="list-group-item list-group-item-action desktop-category" data-category="cat-e">Category E</a>
-                                <a href="#" class="list-group-item list-group-item-action desktop-category" data-category="cat-f">Category F</a>
+                                @foreach ($category as $item)
+                                    <a href="#" class="list-group-item list-group-item-action desktop-category" data-category="{{ $item->name }}">{{ $item->name }}</a>
+                                @endforeach
                             </div>
                         </div>
 
@@ -220,22 +217,12 @@
                         <div class="mb-4">
                             <h6 class="fw-bold mb-3">Filter Tags</h6>
                             <div class="d-flex flex-wrap gap-2">
-                                <div class="form-check">
-                                    <input class="form-check-input desktop-tag" type="checkbox" value="tag-one" id="tagOne" checked>
-                                    <label class="form-check-label" for="tagOne">Tag One</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input desktop-tag" type="checkbox" value="tag-two" id="tagTwo" checked>
-                                    <label class="form-check-label" for="tagTwo">Tag Two</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input desktop-tag" type="checkbox" value="tag-three" id="tagThree" checked>
-                                    <label class="form-check-label" for="tagThree">Tag Three</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input desktop-tag" type="checkbox" value="tag-four" id="tagFour" checked>
-                                    <label class="form-check-label" for="tagFour">Tag Four</label>
-                                </div>
+                                @foreach ($tags as $item)
+                                    <div class="form-check">
+                                        <input class="form-check-input desktop-tag" type="checkbox" value="{{ $item->name }}" id="{{ $item->name }}" checked>
+                                        <label class="form-check-label" for="{{ $item->name }}">{{ $item->name }}</label>
+                                    </div>
+                                @endforeach
                             </div>
                             <button class="btn btn-secondary btn-sm mt-2 w-100" onclick="resetFilters()">Reset All</button>
                         </div>
@@ -273,376 +260,43 @@
                 <!-- Products Grid -->
                 <div class="row" id="productsContainer">
                     <!-- Product 1 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-a" 
-                         data-rating="5" 
-                         data-price="50" 
-                         data-tags="tag-one,tag-three,tag-four" 
-                         data-title="Ut sed eros finibus">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/FFE57F/767676/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Ut sed eros finibus</h6>
-                                <p class="card-text text-muted small">Category: cat-a • Tag: tag-one, tag-three, tag-four</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
+                    @foreach ($workshops as $item)
+                        @php
+                            $tags = $tagworkshops->where('workshop_id', $item->id)->pluck('name')->implode(', ');
+                            $rate = collect($ratings)->where('workshop_id', $item->id)->pluck('rounded_rating')->implode(', ');
+                        @endphp
+                        <div class="col-lg-4 col-md-6 mb-4 product-item" 
+                            data-category="{{$item->name}}" 
+                            data-rating="{{ $rate }}" 
+                            data-price="{{ number_format($item->price, 2) }}" 
+                            data-tags="{{ $tags }}" 
+                            data-title="{{$item->title}}">
+                            <div class="card h-100 product-card">
+                                <div class="position-relative">
+                                    <img src="{{ asset('storage/workshops/'.$item->image) }}" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h6 class="card-title">{{$item->title}}</h6>                                    
+                                    <p class="card-text text-muted small">Category: {{ $item->name }} • Tag: {{ $tags }}</p>
+                                    <div class="mt-auto">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="stars">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $rate)
+                                                        <i class="fas fa-star text-warning"></i>
+                                                    @else
+                                                        <i class="far fa-star text-muted"></i>
+                                                    @endif
+                                                @endfor
+                                            </div>
+                                            <strong class="text-primary">Rp. {{ number_format($item->price, 0, ',', '.') }}</strong>
                                         </div>
-                                        <strong class="text-primary">$50</strong>
+                                        <a href="{{ route('workshop.index', $item->id) }}" class="btn btn-outline-primary w-100">See Detail</a>
                                     </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Product 2 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-b" 
-                         data-rating="2" 
-                         data-price="10" 
-                         data-tags="tag-one,tag-four" 
-                         data-title="Cras convallis lacus orci">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/DCEDC8/767676/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Cras convallis lacus orci</h6>
-                                <p class="card-text text-muted small">Category: cat-b • Tag: tag-one, tag-four</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                        </div>
-                                        <strong class="text-primary">$10</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 3 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-b" 
-                         data-rating="5" 
-                         data-price="100" 
-                         data-tags="tag-one" 
-                         data-title="Integer orci justo">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/E1BEE7/767676/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Integer orci justo</h6>
-                                <p class="card-text text-muted small">Category: cat-b • Tag: tag-one</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                        </div>
-                                        <strong class="text-primary">$100</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 4 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-c" 
-                         data-rating="0" 
-                         data-price="80" 
-                         data-tags="tag-one,tag-two" 
-                         data-title="Ut sed eros finibus">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/BBDEFB/767676/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Ut sed eros finibus</h6>
-                                <p class="card-text text-muted small">Category: cat-c • Tag: tag-one, tag-two</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                        </div>
-                                        <strong class="text-primary">$80</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 5 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-d" 
-                         data-rating="5" 
-                         data-price="20" 
-                         data-tags="tag-two" 
-                         data-title="Cras convallis lacus orci">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/651FFF/FFFFFF/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Cras convallis lacus orci</h6>
-                                <p class="card-text text-muted small">Category: cat-d • Tag: tag-two</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                        </div>
-                                        <strong class="text-primary">$20</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 6 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-e" 
-                         data-rating="4" 
-                         data-price="5" 
-                         data-tags="tag-one,tag-three" 
-                         data-title="Ut sed eros finibus">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/757575/FFFFFF/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Ut sed eros finibus</h6>
-                                <p class="card-text text-muted small">Category: cat-e • Tag: tag-one, tag-three</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                        </div>
-                                        <strong class="text-primary">$5</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 1 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-a" 
-                         data-rating="5" 
-                         data-price="50" 
-                         data-tags="tag-one,tag-three,tag-four" 
-                         data-title="Ut sed eros finibus">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/FFE57F/767676/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Ut sed eros finibus</h6>
-                                <p class="card-text text-muted small">Category: cat-a • Tag: tag-one, tag-three, tag-four</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                        </div>
-                                        <strong class="text-primary">$50</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 2 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-b" 
-                         data-rating="2" 
-                         data-price="10" 
-                         data-tags="tag-one,tag-four" 
-                         data-title="Cras convallis lacus orci">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/DCEDC8/767676/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Cras convallis lacus orci</h6>
-                                <p class="card-text text-muted small">Category: cat-b • Tag: tag-one, tag-four</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                        </div>
-                                        <strong class="text-primary">$10</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 3 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-b" 
-                         data-rating="5" 
-                         data-price="100" 
-                         data-tags="tag-one" 
-                         data-title="Integer orci justo">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/E1BEE7/767676/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Integer orci justo</h6>
-                                <p class="card-text text-muted small">Category: cat-b • Tag: tag-one</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                        </div>
-                                        <strong class="text-primary">$100</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 4 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-c" 
-                         data-rating="0" 
-                         data-price="80" 
-                         data-tags="tag-one,tag-two" 
-                         data-title="Ut sed eros finibus">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/BBDEFB/767676/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Ut sed eros finibus</h6>
-                                <p class="card-text text-muted small">Category: cat-c • Tag: tag-one, tag-two</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                        </div>
-                                        <strong class="text-primary">$80</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 5 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-d" 
-                         data-rating="5" 
-                         data-price="20" 
-                         data-tags="tag-two" 
-                         data-title="Cras convallis lacus orci">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/651FFF/FFFFFF/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Cras convallis lacus orci</h6>
-                                <p class="card-text text-muted small">Category: cat-d • Tag: tag-two</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                        </div>
-                                        <strong class="text-primary">$20</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 6 -->
-                    <div class="col-lg-4 col-md-6 mb-4 product-item" 
-                         data-category="cat-e" 
-                         data-rating="4" 
-                         data-price="5" 
-                         data-tags="tag-one,tag-three" 
-                         data-title="Ut sed eros finibus">
-                        <div class="card h-100 product-card">
-                            <div class="position-relative">
-                                <img src="https://placehold.co/400x300/757575/FFFFFF/" class="card-img-top" alt="Product" style="height: 200px; object-fit: cover;">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h6 class="card-title">Ut sed eros finibus</h6>
-                                <p class="card-text text-muted small">Category: cat-e • Tag: tag-one, tag-three</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <div class="stars">
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="fas fa-star text-warning"></i>
-                                            <i class="far fa-star text-muted"></i>
-                                        </div>
-                                        <strong class="text-primary">$5</strong>
-                                    </div>
-                                    <a href="product-detail" class="btn btn-outline-primary w-100">See Detail</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
                 <!-- No Results Message -->
@@ -738,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
         rating: 0,
         priceFrom: 0,
         priceTo: 100,
-        tags: ['tag-one', 'tag-two', 'tag-three', 'tag-four'],
+        tags: ['Dokter Umum', 'Dokter Spesialis', 'Mahasiswa'],
         search: ''
     };
 
@@ -1215,7 +869,7 @@ document.addEventListener('DOMContentLoaded', function() {
             rating: 0,
             priceFrom: 0,
             priceTo: 100,
-            tags: ['tag-one', 'tag-two', 'tag-three', 'tag-four'],
+            tags: ['Dokter Umum', 'Dokter Spesialis', 'Mahasiswa'],
             search: ''
         };
 

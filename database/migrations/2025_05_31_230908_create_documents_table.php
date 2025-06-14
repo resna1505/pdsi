@@ -21,7 +21,7 @@ return new class extends Migration
                 $table->date('upload_date');
                 $table->timestamps();
 
-                $table->foreign('user_id')->references('user_id')->on('anggota')->onDelete('cascade');
+                // $table->foreign('user_id')->references('user_id')->on('anggota')->onDelete('cascade');
             });
         }
     }

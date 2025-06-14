@@ -81,7 +81,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/training', [ProductController::class, 'index'])->name('training.index');
-    Route::get('/product-detail', [ProductDetailController::class, 'index'])->name('product-detail.index');
+    // Route::get('/product-detail', [ProductDetailController::class, 'index'])->name('product-detail.index');
+    Route::get('/workshop/{id}', [ProductDetailController::class, 'index'])->name('workshop.index');
+    Route::post('/comments', [ProductDetailController::class, 'store'])->name('comments.store');
 
     // -> Dokter
     // Profile
