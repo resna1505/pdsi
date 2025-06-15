@@ -11,7 +11,7 @@
                 <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="https://placehold.co/1050x700/FFE57F/767676/" class="d-block w-100 rounded" alt="Product Image 1">
+                            <img src="{{ asset('storage/workshops/'. $workshops->image)}}" class="d-block w-100 rounded" alt="Product Image 1">
                         </div>
                         {{-- <div class="carousel-item">
                             <img src="https://placehold.co/1050x700/DCEDC8/767676/" class="d-block w-100 rounded" alt="Product Image 2">
@@ -55,7 +55,7 @@
                                 @endif
                             @endfor
                         </div>
-                        <span class="fw-bold me-2">{{ $ratings[0]->rounded_rating }}</span>
+                        <span class="fw-bold me-2">{{ $ratings[0]->rounded_rating ?? 0 }}</span>
                         <span class="text-muted">| 213 Sales</span>
                     </div>
                     
