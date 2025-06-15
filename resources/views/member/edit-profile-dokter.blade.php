@@ -64,6 +64,22 @@
                                     </div>
                                     <input type="text" name="linkedin_url" class="form-control" placeholder="LinkedIn URL" value="{{ old('linkedin_url', $anggota->linkedin_url) }}">
                                 </div>
+                                <div class="mb-3 d-flex">
+                                    <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                        <span class="avatar-title rounded-circle fs-16 bg-secondary text-white">
+                                            <i class=" ri-instagram-line"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="instagram_url" class="form-control" placeholder="Instagram URL" value="{{ old('instagram_url', $anggota->instagram_url) }}">
+                                </div>
+                                <div class="mb-3 d-flex">
+                                    <div class="avatar-xs d-block flex-shrink-0 me-3">
+                                        <span class="avatar-title rounded-circle fs-16 bg-primary">
+                                            <i class=" ri-facebook-circle-fill"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" name="facebook_url" class="form-control" placeholder="Facebook URL" value="{{ old('facebook_url', $anggota->facebook_url) }}">
+                                </div>
                             </div>
                             <div class="col-md-auto ms-auto order-md-2">
                                 <div class="flex-shrink-0">

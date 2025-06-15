@@ -21,6 +21,8 @@ use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaContro
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikasiIuranController;
 use App\Http\Controllers\VisiMisiValueController;
+use App\Http\Controllers\WorkshopsController;
+use App\Models\Workshops;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,7 +83,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::get('/training', [ProductController::class, 'index'])->name('training.index');
-    // Route::get('/product-detail', [ProductDetailController::class, 'index'])->name('product-detail.index');
     Route::get('/workshop/{id}', [ProductDetailController::class, 'index'])->name('workshop.index');
     Route::post('/comments', [ProductDetailController::class, 'store'])->name('comments.store');
 
@@ -113,9 +114,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     // -> Admin
     // Workshop
-    Route::get('/workshops', function () {
-        return view('admin.workshops');
-    });
+    // Route::get('/workshops', function () {
+    //     return view('admin.workshops');
+    // });
+    Route::get('/workshops', [WorkshopsController::class, 'index']);
+    Route::post('/workshops', [WorkshopsController::class, 'store'])->name('workshops.store');
+    Route::delete('/workshops/{id}', [WorkshopsController::class, 'destroy'])->name('workshops.destroy');
+    Route::get('/workshops/{id}/edit', [WorkshopsController::class, 'edit'])->name('workshops.edit');
+    Route::put('/workshops/{id}', [WorkshopsController::class, 'update'])->name('workshops.update');
 
     Route::get('/member', [MemberController::class, 'index']);
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');

@@ -260,7 +260,7 @@
     </div> 
     <!-- end col -->
 
-    <div class="col-auto layout-rightside-col">
+    {{-- <div class="col-auto layout-rightside-col">
         <div class="overlay"></div>
         <div class="layout-rightside">
             <div class="card h-100 rounded-0">
@@ -321,40 +321,6 @@
                                     <div class="text-end">
                                         <p class="mb-1 text-muted fs-12">04:32 PM</p>
                                         <span class="badge text-info bg-info-subtle rounded-circle fs-10">4</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Misty Taylor</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-info mb-0 text-truncate">Okay, Byy</p>
-                                    </div>
-                                    <div class="text-end">
-                                        <p class="mb-1 text-muted fs-12">02:49 PM</p>
-                                        <span class="badge text-info bg-info-subtle rounded-circle fs-10">1</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center gap-1">
-                                    <div class="flex-shrink-0 me-2">
-                                        <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="avatar-xs rounded-circle chatlist-user-image" />
-                                    </div>
-                                    <div class="flex-grow-1 overflow-hidden">
-                                        <a href="#!" class="stretched-link">
-                                            <h6 class="mb-1 chatlist-user-name">Scott Wilson</h6>
-                                        </a>
-                                        <p class="chatlist-desc fs-13 text-info mb-0 text-truncate">Yeah everything is fine...</p>
-                                    </div>
-                                    <div class="text-end">
-                                        <p class="mb-1 text-muted fs-12">12:04 PM</p>
-                                        <span class="badge text-info bg-info-subtle rounded-circle fs-10">8</span>
                                     </div>
                                 </div>
                             </li>
@@ -573,7 +539,7 @@
                 </div>
             </div> <!-- end card-->
         </div> <!-- end .rightbar-->
-    </div> 
+    </div>  --}}
     <!-- end col -->
 </div>
 

@@ -9,7 +9,7 @@ class Workshops extends Model
 {
     use HasFactory;
     protected $table = 'workshops';
-    protected $fillable = ['title', 'description', 'price', 'category_id'];
+    protected $fillable = ['title', 'image', 'description', 'price', 'category_id', 'tagline', 'short_description'];
 
     // public function category()
     // {

@@ -134,7 +134,7 @@
                         <i class='bi bi-bell fs-18'></i>
                         <span
                             class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger"><span
-                                class="notification-badge">4</span><span class="visually-hidden">unread
+                                class="notification-badge">0</span><span class="visually-hidden">unread
                                 messages</span></span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
@@ -146,9 +146,9 @@
                                     <div class="col">
                                         <h6 class="mb-0 fs-16 fw-semibold"> Notifications <span
                                                 class="badge text-danger  bg-danger-subtle fs-13 notification-badge">
-                                                4</span></h6>
+                                                0</span></h6>
                                         <p class="fs-14 text-muted mt-1 mb-0">You have <span
-                                                class="fw-semibold notification-unread">3</span> unread messages</p>
+                                                class="fw-semibold notification-unread">0</span> unread messages</p>
                                     </div>
                                     <div class="col-auto dropdown">
                                         <a href="javascript:void(0);" data-bs-toggle="dropdown"
@@ -164,7 +164,7 @@
 
                         </div>
 
-                        <div class="py-2 ps-2" id="notificationItemsTabContent">
+                        {{-- <div class="py-2 ps-2" id="notificationItemsTabContent">
                             <div data-simplebar style="max-height: 300px;" class="pe-2">
                                 <h6 class="text-overflow text-muted fs-13 my-2 text-uppercase notification-title">New
                                 </h6>
@@ -306,7 +306,7 @@
                                         data-bs-target="#removeNotificationModal">Remove</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 

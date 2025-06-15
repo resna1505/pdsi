@@ -115,7 +115,12 @@ class EditProfileController extends Controller
 
             $anggota->linkedin_url = $request->linkedin_url;
             $anggota->twitter_url = $request->twitter_url;
-            $anggota->avatar = $imagePath;
+            $anggota->facebook_url = $request->facebook_url;
+            $anggota->instagram_url = $request->instagram_url;
+
+            if (!empty($request->photo)) {
+                $anggota->avatar = $imagePath;
+            }
 
             $anggota->save();
 

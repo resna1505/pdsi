@@ -190,7 +190,7 @@
                                         </a>
                                     </div>
                                     <div>
-                                        <a href="javascript:void(0);" class="avatar-xs d-block">
+                                        <a href="{{ $anggota->facebook_url }}" target="_blank" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-primary">
                                                 <i class=" ri-facebook-circle-fill"></i>
                                             </span>
@@ -204,7 +204,7 @@
                                         </a>
                                     </div>
                                     <div>
-                                        <a href="javascript:void(0);" class="avatar-xs d-block">
+                                        <a href="{{ $anggota->instagram_url }}" target="_blank" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-danger">
                                                 <i class="ri-instagram-fill"></i>
                                             </span>

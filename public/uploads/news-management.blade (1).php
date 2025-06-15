@@ -31,7 +31,7 @@ News
                     </div>
                     <div class="col-sm-auto ms-auto">
                         <div class="list-grid-nav hstack gap-1">
-                            <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Add Workshop</button>
+                            <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Add News</button>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ News
                                     <div class="list-element">
                                         <div class="d-flex flex-column flex-sm-row mb-5">
                                             <div class="flex-shrink-0">
-                                                <img src="{{ asset('storage/workshops/' . $article->image) }}" alt="est" width="125" class="rounded" />
+                                                <img src="{{ asset('storage/articles/' . $article->attachment) }}" alt="est" width="125" class="rounded" />
                                             </div>
                                             <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
                                                 <div class="position-relative">
@@ -139,7 +139,7 @@ News
                                         <div class="list-element">
                                             <div class="d-flex flex-column flex-sm-row mb-5">
                                                 <div class="flex-shrink-0">
-                                                    <img src="{{ asset('storage/workshops/' . $article->image) }}" alt="est" width="125" class="rounded" />
+                                                    <img src="{{ asset('storage/articles/' . $article->attachment) }}" alt="est" width="125" class="rounded" />
                                                 </div>
                                                 <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
                                                     <div class="position-relative">
@@ -196,11 +196,11 @@ News
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="createMemberLabel">Add Workshop</h5>
+                <h5 class="modal-title" id="createMemberLabel">Add News</h5>
                 <button type="button" class="btn-close" id="createMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form method="POST" action="{{ route('workshops.store') }}" enctype="multipart/form-data" id="memberlist-form" class="needs-validation" novalidate>
+                <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data" id="memberlist-form" class="needs-validation" novalidate>
                 @csrf
 
                 <div class="row">
@@ -208,13 +208,6 @@ News
                         <label for="image" class="form-label">Foto</label>
                         <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image" accept="image/png, image/gif, image/jpeg">
                         @error('image')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required>
-                        @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -231,31 +224,9 @@ News
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="tag" class="form-label">Khusus</label>
-                        <select class="form-control" id="tag" data-choices data-choices-removeItem name="tag" multiple>
-                            @foreach ($tags as $item)
-                                <option value="{{$item->id}}">{{ $item->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="tagline" class="form-label">Tag Line</label>
-                        <input type="text" class="form-control @error('tagline') is-invalid @enderror" id="tagline" name="tagline" value="{{ old('tagline') }}" required>
-                        @error('tagline')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="summary" class="form-label">Summary</label>
-                        <input type="text" class="form-control @error('summary') is-invalid @enderror" id="summary" name="summary" value="{{ old('summary') }}" required>
-                        @error('summary')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') }}" required>
-                        @error('price')
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}" required>
+                        @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -266,9 +237,16 @@ News
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="col-md-12 mb-4">
+                        <label for="author" class="form-label">Author</label>
+                        <input type="text" name="author" class="form-control @error('author') is-invalid @enderror" id="author" value="{{ Auth::user()->anggota?->nama }}" required>
+                        @error('author')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
                     <div class="hstack gap-2 justify-content-end">
                         <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Add Workshop</button>
+                        <button type="submit" class="btn btn-success">Add News</button>
                     </div>
                 </div>
             </form>
@@ -309,10 +287,7 @@ News
                             <input type="file" class="form-control" name="image" id="edit-image" accept="image/png, image/gif, image/jpeg">
                             <small class="text-muted">Leave empty to keep current image</small>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-title" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="edit-title" name="title" required>
-                        </div>
+                        
                         <div class="col-md-6 mb-3">
                             <label for="edit-category_id" class="form-label">Category</label>
                             <select class="form-control" name="category_id" id="edit-category_id" required>
@@ -322,29 +297,20 @@ News
                                 @endforeach
                             </select>
                         </div>
+                        
                         <div class="col-md-6 mb-3">
-                            <label for="edit-tag" class="form-label">Khusus</label>
-                            <select class="form-control" id="edit-tag" data-choices data-choices-removeItem name="tag" multiple>
-                                @foreach ($tags as $item)
-                                    <option value="{{$item->id}}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="edit-title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="edit-title" name="title" required>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-tagline" class="form-label">Tag Line</label>
-                            <input type="text" class="form-control" id="edit-tagline" name="tagline" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-summary" class="form-label">Summary</label>
-                            <input type="text" class="form-control" id="edit-summary" name="summary" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="edit-price" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="edit-price" name="price" required>
-                        </div>                        
+                        
                         <div class="col-md-12 mb-3">
                             <label for="edit-description" class="form-label">Description</label>
                             <textarea name="description" id="edit-description" class="form-control" rows="5" required></textarea>
+                        </div>
+                        
+                        <div class="col-md-12 mb-4">
+                            <label for="edit-author" class="form-label">Author</label>
+                            <input type="text" name="author" class="form-control" id="edit-author" required>
                         </div>
                         
                         <div class="hstack gap-2 justify-content-end">
@@ -388,8 +354,6 @@ News
 
 @section('script')
 {{-- <script src="{{ URL::asset('build/js/pages/team.init.js') }}"></script> --}}
-
-<script src="{{ URL::asset('build/libs/prismjs/prism.js') }}"></script>
 <script src="{{ URL::asset('build/libs/glightbox/js/glightbox.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/search-result.init.js') }}"></script>
@@ -532,78 +496,75 @@ News
     });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle modal delete
-        const removeLinks = document.querySelectorAll('.remove-list');
-        const deleteForm = document.getElementById('deleteForm');
-        
-        removeLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                const articleId = this.getAttribute('data-remove-id');
-                const actionUrl = `/workshops/${articleId}`;
-                deleteForm.setAttribute('action', actionUrl);
-            });
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle modal delete
+    const removeLinks = document.querySelectorAll('.remove-list');
+    const deleteForm = document.getElementById('deleteForm');
+    
+    removeLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const articleId = this.getAttribute('data-remove-id');
+            const actionUrl = `/articles/${articleId}`;
+            deleteForm.setAttribute('action', actionUrl);
         });
     });
+});
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle edit modal
-        const editLinks = document.querySelectorAll('.edit-list');
-        const editForm = document.getElementById('edit-form');
-        
-        editLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                const articleId = this.getAttribute('data-edit-id');
-                
-                // Fetch article data
-                fetch(`/workshops/${articleId}/edit`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const article = data.article;
-                            
-                            // Set form action
-                            editForm.setAttribute('action', `/workshops/${articleId}`);
-                            
-                            // Fill form fields
-                            document.getElementById('edit-title').value = article.title;
-                            document.getElementById('edit-category_id').value = article.category_id;
-                            // document.getElementById('edit-tag').value = article.tagselected;
-                            document.getElementById('edit-tagline').value = article.tagline;
-                            document.getElementById('edit-summary').value = article.short_description;
-                            document.getElementById('edit-price').value = article.price;
-                            document.getElementById('edit-description').value = article.description;
-                            
-                            // Show current image
-                            const imagePreview = document.getElementById('current-image-preview');
-                            if (article.image) {
-                                imagePreview.innerHTML = `
-                                    <img src="{{ asset('storage/workshops/') }}/${article.image}" 
-                                        alt="Current Image" width="150" class="rounded">
-                                `;
-                            } else {
-                                imagePreview.innerHTML = '<p class="text-muted">No image</p>';
-                            }
-                            
-                            // Clear previous errors
-                            document.getElementById('edit-errors').classList.add('d-none');
-                            
-                            // If using CKEditor, update it
-                            if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
-                                CKEDITOR.instances['edit-description'].setData(article.description);
-                            }
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle edit modal
+    const editLinks = document.querySelectorAll('.edit-list');
+    const editForm = document.getElementById('edit-form');
+    
+    editLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const articleId = this.getAttribute('data-edit-id');
+            
+            // Fetch article data
+            fetch(`/articles/${articleId}/edit`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const article = data.article;
+                        
+                        // Set form action
+                        editForm.setAttribute('action', `/articles/${articleId}`);
+                        
+                        // Fill form fields
+                        document.getElementById('edit-title').value = article.title;
+                        document.getElementById('edit-description').value = article.description;
+                        document.getElementById('edit-author').value = article.author;
+                        document.getElementById('edit-category_id').value = article.category_id;
+                        
+                        // Show current image
+                        const imagePreview = document.getElementById('current-image-preview');
+                        if (article.attachment) {
+                            imagePreview.innerHTML = `
+                                <img src="{{ asset('storage/articles/') }}/${article.attachment}" 
+                                     alt="Current Image" width="150" class="rounded">
+                            `;
                         } else {
-                            alert('Error loading article data');
+                            imagePreview.innerHTML = '<p class="text-muted">No image</p>';
                         }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
+                        
+                        // Clear previous errors
+                        document.getElementById('edit-errors').classList.add('d-none');
+                        
+                        // If using CKEditor, update it
+                        if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
+                            CKEDITOR.instances['edit-description'].setData(article.description);
+                        }
+                    } else {
                         alert('Error loading article data');
-                    });
-            });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error loading article data');
+                });
         });
     });
+});
 </script>
 <script>
 // Initialize CKEditor for edit modal
@@ -611,14 +572,4 @@ if (typeof CKEDITOR !== 'undefined') {
     CKEDITOR.replace('edit-description');
 }
 </script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('[data-choices]').forEach(function (element) {
-            new Choices(element, {
-                removeItemButton: element.hasAttribute('data-choices-removeItem')
-            });
-        });
-    });
-</script>
-
 @endsection

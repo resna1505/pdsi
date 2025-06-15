@@ -31,6 +31,8 @@ class Anggota extends Model
         'linkedin_url',
         'twitter_url',
         'description',
+        'facebook_url',
+        'instagram_url',
     ];
 
     public function iurans()

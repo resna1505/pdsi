@@ -10,7 +10,7 @@
 
 <div class="row">
     <!-- Konten Utama -->
-    <div class="col-xl-9 col-lg-8"> <!-- Sesuaikan lebar sesuai kebutuhan -->
+    <div class="col-xl-12 col-lg-12"> <!-- Sesuaikan lebar sesuai kebutuhan -->
         <!-- Isi konten utama Anda di sini -->
         <div class="row">
             <!-- Card statistik -->
@@ -534,7 +534,7 @@
     </div>
     
     <!-- Panel Recent Chat -->
-    <div class="col-xl-3 col-lg-4"> <!-- Sesuaikan lebar sesuai kebutuhan -->
+    {{-- <div class="col-xl-3 col-lg-4"> <!-- Sesuaikan lebar sesuai kebutuhan -->
         <div class="layout-rightside">
             <!-- Isi panel chat di sini -->
             <div class="card h-100 rounded-0">
@@ -1057,7 +1057,7 @@
                 </div>
             </div> <!-- end card-->
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <div>
