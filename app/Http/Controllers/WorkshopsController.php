@@ -53,10 +53,12 @@ class WorkshopsController extends Controller
                 'description' => $request->description,
             ]);
 
-            tag_workshop::create([
-                'workshop_id' => $workshops->id,
-                'tag_id' => (int) $request->tag
-            ]);
+            foreach ($request->tag as $tagId) {
+                tag_workshop::create([
+                    'workshop_id' => $workshops->id,
+                    'tag_id' => (int) $tagId,
+                ]);
+            }
 
             return redirect()->back()->with('success', 'Workshops added successfully!');
         } catch (\Throwable $e) {
@@ -73,6 +75,10 @@ class WorkshopsController extends Controller
     {
         try {
             $article = Workshops::findOrFail($id);
+            $tagworkshop = tag_workshop::where('workshop_id', $id)->get();
+            foreach ($tagworkshop as $tag) {
+                $tag->delete();
+            }
 
             if ($article->image) {
                 Storage::disk('public')->delete($article->image);
@@ -142,16 +148,7 @@ class WorkshopsController extends Controller
                 $imagePath = $filename;
             }
 
-            // Update article
-            // $article->update([
-            //     'attachment' => $imagePath,
-            //     'category_id' => $request->category_id,
-            //     'title' => $request->title,
-            //     'description' => $request->description,
-            //     'author' => $request->author,
-            // ]);
-
-            Workshops::update([
+            $article->update([
                 'image' => $imagePath,
                 'title' => $request->title,
                 'category_id' => $request->category_id,
@@ -161,22 +158,24 @@ class WorkshopsController extends Controller
                 'description' => $request->description,
             ]);
 
-            // tag_workshop::update([
-            //     'workshop_id' => $article->id,
-            //     'tag_id' => (int) $request->tag
-            // ]);
-
-            return redirect()->back()->with('success', 'Article updated successfully!');
+            tag_workshop::where('workshop_id', $id)->delete();
+            foreach ($request->tag as $tagId) {
+                tag_workshop::create([
+                    'workshop_id' => $id,
+                    'tag_id' => (int) $tagId,
+                ]);
+            }
+            return redirect()->back()->with('success', 'Workshop updated successfully!');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Throwable $e) {
-            Log::error('Article update error: ' . $e->getMessage(), [
-                'article_id' => $id,
+            Log::error('Workshop update error: ' . $e->getMessage(), [
+                'Workshop_id' => $id,
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
 
-            return redirect()->back()->with('error', 'Failed to update article. Please try again.');
+            return redirect()->back()->with('error', 'Failed to update Workshop. Please try again.');
         }
     }
 }

@@ -58,7 +58,7 @@
                                     <input type="number" class="form-control" placeholder="From" id="mobilePriceFrom" value="0">
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" class="form-control" placeholder="To" id="mobilePriceTo" value="100">
+                                    <input type="number" class="form-control" placeholder="To" id="mobilePriceTo" value="1000000">
                                 </div>
                             </div>
                         </div>
@@ -207,7 +207,7 @@
                                     <input type="number" class="form-control" placeholder="From" id="priceFrom" value="0">
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" class="form-control" placeholder="To" id="priceTo" value="100">
+                                    <input type="number" class="form-control" placeholder="To" id="priceTo" value="1000000">
                                 </div>
                             </div>
                             <button class="btn btn-primary btn-sm mt-2 w-100" onclick="applyPriceFilter()">Apply</button>
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
         category: 'all',
         rating: 0,
         priceFrom: 0,
-        priceTo: 100,
+        priceTo: 1000000,
         tags: ['Dokter Umum', 'Dokter Spesialis', 'Mahasiswa'],
         search: ''
     };
@@ -520,7 +520,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         priceTo.addEventListener('change', function() {
-            currentFilters.priceTo = parseInt(this.value) || 100;
+            currentFilters.priceTo = parseInt(this.value) || 1000000;
             document.getElementById('mobilePriceTo').value = this.value;
             applyFilters();
         });
@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         mobilePriceTo.addEventListener('change', function() {
-            currentFilters.priceTo = parseInt(this.value) || 100;
+            currentFilters.priceTo = parseInt(this.value) || 1000000;
             document.getElementById('priceTo').value = this.value;
         });
     }
@@ -857,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.applyPriceFilter = function() {
         currentFilters.priceFrom = parseInt(document.getElementById('priceFrom').value) || 0;
-        currentFilters.priceTo = parseInt(document.getElementById('priceTo').value) || 100;
+        currentFilters.priceTo = parseInt(document.getElementById('priceTo').value) || 1000000;
         syncMobileFilters();
         applyFilters();
     };
@@ -868,7 +868,7 @@ document.addEventListener('DOMContentLoaded', function() {
             category: 'all',
             rating: 0,
             priceFrom: 0,
-            priceTo: 100,
+            priceTo: 1000000,
             tags: ['Dokter Umum', 'Dokter Spesialis', 'Mahasiswa'],
             search: ''
         };
@@ -876,9 +876,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset UI elements
         document.getElementById('searchProduct').value = '';
         document.getElementById('priceFrom').value = '0';
-        document.getElementById('priceTo').value = '100';
+        document.getElementById('priceTo').value = '1000000';
         document.getElementById('mobilePriceFrom').value = '0';
-        document.getElementById('mobilePriceTo').value = '100';
+        document.getElementById('mobilePriceTo').value = '1000000';
         document.getElementById('sortBy').value = '';
 
         // Reset desktop filters

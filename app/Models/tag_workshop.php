@@ -10,4 +10,5 @@ class tag_workshop extends Model
     use HasFactory;
     protected $table = 'tag_workshop';
     protected $fillable = ['workshop_id', 'tag_id'];
+    public $timestamps = false;
 }

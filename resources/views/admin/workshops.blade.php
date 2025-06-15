@@ -70,22 +70,9 @@ News
                                                         <h5 class="mb-3">{{ $article->title }}</h5>
                                                     </a>
                                                 </div>
-                                                @php
-                                                    $paragraphs = explode('</p>', $article->description);
-                                                    $limitedContent = implode('</p>', array_slice($paragraphs, 0, 4)) . '</p>';
-                                                @endphp
-                                                <p class="text-muted mb-2">{{ \Illuminate\Support\Str::limit(strip_tags($article->description), 500) }}</p>
+                                                
+                                                <p class="text-muted mb-2">{{ \Illuminate\Support\Str::limit(strip_tags($article->description), 300) }}</p>
                                                 <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                    <li>
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="flex-shrink-0">
-                                                                <i class="ri-user-line"></i>
-                                                            </div>
-                                                            <div class="flex-grow-1 fs-13 ms-1">
-                                                                {{ $article->author }}
-                                                            </div>
-                                                        </div>
-                                                    </li>
                                                     <li>
                                                         <i class="ph-clock-bold align-middle"></i>
                                                         {{ $article->created_at->diffForHumans() }}
@@ -149,12 +136,6 @@ News
                                                     </div>
                                                     <p class="text-muted mb-2">{{ \Illuminate\Support\Str::limit(strip_tags($article->description), 500) }}</p>
                                                     <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
-                                                        <li>
-                                                            <div class="d-flex align-items-center">
-                                                                <i class="ri-user-line"></i>
-                                                                <span class="ms-1 fs-13">{{ $article->author }}</span>
-                                                            </div>
-                                                        </li>
                                                         <li>
                                                             <i class="ph-clock-bold align-middle"></i>
                                                             {{ $article->created_at->diffForHumans() }}
@@ -232,7 +213,7 @@ News
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="tag" class="form-label">Khusus</label>
-                        <select class="form-control" id="tag" data-choices data-choices-removeItem name="tag" multiple>
+                        <select class="form-control" id="tag" data-choices data-choices-removeItem name="tag[]" multiple>
                             @foreach ($tags as $item)
                                 <option value="{{$item->id}}">{{ $item->name }}</option>
                             @endforeach
@@ -324,7 +305,7 @@ News
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="edit-tag" class="form-label">Khusus</label>
-                            <select class="form-control" id="edit-tag" data-choices data-choices-removeItem name="tag" multiple>
+                            <select class="form-control" id="edit-tag" data-choices data-choices-removeItem name="tag[]" multiple>
                                 @foreach ($tags as $item)
                                     <option value="{{$item->id}}">{{ $item->name }}</option>
                                 @endforeach
@@ -349,7 +330,7 @@ News
                         
                         <div class="hstack gap-2 justify-content-end">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Update News</button>
+                            <button type="submit" class="btn btn-success">Update Workshop</button>
                         </div>
                     </div>
                 </form>
