@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CategoriesWorkshops;
 use App\Models\tag_workshop;
 use App\Models\Tags;
+use App\Models\Workshop_properties;
 use App\Models\Workshops;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -60,6 +61,19 @@ class WorkshopsController extends Controller
                 ]);
             }
 
+            $properties = $request->property;
+            $values = $request->value;
+
+            foreach ($properties as $index => $property) {
+                if (!empty($property) && !empty($values[$index])) {
+                    Workshop_properties::create([
+                        'workshop_id' => $workshops->id,
+                        'name' => $property,
+                        'value' => $values[$index],
+                    ]);
+                }
+            }
+
             return redirect()->back()->with('success', 'Workshops added successfully!');
         } catch (\Throwable $e) {
             Log::error('Workshops store error: ' . $e->getMessage(), [
@@ -85,6 +99,8 @@ class WorkshopsController extends Controller
             }
 
             $article->delete();
+
+            Workshop_properties::where('workshop_id', $id)->delete();
 
             return redirect()->back()->with('success', 'Workshop deleted successfully!');
         } catch (\Throwable $e) {

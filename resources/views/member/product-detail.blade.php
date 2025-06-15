@@ -11,7 +11,8 @@
                 <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="{{ asset('storage/workshops/'. $workshops->image)}}" class="d-block w-100 rounded" alt="Product Image 1">
+                            <img src="{{ asset('storage/workshops/' . $workshops->image) }}" class="d-block rounded" alt="Product Image 1" width="700" height="400">
+
                         </div>
                         {{-- <div class="carousel-item">
                             <img src="https://placehold.co/1050x700/DCEDC8/767676/" class="d-block w-100 rounded" alt="Product Image 2">

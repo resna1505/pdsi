@@ -240,6 +240,33 @@ News
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    
+                    <div class="col-12 mb-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="toggleFields" 
+                                onchange="togglePropertyValue()" {{ old('show_property_value') ? 'checked' : '' }}>
+                            <label class="form-check-label fw-bold" for="toggleFields">
+                                Property
+                            </label>
+                        </div>
+                        <input type="hidden" id="show_property_value" name="show_property_value" value="{{ old('show_property_value', '0') }}">
+                    </div>
+
+                    <div id="propertyValueFields" style="display: {{ old('show_property_value') ? 'block' : 'none' }};">
+                        @for ($i = 0; $i < 3; $i++)
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="property_{{ $i }}" class="form-label">Persyaratan {{ $i+1 }}</label>
+                                <input type="text" class="form-control" id="property_{{ $i }}" name="property[]" value="{{ old('property.' . $i) }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="value_{{ $i }}" class="form-label">Ketentuan {{ $i+1 }}</label>
+                                <input type="text" class="form-control" id="value_{{ $i }}" name="value[]" value="{{ old('value.' . $i) }}">
+                            </div>
+                        </div>
+                        @endfor
+                    </div>
+
                     <div class="col-md-12 mb-3">
                         <label for="description" class="form-label">Description</label>
                         <textarea name="description" id="description" class="ckeditor-classic form-control @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
@@ -601,5 +628,36 @@ if (typeof CKEDITOR !== 'undefined') {
         });
     });
 </script>
+<script>
+    function togglePropertyValue() {
+        const toggle = document.getElementById('toggleFields');
+        const fields = document.getElementById('propertyValueFields');
+        const hiddenInput = document.getElementById('show_property_value');
+        const propertyInput = document.getElementById('property');
+        const valueInput = document.getElementById('value');
+        
+        if (toggle.checked) {
+            fields.style.display = 'block';
+            hiddenInput.value = '1';
+            propertyInput.setAttribute('required', 'required');
+            valueInput.setAttribute('required', 'required');
+        } else {
+            fields.style.display = 'none';
+            hiddenInput.value = '0';
+            propertyInput.removeAttribute('required');
+            valueInput.removeAttribute('required');
+            // Clear values when hidden
+            propertyInput.value = '';
+            valueInput.value = '';
+        }
+    }
 
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('toggleFields');
+        if (toggle.checked) {
+            document.getElementById('propertyValueFields').style.display = 'block';
+        }
+    });
+</script>
 @endsection
