@@ -38,8 +38,8 @@
                                 <div class="card mb-0 border-0 py-3 shadow-none">
                                     <div class="card-body px-0 p-sm-5 m-lg-4">
                                         <div class="text-center mt-2">
-                                            <h5 class="text-primary fs-20">Create New Account</h5>
-                                            <p class="text-muted">Get your free PDSI account now</p>
+                                            <h5 class="text-primary fs-20">Buat Akun Baru Anggota PDSI</h5>
+                                            <p class="text-muted">Silahkan melakukan pengisian pembuatan akun ke Anggotaan PDSI.</p>
                                         </div>
 
                                         @if(session()->has('error'))
@@ -84,6 +84,22 @@
                                                                    wire:model.live="name" value="{{ old('name') }}" required
                                                                    autocomplete="name" autofocus placeholder="Masukan Nama">
                                                             @error('name')
+                                                            <div class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label for="noktp" class="form-label">No KTP <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input id="noktp" type="number"
+                                                                   class="form-control @error('noktp') is-invalid @enderror"
+                                                                   wire:model.live="noktp" value="{{ old('noktp') }}" required
+                                                                   autocomplete="noktp" autofocus placeholder="Masukan No noktp">
+                                                            @error('noktp')
                                                             <div class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </div>
@@ -154,14 +170,38 @@
                                                         </div>
                                                     </div>
 
+                                                    <!-- BAGIAN YANG DIMODIFIKASI: KOTA DAN PROVINSI -->
                                                     <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="kota" class="form-label">Mendaftar keanggotaan PDSI Kota/Kabupaten, sebutkan ? <span
-                                                                    class="text-danger">*</span></label>
+                                                        <div class="mb-3 position-relative">
+                                                            <label for="kota" class="form-label">Mendaftar keanggotaan PDSI Kota/Kabupaten, sebutkan ? <span class="text-danger">*</span></label>
                                                             <input id="kota" type="text"
                                                                    class="form-control @error('kota') is-invalid @enderror"
-                                                                   wire:model.live="kota" value="{{ old('kota') }}" required
-                                                                   autocomplete="kota" autofocus placeholder="Masukan Kota/Kabupaten">
+                                                                   wire:model.live="kota" 
+                                                                   wire:blur="hideSuggestions"
+                                                                   value="{{ old('kota') }}" 
+                                                                   required
+                                                                   autocomplete="off" 
+                                                                   autofocus 
+                                                                   placeholder="Masukan Kota/Kabupaten">
+                                                            
+                                                            <!-- Suggestions Dropdown -->
+                                                            @if($showSuggestions && !empty($suggestions))
+                                                                <ul class="list-group position-absolute w-100" style="z-index: 1000; max-height: 200px; overflow-y: auto; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                                                    @foreach($suggestions as $suggestion)
+                                                                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+                                                                            style="cursor: pointer;"
+                                                                            wire:click="selectKota('{{ $suggestion }}')"
+                                                                            onmousedown="event.preventDefault();">
+                                                                            <div>
+                                                                                <strong>{{ $suggestion }}</strong>
+                                                                                <small class="text-muted d-block">{{ $dataKota[$suggestion] ?? '' }}</small>
+                                                                            </div>
+                                                                            <i class="ri-map-pin-line text-primary"></i>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                            
                                                             @error('kota')
                                                             <div class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -172,12 +212,20 @@
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="provinsi" class="form-label">Asal Provinsi <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input id="provinsi" type="text"
-                                                                   class="form-control @error('provinsi') is-invalid @enderror"
-                                                                   wire:model.live="provinsi" value="{{ old('provinsi') }}" required
-                                                                   autocomplete="provinsi" autofocus placeholder="Masukan provinsi">
+                                                            <label for="provinsi" class="form-label">Asal Provinsi <span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i class="ri-map-2-line"></i></span>
+                                                                <input id="provinsi" type="text"
+                                                                       class="form-control @error('provinsi') is-invalid @enderror"
+                                                                       wire:model="provinsi" 
+                                                                       value="{{ old('provinsi') }}" 
+                                                                       required
+                                                                       readonly
+                                                                       autocomplete="provinsi" 
+                                                                       autofocus 
+                                                                       placeholder="Provinsi akan otomatis terisi"
+                                                                       style="background-color: #f8f9fa;">
+                                                            </div>
                                                             @error('provinsi')
                                                             <div class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -185,6 +233,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                    <!-- AKHIR MODIFIKASI -->
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
@@ -231,8 +280,9 @@
                 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="ktp" class="form-label">Foto KTP <span
+                                                            <label for="ktp" class="form-label">Foto KTP<span
                                                                     class="text-danger">*</span></label>
+                                                            <label for="" class="text-muted"> (File: JPG/PNG Maks. 200 KB)</label>
                                                             <input id="ktp" type="file"
                                                                    class="form-control @error('ktp') is-invalid @enderror" wire:model.live="ktp"
                                                                    value="{{ old('ktp') }}" required autocomplete="off"
@@ -247,8 +297,9 @@
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="npwp" class="form-label">Foto NPWP <span
-                                                                    class="text-danger">*</span></label>
+                                                            <label for="npwp" class="form-label">Foto NPWP<span
+                                                                    class="text-danger">*</span></label>                                                                    
+                                                            <label for="" class="text-muted"> (File: JPG/PNG Maks. 200 KB)</label>
                                                             <input id="npwp" type="file"
                                                                    class="form-control @error('npwp') is-invalid @enderror" wire:model.live="npwp"
                                                                    value="{{ old('npwp') }}" required autocomplete="off"
@@ -263,8 +314,9 @@
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="avatar" class="form-label">Foto Berwarna <span
-                                                                    class="text-danger">*</span></label>
+                                                            <label for="avatar" class="form-label">Foto Berwarna<span
+                                                                    class="text-danger">*</span></label>                                                                    
+                                                            <label for="" class="text-muted"> (File: JPG/PNG Maks. 200 KB)</label>
                                                             <input id="avatar" type="file"
                                                                    class="form-control @error('avatar') is-invalid @enderror" wire:model.live="avatar"
                                                                    value="{{ old('avatar') }}" required autocomplete="off"
@@ -318,6 +370,8 @@
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
                                                             <label for="otp" class="form-label">OTP <span class="text-danger">*</span></label>
+                                                            <br>
+                                                            <label for="">Di kirim ke email terdaftar</label>
                                                             <div class="input-group">
                                                                 <input id="otp" type="text" class="form-control @error('otp') is-invalid @enderror"" wire:model.live="otp" required autocomplete="off" placeholder="Enter your OTP">
                                                                 <button type="button" class="btn btn-primary" wire:click="sendOtp" wire:loading.attr="disabled">
@@ -406,7 +460,7 @@
                                                 <i class="ri-checkbox-circle-fill text-success"></i>
                                             </div>
                                             <div class="flex-grow-1 ms-2 ">
-                                                <p class="text-muted mb-0">Aktivasi data dilakukan berdasarkan kesesuaian jawaban dengan data yang tersimpan di data base Anggota Perkumpulan Dokter Seluruh Indonesia. Jika anda merasa data jawaban telah benar namun tidak dapat masuk ke tahapan selanjutnya, harap hubungi Admin Tim ICT dan Layanan Informasi (PUSDATIN ( Pusat Data dan Informasi )) Pengurus Besar PDSI di Email ke register@pdsionline.org, (Balasan email paling lambat 2 x 24 jam di hari kerja, Email aktif di hari kerja senin – jumat dari jam 08’30 – 16’00). Selanjutnya admin PUSDATIN ( Pusat Data dan Informasi ) akan melakukan validasi laporan anda.</p>
+                                                <p class="text-muted mb-0">Aktivasi data dilakukan berdasarkan kesesuaian jawaban dengan data yang tersimpan di data base Anggota Perkumpulan Dokter Seluruh Indonesia. Jika anda merasa data jawaban telah benar namun tidak dapat masuk ke tahapan selanjutnya, harap hubungi Admin Tim ICT dan Layanan Informasi (PUSDATIN ( Pusat Data dan Informasi )) Pengurus Besar PDSI di Email ke register@pdsionline.org, (Balasan email paling lambat 2 x 24 jam di hari kerja, Email aktif di hari kerja senin – jumat dari jam 08'30 – 16'00). Selanjutnya admin PUSDATIN ( Pusat Data dan Informasi ) akan melakukan validasi laporan anda.</p>
                                             </div>
                                         </div>
                                         <div class="d-flex mt-2">
@@ -487,11 +541,64 @@
     <!--end container-->
 </section>
 
-
-
 @section('script')
     <!-- validation init -->
     <script src="{{ URL::asset('build/js/pages/form-validation.init.js') }}"></script>
     <!-- password create init -->
     <script src="{{ URL::asset('build/js/pages/passowrd-create.init.js') }}"></script>
+    
+    <!-- Custom JavaScript untuk Autocomplete -->
+    <script>
+    document.addEventListener('livewire:init', () => {
+        Livewire.on('hide-suggestions', () => {
+            setTimeout(() => {
+                @this.showSuggestions = false;
+            }, 200);
+        });
+    });
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#kota') && !e.target.closest('.list-group')) {
+            @this.showSuggestions = false;
+        }
+    });
+
+    // Style untuk hover effect
+    document.addEventListener('DOMContentLoaded', function() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .list-group-item:hover {
+                background-color: #e3f2fd !important;
+                transform: translateY(-1px);
+                transition: all 0.2s ease;
+            }
+            
+            .list-group-item {
+                border: 1px solid #dee2e6;
+                transition: all 0.2s ease;
+            }
+            
+            .list-group-item:first-child {
+                border-top-left-radius: 0.375rem;
+                border-top-right-radius: 0.375rem;
+            }
+            
+            .list-group-item:last-child {
+                border-bottom-left-radius: 0.375rem;
+                border-bottom-right-radius: 0.375rem;
+            }
+            
+            .position-relative input:focus + .list-group {
+                border-top: none;
+            }
+            
+            #provinsi[readonly] {
+                background-color: #f8f9fa !important;
+                cursor: not-allowed;
+            }
+        `;
+        document.head.appendChild(style);
+    });
+    </script>
 @endsection

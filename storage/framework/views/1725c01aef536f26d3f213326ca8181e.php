@@ -38,8 +38,8 @@
                                 <div class="card mb-0 border-0 py-3 shadow-none">
                                     <div class="card-body px-0 p-sm-5 m-lg-4">
                                         <div class="text-center mt-2">
-                                            <h5 class="text-primary fs-20">Create New Account</h5>
-                                            <p class="text-muted">Get your free PDSI account now</p>
+                                            <h5 class="text-primary fs-20">Buat Akun Baru Anggota PDSI</h5>
+                                            <p class="text-muted">Silahkan melakukan pengisian pembuatan akun ke Anggotaan PDSI.</p>
                                         </div>
 
                                         <!--[if BLOCK]><![endif]--><?php if(session()->has('error')): ?>
@@ -107,6 +107,36 @@ unset($__errorArgs, $__bag); ?>"
                                                                    wire:model.live="name" value="<?php echo e(old('name')); ?>" required
                                                                    autocomplete="name" autofocus placeholder="Masukan Nama">
                                                             <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['name'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                            <div class="invalid-feedback" role="alert">
+                                                                <strong><?php echo e($message); ?></strong>
+                                                            </div>
+                                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label for="noktp" class="form-label">No KTP <span
+                                                                    class="text-danger">*</span></label>
+                                                            <input id="noktp" type="number"
+                                                                   class="form-control <?php $__errorArgs = ['noktp'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                                                                   wire:model.live="noktp" value="<?php echo e(old('noktp')); ?>" required
+                                                                   autocomplete="noktp" autofocus placeholder="Masukan No noktp">
+                                                            <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['noktp'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -240,10 +270,10 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
                                                         </div>
                                                     </div>
 
+                                                    <!-- BAGIAN YANG DIMODIFIKASI: KOTA DAN PROVINSI -->
                                                     <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="kota" class="form-label">Mendaftar keanggotaan PDSI Kota/Kabupaten, sebutkan ? <span
-                                                                    class="text-danger">*</span></label>
+                                                        <div class="mb-3 position-relative">
+                                                            <label for="kota" class="form-label">Mendaftar keanggotaan PDSI Kota/Kabupaten, sebutkan ? <span class="text-danger">*</span></label>
                                                             <input id="kota" type="text"
                                                                    class="form-control <?php $__errorArgs = ['kota'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -253,8 +283,32 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                                                                   wire:model.live="kota" value="<?php echo e(old('kota')); ?>" required
-                                                                   autocomplete="kota" autofocus placeholder="Masukan Kota/Kabupaten">
+                                                                   wire:model.live="kota" 
+                                                                   wire:blur="hideSuggestions"
+                                                                   value="<?php echo e(old('kota')); ?>" 
+                                                                   required
+                                                                   autocomplete="off" 
+                                                                   autofocus 
+                                                                   placeholder="Masukan Kota/Kabupaten">
+                                                            
+                                                            <!-- Suggestions Dropdown -->
+                                                            <!--[if BLOCK]><![endif]--><?php if($showSuggestions && !empty($suggestions)): ?>
+                                                                <ul class="list-group position-absolute w-100" style="z-index: 1000; max-height: 200px; overflow-y: auto; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                                                                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $suggestions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $suggestion): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                                        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+                                                                            style="cursor: pointer;"
+                                                                            wire:click="selectKota('<?php echo e($suggestion); ?>')"
+                                                                            onmousedown="event.preventDefault();">
+                                                                            <div>
+                                                                                <strong><?php echo e($suggestion); ?></strong>
+                                                                                <small class="text-muted d-block"><?php echo e($dataKota[$suggestion] ?? ''); ?></small>
+                                                                            </div>
+                                                                            <i class="ri-map-pin-line text-primary"></i>
+                                                                        </li>
+                                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> <!--[if ENDBLOCK]><![endif]-->
+                                                                </ul>
+                                                            <?php endif; ?> <!--[if ENDBLOCK]><![endif]-->
+                                                            
                                                             <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['kota'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -272,10 +326,11 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="provinsi" class="form-label">Asal Provinsi <span
-                                                                    class="text-danger">*</span></label>
-                                                            <input id="provinsi" type="text"
-                                                                   class="form-control <?php $__errorArgs = ['provinsi'];
+                                                            <label for="provinsi" class="form-label">Asal Provinsi <span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"><i class="ri-map-2-line"></i></span>
+                                                                <input id="provinsi" type="text"
+                                                                       class="form-control <?php $__errorArgs = ['provinsi'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -283,8 +338,15 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                                                                   wire:model.live="provinsi" value="<?php echo e(old('provinsi')); ?>" required
-                                                                   autocomplete="provinsi" autofocus placeholder="Masukan provinsi">
+                                                                       wire:model="provinsi" 
+                                                                       value="<?php echo e(old('provinsi')); ?>" 
+                                                                       required
+                                                                       readonly
+                                                                       autocomplete="provinsi" 
+                                                                       autofocus 
+                                                                       placeholder="Provinsi akan otomatis terisi"
+                                                                       style="background-color: #f8f9fa;">
+                                                            </div>
                                                             <!--[if BLOCK]><![endif]--><?php $__errorArgs = ['provinsi'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -299,6 +361,7 @@ endif;
 unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
                                                         </div>
                                                     </div>
+                                                    <!-- AKHIR MODIFIKASI -->
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
@@ -380,8 +443,9 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
                 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="ktp" class="form-label">Foto KTP <span
+                                                            <label for="ktp" class="form-label">Foto KTP<span
                                                                     class="text-danger">*</span></label>
+                                                            <label for="" class="text-muted"> (File: JPG/PNG Maks. 200 KB)</label>
                                                             <input id="ktp" type="file"
                                                                    class="form-control <?php $__errorArgs = ['ktp'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -410,8 +474,9 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="npwp" class="form-label">Foto NPWP <span
-                                                                    class="text-danger">*</span></label>
+                                                            <label for="npwp" class="form-label">Foto NPWP<span
+                                                                    class="text-danger">*</span></label>                                                                    
+                                                            <label for="" class="text-muted"> (File: JPG/PNG Maks. 200 KB)</label>
                                                             <input id="npwp" type="file"
                                                                    class="form-control <?php $__errorArgs = ['npwp'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -440,8 +505,9 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="avatar" class="form-label">Foto Berwarna <span
-                                                                    class="text-danger">*</span></label>
+                                                            <label for="avatar" class="form-label">Foto Berwarna<span
+                                                                    class="text-danger">*</span></label>                                                                    
+                                                            <label for="" class="text-muted"> (File: JPG/PNG Maks. 200 KB)</label>
                                                             <input id="avatar" type="file"
                                                                    class="form-control <?php $__errorArgs = ['avatar'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -523,6 +589,8 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
                                                             <label for="otp" class="form-label">OTP <span class="text-danger">*</span></label>
+                                                            <br>
+                                                            <label for="">Di kirim ke email terdaftar</label>
                                                             <div class="input-group">
                                                                 <input id="otp" type="text" class="form-control <?php $__errorArgs = ['otp'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -639,7 +707,7 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
                                                 <i class="ri-checkbox-circle-fill text-success"></i>
                                             </div>
                                             <div class="flex-grow-1 ms-2 ">
-                                                <p class="text-muted mb-0">Aktivasi data dilakukan berdasarkan kesesuaian jawaban dengan data yang tersimpan di data base Anggota Perkumpulan Dokter Seluruh Indonesia. Jika anda merasa data jawaban telah benar namun tidak dapat masuk ke tahapan selanjutnya, harap hubungi Admin Tim ICT dan Layanan Informasi (PUSDATIN ( Pusat Data dan Informasi )) Pengurus Besar PDSI di Email ke register@pdsionline.org, (Balasan email paling lambat 2 x 24 jam di hari kerja, Email aktif di hari kerja senin – jumat dari jam 08’30 – 16’00). Selanjutnya admin PUSDATIN ( Pusat Data dan Informasi ) akan melakukan validasi laporan anda.</p>
+                                                <p class="text-muted mb-0">Aktivasi data dilakukan berdasarkan kesesuaian jawaban dengan data yang tersimpan di data base Anggota Perkumpulan Dokter Seluruh Indonesia. Jika anda merasa data jawaban telah benar namun tidak dapat masuk ke tahapan selanjutnya, harap hubungi Admin Tim ICT dan Layanan Informasi (PUSDATIN ( Pusat Data dan Informasi )) Pengurus Besar PDSI di Email ke register@pdsionline.org, (Balasan email paling lambat 2 x 24 jam di hari kerja, Email aktif di hari kerja senin – jumat dari jam 08'30 – 16'00). Selanjutnya admin PUSDATIN ( Pusat Data dan Informasi ) akan melakukan validasi laporan anda.</p>
                                             </div>
                                         </div>
                                         <div class="d-flex mt-2">
@@ -720,11 +788,64 @@ unset($__errorArgs, $__bag); ?> <!--[if ENDBLOCK]><![endif]-->
     <!--end container-->
 </section>
 
-
-
 <?php $__env->startSection('script'); ?>
     <!-- validation init -->
     <script src="<?php echo e(URL::asset('build/js/pages/form-validation.init.js')); ?>"></script>
     <!-- password create init -->
     <script src="<?php echo e(URL::asset('build/js/pages/passowrd-create.init.js')); ?>"></script>
+    
+    <!-- Custom JavaScript untuk Autocomplete -->
+    <script>
+    document.addEventListener('livewire:init', () => {
+        Livewire.on('hide-suggestions', () => {
+            setTimeout(() => {
+                window.Livewire.find('<?php echo e($_instance->getId()); ?>').showSuggestions = false;
+            }, 200);
+        });
+    });
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#kota') && !e.target.closest('.list-group')) {
+            window.Livewire.find('<?php echo e($_instance->getId()); ?>').showSuggestions = false;
+        }
+    });
+
+    // Style untuk hover effect
+    document.addEventListener('DOMContentLoaded', function() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .list-group-item:hover {
+                background-color: #e3f2fd !important;
+                transform: translateY(-1px);
+                transition: all 0.2s ease;
+            }
+            
+            .list-group-item {
+                border: 1px solid #dee2e6;
+                transition: all 0.2s ease;
+            }
+            
+            .list-group-item:first-child {
+                border-top-left-radius: 0.375rem;
+                border-top-right-radius: 0.375rem;
+            }
+            
+            .list-group-item:last-child {
+                border-bottom-left-radius: 0.375rem;
+                border-bottom-right-radius: 0.375rem;
+            }
+            
+            .position-relative input:focus + .list-group {
+                border-top: none;
+            }
+            
+            #provinsi[readonly] {
+                background-color: #f8f9fa !important;
+                cursor: not-allowed;
+            }
+        `;
+        document.head.appendChild(style);
+    });
+    </script>
 <?php $__env->stopSection(); ?><?php /**PATH D:\Project\pdsi\resources\views/livewire/auth/register.blade.php ENDPATH**/ ?>
