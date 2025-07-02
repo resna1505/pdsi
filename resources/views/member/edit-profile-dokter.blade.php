@@ -227,26 +227,42 @@
                                 </div>
 
                                 <div class="col-lg-4">
-                                    <div class="auth-pass-inputgroup">
-                                        <label for="password-input" class="form-label">New Password*</label>
-                                        <div class="position-relative">
-                                            <input type="password" name="new_password" class="form-control password-input" onpaste="return false" placeholder="Enter new password" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
-                                        </div>
+    <div class="auth-pass-inputgroup">
+        <label for="password-input" class="form-label">New Password*</label>
+        <label class="text-muted"> (Kombinasi huruf dan angka minimal 8 karakter)</label>
+        <div class="position-relative">
+            <input type="password" 
+                   name="new_password" 
+                   class="form-control password-input" 
+                   onpaste="return false" 
+                   placeholder="Enter new password" 
+                   aria-describedby="passwordInput" 
+                   pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+                   required>
+            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon">
+                <i class="ri-eye-fill align-middle"></i>
+            </button>
+        </div>
+    </div>
+</div>
 
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="auth-pass-inputgroup">
-                                        <label for="confirm-password-input" class="form-label">Confirm Password*</label>
-                                        <div class="position-relative">
-                                            <input type="password" name="confirm_password" class="form-control password-input" onpaste="return false" placeholder="Confirm password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
-                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="confirm-password-input"><i class="ri-eye-fill align-middle"></i></button>
-                                        </div>
-
-                                    </div>
-                                </div>
+<div class="col-lg-4">
+    <div class="auth-pass-inputgroup">
+        <label for="confirm-password-input" class="form-label">Confirm Password*</label>
+        <div class="position-relative">
+            <input type="password" 
+                   name="confirm_password" 
+                   class="form-control password-input" 
+                   onpaste="return false" 
+                   placeholder="Confirm password" 
+                   pattern="^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$"
+                   required>
+            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="confirm-password-input">
+                <i class="ri-eye-fill align-middle"></i>
+            </button>
+        </div>
+    </div>
+</div>
                                 <div class="d-flex align-items-center justify-content-between">
                                     <a href="/forget-password" class="link-primary text-decoration-underline">Forgot Password ?</a>
                                     <div class="">
