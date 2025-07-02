@@ -65,34 +65,37 @@
                         <div class="p-2">
                             <div class="row g-0">
                                 <div class="col">
-                                    <a class="dropdown-icon-item" href="#!">
-                                        <img src="<?php echo e(URL::asset('build/images/brands/facebook.png')); ?>" alt="facebook">
-                                        <span>Facebook</span>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a class="dropdown-icon-item" href="#!">
+                                    <a class="dropdown-icon-item" href="https://www.instagram.com/dokterseluruhindonesia/" target="_blank">
                                         <img src="<?php echo e(URL::asset('build/images/brands/instagram.png')); ?>" alt="instagram">
                                         <span>Instagram</span>
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a class="dropdown-icon-item" href="#!">
-                                        <img src="<?php echo e(URL::asset('build/images/brands/linkedin.png')); ?>" alt="linkedin">
-                                        <span>Linkedin</span>
+                                    <a class="dropdown-icon-item" href="https://www.tiktok.com/@pp_pdsi?_t=ZS-8xgE7ku1anX&_r=1" target="_blank">
+                                        <img src="<?php echo e(URL::asset('build/images/brands/tiktok.png')); ?>" alt="tiktok">
+                                        <span>Tiktok</span>
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="https://www.facebook.com/officialpdsi" target="_blank">
+                                        <img src="<?php echo e(URL::asset('build/images/brands/facebook.png')); ?>" alt="facebook">
+                                        <span>Facebook</span>
                                     </a>
                                 </div>
                             </div>
 
-                            <div class="row g-0">
+                            <div class="row g-0">                                
+                                <div class="col">
+                                    <a class="dropdown-icon-item" href="https://id.linkedin.com/company/perkumpulan-dokter-seluruh-indonesia" target="_blank">
+                                        <img src="<?php echo e(URL::asset('build/images/brands/linkedin.png')); ?>" alt="linkedin">
+                                        <span>Linkedin</span>
+                                    </a>
+                                </div>
                                 <div class="col">
                                     <a class="dropdown-icon-item" href="https://x.com/PP_PDSI" target="_blank">
                                         <img src="<?php echo e(URL::asset('build/images/brands/twitter.png')); ?>" alt="twitter">
                                         <span>X</span>
                                     </a>
-                                </div>
-                                <div class="col">
-                                    
                                 </div>
                                 <div class="col">
                                     

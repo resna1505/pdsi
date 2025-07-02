@@ -37,7 +37,10 @@
                             <div class="col-lg-7">
                                 <div class="card mb-0 border-0 py-3 shadow-none">
                                     <div class="card-body px-0 p-sm-5 m-lg-4">
-                                        <div class="text-center mt-2">
+                                        <div class="d-flex justify-content-center">
+                                            <img src="{{ URL::asset('build/images/logo-sm-bottom.png') }}" alt="" height="100" />
+                                        </div>
+                                        <div class="text-center mt-4">
                                             <h5 class="text-primary fs-20">Buat Akun Baru Anggota PDSI</h5>
                                             <p class="text-muted">Silahkan melakukan pengisian pembuatan akun ke Anggotaan PDSI.</p>
                                         </div>
