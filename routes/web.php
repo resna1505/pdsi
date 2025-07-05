@@ -45,8 +45,8 @@ Route::get('/clear-cache', function () {
 });
 
 Route::get('/migrate', function () {
-    Artisan::call('migrate');
-    return "Migrasi database berhasil tanpa menghapus data!";
+    Artisan::call('migrate', ['--force' => true]);
+    return Artisan::output();
 });
 
 Route::get('/login', \App\Http\Livewire\Auth\Login::class)->name('login');
