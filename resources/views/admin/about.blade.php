@@ -64,20 +64,63 @@ About
                                     <div class="list-element">
                                         <div class="d-flex flex-column flex-sm-row mb-5">
                                             <div class="flex-shrink-0">
-                                                <iframe 
-                                                    src="{{ $article->url }}" 
-                                                    title="YouTube video" 
-                                                    allowfullscreen 
-                                                    class="rounded">
-                                                </iframe>
+                                                @php
+                                                    // Extract video ID from embed URL
+                                                    preg_match('/\/embed\/([a-zA-Z0-9_-]{11})/', $article->url, $matches);
+                                                    $videoId = $matches[1] ?? null;
+                                                    $watchUrl = $videoId ? "https://www.youtube.com/watch?v={$videoId}" : $article->url;
+                                                @endphp
+                                                
+                                                <!-- Video Container with Error Handling -->
+                                                <div class="video-container position-relative" style="width: 300px; height: 200px;">
+                                                    <iframe 
+                                                        src="{{ $article->url }}" 
+                                                        title="YouTube video: {{ $article->title }}" 
+                                                        width="300" 
+                                                        height="200"
+                                                        frameborder="0"
+                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                                        allowfullscreen 
+                                                        class="rounded"
+                                                        style="display: block;"
+                                                        onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                                    </iframe>
+                                                    
+                                                    <!-- Fallback jika video tidak bisa dimuat -->
+                                                    <div class="video-fallback bg-light rounded d-flex flex-column justify-content-center align-items-center text-center p-3" 
+                                                        style="display: none; width: 300px; height: 200px; position: absolute; top: 0; left: 0;">
+                                                        @if($videoId)
+                                                            <img src="https://img.youtube.com/vi/{{ $videoId }}/mqdefault.jpg" 
+                                                                alt="Video Thumbnail" 
+                                                                class="rounded mb-2" 
+                                                                style="max-width: 280px; max-height: 150px;"
+                                                                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                                            <div style="display: none;">
+                                                                <i class="ri-youtube-line fs-1 text-muted mb-2"></i>
+                                                            </div>
+                                                        @else
+                                                            <i class="ri-youtube-line fs-1 text-muted mb-2"></i>
+                                                        @endif
+                                                        {{-- <small class="text-muted">Video tidak dapat dimuat</small>
+                                                        <a href="{{ $watchUrl }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">
+                                                            <i class="ri-external-link-line"></i> Buka di YouTube
+                                                        </a> --}}
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
                                                 <div class="position-relative">
-                                                    <a href="javascript:void(0);" class="stretched-link">
+                                                    <a href="{{ $watchUrl }}" target="_blank">
                                                         <h5 class="mb-3">{{ $article->title }}</h5>
                                                     </a>
                                                 </div>
-                                                <p class="mb-2"><i class="ri-youtube-line"></i> {{ $article->url }}</p>
+                                                <p class="mb-2">
+                                                    <i class="ri-youtube-line"></i> 
+                                                    <a href="{{ $watchUrl }}" target="_blank" class="text-muted">
+                                                        Buka di YouTube
+                                                    </a>
+                                                </p>
                                                 <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
                                                     <li>
                                                         <i class="ph-clock-bold align-middle"></i>
@@ -358,8 +401,8 @@ About
 
                     <div class="row">                 
                         <div class="col-md-6 mb-3">
-                            <label for="edit-title" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="edit-title" name="title" required>
+                            <label for="edit-titlevideo" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="edit-titlevideo" name="title" required>
                         </div>                        
                         <div class="col-md-6 mb-3">
                             <label for="edit-url" class="form-label">URL</label>
@@ -368,7 +411,7 @@ About
                         
                         <div class="hstack gap-2 justify-content-end">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Update About</button>
+                            <button type="submit" class="btn btn-success">Update Video</button>
                         </div>
                     </div>
                 </form>
@@ -603,17 +646,30 @@ About
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Handle edit modal
+        // Handle edit modal untuk VIDEO
         const editLinks = document.querySelectorAll('.edit-list');
         const editForm = document.getElementById('edit-form');
         
         editLinks.forEach(link => {
             link.addEventListener('click', function(e) {
+                e.preventDefault(); // TAMBAHAN: Prevent default action
+                
                 const articleId = this.getAttribute('data-edit-id');
+                
+                // Validasi articleId
+                if (!articleId) {
+                    alert('Invalid article ID');
+                    return;
+                }
                 
                 // Fetch article data
                 fetch(`/about/${articleId}/edit`)
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
                     .then(data => {
                         if (data.success) {
                             const article = data.article;
@@ -621,34 +677,51 @@ About
                             // Set form action
                             editForm.setAttribute('action', `/about/${articleId}`);
                             
-                            // Fill form fields
-                            document.getElementById('edit-title').value = article.title;
-                            document.getElementById('edit-url').value = article.url;
+                            // Fill form fields dengan validasi
+                            const titleField = document.getElementById('edit-titlevideo');
+                            const urlField = document.getElementById('edit-url');
                             
-                            // Show current image
-                            // const imagePreview = document.getElementById('current-image-preview');
-                            // if (article.image) {
-                            //     imagePreview.innerHTML = `
-                            //         <img src="{{ asset('storage/abouts/') }}/${article.image}" 
-                            //              alt="Current Image" width="150" class="rounded">
-                            //     `;
-                            // } else {
-                            //     imagePreview.innerHTML = '<p class="text-muted">No image</p>';
-                            // }
+                            if (titleField) titleField.value = article.title || '';
+                            if (urlField) urlField.value = article.url || '';
                             
                             // Clear previous errors
-                            document.getElementById('edit-errors').classList.add('d-none');
+                            const errorContainer = document.getElementById('edit-errors');
+                            if (errorContainer) {
+                                errorContainer.classList.add('d-none');
+                            }
                             
                         } else {
-                            alert('Error loading article data');
+                            alert('Error loading article data: ' + (data.message || 'Unknown error'));
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('Error loading article data');
+                        alert('Error loading article data: ' + error.message);
                     });
             });
         });
+        
+        // TAMBAHAN: Handle form submission
+        if (editForm) {
+            editForm.addEventListener('submit', function(e) {
+                const titleField = document.getElementById('edit-titlevideo');
+                const urlField = document.getElementById('edit-url');
+                
+                if (!titleField.value.trim()) {
+                    e.preventDefault();
+                    alert('Title is required');
+                    titleField.focus();
+                    return;
+                }
+                
+                if (!urlField.value.trim()) {
+                    e.preventDefault();
+                    alert('URL is required');
+                    urlField.focus();
+                    return;
+                }
+            });
+        }
     });
 </script>
 <script>

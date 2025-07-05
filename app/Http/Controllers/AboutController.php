@@ -184,6 +184,23 @@ class AboutController extends Controller
         }
     }
 
+    // PERBAIKAN 1: Tambahkan method convertToEmbedUrl yang hilang
+    private function convertToEmbedUrl($url)
+    {
+        // Jika sudah embed URL, return as is
+        if (strpos($url, 'embed') !== false) {
+            return $url;
+        }
+
+        // Convert regular YouTube URL to embed URL
+        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $url, $matches)) {
+            return 'https://www.youtube.com/embed/' . $matches[1];
+        }
+
+        // If not a YouTube URL, return as is
+        return $url;
+    }
+
     public function update(Request $request, $id)
     {
         try {
@@ -191,7 +208,7 @@ class AboutController extends Controller
 
             $request->validate([
                 'title' => 'required|string|max:255',
-                'url' => 'required|url',
+                'url' => 'required', // PERBAIKAN 2: Hilangkan validasi 'url' karena bisa embed URL
             ]);
 
             // Ubah URL menjadi embed YouTube
@@ -220,7 +237,8 @@ class AboutController extends Controller
     {
         try {
             $activity = Activity::where('id', $id)->first();
-            $activityphoto = ActivityPhoto::where('id', $id)->first();
+            // PERBAIKAN 3: Fix query ActivityPhoto
+            $activityphoto = ActivityPhoto::where('activity_id', $id)->first(); // Ubah dari 'id' ke 'activity_id'
 
             $request->validate([
                 'image' => 'nullable|image',
@@ -229,16 +247,21 @@ class AboutController extends Controller
                 'location' => 'required|string|max:100',
             ]);
 
-            $imagePath = $activity->attachment;
+            // PERBAIKAN 4: Fix image path logic
+            $imagePath = $activityphoto ? $activityphoto->image : null;
 
             if ($request->hasFile('image')) {
-                if ($activity->attachment) {
-                    Storage::disk('public')->delete('galeri/' . $activity->attachment);
+                // Delete old image if exists
+                if ($activityphoto && $activityphoto->image) {
+                    $oldImagePath = public_path('storage/galeri/' . $activityphoto->image);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
                 }
 
                 $image = $request->file('image');
                 $filename = $image->hashName();
-                $image->storeAs('public/galeri', $filename);
+                $image->move(public_path('storage/galeri'), $filename);
                 $imagePath = $filename;
             }
 
@@ -248,9 +271,11 @@ class AboutController extends Controller
                 'location' => $request->location,
             ]);
 
-            $activityphoto->update([
-                'image' => $imagePath
-            ]);
+            if ($activityphoto) {
+                $activityphoto->update([
+                    'image' => $imagePath
+                ]);
+            }
 
             return redirect()->back()->with('success', 'Galeri updated successfully!');
         } catch (\Illuminate\Validation\ValidationException $e) {
