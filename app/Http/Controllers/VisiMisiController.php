@@ -12,7 +12,8 @@ class VisiMisiController extends Controller
     {
         try {
             return response()->json([
-                'visimisi' => VisiMisi::where('type', 'visimisi')->pluck('description'),
+                'visi' => VisiMisi::where('type', 'visi')->pluck('description'),
+                'misi' => VisiMisi::where('type', 'misi')->pluck('description'),
                 'value' => VisiMisi::where('type', 'value')->get(['title', 'description']),
                 'motto' => VisiMisi::where('type', 'motto')->pluck('description')->first()
             ]);
