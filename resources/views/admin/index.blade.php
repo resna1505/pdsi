@@ -17,18 +17,30 @@
             <div class="col-xl-4">
                 <div class="row">
                     <div class="col-xl-12 col-md-6">
-                        <!-- card -->
+                        <!-- Card utama dengan data dinamis -->
                         <div class="card card-animate">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div class="flex-grow-1">
                                         <p class="text-uppercase fw-medium text-muted text-truncate fs-13">Total Earnings</p>
-                                        <h4 class="fs-22 fw-semibold mb-3">Rp. <span class="counter-value" data-target="12300000">0</span></h4>
+                                        <h4 class="fs-22 fw-semibold mb-3">Rp. <span class="counter-value" data-target="{{ $total_earnings }}">0</span></h4>
                                         <div class="d-flex align-items-center gap-2">
-                                            <h5 class="text-success fs-12 mb-0">
-                                                <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +18.30 %
-                                            </h5>
-                                            <p class="text-muted mb-0">than last year</p>
+                                            @if($status == 'increase')
+                                                <h5 class="text-success fs-12 mb-0">
+                                                    <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +{{ $formatted_percentage }} %
+                                                </h5>
+                                                <p class="text-muted mb-0">than last month</p>
+                                            @elseif($status == 'decrease')
+                                                <h5 class="text-danger fs-12 mb-0">
+                                                    <i class="ri-arrow-right-down-line fs-13 align-middle"></i> -{{ $formatted_percentage }} %
+                                                </h5>
+                                                <p class="text-muted mb-0">than last month</p>
+                                            @else
+                                                <h5 class="text-info fs-12 mb-0">
+                                                    <i class="ri-subtract-line fs-13 align-middle"></i> {{ $formatted_percentage }} %
+                                                </h5>
+                                                <p class="text-muted mb-0">same as last month</p>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="avatar-sm flex-shrink-0">
@@ -62,12 +74,24 @@
                                     </div>
                                     <div class="text-end flex-grow-1">
                                         <p class="text-uppercase fw-medium text-muted text-truncate fs-13">Total Seminar</p>
-                                        <h4 class="fs-22 fw-semibold mb-3"><span class="counter-value" data-target="187">0</span></h4>
+                                        <h4 class="fs-22 fw-semibold mb-3"><span class="counter-value" data-target="{{ $total_seminar_this_year }}">0</span></h4>
                                         <div class="d-flex align-items-center justify-content-end gap-2">
-                                            <h5 class="text-danger fs-12 mb-0">
-                                                <i class="ri-arrow-right-down-line fs-13 align-middle"></i> -2.74 %
-                                            </h5>
-                                            <p class="text-muted mb-0">than last year</p>
+                                            @if($seminar_status == 'increase')
+                                                <h5 class="text-success fs-12 mb-0">
+                                                    <i class="ri-arrow-right-up-line fs-13 align-middle"></i> +{{ $seminar_formatted_percentage }} %
+                                                </h5>
+                                                <p class="text-muted mb-0">than last year</p>
+                                            @elseif($seminar_status == 'decrease')
+                                                <h5 class="text-danger fs-12 mb-0">
+                                                    <i class="ri-arrow-right-down-line fs-13 align-middle"></i> -{{ $seminar_formatted_percentage }} %
+                                                </h5>
+                                                <p class="text-muted mb-0">than last year</p>
+                                            @else
+                                                <h5 class="text-info fs-12 mb-0">
+                                                    <i class="ri-subtract-line fs-13 align-middle"></i> {{ $seminar_formatted_percentage }} %
+                                                </h5>
+                                                <p class="text-muted mb-0">same as last year</p>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -123,49 +147,35 @@
                 <div class="card">
                     <div class="card-header border-0 align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Dokter</h4>
-                        <div>
-                            <button type="button" class="btn btn-soft-secondary btn-sm">
-                                ALL
-                            </button>
-                            <button type="button" class="btn btn-soft-secondary btn-sm">
-                                1M
-                            </button>
-                            <button type="button" class="btn btn-soft-secondary btn-sm">
-                                6M
-                            </button>
-                            <button type="button" class="btn btn-secondary btn-sm">
-                                1Y
-                            </button>
-                        </div>
                     </div><!-- end card header -->
 
                     <div class="card-header p-0 border-0 bg-light-subtle">
                         <div class="row g-0 text-center">
                             <div class="col-6 col-sm-3">
                                 <div class="p-3 border border-dashed border-start-0">
-                                    <h5 class="mb-1"><span class="counter-value" data-target="765">0</span></h5>
+                                    <h5 class="mb-1"><span class="counter-value" data-target="{{ $totalDaftar }}">0</span></h5>
                                     <p class="text-muted mb-0">Daftar</p>
                                 </div>
                             </div>
                             <!--end col-->
                             <div class="col-6 col-sm-3">
                                 <div class="p-3 border border-dashed border-start-0">
-                                    <h5 class="mb-1"><span class="counter-value" data-target="715">0</span></h5>
+                                    <h5 class="mb-1"><span class="counter-value" data-target="{{ $totalAktif }}">0</span></h5>
                                     <p class="text-muted mb-0">Aktif</p>
                                 </div>
                             </div>
                             <!--end col-->
                             <div class="col-6 col-sm-3">
                                 <div class="p-3 border border-dashed border-start-0">
-                                    <h5 class="mb-1"><span class="counter-value" data-target="50">0</span></h5>
+                                    <h5 class="mb-1"><span class="counter-value" data-target="{{ $totalNonAktif }}">0</span></h5>
                                     <p class="text-muted mb-0">Non Aktif</p>
                                 </div>
                             </div>
                             <!--end col-->
                             <div class="col-6 col-sm-3">
                                 <div class="p-3 border border-dashed border-start-0 border-end-0">
-                                    <h5 class="mb-1 text-success"><span class="counter-value" data-target="18.92">0</span>%</h5>
-                                    <p class="text-muted mb-0">Conversation Ratio</p>
+                                    <h5 class="mb-1 text-success"><span class="counter-value" data-target="{{ number_format($conversionRatio, 2) }}">0</span>%</h5>
+                                    <p class="text-muted mb-0">Conversion Ratio</p>
                                 </div>
                             </div>
                             <!--end col-->
@@ -186,7 +196,7 @@
                 <div class="card card-height-100">
                     <div class="card-header border-bottom-dashed align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">Distribusi Tenaga Dokter</h4>
-                        <div>
+                        {{-- <div>
                             <div class="dropdown">
                                 <button class="btn btn-soft-primary btn-sm" href="#" data-bs-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
@@ -200,7 +210,7 @@
                                     <a class="dropdown-item" href="#">DRSS</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div><!-- end cardheader -->
                     <div class="card-body">
                         <div id="portfolio_donut_charts"
@@ -211,64 +221,60 @@
                             <li class="list-group-item px-0">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xs">
-                                        <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
-                                                alt="">
+                                        <span class="avatar-title bg-primary p-1 rounded-circle">
+                                            <i class="bi bi-heart-pulse text-white"></i>
                                         </span>
                                     </div>
                                     <div class="flex-grow-1 ms-2">
                                         <h6 class="mb-1">Dr. Umum</h6>
                                     </div>
                                     <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">320</h6>
+                                        <h6 class="mb-1">{{ $doctorData['Dr. Umum'] }}</h6>
                                     </div>
                                 </div>
                             </li><!-- end -->
                             <li class="list-group-item px-0">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xs">
-                                        <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
-                                                alt="">
+                                        <span class="avatar-title bg-info p-1 rounded-circle">
+                                            <i class="bi bi-emoji-smile text-white"></i>
                                         </span>
                                     </div>
                                     <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-1">Dr. Gigi</h6>
+                                        <h6 class="mb-1">Sarjana Kedokteran</h6>
                                     </div>
                                     <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">250</h6>
+                                        <h6 class="mb-1">{{ $doctorData['Sarjana Kedokteran'] }}</h6>
                                     </div>
                                 </div>
                             </li><!-- end -->
                             <li class="list-group-item px-0">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xs">
-                                        <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
-                                                alt="">
+                                        <span class="avatar-title bg-warning p-1 rounded-circle">
+                                            <i class="bi bi-person-badge text-white"></i>
                                         </span>
                                     </div>
                                     <div class="flex-grow-1 ms-2">
                                         <h6 class="mb-1">Dr. Spesialist</h6>
                                     </div>
                                     <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">130</h6>
+                                        <h6 class="mb-1">{{ $doctorData['Dr. Spesialist'] }}</h6>
                                     </div>
                                 </div>
                             </li><!-- end -->
                             <li class="list-group-item px-0 pb-0">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xs">
-                                        <span class="avatar-title bg-light p-1 rounded-circle">
-                                            <img src="{{ URL::asset('build/images/old_logo-sm.png') }}" class="img-fluid"
-                                                alt="">
+                                       <span class="avatar-title bg-success p-1 rounded-circle">
+                                            <i class="bi bi-star-fill text-white"></i>
                                         </span>
                                     </div>
                                     <div class="flex-grow-1 ms-2">
-                                        <h6 class="mb-1">Dr. Sub Spesialist</h6>
+                                        <h6 class="mb-1">Anggota Kehormatan</h6>
                                     </div>
                                     <div class="flex-shrink-0 text-end">
-                                        <h6 class="mb-1">5</h6>
+                                        <h6 class="mb-1">{{ $doctorData['Anggota Kehormatan'] }}</h6>
                                     </div>
                                 </div>
                             </li><!-- end -->
@@ -280,12 +286,12 @@
             <div class="col-xl-8">
                 <div class="card">
                     <div class="card-header align-items-center d-flex">
-                        <h4 class="card-title mb-0 flex-grow-1">Best Selling Seminar</h4>
-                        <div class="flex-shrink-0">
+                        <h4 class="card-title mb-0 flex-grow-1">Seminar Popular</h4>
+                        {{-- <div class="flex-shrink-0">
                             <button type="button" class="btn btn-soft-info btn-sm">
                                 <i class="ri-file-list-3-line align-middle"></i> Generate Report
                             </button>
-                        </div>
+                        </div> --}}
                     </div><!-- end card header -->
 
                     <div class="card-body">
@@ -300,142 +306,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-1.png') }}" alt="" class="avatar-xs rounded-circle" />
+                                    @foreach ($best_selling_seminar as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="flex-shrink-0 me-2">
+                                                        <img src="{{ asset('storage/workshops/' . $article->image) }}" alt="" class="avatar-xs rounded-circle" />
+                                                    </div>
+                                                    <div class="flex-grow-1">{{ $item->title }}</div>
                                                 </div>
-                                                <div class="flex-grow-1">Seminar 1</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">150.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>325</td>
-                                    </tr><!-- end tr -->
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-5.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 2</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>105</td>
-                                    </tr><!-- end tr -->
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-4.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 3</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">150.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>100</td>
-                                    </tr><!-- end tr -->
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-3.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 4</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>98</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-2.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 5</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">150.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>80</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-8.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 6</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>75</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-10.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 7</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>43</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="flex-shrink-0 me-2">
-                                                    <img src="{{ URL::asset('build/images/products/img-9.png') }}" alt="" class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1">Seminar 8</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary">99.000</span>
-                                        </td>
-                                        <td>
-                                            <span class="badge text-success bg-success-subtle">Dr. Dummy</span>
-                                        </td>
-                                        <td>21</td>
-                                    </tr><!-- end tr --><!-- end tr -->
+                                            </td>
+                                            <td>
+                                                <span class="text-secondary">{{ $item->price }}</span>
+                                            </td>
+                                            <td>
+                                                <span class="badge text-success bg-success-subtle">-</span>
+                                            </td>
+                                            <td>-</td>
+                                        </tr>
+                                    @endforeach                                    
                                 </tbody><!-- end tbody -->
                             </table><!-- end table -->
                         </div>
@@ -451,78 +340,41 @@
                     <div class="horizontal-timeline my-3">
                         <div class="swiper timelineSlider">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted fw-medium mb-2">April, 2025</p>
-                                                <h6 class="mb-0 fs-15">Seminar edukasi tentang hipertensi</h6>
+                                @forelse($agendas as $agenda)
+                                    <div class="swiper-slide">
+                                        <div class="card pt-2 border-0 item-box text-center">
+                                            <div class="timeline-content p-3 rounded border border-dashed">
+                                                <div>
+                                                    <p class="text-muted fw-medium mb-2">{{ $agenda['month_year'] }}</p>
+                                                    <h6 class="mb-0 fs-15">{{ $agenda['title'] }}</h6>
+                                                    @if($agenda['description'])
+                                                        <p class="text-muted mt-2 mb-0 fs-13">{{ Str::limit($agenda['description'], 50) }}</p>
+                                                    @endif
+                                                    @if($agenda['author'])
+                                                        <small class="text-primary">{{ $agenda['author'] }}</small>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="time">
+                                                <span class="badge text-bg-secondary">{{ $agenda['day_month'] }}</span>
                                             </div>
                                         </div>
-                                        <div class="time"><span class="badge text-bg-secondary">23 Apr</span></div>
                                     </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Mei, 2025</p>
-                                                <h6 class="mb-0 fs-15">Kerja bakti bersih-bersih puskesmas</h6>
+                                @empty
+                                    <div class="swiper-slide">
+                                        <div class="card pt-2 border-0 item-box text-center">
+                                            <div class="timeline-content p-3 rounded border border-dashed">
+                                                <div>
+                                                    <p class="text-muted fw-medium mb-2">Tidak ada agenda</p>
+                                                    <h6 class="mb-0 fs-15">Belum ada agenda terjadwal</h6>
+                                                </div>
+                                            </div>
+                                            <div class="time">
+                                                <span class="badge text-bg-secondary">-</span>
                                             </div>
                                         </div>
-                                        <div class="time"><span class="badge text-bg-secondary">2 Mei</span></div>
                                     </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Mei, 2025</p>
-                                                <h6 class="mb-0 fs-15">Bakti sosial cek kesehatan gratis</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">24 Mei</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Juni, 2025</p>
-                                                <h6 class="mb-0 fs-15">Pelatihan kader kesehatan desa</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">14 Jun</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Juli, 2025</p>
-                                                <h6 class="mb-0 fs-15">Diskusi inovasi pelayanan kesehatan</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">2 Jul</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
-                                <div class="swiper-slide">
-                                    <div class="card pt-2 border-0 item-box text-center">
-                                        <div class="timeline-content p-3 rounded border border-dashed">
-                                            <div>
-                                                <p class="text-muted mb-2">Agustus, 2025</p>
-                                                <h6 class="mb-0 fs-15">Diskusi inovasi pelayanan kesehatan</h6>
-                                            </div>
-                                        </div>
-                                        <div class="time"><span class="badge text-bg-secondary">11 Agu</span></div>
-                                    </div>
-                                </div>
-                                <!--end swiper-slide-->
+                                @endforelse
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
@@ -1068,21 +920,28 @@
 
 @section('script')
 <!-- apexcharts -->
-<script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
-<script src="{{ URL::asset('build/libs/jsvectormap/jsvectormap.min.js') }}"></script>
-<script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
-<script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js')}}"></script>
-
-<!-- dashboard init -->
-<script src="{{ URL::asset('build/libs/list.js/list.min.js') }}"></script>
-{{-- <script src="{{ URL::asset('build/js/pages/dashboard-ecommerce.init.js') }}"></script> --}}
-<script src="{{ URL::asset('build/js/app.js') }}"></script>
-<script src="{{ URL::asset('build/js/pages/timeline.init.js') }}"></script>
-
-    <!-- for basic area chart -->
-    {{-- <script src="https://img.ICT PDSI.com/velzon/apexchart-js/stock-prices.js"></script> --}}
+    <script src="{{ URL::asset('build/libs/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/jsvectormap/jsvectormap.min.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/jsvectormap/maps/world-merc.js') }}"></script>
+    <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js')}}"></script>
+    <script src="{{ URL::asset('build/libs/list.js/list.min.js') }}"></script>
+    <script src="{{ URL::asset('build/js/app.js') }}"></script>
+    <script src="{{ URL::asset('build/js/pages/timeline.init.js') }}"></script>
     <script src="{{ URL::asset('build/js/maps/us-merc-en.js') }}"></script>
-    {{-- <script src="{{ URL::asset('build/js/pages/widgets.init.js') }}"></script> --}}
+    <script>
+        // Pastikan data ini ada dan format yang benar
+        window.doctorChartData = {
+            series: @json(array_values($doctorData)),
+            labels: @json(array_keys($doctorData))
+        };
+        
+        window.impressionChartData = {
+            daftar: @json($chartData['daftar']),
+            aktif: @json($chartData['aktif']),
+            non_aktif: @json($chartData['non_aktif'])
+        };
+    </script>
+
     <script src="{{ asset('build/js/pages/chart-dokter.init.js') }}"></script>
 
 @endsection

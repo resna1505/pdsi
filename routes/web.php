@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\FAQDokterController;
 use App\Http\Controllers\MasterIuranController;
@@ -68,19 +69,25 @@ Route::get('/auth-offline', function () {
 })->name('auth.offline');
 
 Route::group(['middleware' => 'auth'], function () {
+    // Route::get('/index', function () {
+    //     return redirect('/');
+    // });
+    // Route::get('/', function () {
+    //     $user = Auth::user();
+    //     if (strtolower($user->level) === 'admin') {
+    //         return view('admin.index');
+    //     }
+
+    //     if (strtolower($user->level) === 'dokter') {
+    //         return view('member.index');
+    //     }
+    // });
+
     Route::get('/index', function () {
         return redirect('/');
     });
-    Route::get('/', function () {
-        $user = Auth::user();
-        if (strtolower($user->level) === 'admin') {
-            return view('admin.index');
-        }
 
-        if (strtolower($user->level) === 'dokter') {
-            return view('member.index');
-        }
-    });
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/training', [ProductController::class, 'index'])->name('training.index');
     Route::get('/workshop/{id}', [ProductDetailController::class, 'index'])->name('workshop.index');

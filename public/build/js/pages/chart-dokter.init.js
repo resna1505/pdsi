@@ -37,15 +37,27 @@ function getChartColorsArray(chartId) {
 
 // Total Portfolio Donut Charts
 var donutchartportfolioColors = getChartColorsArray("portfolio_donut_charts");
+if (chart) chart.destroy();
 if (donutchartportfolioColors) {
-    var options = {
+    // Debug: periksa data yang tersedia
+    console.log('window.doctorChartData:', window.doctorChartData);
+    
+    var chartData = window.doctorChartData || {
         series: [320, 250, 130, 5],
-        labels: ["Dr. Umum", "Dr. Gigi", "Dr. Spesialist", "Dr. Sub Spesialist"],
+        labels: ["Dr. Umum", "Dr. Gigi", "Dr. Spesialist", "Dr. Sub Spesialist"]
+    };
+    
+    // Debug: periksa chartData yang akan digunakan
+    console.log('chartData.series:', chartData.series);
+    console.log('chartData.labels:', chartData.labels);
+    
+    var options = {
+        series: chartData.series,
+        labels: chartData.labels,
         chart: {
             type: "donut",
             height: 210,
         },
-
         plotOptions: {
             pie: {
                 size: 100,
@@ -67,7 +79,7 @@ if (donutchartportfolioColors) {
                             fontWeight: 500,
                             offsetY: 5,
                             formatter: function (val) {
-                                return val;
+                                return val; // Hilangkan " Dokter" dulu untuk debug
                             }                            
                         },
                         total: {
@@ -79,7 +91,7 @@ if (donutchartportfolioColors) {
                             formatter: function (w) {
                                 return w.globals.seriesTotals.reduce(function (a, b) {
                                     return a + b
-                                }, 0);
+                                }, 0); // Hilangkan " Dokter" dulu untuk debug
                             }                            
                         }
                     }
@@ -87,17 +99,10 @@ if (donutchartportfolioColors) {
             },
         },
         dataLabels: {
-            enabled: false,
+            enabled: false, // Set false dulu untuk melihat chart dasarnya
         },
         legend: {
             show: false,
-        },
-        yaxis: {
-            labels: {
-                formatter: function (value) {
-                    return value;
-                }
-            }
         },
         stroke: {
             lineCap: "round",
@@ -112,25 +117,30 @@ if (donutchartportfolioColors) {
 
 var linechartcustomerColors = getChartColorsArray("customer_impression_charts");
 if (linechartcustomerColors) {
+    
+    // Ambil data dari window object
+    var impressionData = window.impressionChartData || {
+        daftar: [34, 65, 46, 68, 49, 61, 42, 44, 78, 52, 63, 67],
+        aktif: [89, 98, 68, 108, 77, 84, 51, 28, 92, 42, 88, 36],
+        non_aktif: [8, 12, 7, 17, 21, 11, 5, 9, 7, 29, 12, 35]
+    };
+    
     var options = {
         series: [{
-            name: "daftar",
+            name: "Daftar",
             type: "area",
-            data: [34, 65, 46, 68, 49, 61, 42, 44, 78, 52, 63, 67],
+            data: impressionData.daftar,
         },
         {
-            name: "aktif",
+            name: "Aktif",
             type: "bar",
-            data: [
-                89, 98, 68, 108, 77, 84, 51, 28, 92, 42, 88, 36,
-            ],
+            data: impressionData.aktif,
         },
         {
-            name: "non aktif",
+            name: "Non Aktif",
             type: "line",
-            data: [8, 12, 7, 17, 21, 11, 5, 9, 7, 29, 12, 35],
-        },
-        ],
+            data: impressionData.non_aktif,
+        }],
         chart: {
             height: 310,
             type: "line",
@@ -155,18 +165,8 @@ if (linechartcustomerColors) {
         },
         xaxis: {
             categories: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
+                "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
             ],
             axisTicks: {
                 show: false,
@@ -222,7 +222,7 @@ if (linechartcustomerColors) {
             y: [{
                 formatter: function (y) {
                     if (typeof y !== "undefined") {
-                        return y.toFixed(0);
+                        return y.toFixed(0) + " Dokter";
                     }
                     return y;
                 },
@@ -230,7 +230,7 @@ if (linechartcustomerColors) {
             {
                 formatter: function (y) {
                     if (typeof y !== "undefined") {
-                        return y.toFixed(0);
+                        return y.toFixed(0) + " Dokter";
                     }
                     return y;
                 },
@@ -238,14 +238,14 @@ if (linechartcustomerColors) {
             {
                 formatter: function (y) {
                     if (typeof y !== "undefined") {
-                        return y.toFixed(0);
+                        return y.toFixed(0) + " Dokter";
                     }
                     return y;
                 },
-            },
-            ],
+            }],
         },
     };
+    
     var chart = new ApexCharts(
         document.querySelector("#customer_impression_charts"),
         options
