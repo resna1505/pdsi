@@ -397,6 +397,20 @@ unset($__errorArgs, $__bag); ?>" type="radio" name="profesi" id="umum" value="Do
                                                                     Dokter Umum
                                                                 </label>
                                                             </div>
+
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input <?php $__errorArgs = ['profesi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" type="radio" name="profesi" id="Kehormatan" value="Anggota Kehormatan" wire:model.live="profesi">
+                                                                <label class="form-check-label" for="Kehormatan">
+                                                                    Anggota Kehormatan
+                                                                </label>
+                                                            </div>
                                                     
                                                             <div class="form-check mb-2">
                                                                 <input class="form-check-input <?php $__errorArgs = ['profesi'];

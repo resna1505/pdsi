@@ -255,6 +255,13 @@
                                                                     Dokter Umum
                                                                 </label>
                                                             </div>
+
+                                                            <div class="form-check mb-2">
+                                                                <input class="form-check-input @error('profesi') is-invalid @enderror" type="radio" name="profesi" id="Kehormatan" value="Anggota Kehormatan" wire:model.live="profesi">
+                                                                <label class="form-check-label" for="Kehormatan">
+                                                                    Anggota Kehormatan
+                                                                </label>
+                                                            </div>
                                                     
                                                             <div class="form-check mb-2">
                                                                 <input class="form-check-input @error('profesi') is-invalid @enderror" type="radio" name="profesi" id="spesialis" value="Dokter Spesialis" wire:model.live="profesi">

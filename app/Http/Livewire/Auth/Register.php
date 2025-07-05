@@ -24,7 +24,7 @@ class Register extends Component
     public $name;
     public $tempat_lahir;
     public $tanggal_lahir;
-    public $no_hp = '08';
+    public $no_hp = '628';
     public $alamat;
     public $kota;
     public $provinsi;
