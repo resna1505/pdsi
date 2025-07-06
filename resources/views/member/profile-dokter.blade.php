@@ -16,7 +16,13 @@
             <div class="card-body">
                 <div class="position-relative">
                     <div class="mt-n5">
-                        <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="" class="avatar-lg rounded-circle p-1 mt-n4">
+                        {{-- Ganti kode avatar di profile-dokter.blade.php --}}
+                        @if($anggota && $anggota->avatar)
+                            <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="" class="avatar-lg rounded-circle">
+                        @else
+                            <img src="{{ URL::asset('build/images/users/user-dummy-img.jpg') }}" alt="" class="avatar-lg rounded-circle">
+                        @endif
+                        {{-- <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="" class="avatar-lg rounded-circle p-1 mt-n4"> --}}
                     </div>
                 </div>
                 <div class="pt-3">

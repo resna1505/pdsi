@@ -124,18 +124,42 @@ Route::group(['middleware' => 'auth'], function () {
     // FAQ
     Route::get('/faq-dokter', [FAQDokterController::class, 'index']);
 
-    // -> Admin
-    // Workshop
-    // Route::get('/workshops', function () {
-    //     return view('admin.workshops');
-    // });
     Route::get('/workshops', [WorkshopsController::class, 'index']);
     Route::post('/workshops', [WorkshopsController::class, 'store'])->name('workshops.store');
     Route::delete('/workshops/{id}', [WorkshopsController::class, 'destroy'])->name('workshops.destroy');
     Route::get('/workshops/{id}/edit', [WorkshopsController::class, 'edit'])->name('workshops.edit');
     Route::put('/workshops/{id}', [WorkshopsController::class, 'update'])->name('workshops.update');
 
-    Route::get('/member', [MemberController::class, 'index']);
+    // Route test sementara - HAPUS setelah testing
+    // Route::get('/test-export-admin', function () {
+    //     try {
+    //         $admin = \App\Models\Anggota::where('spesialis', '')
+    //             ->whereHas('user', function ($query) {
+    //                 $query->where('is_active', 1);
+    //             })
+    //             ->with('user')
+    //             ->get();
+
+    //         dd([
+    //             'count' => $admin->count(),
+    //             'data' => $admin->take(2)->toArray()
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         dd('Error: ' . $e->getMessage());
+    //     }
+    // });
+
+    // Route::get('/test-export-download', function () {
+    //     try {
+    //         return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\MemberExport, 'test.xlsx');
+    //     } catch (\Exception $e) {
+    //         dd('Export Error: ' . $e->getMessage());
+    //     }
+    // });
+
+    Route::get('/member', [MemberController::class, 'index'])->name('member.index');
+    Route::get('/member/export-admin', [MemberController::class, 'exportAdmin'])->name('member.export.admin');
+    Route::get('/member/export-member', [MemberController::class, 'exportMember'])->name('member.export.member');
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
 
     Route::get('/user', [UserController::class, 'index']);

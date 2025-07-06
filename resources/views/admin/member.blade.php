@@ -28,16 +28,28 @@ Member
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-auto">
+                        <div class="d-flex gap-2">
+                            <!-- Export Admin Button -->
+                            <a href="{{ route('member.export.admin') }}" class="btn btn-soft-success btn-sm export-btn" id="exportAdminBtn" style="display: none;">
+                                <i class="ri-file-excel-line align-middle me-1"></i> Export Admin
+                            </a>
+                            <!-- Export Member Button -->
+                            <a href="{{ route('member.export.member') }}" class="btn btn-soft-success btn-sm export-btn" id="exportMemberBtn" style="display: none;">
+                                <i class="ri-file-excel-line align-middle me-1"></i> Export Member
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-4">
                     <ul class="nav nav-tabs nav-tabs-custom nav-secondary" role="tablist">
                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#admin" role="tab" aria-selected="false">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#admin" role="tab" aria-selected="true" data-export="admin">
                                 Admin
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#member" role="tab" aria-selected="false">
+                            <a class="nav-link" data-bs-toggle="tab" href="#member" role="tab" aria-selected="false" data-export="member">
                                 Member
                             </a>
                         </li>
@@ -47,7 +59,10 @@ Member
             <div class="card-body p-4">
                 <div class="tab-content">
                     <div class="tab-pane active" id="admin" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="text-muted mb-0">Showing results for <span id="searchKeyword"></span></p>
+                            <span class="badge bg-primary">Total: {{ count($admin) }} Admin</span>
+                        </div>
                         <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 video-lists">
                             @foreach ($admin as $item)
                                 <div class="col list-element">
@@ -64,7 +79,7 @@ Member
                                             </div>
                                             <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
                                                 <div class="avatar-xs">
-                                                    <a href="#" class="avatar-title rounded-circle bg-info-subtle text-info"><i class="ri-facebook-fill align-middle"></i></a>
+                                                    <a href="{{ $item->facebook_url }}"  target="_blank" class="avatar-title rounded-circle bg-info-subtle text-info"><i class="ri-facebook-fill align-middle"></i></a>
                                                 </div>
                                                 <div class="avatar-xs">
                                                     <a href="{{ $item->twitter_url }}" target="_blank" class="avatar-title rounded-circle bg-success-subtle text-success"><i class="ri-twitter-fill align-middle"></i></a>
@@ -78,8 +93,7 @@ Member
                                             <a href="https://wa.me/{{ $item->no_hp }}" target="_blank" class="btn btn-soft-info w-100 text-center">
                                                 Message
                                             </a>
-                                            {{-- <button class="btn btn-soft-primary w-100">Overview</button> --}}
-                                            <a href="{{ route('member.show', $item->id) }}" class="btn btn-soft-primary w-100">
+                                            <a href="{{ route('member.show', $item->user_id) }}" class="btn btn-soft-primary w-100">
                                                 Overview
                                             </a>
                                         </div>
@@ -95,59 +109,12 @@ Member
                         </div>                        
                     </div>
                     <div class="tab-pane" id="member" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="text-muted mb-0">Showing results for <span id="searchKeyword"></span></p>
+                            <span class="badge bg-primary">Total: {{ count($dokter) }} Member</span>
+                        </div>
                         <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 video-lists">
                             @foreach ($dokter as $item)
-                                {{-- <div class="col list-element">
-                                    <div class="card">
-                                        <div class="card-body p-4 m-2">
-                                            <div class="row mb-4 pb-2">
-                                                <div class="col">
-                                                    <div class="flex-shrink-0 me-2">
-                                                        <button type="button"
-                                                        class="btn btn-outline-success custom-toggle rounded-circle btn-icon btn-sm"
-                                                        data-bs-toggle="offcanvas"
-                                                        data-bs-target="#viewVerification"
-                                                        data-id="{{ $item->user_id }}"
-                                                        data-nama="{{ $item->nama }}"
-                                                        data-ktp="{{ $item->ktp }}"
-                                                        data-npwp="{{ $item->npwp }}"
-                                                        data-lahir="{{ $item->tempat_lahir }}"
-                                                        data-birthday="{{ $item->tanggal_lahir }}"
-                                                        data-email="{{ $item->email }}"
-                                                        data-phone="{{ $item->no_hp }}"
-                                                        data-address="{{ $item->alamat }}"
-                                                        data-city="{{ $item->kota }}"
-                                                        data-provinsi="{{ $item->provinsi }}"
-                                                        data-profesi="{{ $item->profesi }}"
-                                                        data-avatar="{{  URL::asset("storage/images/users/{$item->avatar}") }}"
-                                                        >
-                                                            <i class="ri-eye-fill"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-fill fs-17"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li>
-                                                            <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $item->user_id }}">
-                                                            <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="text-center mb-4">
-                                                <img src="{{  URL::asset("storage/images/users/{$item->avatar}") }}" alt="" class="avatar-md rounded-3" />
-                                            </div>
-                                            <div class="text-center">
-                                                <a href="#member-overview" data-bs-toggle="offcanvas">
-                                                    <h5 class="fs-17">{{ $item->nama }}</h5>
-                                                </a>
-                                                <p class="text-muted mb-0">{{ $item->email }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>   --}}
                                 <div class="col list-element">
                                     <div class="card">
                                         <div class="card-body">
@@ -162,7 +129,7 @@ Member
                                             </div>
                                             <div class="mt-2 text-center pt-4 hstack gap-2 justify-content-center">
                                                 <div class="avatar-xs">
-                                                    <a href="#" class="avatar-title rounded-circle bg-info-subtle text-info"><i class="ri-facebook-fill align-middle"></i></a>
+                                                    <a href="{{ $item->facebook_url }}" target="_blank" class="avatar-title rounded-circle bg-info-subtle text-info"><i class="ri-facebook-fill align-middle"></i></a>
                                                 </div>
                                                 <div class="avatar-xs">
                                                     <a href="{{ $item->twitter_url }}" target="_blank" class="avatar-title rounded-circle bg-success-subtle text-success"><i class="ri-twitter-fill align-middle"></i></a>
@@ -176,7 +143,6 @@ Member
                                             <a href="https://wa.me/{{ $item->no_hp }}" target="_blank" class="btn btn-soft-info w-100 text-center">
                                                 Message
                                             </a>
-                                            {{-- <button class="btn btn-soft-primary w-100">Overview</button> --}}
                                             <a href="{{ route('member.show', $item->user_id) }}" class="btn btn-soft-primary w-100">
                                                 Overview
                                             </a>
@@ -198,6 +164,7 @@ Member
     </div>
 </div>
 
+<!-- Modals and Offcanvas remain the same -->
 <div class="modal fade" id="addmemberModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0">
@@ -250,9 +217,7 @@ Member
                 </form>
             </div>
         </div>
-        <!--end modal-content-->
     </div>
-    <!--end modal-dialog-->
 </div>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="viewVerification" aria-labelledby="viewVerificationLabel">
@@ -342,16 +307,14 @@ Member
                         @method('DELETE')
                         <button type="submit" class="btn w-sm btn-danger" id="remove-item">Yes, Delete It!</button>
                     </form>
-                    {{-- <button type="button" class="btn w-sm btn-danger" id="remove-item">Yes, Delete It!</button> --}}
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div>
 </div>
 @endsection
 
 @section('script')
-{{-- <script src="{{ URL::asset('build/js/pages/team.init.js') }}"></script> --}}
 <script src="{{ URL::asset('build/libs/glightbox/js/glightbox.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/search-result.init.js') }}"></script>
@@ -359,8 +322,30 @@ Member
 
 <script src="{{ URL::asset('build/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/form-editor.init.js') }}"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // Show/Hide Export Buttons based on active tab
+        function toggleExportButtons() {
+            const activeTab = document.querySelector('.nav-link.active');
+            const exportType = activeTab ? activeTab.getAttribute('data-export') : 'admin';
+            
+            document.getElementById('exportAdminBtn').style.display = exportType === 'admin' ? 'inline-block' : 'none';
+            document.getElementById('exportMemberBtn').style.display = exportType === 'member' ? 'inline-block' : 'none';
+        }
+
+        // Initialize export buttons visibility
+        toggleExportButtons();
+
+        // Handle tab switching
+        const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');
+        tabLinks.forEach(link => {
+            link.addEventListener('shown.bs.tab', function() {
+                toggleExportButtons();
+            });
+        });
+
+        // Existing pagination code
         const itemsPerPage = 15;
 
         function initPagination(tabPane) {
@@ -390,7 +375,6 @@ Member
                 pagination.querySelector(".prev")?.classList.toggle("disabled", page === 1);
                 pagination.querySelector(".next")?.classList.toggle("disabled", page === totalPages);
 
-                // Update pagination-info
                 if (paginationInfo) {
                     const start = (page - 1) * itemsPerPage + 1;
                     const end = Math.min(page * itemsPerPage, totalItems);
@@ -442,14 +426,11 @@ Member
             showPage(currentPage);
         }
 
-        // Init first visible tab
         const activeTabPane = document.querySelector(".tab-pane.active");
         if (activeTabPane) {
             initPagination(activeTabPane);
         }
 
-        // Re-init on tab switch
-        const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');
         tabLinks.forEach(link => {
             link.addEventListener("shown.bs.tab", function() {
                 const targetId = this.getAttribute("href");
@@ -459,6 +440,7 @@ Member
         });
     });
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById("searchInput");
@@ -469,7 +451,6 @@ Member
                 const keyword = this.value.toLowerCase();
                 searchKeyword.textContent = this.value;
 
-                // Loop semua tab-pane yang memiliki .video-lists
                 document.querySelectorAll(".tab-pane").forEach(tab => {
                     const videoList = tab.querySelector(".video-lists");
                     const pagination = tab.querySelector(".pagination");
@@ -485,7 +466,6 @@ Member
                         if (match) matchedCount++;
                     });
 
-                    // Sembunyikan pagination dan info jika search aktif
                     if (pagination) pagination.style.display = keyword ? "none" : "flex";
                     if (paginationInfo) paginationInfo.style.display = keyword ? "none" : "block";
                 });
@@ -493,9 +473,9 @@ Member
         }
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Handle modal delete
         const removeLinks = document.querySelectorAll('.remove-list');
         const deleteForm = document.getElementById('deleteForm');
         
@@ -508,11 +488,11 @@ Member
         });
     });
 </script>
+
 <script>
     const viewVerification = document.getElementById('viewVerification');
     viewVerification.addEventListener('show.bs.offcanvas', function (event) {
         const button = event.relatedTarget;
-        // const id = button.getAttribute('data-id');
         const id = button.getAttribute('data-id');
         const nama = button.getAttribute('data-nama');
         const ktp = button.getAttribute('data-ktp');
@@ -528,7 +508,6 @@ Member
         const avatar = button.getAttribute('data-avatar');
 
         document.getElementById('targetUserId').value = id;
-        // viewVerification.querySelector('.overview-id').textContent = id;
         viewVerification.querySelector('.overview-name').textContent = nama;
         viewVerification.querySelector('.overview-email').textContent = email;
         viewVerification.querySelector('.overview-phone').textContent = phone;
@@ -541,21 +520,19 @@ Member
         viewVerification.querySelector('.overview-lahir').textContent = lahir;
         viewVerification.querySelector('.overview-birthday').textContent = birthday;
         viewVerification.querySelector('.overview-avatar').src = avatar;
-        // Tambahkan yang lain sesuai kebutuhan
     });
 </script>
+
 <script>
     btnVerifikasi.addEventListener('click', function () {
-    const anggotaId = document.getElementById('targetUserId').value;
-    if (!anggotaId) {
-        alert('ID anggota tidak ditemukan!');
-        return;
-    }
-    verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
-    verifikasiForm.submit();
-});
-// test
-
+        const anggotaId = document.getElementById('targetUserId').value;
+        if (!anggotaId) {
+            alert('ID anggota tidak ditemukan!');
+            return;
+        }
+        verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
+        verifikasiForm.submit();
+    });
 </script>
 
 @endsection
