@@ -129,7 +129,8 @@ class ArticleController extends Controller
                 // Store new image
                 $image = $request->file('image');
                 $filename = $image->hashName();
-                $image->storeAs('public/articles', $filename);
+                // $image->storeAs('public/articles', $filename);                
+                $image->move(public_path('public/articles'), $filename);
                 $imagePath = $filename;
             }
 
