@@ -10,6 +10,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\FAQDokterController;
 use App\Http\Controllers\MasterIuranController;
 use App\Http\Controllers\MemberController;
@@ -196,6 +197,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/faq/{id}', [FAQController::class, 'destroy'])->name('faq.destroy');
     Route::get('/faq/{id}/edit', [FAQController::class, 'edit'])->name('faq.edit');
     Route::put('/faq/{id}', [FAQController::class, 'update'])->name('faq.update');
+
+    // Calendar routes
+    Route::get('/apps-calendar', [EventController::class, 'index'])->name('calendar.index');
+    Route::get('/events', [EventController::class, 'getEvents'])->name('events.get');
+    Route::get('/events/upcoming', [EventController::class, 'getUpcomingEvents'])->name('events.upcoming');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+    Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+    Route::patch('/events/{event}/date', [EventController::class, 'updateEventDate'])->name('events.update-date');
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

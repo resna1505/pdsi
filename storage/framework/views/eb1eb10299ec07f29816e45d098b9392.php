@@ -110,6 +110,7 @@
                 <li class="nav-item">
                     <a href="<?php echo e(url('/apps-calendar')); ?>" class="nav-link menu-link"> <i class="bi bi-calendar3"></i> <span data-key="t-calendar"><?php echo app('translator')->get('translation.calendar'); ?></span> </a>
                 </li>
+                
                 <?php if(Auth::user()->level == 'Admin'): ?>    
                     <li class="nav-item">
                         <a href="<?php echo e(url('/apps-leaderboards')); ?>" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard"><?php echo app('translator')->get('translation.leaderboard'); ?></span> </a>

@@ -114,6 +114,11 @@
                 <li class="nav-item">
                     <a href="{{ url('/apps-calendar') }}" class="nav-link menu-link"> <i class="bi bi-calendar3"></i> <span data-key="t-calendar">@lang('translation.calendar')</span> </a>
                 </li>
+                {{-- <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ url('/training') }}">
+                            <i class="ri-briefcase-line	"></i> <span data-key="t-training">@lang('translation.training')</span>
+                        </a>
+                    </li> --}}
                 @if (Auth::user()->level == 'Admin')    
                     <li class="nav-item">
                         <a href="{{ url('/apps-leaderboards') }}" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard">@lang('translation.leaderboard')</span> </a>
