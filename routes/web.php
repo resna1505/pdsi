@@ -130,39 +130,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/workshops/{id}/edit', [WorkshopsController::class, 'edit'])->name('workshops.edit');
     Route::put('/workshops/{id}', [WorkshopsController::class, 'update'])->name('workshops.update');
 
-    // Route test sementara - HAPUS setelah testing
-    // Route::get('/test-export-admin', function () {
-    //     try {
-    //         $admin = \App\Models\Anggota::where('spesialis', '')
-    //             ->whereHas('user', function ($query) {
-    //                 $query->where('is_active', 1);
-    //             })
-    //             ->with('user')
-    //             ->get();
-
-    //         dd([
-    //             'count' => $admin->count(),
-    //             'data' => $admin->take(2)->toArray()
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         dd('Error: ' . $e->getMessage());
-    //     }
-    // });
-
-    // Route::get('/test-export-download', function () {
-    //     try {
-    //         return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\MemberExport, 'test.xlsx');
-    //     } catch (\Exception $e) {
-    //         dd('Export Error: ' . $e->getMessage());
-    //     }
-    // });
-
     Route::get('/member', [MemberController::class, 'index'])->name('member.index');
     Route::get('/member/export-admin', [MemberController::class, 'exportAdmin'])->name('member.export.admin');
     Route::get('/member/export-member', [MemberController::class, 'exportMember'])->name('member.export.member');
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
 
-    Route::get('/user', [UserController::class, 'index']);
+    // Update routes di web.php - URUTAN PENTING!
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/export-admin', [UserController::class, 'exportAdmin'])->name('user.export.admin');
+    Route::get('/user/export-member', [UserController::class, 'exportMember'])->name('user.export.member');
     Route::post('/verifikasi-user/{id}', [UserController::class, 'verifikasi']);
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 

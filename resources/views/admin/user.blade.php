@@ -15,6 +15,13 @@ User
     </div>
 @endif
 
+@if (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -28,21 +35,32 @@ User
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="col-sm-auto ms-auto">
-                        <div class="list-grid-nav hstack gap-1">
-                            <button class="btn btn-info addMembers-modal" data-bs-toggle="modal" data-bs-target="#addmemberModal"><i class="ri-add-fill me-1 align-bottom"></i> Add News</button>
+                    <div class="col-md-auto">
+                        <div class="d-flex gap-2">
+                            <!-- Export Admin Button -->
+                            <form action="{{ route('user.export.admin') }}" method="GET" style="display: inline;" id="exportAdminForm">
+                                <button type="submit" class="btn btn-soft-warning btn-sm export-btn" id="exportAdminBtn" style="display: none;">
+                                    <i class="ri-file-excel-line align-middle me-1"></i> Export Admin
+                                </button>
+                            </form>
+                            <!-- Export Member Button -->
+                            <form action="{{ route('user.export.member') }}" method="GET" style="display: inline;" id="exportMemberForm">
+                                <button type="submit" class="btn btn-soft-warning btn-sm export-btn" id="exportMemberBtn" style="display: none;">
+                                    <i class="ri-file-excel-line align-middle me-1"></i> Export Member
+                                </button>
+                            </form>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
                 <div class="mt-4">
                     <ul class="nav nav-tabs nav-tabs-custom nav-secondary" role="tablist">
                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" href="#admin" role="tab" aria-selected="false">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#admin" role="tab" aria-selected="true" data-export="admin">
                                 Admin
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#member" role="tab" aria-selected="false">
+                            <a class="nav-link" data-bs-toggle="tab" href="#member" role="tab" aria-selected="false" data-export="member">
                                 Member
                             </a>
                         </li>
@@ -52,7 +70,10 @@ User
             <div class="card-body p-4">
                 <div class="tab-content">
                     <div class="tab-pane active" id="admin" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="text-muted mb-0">Showing results for <span id="searchKeyword"></span></p>
+                            <span class="badge bg-warning text-dark">Total: {{ count($admin) }} Admin Pending</span>
+                        </div>
                         <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 video-lists">
                             @foreach ($admin as $item)
                                 <div class="col list-element">
@@ -85,11 +106,6 @@ User
                                                 </div>
                                                 <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-fill fs-17"></i> </a>
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        {{-- <li>
-                                                            <a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12">
-                                                            <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
-                                                            </a>
-                                                        </li> --}}
                                                         <li>
                                                             <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $item->user_id }}">
                                                             <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
@@ -106,6 +122,7 @@ User
                                                     <h5 class="fs-17">{{ $item->nama }}</h5>
                                                 </a>
                                                 <p class="text-muted mb-0">{{ $item->email }}</p>
+                                                <span class="badge bg-warning text-dark mt-2">Pending Verification</span>
                                             </div>
                                         </div>
                                     </div>
@@ -120,7 +137,10 @@ User
                         </div>                        
                     </div>
                     <div class="tab-pane" id="member" role="tabpanel">
-                        <p class="text-muted mb-4">Showing results for <span id="searchKeyword"></span></p>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="text-muted mb-0">Showing results for <span id="searchKeyword"></span></p>
+                            <span class="badge bg-warning text-dark">Total: {{ count($dokter) }} Member Pending</span>
+                        </div>
                         <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 video-lists">
                             @foreach ($dokter as $item)
                                 <div class="col list-element">
@@ -153,11 +173,6 @@ User
                                                 </div>
                                                 <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-fill fs-17"></i> </a>
                                                     <ul class="dropdown-menu dropdown-menu-end">
-                                                        {{-- <li>
-                                                            <a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12">
-                                                            <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
-                                                            </a>
-                                                        </li> --}}
                                                         <li>
                                                             <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $item->user_id }}">
                                                             <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
@@ -174,6 +189,7 @@ User
                                                     <h5 class="fs-17">{{ $item->nama }}</h5>
                                                 </a>
                                                 <p class="text-muted mb-0">{{ $item->email }}</p>
+                                                <span class="badge bg-warning text-dark mt-2">Pending Verification</span>
                                             </div>
                                         </div>
                                     </div>
@@ -245,9 +261,7 @@ User
                 </form>
             </div>
         </div>
-        <!--end modal-content-->
     </div>
-    <!--end modal-dialog-->
 </div>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="viewVerification" aria-labelledby="viewVerificationLabel">
@@ -337,16 +351,14 @@ User
                         @method('DELETE')
                         <button type="submit" class="btn w-sm btn-danger" id="remove-item">Yes, Delete It!</button>
                     </form>
-                    {{-- <button type="button" class="btn w-sm btn-danger" id="remove-item">Yes, Delete It!</button> --}}
                 </div>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div>
 </div>
 @endsection
 
 @section('script')
-{{-- <script src="{{ URL::asset('build/js/pages/team.init.js') }}"></script> --}}
 <script src="{{ URL::asset('build/libs/glightbox/js/glightbox.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/search-result.init.js') }}"></script>
@@ -354,8 +366,44 @@ User
 
 <script src="{{ URL::asset('build/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/form-editor.init.js') }}"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+        // Show/Hide Export Buttons based on active tab
+        function toggleExportButtons() {
+            const activeTab = document.querySelector('.nav-link.active');
+            const exportType = activeTab ? activeTab.getAttribute('data-export') : 'admin';
+            
+            const adminBtn = document.getElementById('exportAdminBtn');
+            const memberBtn = document.getElementById('exportMemberBtn');
+            const adminForm = document.getElementById('exportAdminForm');
+            const memberForm = document.getElementById('exportMemberForm');
+            
+            if (exportType === 'admin') {
+                adminBtn.style.display = 'inline-block';
+                memberBtn.style.display = 'none';
+                adminForm.style.display = 'inline';
+                memberForm.style.display = 'none';
+            } else {
+                adminBtn.style.display = 'none';
+                memberBtn.style.display = 'inline-block';
+                adminForm.style.display = 'none';
+                memberForm.style.display = 'inline';
+            }
+        }
+
+        // Initialize export buttons visibility
+        toggleExportButtons();
+
+        // Handle tab switching
+        const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');
+        tabLinks.forEach(link => {
+            link.addEventListener('shown.bs.tab', function() {
+                toggleExportButtons();
+            });
+        });
+
+        // Existing pagination code
         const itemsPerPage = 15;
 
         function initPagination(tabPane) {
@@ -385,7 +433,6 @@ User
                 pagination.querySelector(".prev")?.classList.toggle("disabled", page === 1);
                 pagination.querySelector(".next")?.classList.toggle("disabled", page === totalPages);
 
-                // Update pagination-info
                 if (paginationInfo) {
                     const start = (page - 1) * itemsPerPage + 1;
                     const end = Math.min(page * itemsPerPage, totalItems);
@@ -437,14 +484,11 @@ User
             showPage(currentPage);
         }
 
-        // Init first visible tab
         const activeTabPane = document.querySelector(".tab-pane.active");
         if (activeTabPane) {
             initPagination(activeTabPane);
         }
 
-        // Re-init on tab switch
-        const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');
         tabLinks.forEach(link => {
             link.addEventListener("shown.bs.tab", function() {
                 const targetId = this.getAttribute("href");
@@ -454,6 +498,7 @@ User
         });
     });
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById("searchInput");
@@ -464,7 +509,6 @@ User
                 const keyword = this.value.toLowerCase();
                 searchKeyword.textContent = this.value;
 
-                // Loop semua tab-pane yang memiliki .video-lists
                 document.querySelectorAll(".tab-pane").forEach(tab => {
                     const videoList = tab.querySelector(".video-lists");
                     const pagination = tab.querySelector(".pagination");
@@ -480,7 +524,6 @@ User
                         if (match) matchedCount++;
                     });
 
-                    // Sembunyikan pagination dan info jika search aktif
                     if (pagination) pagination.style.display = keyword ? "none" : "flex";
                     if (paginationInfo) paginationInfo.style.display = keyword ? "none" : "block";
                 });
@@ -488,9 +531,9 @@ User
         }
     });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Handle modal delete
         const removeLinks = document.querySelectorAll('.remove-list');
         const deleteForm = document.getElementById('deleteForm');
         
@@ -503,11 +546,11 @@ User
         });
     });
 </script>
+
 <script>
     const viewVerification = document.getElementById('viewVerification');
     viewVerification.addEventListener('show.bs.offcanvas', function (event) {
         const button = event.relatedTarget;
-        // const id = button.getAttribute('data-id');
         const id = button.getAttribute('data-id');
         const nama = button.getAttribute('data-nama');
         const ktp = button.getAttribute('data-ktp');
@@ -523,7 +566,6 @@ User
         const avatar = button.getAttribute('data-avatar');
 
         document.getElementById('targetUserId').value = id;
-        // viewVerification.querySelector('.overview-id').textContent = id;
         viewVerification.querySelector('.overview-name').textContent = nama;
         viewVerification.querySelector('.overview-email').textContent = email;
         viewVerification.querySelector('.overview-phone').textContent = phone;
@@ -536,21 +578,19 @@ User
         viewVerification.querySelector('.overview-lahir').textContent = lahir;
         viewVerification.querySelector('.overview-birthday').textContent = birthday;
         viewVerification.querySelector('.overview-avatar').src = avatar;
-        // Tambahkan yang lain sesuai kebutuhan
     });
 </script>
+
 <script>
     btnVerifikasi.addEventListener('click', function () {
-    const anggotaId = document.getElementById('targetUserId').value;
-    if (!anggotaId) {
-        alert('ID anggota tidak ditemukan!');
-        return;
-    }
-    verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
-    verifikasiForm.submit();
-});
-// test
-
+        const anggotaId = document.getElementById('targetUserId').value;
+        if (!anggotaId) {
+            alert('ID anggota tidak ditemukan!');
+            return;
+        }
+        verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
+        verifikasiForm.submit();
+    });
 </script>
 
 @endsection
