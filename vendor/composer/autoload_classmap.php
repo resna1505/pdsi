@@ -8,7 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
-    'App\\Exports\\MemberExport' => $baseDir . '/app/Exports/MemberExport.php',
     'App\\Http\\Controllers\\AboutController' => $baseDir . '/app/Http/Controllers/AboutController.php',
     'App\\Http\\Controllers\\AgendaController' => $baseDir . '/app/Http/Controllers/AgendaController.php',
     'App\\Http\\Controllers\\AnnouncementController' => $baseDir . '/app/Http/Controllers/AnnouncementController.php',
@@ -29,6 +28,7 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\DashboardController' => $baseDir . '/app/Http/Controllers/DashboardController.php',
     'App\\Http\\Controllers\\EditProfileController' => $baseDir . '/app/Http/Controllers/EditProfileController.php',
+    'App\\Http\\Controllers\\EventController' => $baseDir . '/app/Http/Controllers/EventController.php',
     'App\\Http\\Controllers\\FAQController' => $baseDir . '/app/Http/Controllers/FAQController.php',
     'App\\Http\\Controllers\\FAQDokterController' => $baseDir . '/app/Http/Controllers/FAQDokterController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
@@ -75,6 +75,7 @@ return array(
     'App\\Models\\CategoryMitra' => $baseDir . '/app/Models/CategoryMitra.php',
     'App\\Models\\Comments' => $baseDir . '/app/Models/Comments.php',
     'App\\Models\\Document' => $baseDir . '/app/Models/Document.php',
+    'App\\Models\\Event' => $baseDir . '/app/Models/Event.php',
     'App\\Models\\FAQCategory' => $baseDir . '/app/Models/FAQCategory.php',
     'App\\Models\\FAQItem' => $baseDir . '/app/Models/FAQItem.php',
     'App\\Models\\IuranAnggota' => $baseDir . '/app/Models/IuranAnggota.php',

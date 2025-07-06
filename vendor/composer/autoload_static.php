@@ -620,7 +620,6 @@ class ComposerStaticInit0a0d580cbcda8b95e1ac73b125602121
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Exports\\MemberExport' => __DIR__ . '/../..' . '/app/Exports/MemberExport.php',
         'App\\Http\\Controllers\\AboutController' => __DIR__ . '/../..' . '/app/Http/Controllers/AboutController.php',
         'App\\Http\\Controllers\\AgendaController' => __DIR__ . '/../..' . '/app/Http/Controllers/AgendaController.php',
         'App\\Http\\Controllers\\AnnouncementController' => __DIR__ . '/../..' . '/app/Http/Controllers/AnnouncementController.php',
@@ -641,6 +640,7 @@ class ComposerStaticInit0a0d580cbcda8b95e1ac73b125602121
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\EditProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/EditProfileController.php',
+        'App\\Http\\Controllers\\EventController' => __DIR__ . '/../..' . '/app/Http/Controllers/EventController.php',
         'App\\Http\\Controllers\\FAQController' => __DIR__ . '/../..' . '/app/Http/Controllers/FAQController.php',
         'App\\Http\\Controllers\\FAQDokterController' => __DIR__ . '/../..' . '/app/Http/Controllers/FAQDokterController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
@@ -687,6 +687,7 @@ class ComposerStaticInit0a0d580cbcda8b95e1ac73b125602121
         'App\\Models\\CategoryMitra' => __DIR__ . '/../..' . '/app/Models/CategoryMitra.php',
         'App\\Models\\Comments' => __DIR__ . '/../..' . '/app/Models/Comments.php',
         'App\\Models\\Document' => __DIR__ . '/../..' . '/app/Models/Document.php',
+        'App\\Models\\Event' => __DIR__ . '/../..' . '/app/Models/Event.php',
         'App\\Models\\FAQCategory' => __DIR__ . '/../..' . '/app/Models/FAQCategory.php',
         'App\\Models\\FAQItem' => __DIR__ . '/../..' . '/app/Models/FAQItem.php',
         'App\\Models\\IuranAnggota' => __DIR__ . '/../..' . '/app/Models/IuranAnggota.php',
