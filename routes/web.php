@@ -102,6 +102,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/documents/{id}/download', [ProfileDokterController::class, 'download'])->name('documents.download');
     Route::delete('/documents/{id}', [ProfileDokterController::class, 'destroy'])->name('documents.destroy');
 
+    Route::get('/download-card-pdf', [ProfileDokterController::class, 'downloadCardPDF'])->name('member.download-card-pdf');
+    Route::get('/download-card-jpg', [ProfileDokterController::class, 'downloadCardJPG'])->name('member.download-card-jpg');
+    Route::get('/card-preview/{id}', [ProfileDokterController::class, 'cardPreview'])->name('member.card-preview');
+
     Route::get('/edit-profile-dokter', [EditProfileController::class, 'index'])->name('edit-profile-dokter.index');
     Route::post('/edit-profile-dokter', [EditProfileController::class, 'update'])->name('edit-profile-dokter.update');
     Route::post('/change-password', [EditProfileController::class, 'changePassword'])->name('change-password');

@@ -103,6 +103,18 @@
                     <div class="col-xxl-3">
                         <div class="card">
                             <div class="card-body p-2">
+                                <div class="text-center mb-4">
+                                    <h6>Download Kartu Anggota:</h6>
+                                    <a href="{{ route('member.download-card-pdf') }}" class="btn btn-danger btn-sm me-2">
+                                        <i class="fas fa-download"></i> PDF
+                                    </a>
+                                    <a href="{{ route('member.download-card-jpg') }}" class="btn btn-success btn-sm me-2">
+                                        <i class="fas fa-download"></i> JPG
+                                    </a>
+                                    <a href="{{ route('member.card-preview', $anggota->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </a>
+                                </div>
                                 <!-- With Indicators -->
                                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                     <ol class="carousel-indicators">
