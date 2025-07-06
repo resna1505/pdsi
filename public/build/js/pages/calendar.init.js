@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var isEditMode = false;
     var currentEvent = null;
     var eventCategoryChoice = null;
+    var dateRangePicker = null;
     
     // CSRF Token setup
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -37,25 +38,52 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Event click handler
         eventClick: function(info) {
-            showEventDetails(info.event);
+            // Check if user owns this event
+            if (info.event.extendedProps.anggota_id) {
+                showEventDetails(info.event);
+            } else {
+                showToast('You can only edit your own events', 'warning');
+            }
         },
         
         // Date select handler
         select: function(info) {
+            let startDate = info.startStr;
+            let endDate = info.endStr;
+            
+            // For multi-day selection
+            if (startDate !== endDate) {
+                // Calculate actual end date (FullCalendar adds 1 day to end date)
+                let actualEndDate = new Date(endDate);
+                actualEndDate.setDate(actualEndDate.getDate() - 1);
+                endDate = actualEndDate.toISOString().split('T')[0];
+            }
+            
             openEventModal('create', {
-                start_date: info.startStr,
+                start_date: startDate,
+                end_date: startDate !== endDate ? endDate : null,
                 all_day: info.allDay
             });
         },
         
-        // Event drop handler
+        // Event drop handler - dengan authorization check
         eventDrop: function(info) {
-            updateEventDate(info.event);
+            if (info.event.extendedProps.anggota_id) {
+                updateEventDate(info.event);
+            } else {
+                info.revert(); // Revert the change
+                showToast('You can only move your own events', 'warning');
+            }
         },
         
-        // Event resize handler
+        // Event resize handler - dengan authorization check
         eventResize: function(info) {
-            updateEventDate(info.event);
+            if (info.event.extendedProps.anggota_id) {
+                updateEventDate(info.event);
+            } else {
+                info.revert(); // Revert the change
+                showToast('You can only resize your own events', 'warning');
+            }
         }
     });
 
@@ -86,18 +114,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Functions
     function initializeFlatpickr() {
-        // Date picker
-        flatpickr('#event-start-date', {
+        // Date range picker dengan fix untuk multi-date
+        dateRangePicker = flatpickr('#event-start-date', {
             mode: 'range',
             dateFormat: 'Y-m-d',
+            allowInput: true,
             onChange: function(selectedDates, dateStr, instance) {
-                const dates = dateStr.split(' to ');
-                if (dates.length > 1) {
-                    // Range selected - hide time inputs
+                console.log('Date selected:', dateStr, selectedDates);
+                
+                if (selectedDates.length === 2) {
+                    // Range selected - hide time inputs for all-day events
                     document.getElementById('event-time').style.display = 'none';
-                } else {
+                    console.log('Range mode: hiding time inputs');
+                } else if (selectedDates.length === 1) {
                     // Single date - show time inputs
                     document.getElementById('event-time').style.display = 'block';
+                    console.log('Single date mode: showing time inputs');
                 }
             }
         });
@@ -148,6 +180,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset form
         document.getElementById('form-event').reset();
         
+        // Clear date picker
+        if (dateRangePicker) {
+            dateRangePicker.clear();
+        }
+        
         // Show form, hide details
         document.querySelector('.event-details').style.display = 'none';
         document.querySelector('.event-form').style.display = 'block';
@@ -163,8 +200,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 eventCategoryChoice.setChoiceByValue(currentEvent.extendedProps.category || 'bg-primary-subtle');
             }
             
-            // Set date
-            document.getElementById('event-start-date').value = formatDateForInput(currentEvent.start);
+            // Set date range untuk edit
+            let dateValue = formatDateForInput(currentEvent.start);
+            if (currentEvent.end && currentEvent.allDay) {
+                // For all-day events with end date
+                let endDate = new Date(currentEvent.end);
+                endDate.setDate(endDate.getDate() - 1); // FullCalendar adds 1 day
+                dateValue += ' to ' + endDate.toISOString().split('T')[0];
+            }
+            
+            dateRangePicker.setDate(dateValue);
             
             // Set times if available
             if (currentEvent.extendedProps.start_time) {
@@ -177,7 +222,17 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Set initial date if creating new event
         if (data.start_date) {
-            document.getElementById('event-start-date').value = data.start_date;
+            let dateValue = data.start_date;
+            if (data.end_date) {
+                dateValue += ' to ' + data.end_date;
+                // Hide time inputs for range
+                document.getElementById('event-time').style.display = 'none';
+            } else {
+                // Show time inputs for single date
+                document.getElementById('event-time').style.display = 'block';
+            }
+            
+            dateRangePicker.setDate(dateValue);
         }
         
         document.getElementById('modal-title').textContent = mode === 'create' ? 'Add Event' : 'Edit Event';
@@ -191,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function createEvent() {
         const formData = getFormData();
+        console.log('Creating event with data:', formData);
         
         fetch('/events', {
             method: 'POST',
@@ -209,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 eventModal.hide();
                 showToast('Event created successfully', 'success');
             } else {
-                showToast('Error creating event', 'error');
+                showToast('Error creating event: ' + (data.message || 'Unknown error'), 'error');
                 console.error('Error:', data);
             }
         })
@@ -221,6 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateEvent() {
         const formData = getFormData();
+        console.log('Updating event with data:', formData);
         
         fetch(`/events/${currentEvent.id}`, {
             method: 'PUT',
@@ -239,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 eventModal.hide();
                 showToast('Event updated successfully', 'success');
             } else {
-                showToast('Error updating event', 'error');
+                showToast('Error updating event: ' + (data.message || 'Unknown error'), 'error');
                 console.error('Error:', data);
             }
         })
@@ -266,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     eventModal.hide();
                     showToast('Event deleted successfully', 'success');
                 } else {
-                    showToast('Error deleting event', 'error');
+                    showToast('Error deleting event: ' + (data.message || 'Unknown error'), 'error');
                 }
             })
             .catch(error => {
@@ -277,11 +334,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateEventDate(event) {
+        let endDate = null;
+        if (event.end) {
+            let end = new Date(event.end);
+            if (event.allDay) {
+                end.setDate(end.getDate() - 1); // FullCalendar adds 1 day for all-day events
+            }
+            endDate = end.toISOString().split('T')[0];
+        }
+
         const data = {
             start_date: formatDateForInput(event.start),
+            end_date: endDate,
             start_time: event.extendedProps.start_time,
             end_time: event.extendedProps.end_time
         };
+
+        console.log('Updating event date:', data);
 
         fetch(`/events/${event.id}/date`, {
             method: 'PATCH',
@@ -298,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadUpcomingEvents();
                 showToast('Event date updated', 'success');
             } else {
-                showToast('Error updating event date', 'error');
+                showToast('Error updating event date: ' + (data.message || 'Unknown error'), 'error');
                 calendar.refetchEvents(); // Revert changes
             }
         })
@@ -355,16 +424,29 @@ document.addEventListener('DOMContentLoaded', function() {
         const dateRange = document.getElementById('event-start-date').value;
         const dates = dateRange.split(' to ');
         
-        return {
+        let startDate = dates[0];
+        let endDate = dates.length > 1 ? dates[1] : null;
+        let allDay = dates.length > 1; // Multi-day = all day
+        
+        // If no time specified for single day, consider it all day
+        if (!endDate && !document.getElementById('timepicker1').value && !document.getElementById('timepicker2').value) {
+            allDay = true;
+        }
+        
+        const formData = {
             title: document.getElementById('event-title').value,
             description: document.getElementById('event-description').value,
             location: document.getElementById('event-location').value,
             category: document.getElementById('event-category').value,
-            start_date: dates[0],
-            start_time: document.getElementById('timepicker1').value || null,
-            end_time: document.getElementById('timepicker2').value || null,
-            all_day: dates.length > 1 || (!document.getElementById('timepicker1').value && !document.getElementById('timepicker2').value)
+            start_date: startDate,
+            end_date: endDate,
+            start_time: !allDay ? document.getElementById('timepicker1').value || null : null,
+            end_time: !allDay ? document.getElementById('timepicker2').value || null : null,
+            all_day: allDay
         };
+        
+        console.log('Form data prepared:', formData);
+        return formData;
     }
 
     // Helper functions
@@ -381,11 +463,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showToast(message, type) {
-        // Simple console log for now - replace with your preferred notification system
-        console.log(`${type.toUpperCase()}: ${message}`);
-        
-        // You can implement a proper toast notification here
-        alert(message);
+        // Simple alert for now - replace with your preferred notification system
+        if (type === 'error') {
+            alert('❌ ' + message);
+        } else if (type === 'warning') {
+            alert('⚠️ ' + message);
+        } else {
+            alert('✅ ' + message);
+        }
     }
 
     // Make functions available globally for onclick handlers

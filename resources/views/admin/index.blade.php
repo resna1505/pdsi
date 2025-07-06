@@ -311,8 +311,8 @@
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-shrink-0 me-2">
-                                                        @if (isset($article))
-                                                            <img src="{{ asset('storage/workshops/' . $article->image) }}" alt="" class="avatar-xs rounded-circle" />
+                                                        @if (isset($item))
+                                                            <img src="{{ asset('storage/workshops/' . $item->image) }}" alt="" class="avatar-xs rounded-circle" />
                                                         @endif
                                                     </div>
                                                     <div class="flex-grow-1">{{ $item->title }}</div>
