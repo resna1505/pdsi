@@ -31,7 +31,7 @@
                             </div>
                             <p>{{ $anggota->profesi }}</p>
                         </div>
-                        <div class="col-xl-3 col-lg-5">
+                        {{-- <div class="col-xl-3 col-lg-5">
                             <div>
                                 <p class="text-muted fw-medium mb-2">place of practice</p>
                                 <ul class="list-inline mb-4">
@@ -43,7 +43,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="row mt-2 mt-lg-4 gy-3">

@@ -61,7 +61,7 @@ Visi Misi Value
                         <div class="row">
                             <div class="col-xxl-8 video-lists">
                                 @foreach($visimisi as $item)
-                                    @if ($item->type == 'visimisi')
+                                    @if ($item->type == 'visi' || $item->type == 'misi')
                                         <div class="list-element">
                                             <div class="d-flex flex-column flex-sm-row mb-5">
                                                 <div class="flex-grow-1 ms-sm-3 mt-2 mt-sm-0">
@@ -231,7 +231,8 @@ Visi Misi Value
                         <label for="type" class="form-label">Type</label>
                         <select class="form-control @error('type') is-invalid @enderror" name="type" id="type" required onchange="toggleTitleField()">
                             <option value="">Select Here</option>
-                            <option value="visimisi">Visi Misi</option>
+                            <option value="visi">Visi</option>
+                            <option value="misi">Misi</option>
                             <option value="value">Value</option>
                             <option value="motto">Motto</option>
                         </select>
@@ -281,7 +282,8 @@ Visi Misi Value
                             <label for="edit-category_id" class="form-label">Type</label>
                             <select class="form-control" name="category_id" id="edit-category_id" required>
                                 <option value="">Select Here</option>
-                                <option value="visimisi">Visi Misi</option>
+                                <option value="visi">Visi</option>
+                                <option value="misi">Misi</option>
                                 <option value="value">Value</option>
                                 <option value="motto">Motto</option>
                             </select>
