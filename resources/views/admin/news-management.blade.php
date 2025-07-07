@@ -511,10 +511,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script>
+// Alternative script yang lebih robust
 document.addEventListener('DOMContentLoaded', function() {
+    let editCKEditor = null;
+    let pendingDescription = '';
+    
     // Handle edit modal
     const editLinks = document.querySelectorAll('.edit-list');
     const editForm = document.getElementById('edit-form');
+    const editModal = document.getElementById('editmemberModal');
     
     editLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -532,9 +537,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Fill form fields
                         document.getElementById('edit-title').value = article.title;
-                        document.getElementById('edit-description').value = article.description;
                         document.getElementById('edit-author').value = article.author;
                         document.getElementById('edit-category_id').value = article.category_id;
+                        
+                        // Store description for later use
+                        pendingDescription = article.description;
+                        
+                        // Set description in textarea immediately
+                        document.getElementById('edit-description').value = article.description;
                         
                         // Show current image
                         const imagePreview = document.getElementById('current-image-preview');
@@ -549,11 +559,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         
                         // Clear previous errors
                         document.getElementById('edit-errors').classList.add('d-none');
-                        
-                        // If using CKEditor, update it
-                        if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
-                            CKEDITOR.instances['edit-description'].setData(article.description);
-                        }
                     } else {
                         alert('Error loading article data');
                     }
@@ -564,6 +569,94 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     });
+    
+    // Initialize CKEditor when modal is shown
+    editModal.addEventListener('shown.bs.modal', function() {
+        // Destroy existing CKEditor instance if exists
+        if (editCKEditor) {
+            if (typeof editCKEditor.destroy === 'function') {
+                editCKEditor.destroy().then(() => {
+                    initEditCKEditor();
+                }).catch(error => {
+                    console.error('Error destroying CKEditor:', error);
+                    initEditCKEditor();
+                });
+            } else if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
+                CKEDITOR.instances['edit-description'].destroy();
+                editCKEditor = null;
+                initEditCKEditor();
+            }
+        } else {
+            initEditCKEditor();
+        }
+    });
+    
+    // Destroy CKEditor when modal is hidden
+    editModal.addEventListener('hidden.bs.modal', function() {
+        if (editCKEditor) {
+            if (typeof editCKEditor.destroy === 'function') {
+                editCKEditor.destroy().then(() => {
+                    editCKEditor = null;
+                }).catch(error => {
+                    console.error('Error destroying CKEditor:', error);
+                    editCKEditor = null;
+                });
+            } else if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
+                CKEDITOR.instances['edit-description'].destroy();
+                editCKEditor = null;
+            }
+        }
+    });
+    
+    function initEditCKEditor() {
+        // Wait for modal animation to complete
+        setTimeout(() => {
+            // Check if CKEditor 5 is being used (ClassicEditor)
+            if (typeof ClassicEditor !== 'undefined') {
+                ClassicEditor
+                    .create(document.querySelector('#edit-description'))
+                    .then(editor => {
+                        editCKEditor = editor;
+                        // Set data after a short delay
+                        setTimeout(() => {
+                            if (pendingDescription) {
+                                editor.setData(pendingDescription);
+                            }
+                        }, 100);
+                    })
+                    .catch(error => {
+                        console.error('Error initializing CKEditor 5:', error);
+                    });
+            }
+            // Check if CKEditor 4 is being used
+            else if (typeof CKEDITOR !== 'undefined') {
+                // Ensure textarea has the content
+                if (pendingDescription) {
+                    document.getElementById('edit-description').value = pendingDescription;
+                }
+                
+                editCKEditor = CKEDITOR.replace('edit-description', {
+                    height: 300,
+                    on: {
+                        instanceReady: function(ev) {
+                            // Multiple attempts to set data
+                            setTimeout(() => {
+                                if (pendingDescription) {
+                                    ev.editor.setData(pendingDescription);
+                                }
+                            }, 100);
+                            
+                            setTimeout(() => {
+                                if (pendingDescription) {
+                                    ev.editor.setData(pendingDescription);
+                                }
+                            }, 500);
+                        }
+                    }
+                });
+            }
+        }, 500); // Wait for modal to fully open
+    }
 });
 </script>
 <script>

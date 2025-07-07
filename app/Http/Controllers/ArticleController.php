@@ -117,24 +117,24 @@ class ArticleController extends Controller
                 'author' => 'required|string|max:100',
             ]);
 
-            $imagePath = $article->attachment; // Keep existing image if no new image uploaded
+            $imagePath = $article->attachment;
 
-            // Handle new image upload
             if ($request->hasFile('image')) {
                 // Delete old image if exists
                 if ($article->attachment) {
-                    Storage::disk('public')->delete('articles/' . $article->attachment);
+                    $oldImagePath = public_path('storage/articles/' . $article->attachment);
+                    if (file_exists($oldImagePath)) {
+                        unlink($oldImagePath);
+                    }
                 }
 
-                // Store new image
+                // Store new image using move() like in store method
                 $image = $request->file('image');
                 $filename = $image->hashName();
-                // $image->storeAs('public/articles', $filename);                
-                $image->move(public_path('public/articles'), $filename);
+                $image->move(public_path('storage/articles'), $filename);
                 $imagePath = $filename;
             }
 
-            // Update article
             $article->update([
                 'attachment' => $imagePath,
                 'category_id' => $request->category_id,
