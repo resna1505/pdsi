@@ -326,14 +326,41 @@ class Register extends Component
 
         $otpRecord->delete();
 
-        $ktpName = $this->ktp ? time() . '_ktp.' . $this->ktp->getClientOriginalExtension() : null;
-        if ($this->ktp) Storage::putFileAs('public/images/users', $this->ktp, $ktpName);
+        $destination = public_path('storage/images/users');
+        if (!file_exists($destination)) {
+            mkdir($destination, 0755, true);
+        }
+
+        if ($this->ktp) {
+            $ktpName = time() . '_ktp.' . $this->ktp->getClientOriginalExtension();
+            $ktpPath = $this->ktp->getRealPath();
+
+            try {
+                file_put_contents($destination . '/' . $ktpName, file_get_contents($ktpPath));
+            } catch (\Exception $e) {
+                dd('Gagal simpan file KTP: ' . $e->getMessage());
+            }
+        }
+
 
         $npwpName = $this->npwp ? time() . '_npwp.' . $this->npwp->getClientOriginalExtension() : null;
-        if ($this->npwp) Storage::putFileAs('public/images/users', $this->npwp, $npwpName);
+        if ($this->npwp) {
+            try {
+                file_put_contents($destination . '/' . $npwpName, file_get_contents($this->npwp->getRealPath()));
+            } catch (\Exception $e) {
+                dd('Gagal simpan file NPWP: ' . $e->getMessage());
+            }
+        }
 
         $avatarName = $this->avatar ? time() . '_avatar.' . $this->avatar->getClientOriginalExtension() : null;
-        if ($this->avatar) Storage::putFileAs('public/images/users', $this->avatar, $avatarName);
+        if ($this->avatar) {
+            try {
+                file_put_contents($destination . '/' . $avatarName, file_get_contents($this->avatar->getRealPath()));
+            } catch (\Exception $e) {
+                dd('Gagal simpan file Avatar: ' . $e->getMessage());
+            }
+        }
+
 
         if ($this->profesi == 'other') {
             $this->profesi = $this->otherProfesi;
