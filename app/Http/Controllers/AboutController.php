@@ -87,14 +87,14 @@ class AboutController extends Controller
                 'image' => $imagePath
             ]);
 
-            return redirect()->back()->with('success', 'Article added successfully!');
+            return redirect()->back()->with('success', 'Galeri added successfully!');
         } catch (\Throwable $e) {
-            Log::error('Article store error: ' . $e->getMessage(), [
+            Log::error('Galeri store error: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
 
-            return redirect()->back()->with('error', 'Failed to add article. Please try again.');
+            return redirect()->back()->with('error', 'Failed to add Galeri. Please try again.');
         }
     }
 
@@ -115,7 +115,7 @@ class AboutController extends Controller
             return redirect()->back()->with('success', 'Galeri deleted successfully!');
         } catch (\Throwable $e) {
             Log::error('Galeri delete error: ' . $e->getMessage(), [
-                'article_id' => $id,
+                'galeri_id' => $id,
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
@@ -136,7 +136,7 @@ class AboutController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Article not found'
+                'message' => 'Data not found'
             ], 404);
         }
     }
@@ -157,7 +157,7 @@ class AboutController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Article not found'
+                'message' => 'Data not found'
             ], 404);
         }
     }
@@ -179,7 +179,7 @@ class AboutController extends Controller
         } catch (\Throwable $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Article not found'
+                'message' => 'Data not found'
             ], 404);
         }
     }
@@ -310,17 +310,17 @@ class AboutController extends Controller
                 'name' => $request->name,
             ]);
 
-            return redirect()->back()->with('success', 'Video updated successfully!');
+            return redirect()->back()->with('success', 'Metode Pembelajaran updated successfully!');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Throwable $e) {
-            Log::error('Video update error: ' . $e->getMessage(), [
-                'Video_id' => $id,
+            Log::error('Metode Pembelajaran update error: ' . $e->getMessage(), [
+                'Metode Pembelajaran_id' => $id,
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
 
-            return redirect()->back()->with('error', 'Failed to update Video. Please try again.');
+            return redirect()->back()->with('error', 'Failed to update Metode Pembelajaran. Please try again.');
         }
     }
 }
