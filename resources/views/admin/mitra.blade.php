@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById('edit-telephone').value = article.telephone;
                         document.getElementById('edit-email').value = article.email;
                         document.getElementById('edit-address').value = article.address;
-                        document.getElementById('edit-category_id').value = article.category_id;
+                        document.getElementById('edit-category_id').value = article.type;
                         document.getElementById('edit-website').value = article.website;
                         
                         // Show current image
