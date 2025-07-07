@@ -18,7 +18,8 @@ class Mitra extends Model
         'type',
         'website',
         'is_active',
-        'order_column'
+        'order_column',
+        'category_id',
     ];
 
     protected $casts = [

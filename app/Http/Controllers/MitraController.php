@@ -40,18 +40,14 @@ class MitraController extends Controller
                 $imagePath = $filename;
             }
 
-            // dd($request->category_id);
-
             Mitra::create([
                 'image' => $imagePath,
-                'type' => $request->category_id,
+                'category_id' => $request->category_id,
                 'title' => $request->title,
                 'telephone' => $request->telephone,
                 'email' => $request->email,
                 'address' => $request->address,
                 'website' => $request->website,
-                'is_active' => 1,
-                'order_column' => 0
             ]);
 
             return redirect()->back()->with('success', 'Mitra added successfully!');
