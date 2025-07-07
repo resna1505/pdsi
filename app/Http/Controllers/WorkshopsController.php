@@ -160,7 +160,8 @@ class WorkshopsController extends Controller
 
                 $image = $request->file('image');
                 $filename = $image->hashName();
-                $image->storeAs('public/workshops', $filename);
+                // $image->storeAs('public/workshops', $filename);                
+                $image->move(public_path('storage/workshops'), $filename);
                 $imagePath = $filename;
             }
 

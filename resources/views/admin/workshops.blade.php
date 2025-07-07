@@ -555,71 +555,6 @@ News
     });
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle edit modal
-        const editLinks = document.querySelectorAll('.edit-list');
-        const editForm = document.getElementById('edit-form');
-        
-        editLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                const articleId = this.getAttribute('data-edit-id');
-                
-                // Fetch article data
-                fetch(`/workshops/${articleId}/edit`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const article = data.article;
-                            
-                            // Set form action
-                            editForm.setAttribute('action', `/workshops/${articleId}`);
-                            
-                            // Fill form fields
-                            document.getElementById('edit-title').value = article.title;
-                            document.getElementById('edit-category_id').value = article.category_id;
-                            // document.getElementById('edit-tag').value = article.tagselected;
-                            document.getElementById('edit-tagline').value = article.tagline;
-                            document.getElementById('edit-summary').value = article.short_description;
-                            document.getElementById('edit-price').value = article.price;
-                            document.getElementById('edit-description').value = article.description;
-                            
-                            // Show current image
-                            const imagePreview = document.getElementById('current-image-preview');
-                            if (article.image) {
-                                imagePreview.innerHTML = `
-                                    <img src="{{ asset('storage/workshops/') }}/${article.image}" 
-                                        alt="Current Image" width="150" class="rounded">
-                                `;
-                            } else {
-                                imagePreview.innerHTML = '<p class="text-muted">No image</p>';
-                            }
-                            
-                            // Clear previous errors
-                            document.getElementById('edit-errors').classList.add('d-none');
-                            
-                            // If using CKEditor, update it
-                            if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
-                                CKEDITOR.instances['edit-description'].setData(article.description);
-                            }
-                        } else {
-                            alert('Error loading article data');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Error loading article data');
-                    });
-            });
-        });
-    });
-</script>
-<script>
-// Initialize CKEditor for edit modal
-if (typeof CKEDITOR !== 'undefined') {
-    CKEDITOR.replace('edit-description');
-}
-</script>
-<script>
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('[data-choices]').forEach(function (element) {
             new Choices(element, {
@@ -659,5 +594,210 @@ if (typeof CKEDITOR !== 'undefined') {
             document.getElementById('propertyValueFields').style.display = 'block';
         }
     });
+</script>
+<script>
+    // Script CKEditor untuk Workshops - diadaptasi dari script Article yang perfect
+    document.addEventListener('DOMContentLoaded', function() {
+        let editCKEditor = null;
+        let pendingDescription = '';
+        
+        // Initialize CKEditor untuk Add Workshops (yang biasa)
+        if (typeof CKEDITOR !== 'undefined' && document.getElementById('description')) {
+            CKEDITOR.replace('description', {
+                height: 300,
+                // Remove buttons yang bermasalah
+                removeButtons: 'Image,Flash,Iframe,Smiley,ImageButton',
+                // Remove plugins yang berhubungan dengan image
+                removePlugins: 'image,image2,easyimage,cloudservices'
+            });
+        }
+        
+        // Initialize CKEditor untuk summary/short description jika ada
+        if (typeof CKEDITOR !== 'undefined' && document.getElementById('short_description')) {
+            CKEDITOR.replace('short_description', {
+                height: 200,
+                removeButtons: 'Image,Flash,Iframe,Smiley,ImageButton',
+                removePlugins: 'image,image2,easyimage,cloudservices'
+            });
+        }
+        
+        // Handle edit modal
+        const editLinks = document.querySelectorAll('.edit-list');
+        const editForm = document.getElementById('edit-form');
+        const editModal = document.getElementById('editmemberModal'); // Sesuaikan dengan ID modal workshops
+        
+        editLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const articleId = this.getAttribute('data-edit-id');
+                
+                // Fetch article data
+                fetch(`/workshops/${articleId}/edit`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const article = data.article;
+                            
+                            // Set form action
+                            editForm.setAttribute('action', `/workshops/${articleId}`);
+                            
+                            // Fill form fields
+                            document.getElementById('edit-title').value = article.title;
+                            document.getElementById('edit-category_id').value = article.category_id;
+                            document.getElementById('edit-tagline').value = article.tagline;
+                            document.getElementById('edit-price').value = article.price;
+                            
+                            // Store descriptions for later use
+                            pendingDescription = article.description;
+                            
+                            // Set descriptions in textarea immediately
+                            document.getElementById('edit-description').value = article.description;
+                            document.getElementById('edit-summary').value = article.short_description;
+                            
+                            // Show current image
+                            const imagePreview = document.getElementById('current-image-preview');
+                            if (article.image) {
+                                imagePreview.innerHTML = `
+                                    <img src="{{ asset('storage/workshops/') }}/${article.image}" 
+                                        alt="Current Image" width="150" class="rounded">
+                                `;
+                            } else {
+                                imagePreview.innerHTML = '<p class="text-muted">No image</p>';
+                            }
+                            
+                            // Clear previous errors
+                            document.getElementById('edit-errors').classList.add('d-none');
+                        } else {
+                            alert('Error loading workshop data');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error loading workshop data');
+                    });
+            });
+        });
+        
+        // Initialize CKEditor when modal is shown
+        editModal.addEventListener('shown.bs.modal', function() {
+            // Destroy existing CKEditor instances if exist
+            if (editCKEditor) {
+                if (typeof editCKEditor.destroy === 'function') {
+                    editCKEditor.destroy().then(() => {
+                        initEditCKEditor();
+                    }).catch(error => {
+                        console.error('Error destroying CKEditor:', error);
+                        initEditCKEditor();
+                    });
+                } else if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
+                    CKEDITOR.instances['edit-description'].destroy();
+                    editCKEditor = null;
+                    initEditCKEditor();
+                }
+            } else {
+                initEditCKEditor();
+            }
+            
+            // Also handle summary CKEditor if exists
+            if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-summary']) {
+                CKEDITOR.instances['edit-summary'].destroy();
+            }
+            initEditSummaryCKEditor();
+        });
+        
+        // Destroy CKEditor when modal is hidden
+        editModal.addEventListener('hidden.bs.modal', function() {
+            if (editCKEditor) {
+                if (typeof editCKEditor.destroy === 'function') {
+                    editCKEditor.destroy().then(() => {
+                        editCKEditor = null;
+                    }).catch(error => {
+                        console.error('Error destroying CKEditor:', error);
+                        editCKEditor = null;
+                    });
+                } else if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
+                    CKEDITOR.instances['edit-description'].destroy();
+                    editCKEditor = null;
+                }
+            }
+            
+            // Destroy summary CKEditor
+            if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-summary']) {
+                CKEDITOR.instances['edit-summary'].destroy();
+            }
+        });
+        
+        function initEditCKEditor() {
+            // Wait for modal animation to complete
+            setTimeout(() => {
+                // Check if CKEditor 5 is being used (ClassicEditor)
+                if (typeof ClassicEditor !== 'undefined') {
+                    ClassicEditor
+                        .create(document.querySelector('#edit-description'))
+                        .then(editor => {
+                            editCKEditor = editor;
+                            // Set data after a short delay
+                            setTimeout(() => {
+                                if (pendingDescription) {
+                                    editor.setData(pendingDescription);
+                                }
+                            }, 100);
+                        })
+                        .catch(error => {
+                            console.error('Error initializing CKEditor 5:', error);
+                        });
+                }
+                // Check if CKEditor 4 is being used
+                else if (typeof CKEDITOR !== 'undefined') {
+                    // Ensure textarea has the content
+                    if (pendingDescription) {
+                        document.getElementById('edit-description').value = pendingDescription;
+                    }
+                    
+                    editCKEditor = CKEDITOR.replace('edit-description', {
+                        height: 300,
+                        // Remove buttons yang bermasalah
+                        removeButtons: 'Image,Flash,Iframe,Smiley,ImageButton',
+                        // Remove plugins yang berhubungan dengan image
+                        removePlugins: 'image,image2,easyimage,cloudservices',
+                        on: {
+                            instanceReady: function(ev) {
+                                // Multiple attempts to set data
+                                setTimeout(() => {
+                                    if (pendingDescription) {
+                                        ev.editor.setData(pendingDescription);
+                                    }
+                                }, 100);
+                                
+                                setTimeout(() => {
+                                    if (pendingDescription) {
+                                        ev.editor.setData(pendingDescription);
+                                    }
+                                }, 500);
+                            }
+                        }
+                    });
+                }
+            }, 500); // Wait for modal to fully open
+        }
+        
+        function initEditSummaryCKEditor() {
+            // Initialize CKEditor for summary field
+            setTimeout(() => {
+                if (typeof CKEDITOR !== 'undefined') {
+                    CKEDITOR.replace('edit-summary', {
+                        height: 200,
+                        removeButtons: 'Image,Flash,Iframe,Smiley,ImageButton',
+                        removePlugins: 'image,image2,easyimage,cloudservices'
+                    });
+                }
+            }, 600); // Slight delay after description CKEditor
+        }
+    });
+</script>
+<script>
+// Initialize CKEditor for edit modal
+if (typeof CKEDITOR !== 'undefined') {
+    CKEDITOR.replace('edit-description');
+}
 </script>
 @endsection
