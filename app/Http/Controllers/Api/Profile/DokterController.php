@@ -19,11 +19,15 @@ class DokterController extends Controller
             $dokter = Anggota::whereNotNull('spesialis')
                 ->where('spesialis', '!=', '')
                 ->get();
+            $anggotaKehormatan = Anggota::whereNotNull('spesialis')
+                ->where('spesialis', '=', 'Anggota Kehormatan')
+                ->get();
 
             return response()->json([
                 'status' => 'success',
                 'data' => [
                     'dokter' => $dokter,
+                    'anggotaKehormatan' => $anggotaKehormatan,
                     'jumlahDokter' => $jumlahDokter,
                     'jumlahMitra' => $jumlahMitra,
                     'evaluasi' => $evaluasi

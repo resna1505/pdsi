@@ -350,7 +350,7 @@
                                                     <p class="text-muted fw-medium mb-2">{{ $agenda['month_year'] }}</p>
                                                     <h6 class="mb-0 fs-15">{{ $agenda['title'] }}</h6>
                                                     @if($agenda['description'])
-                                                        <p class="text-muted mt-2 mb-0 fs-13">{{ Str::limit($agenda['description'], 50) }}</p>
+                                                        <p class="text-muted mt-2 mb-0 fs-13">{{ strip_tags(Str::limit($agenda['description'], 50)) }}</p>
                                                     @endif
                                                     @if($agenda['author'])
                                                         <small class="text-primary">{{ $agenda['author'] }}</small>
