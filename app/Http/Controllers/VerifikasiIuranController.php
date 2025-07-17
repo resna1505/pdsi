@@ -50,7 +50,7 @@ class VerifikasiIuranController extends Controller
     public function verifikasi($id)
     {
         try {
-            IuranAnggota::where('anggota_id', $id)->update(['status' => 3]);
+            IuranAnggota::where('anggota_id', $id)->update(['status' => 3, 'tanggal_lunas' => now(), 'diverifikasi_oleh' => auth()->user()->anggota->id]);
 
             return redirect()->back()->with('success', 'Iuran added successfully!');
         } catch (\Throwable $e) {
