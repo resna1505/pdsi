@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agenda;
 use App\Models\Anggota;
 use App\Models\Article;
 use App\Models\Mitra;
@@ -19,6 +20,7 @@ class indexController extends Controller
             $jumlahMitra = Mitra::count();
             $mitras = Mitra::active()->ordered()->get();
             $articles = Article::ordered()->get();
+            $agenda = Agenda::ordered()->get();
             $testimonials = Testimonial::with('anggota')
                 ->where('is_active', true)
                 ->latest()
@@ -33,6 +35,7 @@ class indexController extends Controller
                     'mitra' => $jumlahMitra,
                     'mitras' => $mitras,
                     'articles' => $articles,
+                    'agenda' => $agenda,
                     'testimonials' => $testimonials
                 ]
             ]);
