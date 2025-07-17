@@ -20,7 +20,7 @@ class indexController extends Controller
             $jumlahMitra = Mitra::count();
             $mitras = Mitra::active()->ordered()->get();
             $articles = Article::ordered()->get();
-            $agenda = Agenda::ordered()->get();
+            $agenda = Agenda::with('category')->ordered()->get();
             $testimonials = Testimonial::with('anggota')
                 ->where('is_active', true)
                 ->latest()

@@ -30,4 +30,9 @@ class Agenda extends Model
     {
         return $this->image ? asset('storage/' . $this->image) : asset('images/default-mitra.png');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryAgenda::class, 'category_id');
+    }
 }
