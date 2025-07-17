@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agenda;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -13,7 +14,7 @@ class NewsController extends Controller
     {
         try {
             $articles = Article::ordered()->get();
-            $agenda = Article::ordered()->get();
+            $agenda = Agenda::ordered()->get();
 
             return response()->json([
                 'status' => 'success',
