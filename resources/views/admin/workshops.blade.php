@@ -73,6 +73,16 @@ News
                                                 
                                                 <p class="text-muted mb-2">{{ \Illuminate\Support\Str::limit(strip_tags($article->description), 300) }}</p>
                                                 <ul class="list-unstyled d-flex align-items-center gap-3 text-muted fs-14 mb-0">
+                                                     <li>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="flex-shrink-0">
+                                                                <i class="ri-user-line"></i>
+                                                            </div>
+                                                            <div class="flex-grow-1 fs-13 ms-1">
+                                                                {{ $article->assign }}
+                                                            </div>
+                                                        </div>
+                                                    </li>
                                                     <li>
                                                         <i class="ph-clock-bold align-middle"></i>
                                                         {{ $article->created_at->diffForHumans() }}
@@ -234,6 +244,13 @@ News
                         @enderror
                     </div>
                     <div class="col-md-6 mb-3">
+                        <label for="assign" class="form-label">Assign</label>
+                        <input type="text" class="form-control @error('assign') is-invalid @enderror" id="assign" name="assign" value="{{ old('assign') }}" required>
+                        @error('assign')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="price" class="form-label">Price</label>
                         <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price') }}" required>
                         @error('price')
@@ -290,7 +307,7 @@ News
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="editMemberLabel">Edit News</h5>
+                <h5 class="modal-title" id="editMemberLabel">Edit Workshop</h5>
                 <button type="button" class="btn-close" id="editMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
@@ -345,6 +362,10 @@ News
                         <div class="col-md-6 mb-3">
                             <label for="edit-summary" class="form-label">Summary</label>
                             <input type="text" class="form-control" id="edit-summary" name="summary" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-assign" class="form-label">Assign</label>
+                            <input type="text" class="form-control" id="edit-assign" name="assign" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="edit-price" class="form-label">Price</label>
@@ -652,6 +673,7 @@ News
                             // Set descriptions in textarea immediately
                             document.getElementById('edit-description').value = article.description;
                             document.getElementById('edit-summary').value = article.short_description;
+                            document.getElementById('edit-assign').value = article.assign;
                             
                             // Show current image
                             const imagePreview = document.getElementById('current-image-preview');

@@ -34,6 +34,7 @@ class WorkshopsController extends Controller
                 'summary' => 'required|string',
                 'description' => 'required|string',
                 'price' => 'required',
+                'assign' => 'required|string',
             ]);
 
             $imagePath = null;
@@ -51,6 +52,7 @@ class WorkshopsController extends Controller
                 'price' => $request->price,
                 'tagline' => $request->tagline,
                 'short_description' => $request->summary,
+                'assign' => $request->assign,
                 'description' => $request->description,
             ]);
 
@@ -149,6 +151,7 @@ class WorkshopsController extends Controller
                 'summary' => 'required|string',
                 'description' => 'required|string',
                 'price' => 'required',
+                'assign' => 'required|string',
             ]);
 
             $imagePath = $article->image;
@@ -172,6 +175,7 @@ class WorkshopsController extends Controller
                 'price' => $request->price,
                 'tagline' => $request->tagline,
                 'short_description' => $request->summary,
+                'assign' => $request->assign,
                 'description' => $request->description,
             ]);
 
