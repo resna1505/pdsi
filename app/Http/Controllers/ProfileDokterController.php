@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use App\Models\Document;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-use Spatie\Browsershot\Browsershot;
+use Mpdf\Mpdf;
 
 class ProfileDokterController extends Controller
 {
@@ -22,95 +21,115 @@ class ProfileDokterController extends Controller
         return view('member.profile-dokter', compact('anggota', 'documents'));
     }
 
-    // Method untuk download PDF
-    // public function downloadCardPDF()
-    // {
-    //     $anggota = Anggota::where('user_id', Auth::id())->first();
+    // Method untuk download PDF - FIXED VERSION
+    public function downloadCardPDF()
+    {
+        $anggota = Anggota::where('user_id', Auth::id())->first();
 
-    //     if (!$anggota) {
-    //         return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
-    //     }
+        if (!$anggota) {
+            return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
+        }
 
-    //     // HTML SIMPLE INLINE - NO EXTERNAL TEMPLATE
-    //     $html = '
-    // <!DOCTYPE html>
-    // <html>
-    // <head>
-    //     <meta charset="utf-8">
-    //     <style>
-    //         @page { margin: 0; size: 88mm 125mm; }
-    //         body { font-family: Arial; margin: 0; padding: 5mm; }
-    //         .card { border: 2px solid #0066cc; border-radius: 10px; padding: 10px; margin-bottom: 10px; }
-    //         .header { background: #0066cc; color: white; text-align: center; padding: 8px; font-size: 11px; font-weight: bold; margin: -10px -10px 10px -10px; }
-    //         .content { text-align: center; }
-    //         .avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #0066cc; background: #ddd; margin: 10px auto; }
-    //         .info { font-size: 12px; margin: 5px 0; }
-    //         .qr { border: 1px solid #333; padding: 10px; background: white; margin: 10px auto; width: 60px; height: 60px; text-align: center; font-size: 8px; }
-    //     </style>
-    // </head>
-    // <body>
-    //     <!-- DEPAN -->
-    //     <div class="card">
-    //         <div class="header">PERKUMPULAN DOKTER SELURUH INDONESIA</div>
-    //         <div class="content">
-    //             <div style="font-size: 10px; margin: 5px;">www.pdsionline.org</div>
-    //             <div class="avatar"></div>
-    //             <div class="info"><strong>Nama:</strong> ' . $anggota->nama . '</div>
-    //             <div class="info"><strong>ID:</strong> ' . $anggota->id . '</div>
-    //             <div class="info"><strong>No.Anggota:</strong> ' . $anggota->id . '</div>
-    //         </div>
-    //     </div>
+        try {
+            // Convert image to base64 for PDF
+            $avatarPath = public_path('storage/images/users/' . $anggota->avatar);
+            $avatarBase64 = '';
 
-    //     <!-- BELAKANG -->
-    //     <div class="card" style="page-break-before: always;">
-    //         <div class="header">KARTU ANGGOTA - BELAKANG</div>
-    //         <div class="content">
-    //             <div class="qr">QR<br>ID: ' . $anggota->id . '</div>
-    //             <div style="font-size: 9px; text-align: left; margin-top: 10px;">
-    //                 <strong>Info:</strong><br>
-    //                 1. Kartu identitas resmi PDSI<br>
-    //                 2. Wajib dibawa saat praktek<br>
-    //                 3. Hubungi sekretariat jika hilang<br><br>
-    //                 <strong>Diterbitkan:</strong> ' . date('d/m/Y') . '
-    //             </div>
-    //         </div>
-    //     </div>
-    // </body>
-    // </html>';
+            if (file_exists($avatarPath)) {
+                $imageData = file_get_contents($avatarPath);
+                $base64 = base64_encode($imageData);
+                $mimeType = mime_content_type($avatarPath);
+                $avatarBase64 = 'data:' . $mimeType . ';base64,' . $base64;
+            }
 
-    //     try {
-    //         $pdf = FacadePdf::loadHTML($html);
-    //         $pdf->setPaper([0, 0, 249, 354], 'portrait'); // 88mm x 125mm in points
+            // Background images to base64
+            $frontBgPath = public_path('build/images/kta_pdsi_depan.jpg');
+            $backBgPath = public_path('build/images/kta_pdsi_belakang.jpg');
 
-    //         $filename = 'KTA_' . str_replace(' ', '_', $anggota->nama) . '_' . date('Y-m-d') . '.pdf';
+            $frontBgBase64 = '';
+            $backBgBase64 = '';
 
-    //         return $pdf->download($filename);
-    //     } catch (\Exception $e) {
-    //         Log::error('Error PDF: ' . $e->getMessage());
-    //         return redirect()->back()->with('error', 'Gagal membuat PDF: ' . $e->getMessage());
-    //     }
-    // }
+            if (file_exists($frontBgPath)) {
+                $frontImageData = file_get_contents($frontBgPath);
+                $frontBase64 = base64_encode($frontImageData);
+                $frontMimeType = mime_content_type($frontBgPath);
+                $frontBgBase64 = 'data:' . $frontMimeType . ';base64,' . $frontBase64;
+            }
 
-    // // Method untuk download sebagai JPG
-    // public function downloadCardJPG()
-    // {
-    //     $anggota = Anggota::where('user_id', Auth::id())->first();
-    //     $html = view('member.card-preview', compact('anggota'))->render();
+            if (file_exists($backBgPath)) {
+                $backImageData = file_get_contents($backBgPath);
+                $backBase64 = base64_encode($backImageData);
+                $backMimeType = mime_content_type($backBgPath);
+                $backBgBase64 = 'data:' . $backMimeType . ';base64,' . $backBase64;
+            }
 
-    //     // Simpan HTML ke file temporary
-    //     $htmlPath = storage_path('app/public/temp_' . $anggota->id . '.html');
-    //     file_put_contents($htmlPath, $html);
+            // Pass data to view
+            $data = [
+                'anggota' => $anggota,
+                'avatarBase64' => $avatarBase64,
+                'frontBgBase64' => $frontBgBase64,
+                'backBgBase64' => $backBgBase64
+            ];
 
-    //     // Gunakan wkhtmltoimage (instal terlebih dahulu)
-    //     $imagePath = storage_path('app/public/kta_' . $anggota->id . '.jpg');
-    //     exec("wkhtmltoimage --width 1200 --height 1800 $htmlPath $imagePath");
+            // Generate PDF
+            $pdf = Pdf::loadView('member.card-pdf', $data);
+            $pdf->setPaper('A4', 'portrait');
 
-    //     if (!file_exists($imagePath)) {
-    //         return back()->with('error', 'Gagal konversi HTML ke gambar');
-    //     }
+            $filename = 'KTA_' . str_replace(' ', '_', $anggota->nama) . '_' . date('Y-m-d') . '.pdf';
 
-    //     return response()->download($imagePath)->deleteFileAfterSend(true);
-    // }
+            return $pdf->download($filename);
+        } catch (\Exception $e) {
+            Log::error('Error PDF: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal membuat PDF: ' . $e->getMessage());
+        }
+    }
+
+    // Alternative method using mPDF (if you prefer)
+    public function downloadCardPDFMpdf()
+    {
+        $anggota = Anggota::where('user_id', Auth::id())->first();
+
+        if (!$anggota) {
+            return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
+        }
+
+        try {
+            // Require mPDF (install first: composer require mpdf/mpdf)
+            $mpdf = new Mpdf([
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'P',
+                'margin_left' => 10,
+                'margin_right' => 10,
+                'margin_top' => 10,
+                'margin_bottom' => 10,
+            ]);
+
+            // Convert images to base64
+            $avatarPath = public_path('storage/images/users/' . $anggota->avatar);
+            $avatarBase64 = '';
+
+            if (file_exists($avatarPath)) {
+                $imageData = file_get_contents($avatarPath);
+                $base64 = base64_encode($imageData);
+                $mimeType = mime_content_type($avatarPath);
+                $avatarBase64 = 'data:' . $mimeType . ';base64,' . $base64;
+            }
+
+            $html = view('member.card-pdf-mpdf', compact('anggota', 'avatarBase64'))->render();
+
+            $mpdf->WriteHTML($html);
+
+            $filename = 'KTA_' . str_replace(' ', '_', $anggota->nama) . '_' . date('Y-m-d') . '.pdf';
+
+            return response()->streamDownload(function () use ($mpdf) {
+                echo $mpdf->Output('', 'S');
+            }, $filename, ['Content-Type' => 'application/pdf']);
+        } catch (\Exception $e) {
+            Log::error('Error mPDF: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal membuat PDF: ' . $e->getMessage());
+        }
+    }
 
     // Method untuk preview card (untuk screenshot)
     public function cardPreview($id)
