@@ -79,8 +79,12 @@ class Event extends Model
     }
 
     // Scope untuk filter berdasarkan user
+    // Scope untuk filter berdasarkan user - REVISI
     public function scopeForUser($query, $anggotaId)
     {
-        return $query->where('anggota_id', $anggotaId);
+        return $query->where(function ($q) use ($anggotaId) {
+            $q->where('anggota_id', $anggotaId)
+                ->orWhereNull('anggota_id');
+        });
     }
 }

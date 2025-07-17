@@ -100,10 +100,15 @@ class EventController extends Controller
         ]);
     }
 
+    private function canModifyEvent(Event $event): bool
+    {
+        return $event->anggota_id === auth()->user()->anggota->id;
+    }
+
     public function show(Event $event): JsonResponse
     {
-        // Check authorization
-        if ($event->anggota_id !== auth()->user()->anggota->id) {
+        // Check jika event bukan milik user dan bukan event publik
+        if ($event->anggota_id !== null && $event->anggota_id !== auth()->user()->anggota->id) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized access'
@@ -122,19 +127,22 @@ class EventController extends Controller
             'category' => $event->category,
             'all_day' => $event->all_day,
             'formatted_date' => $event->formatted_start_date,
-            'formatted_time' => $event->formatted_time
+            'formatted_time' => $event->formatted_time,
+            'is_public' => $event->anggota_id === null, // Tambahan info
+            'can_modify' => $this->canModifyEvent($event) // Tambahan info
         ]);
     }
 
     public function update(Request $request, Event $event): JsonResponse
     {
         // Check authorization
-        if ($event->anggota_id !== auth()->user()->anggota->id) {
+        if (!$this->canModifyEvent($event)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized access'
             ], 403);
         }
+
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -169,8 +177,8 @@ class EventController extends Controller
 
     public function destroy(Event $event): JsonResponse
     {
-        // Check authorization
-        if ($event->anggota_id !== auth()->user()->anggota->id) {
+        // Check authorization - hanya bisa delete event milik sendiri
+        if (!$this->canModifyEvent($event)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized access'
@@ -188,7 +196,7 @@ class EventController extends Controller
     public function updateEventDate(Request $request, Event $event): JsonResponse
     {
         // Check authorization
-        if ($event->anggota_id !== auth()->user()->anggota->id) {
+        if (!$this->canModifyEvent($event)) {
             return response()->json([
                 'success' => false,
                 'message' => 'Unauthorized access'

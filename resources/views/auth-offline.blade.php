@@ -26,7 +26,7 @@
                                 </lord-icon>
                                 <h3 class="mt-4 fw-semibold">We're Currently Offline</h3>
                                 <p class="text-muted mb-4 fs-14">We can't show you this images because you aren't connected to the internet. When you’re back online refresh the page or hit the button below</p>
-                                <button class="btn btn-primary" onClick="window.location.href=window.location.href"><i class="ri-refresh-line align-bottom"></i> Refresh</button>
+                                <a href="{{ url('/login') }}" class="btn btn-primary"><i class="ri-refresh-line align-bottom"></i> Refresh</a>
                             </div>
                         </div>
                     </div><!-- end card body -->

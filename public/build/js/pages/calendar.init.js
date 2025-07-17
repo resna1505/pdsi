@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Event click handler
         eventClick: function(info) {
             // Check if user owns this event
-            if (info.event.extendedProps.anggota_id) {
+            // if (info.event.extendedProps.anggota_id) {
                 showEventDetails(info.event);
-            } else {
-                showToast('You can only edit your own events', 'warning');
-            }
+            // } else {
+            //     showToast('You can only edit your own events', 'warning');
+            // }
         },
         
         // Date select handler
