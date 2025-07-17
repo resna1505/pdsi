@@ -100,10 +100,12 @@ class ComposerStaticInit0a0d580cbcda8b95e1ac73b125602121
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Clock\\' => 24,
             'Svg\\' => 4,
+            'Spatie\\TemporaryDirectory\\' => 26,
             'Spatie\\LaravelIgnition\\' => 23,
             'Spatie\\Ignition\\' => 16,
             'Spatie\\FlareClient\\' => 19,
             'Spatie\\ErrorSolutions\\' => 22,
+            'Spatie\\Browsershot\\' => 19,
             'Spatie\\Backtrace\\' => 17,
             'SimpleSoftwareIO\\QrCode\\' => 24,
             'Sabberworm\\CSS\\' => 15,
@@ -363,6 +365,10 @@ class ComposerStaticInit0a0d580cbcda8b95e1ac73b125602121
         array (
             0 => __DIR__ . '/..' . '/dompdf/php-svg-lib/src/Svg',
         ),
+        'Spatie\\TemporaryDirectory\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/temporary-directory/src',
+        ),
         'Spatie\\LaravelIgnition\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
@@ -380,6 +386,10 @@ class ComposerStaticInit0a0d580cbcda8b95e1ac73b125602121
         'Spatie\\ErrorSolutions\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/error-solutions/src',
+        ),
+        'Spatie\\Browsershot\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/browsershot/src',
         ),
         'Spatie\\Backtrace\\' => 
         array (
@@ -7360,6 +7370,16 @@ class ComposerStaticInit0a0d580cbcda8b95e1ac73b125602121
         'Spatie\\Backtrace\\CodeSnippets\\NullSnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/NullSnippetProvider.php',
         'Spatie\\Backtrace\\CodeSnippets\\SnippetProvider' => __DIR__ . '/..' . '/spatie/backtrace/src/CodeSnippets/SnippetProvider.php',
         'Spatie\\Backtrace\\Frame' => __DIR__ . '/..' . '/spatie/backtrace/src/Frame.php',
+        'Spatie\\Browsershot\\Browsershot' => __DIR__ . '/..' . '/spatie/browsershot/src/Browsershot.php',
+        'Spatie\\Browsershot\\ChromiumResult' => __DIR__ . '/..' . '/spatie/browsershot/src/ChromiumResult.php',
+        'Spatie\\Browsershot\\Enums\\Polling' => __DIR__ . '/..' . '/spatie/browsershot/src/Enums/Polling.php',
+        'Spatie\\Browsershot\\Exceptions\\CouldNotTakeBrowsershot' => __DIR__ . '/..' . '/spatie/browsershot/src/Exceptions/CouldNotTakeBrowsershot.php',
+        'Spatie\\Browsershot\\Exceptions\\ElementNotFound' => __DIR__ . '/..' . '/spatie/browsershot/src/Exceptions/ElementNotFound.php',
+        'Spatie\\Browsershot\\Exceptions\\FileDoesNotExistException' => __DIR__ . '/..' . '/spatie/browsershot/src/Exceptions/FileDoesNotExistException.php',
+        'Spatie\\Browsershot\\Exceptions\\FileUrlNotAllowed' => __DIR__ . '/..' . '/spatie/browsershot/src/Exceptions/FileUrlNotAllowed.php',
+        'Spatie\\Browsershot\\Exceptions\\HtmlIsNotAllowedToContainFile' => __DIR__ . '/..' . '/spatie/browsershot/src/Exceptions/HtmlIsNotAllowedToContainFile.php',
+        'Spatie\\Browsershot\\Exceptions\\UnsuccessfulResponse' => __DIR__ . '/..' . '/spatie/browsershot/src/Exceptions/UnsuccessfulResponse.php',
+        'Spatie\\Browsershot\\ImageManipulations' => __DIR__ . '/..' . '/spatie/browsershot/src/ImageManipulations.php',
         'Spatie\\ErrorSolutions\\Contracts\\BaseSolution' => __DIR__ . '/..' . '/spatie/error-solutions/src/Contracts/BaseSolution.php',
         'Spatie\\ErrorSolutions\\Contracts\\HasSolutionsForThrowable' => __DIR__ . '/..' . '/spatie/error-solutions/src/Contracts/HasSolutionsForThrowable.php',
         'Spatie\\ErrorSolutions\\Contracts\\ProvidesSolution' => __DIR__ . '/..' . '/spatie/error-solutions/src/Contracts/ProvidesSolution.php',
@@ -7574,6 +7594,9 @@ class ComposerStaticInit0a0d580cbcda8b95e1ac73b125602121
         'Spatie\\LaravelIgnition\\Support\\StringComparator' => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition/Support/StringComparator.php',
         'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
         'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
+        'Spatie\\TemporaryDirectory\\Exceptions\\InvalidDirectoryName' => __DIR__ . '/..' . '/spatie/temporary-directory/src/Exceptions/InvalidDirectoryName.php',
+        'Spatie\\TemporaryDirectory\\Exceptions\\PathAlreadyExists' => __DIR__ . '/..' . '/spatie/temporary-directory/src/Exceptions/PathAlreadyExists.php',
+        'Spatie\\TemporaryDirectory\\TemporaryDirectory' => __DIR__ . '/..' . '/spatie/temporary-directory/src/TemporaryDirectory.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Svg\\CssLength' => __DIR__ . '/..' . '/dompdf/php-svg-lib/src/Svg/CssLength.php',
         'Svg\\DefaultStyle' => __DIR__ . '/..' . '/dompdf/php-svg-lib/src/Svg/DefaultStyle.php',

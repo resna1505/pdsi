@@ -111,13 +111,41 @@
                             <div class="card-body p-2">
                                 <div class="text-center mb-4">
                                     <h6>Download Kartu Anggota:</h6>
+                                    
+                                    <!-- PDF Download -->
                                     <a href="{{ route('member.download-card-pdf') }}" class="btn btn-danger btn-sm me-2">
                                         <i class="fas fa-download"></i> PDF
                                     </a>
-                                    <a href="{{ route('member.download-card-jpg') }}" class="btn btn-success btn-sm me-2">
-                                        <i class="fas fa-download"></i> JPG
-                                    </a>
-                                    <a href="{{ route('member.card-preview', $anggota->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                    
+                                    <!-- JPG Download Options -->
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                            <i class="fas fa-image"></i> JPG
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><h6 class="dropdown-header">Single Cards</h6></li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('jpg.front') }}">
+                                                    <i class="fas fa-id-card"></i> Kartu Depan
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('jpg.back') }}">
+                                                    <i class="fas fa-id-card-alt"></i> Kartu Belakang
+                                                </a>
+                                            </li>
+                                            {{-- <li><hr class="dropdown-divider"></li>
+                                            <li><h6 class="dropdown-header">Complete Set</h6></li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('jpg.both.zip') }}">
+                                                    <i class="fas fa-file-archive"></i> Both Cards (ZIP)
+                                                </a>
+                                            </li> --}}
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- Preview -->
+                                    <a href="{{ route('member.card-preview', $anggota->id) }}" target="_blank" class="btn btn-info btn-sm ms-2">
                                         <i class="fas fa-eye"></i> Preview
                                     </a>
                                 </div>

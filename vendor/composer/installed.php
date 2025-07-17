@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '1a82422a9b8e4f0b80f387ddd09e869bbf73e38c',
+        'reference' => 'c4123186cd544ab836b09f4a0e1012a80f0cfb5b',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -469,7 +469,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '1a82422a9b8e4f0b80f387ddd09e869bbf73e38c',
+            'reference' => 'c4123186cd544ab836b09f4a0e1012a80f0cfb5b',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1184,6 +1184,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'spatie/browsershot' => array(
+            'pretty_version' => '5.0.10',
+            'version' => '5.0.10.0',
+            'reference' => '9e5ae15487b3cdc3eb03318c1c8ac38971f60e58',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/browsershot',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'spatie/error-solutions' => array(
             'pretty_version' => '1.1.1',
             'version' => '1.1.1.0',
@@ -1225,6 +1234,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'spatie/temporary-directory' => array(
+            'pretty_version' => '2.3.0',
+            'version' => '2.3.0.0',
+            'reference' => '580eddfe9a0a41a902cac6eeb8f066b42e65a32b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/temporary-directory',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'symfony/clock' => array(
             'pretty_version' => 'v7.1.1',
