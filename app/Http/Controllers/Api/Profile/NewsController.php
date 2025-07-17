@@ -13,11 +13,13 @@ class NewsController extends Controller
     {
         try {
             $articles = Article::ordered()->get();
+            $agenda = Article::ordered()->get();
 
             return response()->json([
                 'status' => 'success',
                 'data' => [
                     'articles' => $articles,
+                    'agenda' => $agenda
                 ]
             ]);
         } catch (\Exception $e) {
