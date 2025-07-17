@@ -129,7 +129,7 @@
                                     </ol>
                                     <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item active"> 
-                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_depan.png') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">
+                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_depan.jpg') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">
                                                 <div style="position: absolute; 
                                                             top: 51%; 
                                                             left: 50%; 
@@ -145,8 +145,6 @@
                                                                 height: 100%; 
                                                                 object-fit: cover;
                                                     ">
-
-                                                    
                                                 </div>
                                                 <div style="position: absolute; bottom: 100px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
                                                     Nama : {{ $anggota->nama }}
@@ -160,15 +158,7 @@
                                             </div>
                                         </div>
                                         <div class="carousel-item"> 
-                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_belakang.png') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">
-                                                <div style="position: absolute; 
-                                                            top: 15%; 
-                                                            left: 83%; 
-                                                            transform: translate(-50%, -50%); 
-                                                           
-                                                            overflow: hidden;">
-                                                        {!! QrCode::size(80)->generate($anggota->name . ' ' . $anggota->last_name . ' ' . $anggota->id . ' ' . $anggota->created_at) !!}
-                                                </div>
+                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_belakang.jpg') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">                                                
                                             </div>
                                         </div>
                                     </div>

@@ -36,11 +36,11 @@
         }
         
         .card-front {
-            background-image: url('{{ asset('build/images/kta_pdsi_depan.png') }}');
+            background-image: url('{{ asset('build/images/kta_pdsi_depan.jpg') }}');
         }
         
         .card-back {
-            background-image: url('{{ asset('build/images/kta_pdsi_belakang.png') }}');
+            background-image: url('{{ asset('build/images/kta_pdsi_belakang.jpg') }}');
         }
         
         .avatar-container {
@@ -158,9 +158,9 @@
         <!-- Card Back -->
         <div class="card-container">
             <div class="card card-back">
-                <div class="qr-container">
+                {{-- <div class="qr-container">
                     {!! QrCode::size(80)->generate($anggota->name . ' ' . $anggota->last_name . ' ' . $anggota->id . ' ' . $anggota->created_at) !!}
-                </div>
+                </div> --}}
             </div>
             <div class="card-label">Bagian Belakang</div>
         </div>
