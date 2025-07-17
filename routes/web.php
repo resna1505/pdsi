@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FAQDokterController;
+use App\Http\Controllers\LeaderBoardsController;
 use App\Http\Controllers\MasterIuranController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MitraController;
@@ -70,20 +71,6 @@ Route::get('/auth-offline', function () {
 })->name('auth.offline');
 
 Route::group(['middleware' => 'auth'], function () {
-    // Route::get('/index', function () {
-    //     return redirect('/');
-    // });
-    // Route::get('/', function () {
-    //     $user = Auth::user();
-    //     if (strtolower($user->level) === 'admin') {
-    //         return view('admin.index');
-    //     }
-
-    //     if (strtolower($user->level) === 'dokter') {
-    //         return view('member.index');
-    //     }
-    // });
-
     Route::get('/index', function () {
         return redirect('/');
     });
@@ -214,6 +201,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::patch('/events/{event}/date', [EventController::class, 'updateEventDate'])->name('events.update-date');
+
+    Route::get('/apps-leaderboards', [LeaderBoardsController::class, 'index'])->name('apps-leaderboards.index');
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

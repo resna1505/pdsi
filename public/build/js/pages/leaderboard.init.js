@@ -88,7 +88,7 @@ var barchartColors = getChartColorsArray("hours_spent_chart");
 if (barchartColors) {
 var options = {
     series: [{
-        data: [7, 11, 15, 20, 18, 23, 20, 23, 21, 19]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     }],
     chart: {
         toolbar: {
@@ -138,7 +138,7 @@ chart.render();
 var barchartColors = getChartColorsArray("chart-radialBar");
 if (barchartColors) {
 var options = {
-  series: [44, 55, 67],
+  series: [0, 0, 0],
   chart: {
     height: 260,
     type: 'radialBar',
