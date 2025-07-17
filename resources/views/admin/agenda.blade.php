@@ -5,6 +5,27 @@ Agenda
 @section('css')
 <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ URL::asset('build/libs/glightbox/css/glightbox.min.css') }}" rel="stylesheet" type="text/css" />
+
+<style>
+#location, #edit-location {
+    position: relative;
+}
+
+#location:focus, #edit-location:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.location-suggestion {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.location-suggestion:hover {
+    background-color: #f8f9fa;
+}
+</style>
 @endsection
 @section('content')
 
@@ -229,6 +250,73 @@ Agenda
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="dimulai" class="form-label">Agenda Dimulai</label>
+                        <input type="text" class="form-control @error('dimulai') is-invalid @enderror" 
+                            name="dimulai" id="dimulai" 
+                            data-provider="flatpickr" 
+                            data-date-format="d.m.y" 
+                            data-enable-time 
+                            placeholder="Select date and time" 
+                            value="{{ old('dimulai') }}" 
+                            required>
+                        @error('dimulai')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="berakhir" class="form-label">Agenda Berakhir</label>
+                        <input type="text" class="form-control @error('berakhir') is-invalid @enderror" 
+                            name="berakhir" id="berakhir" 
+                            data-provider="flatpickr" 
+                            data-date-format="d.m.y" 
+                            data-enable-time 
+                            placeholder="Select date and time" 
+                            value="{{ old('berakhir') }}" 
+                            required>
+                        @error('berakhir')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="all_day_info" class="form-label">Duration Info</label>
+                        <input type="text" class="form-control" 
+                            id="all_day_info" 
+                            readonly 
+                            placeholder="Durasi akan muncul setelah pilih tanggal"
+                            style="background-color: #f8f9fa;">
+                        <small class="text-muted">Otomatis dihitung berdasarkan selisih tanggal</small>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control @error('location') is-invalid @enderror" 
+                            id="location" name="location" 
+                            value="{{ old('location') }}" 
+                            placeholder="Enter location..."
+                            list="location-suggestions">
+                        
+                        <!-- Datalist untuk suggestions -->
+                        <datalist id="location-suggestions">
+                            <option value="Ruang Meeting 1">
+                            <option value="Ruang Meeting 2">
+                            <option value="Ruang Rapat Utama">
+                            <option value="Auditorium">
+                            <option value="Aula">
+                            <option value="Kantor Pusat">
+                            <option value="Kantor Cabang">
+                            <option value="Hotel Grand Indonesia">
+                            <option value="Zoom Meeting">
+                            <option value="Google Meet">
+                            <option value="Microsoft Teams">
+                            <option value="Online">
+                        </datalist>
+                        
+                        @error('location')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <small class="text-muted">Masukkan lokasi kegiatan (ruang meeting, alamat, atau platform online)</small>
+                    </div>
                     <div class="col-md-12 mb-3">
                         <label for="description" class="form-label">Description</label>
                         <textarea name="description" id="description" class="ckeditor-classic form-control @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
@@ -301,7 +389,44 @@ Agenda
                             <label for="edit-title" class="form-label">Title</label>
                             <input type="text" class="form-control" id="edit-title" name="title" required>
                         </div>
-                        
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-dimulai" class="form-label">Agenda Dimulai</label>
+                            <input type="text" class="form-control" 
+                                name="dimulai" id="edit-dimulai" 
+                                data-provider="flatpickr" 
+                                data-date-format="d.m.y" 
+                                data-enable-time 
+                                placeholder="Select date and time" 
+                                required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-berakhir" class="form-label">Agenda Berakhir</label>
+                            <input type="text" class="form-control" 
+                                name="berakhir" id="edit-berakhir" 
+                                data-provider="flatpickr" 
+                                data-date-format="d.m.y" 
+                                data-enable-time 
+                                placeholder="Select date and time" 
+                                required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-all_day_info" class="form-label">Duration Info</label>
+                            <input type="text" class="form-control" 
+                                id="edit-all_day_info" 
+                                readonly 
+                                placeholder="Durasi akan muncul setelah pilih tanggal"
+                                style="background-color: #f8f9fa;">
+                            <small class="text-muted">Otomatis dihitung berdasarkan selisih tanggal</small>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-location" class="form-label">Location</label>
+                            <input type="text" class="form-control" 
+                                id="edit-location" name="location" 
+                                placeholder="Enter location..."
+                                list="location-suggestions">
+                            <small class="text-muted">Masukkan lokasi kegiatan (ruang meeting, alamat, atau platform online)</small>
+                        </div>
                         <div class="col-md-12 mb-3">
                             <label for="edit-description" class="form-label">Description</label>
                             <textarea name="description" id="edit-description" class="form-control" rows="5" required></textarea>
@@ -360,6 +485,9 @@ Agenda
 
 <script src="{{ URL::asset('build/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/form-editor.init.js') }}"></script>
+
+<script src="{{ URL::asset('build/libs/@simonwep/pickr/pickr.min.js') }}"></script>
+<script src="{{ URL::asset('build/js/pages/form-pickers.init.js') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const itemsPerPage = 5;
@@ -549,6 +677,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             document.getElementById('edit-title').value = article.title;
                             document.getElementById('edit-author').value = article.author;
                             document.getElementById('edit-category_id').value = article.category_id;
+
+                            // Set datetime fields
+                            if (article.dimulai) {
+                                document.getElementById('edit-dimulai').value = article.dimulai;
+                            }
+                            if (article.berakhir) {
+                                document.getElementById('edit-berakhir').value = article.berakhir;
+                            }
                             
                             // Store description for later use
                             pendingDescription = article.description;
@@ -678,5 +814,237 @@ document.addEventListener('DOMContentLoaded', function() {
 if (typeof CKEDITOR !== 'undefined') {
     CKEDITOR.replace('edit-description');
 }
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Function untuk calculate duration
+    function calculateDuration(startId, endId, infoId) {
+        const startInput = document.getElementById(startId);
+        const endInput = document.getElementById(endId);
+        const infoInput = document.getElementById(infoId);
+        
+        function updateDuration() {
+            const startValue = startInput.value;
+            const endValue = endInput.value;
+            
+            if (startValue && endValue) {
+                try {
+                    // Parse tanggal dari format d.m.Y H:i
+                    const startParts = startValue.split(' ');
+                    const endParts = endValue.split(' ');
+                    
+                    if (startParts.length === 2 && endParts.length === 2) {
+                        const startDateParts = startParts[0].split('.');
+                        const startTimeParts = startParts[1].split(':');
+                        const endDateParts = endParts[0].split('.');
+                        const endTimeParts = endParts[1].split(':');
+                        
+                        const startDate = new Date(
+                            parseInt(startDateParts[2]), // year
+                            parseInt(startDateParts[1]) - 1, // month (0-based)
+                            parseInt(startDateParts[0]), // day
+                            parseInt(startTimeParts[0]), // hour
+                            parseInt(startTimeParts[1]) // minute
+                        );
+                        
+                        const endDate = new Date(
+                            parseInt(endDateParts[2]), // year
+                            parseInt(endDateParts[1]) - 1, // month (0-based)
+                            parseInt(endDateParts[0]), // day
+                            parseInt(endTimeParts[0]), // hour
+                            parseInt(endTimeParts[1]) // minute
+                        );
+                        
+                        // Calculate difference
+                        const diffTime = endDate - startDate;
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+                        const diffMinutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
+                        
+                        let durationText = '';
+                        if (diffDays > 1) {
+                            durationText = `${diffDays} hari (Multi-day event)`;
+                        } else if (diffDays === 1) {
+                            durationText = `${diffDays} hari (Overnight event)`;
+                        } else {
+                            if (diffHours > 0) {
+                                durationText = `${diffHours} jam ${diffMinutes} menit (Same day)`;
+                            } else {
+                                durationText = `${diffMinutes} menit (Same day)`;
+                            }
+                        }
+                        
+                        infoInput.value = durationText;
+                    }
+                } catch (error) {
+                    infoInput.value = 'Format tanggal tidak valid';
+                }
+            } else {
+                infoInput.value = '';
+            }
+        }
+        
+        // Add event listeners
+        if (startInput) startInput.addEventListener('change', updateDuration);
+        if (endInput) endInput.addEventListener('change', updateDuration);
+    }
+    
+    // Initialize untuk form ADD
+    calculateDuration('dimulai', 'berakhir', 'all_day_info');
+    
+    // Initialize untuk form EDIT
+    calculateDuration('edit-dimulai', 'edit-berakhir', 'edit-all_day_info');
+    
+    // Initialize Flatpickr untuk Add Modal
+    if (typeof flatpickr !== 'undefined') {
+        flatpickr("#dimulai", {
+            enableTime: true,
+            dateFormat: "d.m.Y H:i",
+            time_24hr: true,
+            locale: {
+                firstDayOfWeek: 1
+            },
+            onChange: function(selectedDates, dateStr, instance) {
+                // Trigger duration calculation
+                setTimeout(() => {
+                    const event = new Event('change');
+                    document.getElementById('dimulai').dispatchEvent(event);
+                }, 100);
+            }
+        });
+        
+        flatpickr("#berakhir", {
+            enableTime: true,
+            dateFormat: "d.m.Y H:i", 
+            time_24hr: true,
+            locale: {
+                firstDayOfWeek: 1
+            },
+            onChange: function(selectedDates, dateStr, instance) {
+                // Trigger duration calculation
+                setTimeout(() => {
+                    const event = new Event('change');
+                    document.getElementById('berakhir').dispatchEvent(event);
+                }, 100);
+            }
+        });
+    }
+    
+    // Initialize Flatpickr untuk Edit Modal
+    const editModal = document.getElementById('editmemberModal');
+    if (editModal) {
+        editModal.addEventListener('shown.bs.modal', function() {
+            setTimeout(() => {
+                if (typeof flatpickr !== 'undefined') {
+                    // Destroy existing instances
+                    const existingDimulai = document.getElementById('edit-dimulai')._flatpickr;
+                    const existingBerakhir = document.getElementById('edit-berakhir')._flatpickr;
+                    
+                    if (existingDimulai) existingDimulai.destroy();
+                    if (existingBerakhir) existingBerakhir.destroy();
+                    
+                    // Create new instances
+                    flatpickr("#edit-dimulai", {
+                        enableTime: true,
+                        dateFormat: "d.m.Y H:i",
+                        time_24hr: true,
+                        locale: {
+                            firstDayOfWeek: 1
+                        },
+                        onChange: function(selectedDates, dateStr, instance) {
+                            setTimeout(() => {
+                                const event = new Event('change');
+                                document.getElementById('edit-dimulai').dispatchEvent(event);
+                            }, 100);
+                        }
+                    });
+                    
+                    flatpickr("#edit-berakhir", {
+                        enableTime: true,
+                        dateFormat: "d.m.Y H:i",
+                        time_24hr: true,
+                        locale: {
+                            firstDayOfWeek: 1
+                        },
+                        onChange: function(selectedDates, dateStr, instance) {
+                            setTimeout(() => {
+                                const event = new Event('change');
+                                document.getElementById('edit-berakhir').dispatchEvent(event);
+                            }, 100);
+                        }
+                    });
+                }
+            }, 100);
+        });
+    }
+    
+    // Handle edit modal data loading
+    const editLinks = document.querySelectorAll('.edit-list');
+    const editForm = document.getElementById('edit-form');
+    
+    editLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const articleId = this.getAttribute('data-edit-id');
+            
+            fetch(`/agenda/${articleId}/edit`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const article = data.article;
+                        
+                        // Set form action
+                        editForm.setAttribute('action', `/agenda/${articleId}`);
+                        
+                        // Fill form fields
+                        document.getElementById('edit-title').value = article.title;
+                        document.getElementById('edit-author').value = article.author;
+                        document.getElementById('edit-category_id').value = article.category_id;
+                        
+                        // Set datetime fields
+                        if (article.dimulai) {
+                            document.getElementById('edit-dimulai').value = article.dimulai;
+                        }
+                        if (article.berakhir) {
+                            document.getElementById('edit-berakhir').value = article.berakhir;
+                        }
+                        
+                        // Set location
+                        if (article.location) {
+                            document.getElementById('edit-location').value = article.location;
+                        }
+                        
+                        // Update duration info
+                        setTimeout(() => {
+                            const event = new Event('change');
+                            document.getElementById('edit-dimulai').dispatchEvent(event);
+                        }, 200);
+                        
+                        // Show current image
+                        const imagePreview = document.getElementById('current-image-preview');
+                        if (article.attachment) {
+                            imagePreview.innerHTML = `
+                                <img src="{{ asset('storage/articles/') }}/${article.attachment}" 
+                                    alt="Current Image" width="150" class="rounded">
+                            `;
+                        } else {
+                            imagePreview.innerHTML = '<p class="text-muted">No image</p>';
+                        }
+                        
+                        // Set description
+                        document.getElementById('edit-description').value = article.description;
+                        
+                        // Clear previous errors
+                        document.getElementById('edit-errors').classList.add('d-none');
+                    } else {
+                        alert('Error loading agenda data');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error loading agenda data');
+                });
+        });
+    });
+});
 </script>
 @endsection

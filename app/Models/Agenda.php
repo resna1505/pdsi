@@ -18,7 +18,44 @@ class Agenda extends Model
         'created_at',
         'updated_at',
         'category_id',
+        'dimulai',
+        'berakhir',
+        'location',
     ];
+
+    protected $casts = [
+        'dimulai' => 'datetime',
+        'berakhir' => 'datetime',
+    ];
+
+    public function event()
+    {
+        return $this->hasOne(Event::class, 'anggota_id');
+    }
+
+    public function getDurationAttribute()
+    {
+        if ($this->dimulai && $this->berakhir) {
+            $diff = $this->dimulai->diff($this->berakhir);
+            return $diff->days;
+        }
+        return 0;
+    }
+
+    public function scopeToday($query)
+    {
+        return $query->whereDate('dimulai', today());
+    }
+
+    public function scopeUpcoming($query)
+    {
+        return $query->where('dimulai', '>', now());
+    }
+
+    public function scopeThisWeek($query)
+    {
+        return $query->whereBetween('dimulai', [now()->startOfWeek(), now()->endOfWeek()]);
+    }
 
     public function scopeOrdered($query)
     {

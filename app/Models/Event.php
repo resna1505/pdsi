@@ -20,7 +20,8 @@ class Event extends Model
         'end_time',
         'location',
         'category',
-        'all_day'
+        'all_day',
+        'agenda_id'
     ];
 
     protected $casts = [
@@ -28,8 +29,30 @@ class Event extends Model
         'end_date' => 'date',
         'start_time' => 'datetime:H:i',
         'end_time' => 'datetime:H:i',
-        'all_day' => 'boolean'
+        'all_day' => 'integer'
     ];
+
+    public function getAllDayTextAttribute()
+    {
+        if ($this->all_day == 0) {
+            return 'Same day event';
+        } elseif ($this->all_day == 1) {
+            return '1 day event';
+        } else {
+            return $this->all_day . ' days event';
+        }
+    }
+
+    // Scope untuk filter event berdasarkan durasi
+    public function scopeSameDay($query)
+    {
+        return $query->where('all_day', 0);
+    }
+
+    public function scopeMultiDay($query)
+    {
+        return $query->where('all_day', '>', 0);
+    }
 
     // Relationship dengan User melalui Anggota
     public function anggota()
