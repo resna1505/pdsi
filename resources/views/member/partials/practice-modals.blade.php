@@ -174,7 +174,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="edit_institution_name" class="form-label">Institution Name *</label>
-                                <input type="text" class="form-control" id="edit_institution_name" name="institution_name" required>
+                                <input type="text" class="form-control" id="edit_institution_name_practice" name="institution_name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -307,7 +307,7 @@
                     
                     <div class="mb-3">
                         <label for="edit_description" class="form-label">Description</label>
-                        <textarea class="form-control" id="edit_description" name="description" rows="3"></textarea>
+                        <textarea class="form-control" id="edit_description_practice" name="description" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

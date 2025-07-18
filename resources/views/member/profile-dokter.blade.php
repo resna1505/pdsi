@@ -1083,19 +1083,19 @@ document.addEventListener('DOMContentLoaded', function() {
                         const practice = data.practice;
                         
                         // Populate form
-                        document.getElementById('edit_institution_name').value = practice.institution_name || '';
+                        document.getElementById('edit_institution_name_practice').value = practice.institution_name || '';
                         document.getElementById('edit_practice_type').value = practice.practice_type || '';
                         document.getElementById('edit_position').value = practice.position || '';
                         document.getElementById('edit_department').value = practice.department || '';
                         document.getElementById('edit_status').value = practice.status || '';
                         document.getElementById('edit_license_number').value = practice.license_number || '';
-                        document.getElementById('edit_start_date').value = practice.start_date || '';
-                        document.getElementById('edit_end_date').value = practice.end_date || '';
+                        document.getElementById('edit_start_date').value = practice.start_date ? practice.start_date.split('T')[0] : '';
+                        document.getElementById('edit_end_date').value = practice.end_date ? practice.end_date.split('T')[0] : '';
                         document.getElementById('edit_phone').value = practice.phone || '';
                         document.getElementById('edit_city').value = practice.city || '';
                         document.getElementById('edit_address').value = practice.address || '';
                         document.getElementById('edit_province').value = practice.province || '';
-                        document.getElementById('edit_description').value = practice.description || '';
+                        document.getElementById('edit_description_practice').value = practice.description || '';
                         
                         // Populate schedule
                         if (practice.schedule) {
