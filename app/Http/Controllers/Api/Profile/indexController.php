@@ -7,6 +7,7 @@ use App\Models\Agenda;
 use App\Models\Anggota;
 use App\Models\Article;
 use App\Models\Mitra;
+use App\Models\Slider;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -20,6 +21,7 @@ class indexController extends Controller
             $jumlahMitra = Mitra::count();
             $mitras = Mitra::active()->ordered()->get();
             $articles = Article::ordered()->get();
+            $banner = Slider::ordered()->get();
             $agenda = Agenda::with('category')->ordered()->get();
             $testimonials = Testimonial::with('anggota')
                 ->where('is_active', true)
@@ -36,7 +38,8 @@ class indexController extends Controller
                     'mitras' => $mitras,
                     'articles' => $articles,
                     'agenda' => $agenda,
-                    'testimonials' => $testimonials
+                    'testimonials' => $testimonials,
+                    'banner' => $banner
                 ]
             ]);
         } catch (\Exception $e) {
