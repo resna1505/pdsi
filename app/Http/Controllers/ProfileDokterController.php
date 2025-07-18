@@ -36,7 +36,10 @@ class ProfileDokterController extends Controller
             ->orderBy('start_date', 'desc')
             ->get();
 
-        return view('member.profile-dokter', compact('anggota', 'documents', 'educations', 'practices'));
+        $profilePercentage = $anggota->getProfilePercentage();
+        $progressColor = $anggota->getProgressColor();
+
+        return view('member.profile-dokter', compact('anggota', 'documents', 'educations', 'practices', 'profilePercentage', 'progressColor'));
     }
 
     // Method untuk download PDF - FIXED VERSION

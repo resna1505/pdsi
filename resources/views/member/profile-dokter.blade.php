@@ -171,14 +171,30 @@
                             </div>
                         </div>
                         
+                        <!-- Update di view profile-dokter.blade.php -->
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title mb-5">Complete Your Profile</h5>
                                 <div class="progress animated-progress custom-progress progress-label">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 67%;" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100">
-                                        <div class="label">67%</div>
+                                    <div class="progress-bar {{ $progressColor }}" 
+                                        role="progressbar" 
+                                        style="width: {{ $profilePercentage }}%;" 
+                                        aria-valuenow="{{ $profilePercentage }}" 
+                                        aria-valuemin="0" 
+                                        aria-valuemax="100">
+                                        <div class="label">{{ $profilePercentage }}%</div>
                                     </div>
                                 </div>
+                                
+                                @if($profilePercentage < 100)
+                                    <p class="text-muted mt-3 mb-0">
+                                        <small>Lengkapi profil Anda untuk mendapatkan kredibilitas yang lebih baik</small>
+                                    </p>
+                                @else
+                                    <p class="text-success mt-3 mb-0">
+                                        <small><i class="fas fa-check-circle"></i> Profil Anda sudah lengkap!</small>
+                                    </p>
+                                @endif
                             </div>
                         </div>
 

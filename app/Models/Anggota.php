@@ -36,6 +36,50 @@ class Anggota extends Model
         'instagram_url',
     ];
 
+    // Method untuk menghitung persentase
+    public function getProfilePercentage()
+    {
+        // Field wajib yang harus diisi
+        $requiredFields = [
+            'nama',
+            'noktp',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'email',
+            'linkedin_url',
+            'twitter_url',
+            'facebook_url',
+            'instagram_url',
+            'no_hp',
+            'alamat',
+            'spesialis',
+            'kota',
+            'provinsi',
+            'profesi',
+            'avatar'
+        ];
+
+        $filledFields = 0;
+        foreach ($requiredFields as $field) {
+            if (!empty($this->$field)) {
+                $filledFields++;
+            }
+        }
+
+        return round(($filledFields / count($requiredFields)) * 100);
+    }
+
+    // Method untuk warna progress bar
+    public function getProgressColor()
+    {
+        $percentage = $this->getProfilePercentage();
+
+        if ($percentage >= 80) return 'bg-success';
+        if ($percentage >= 60) return 'bg-warning';
+        if ($percentage >= 40) return 'bg-info';
+        return 'bg-danger';
+    }
+
     public function iurans()
     {
         return $this->hasMany(IuranAnggota::class);
