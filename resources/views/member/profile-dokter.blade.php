@@ -4,6 +4,7 @@
 @endsection
 @section('css')
 <link href="{{ URL::asset('build/libs/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
 
@@ -16,13 +17,12 @@
             <div class="card-body">
                 <div class="position-relative">
                     <div class="mt-n5">
-                        {{-- Ganti kode avatar di profile-dokter.blade.php --}}
+                        {{-- Avatar --}}
                         @if($anggota && $anggota->avatar)
                             <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="" class="avatar-lg rounded-circle">
                         @else
                             <img src="{{ URL::asset('build/images/users/user-dummy-img.jpg') }}" alt="" class="avatar-lg rounded-circle">
                         @endif
-                        {{-- <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="" class="avatar-lg rounded-circle p-1 mt-n4"> --}}
                     </div>
                 </div>
                 <div class="pt-3">
@@ -37,19 +37,6 @@
                             </div>
                             <p>{{ $anggota->profesi }}</p>
                         </div>
-                        {{-- <div class="col-xl-3 col-lg-5">
-                            <div>
-                                <p class="text-muted fw-medium mb-2">place of practice</p>
-                                <ul class="list-inline mb-4">
-                                    <li class="list-inline-item">
-                                        <span class="badge text-info bg-info-subtle">Dummy</span>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <span class="badge text-info bg-info-subtle">Dummy</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
                 <div class="row mt-2 mt-lg-4 gy-3">
@@ -76,11 +63,6 @@
                                     <i class="ri-price-tag-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Practice</span>
                                 </a>
                             </li>
-                            {{-- <li class="nav-item">
-                                <a class="nav-link fs-14" data-bs-toggle="tab" href="#friends" role="tab">
-                                    <i class="ri-folder-4-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Friends</span>
-                                </a>
-                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link fs-14" data-bs-toggle="tab" href="#documents" role="tab">
                                     <i class="ri-folder-4-line d-inline-block d-md-none"></i> <span class="d-none d-md-inline-block">Documents</span>
@@ -149,7 +131,7 @@
                                         <i class="fas fa-eye"></i> Preview
                                     </a>
                                 </div>
-                                <!-- With Indicators -->
+                                <!-- Card Carousel -->
                                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                     <ol class="carousel-indicators">
                                         <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
@@ -158,21 +140,8 @@
                                     <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item active"> 
                                             <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_depan.jpg') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">
-                                                <div style="position: absolute; 
-                                                            top: 51%; 
-                                                            left: 50%; 
-                                                            transform: translate(-50%, -50%); 
-                                                            width: 220px; 
-                                                            height: 220px; 
-                                                            border-radius: 50%; 
-                                                            overflow: hidden;
-                                                            border: 2px solid white;">
-                                                    <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" 
-                                                        alt="First slide" 
-                                                        style="width: 100%; 
-                                                                height: 100%; 
-                                                                object-fit: cover;
-                                                    ">
+                                                <div style="position: absolute; top: 51%; left: 50%; transform: translate(-50%, -50%); width: 220px; height: 220px; border-radius: 50%; overflow: hidden; border: 2px solid white;">
+                                                    <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="First slide" style="width: 100%; height: 100%; object-fit: cover;">
                                                 </div>
                                                 <div style="position: absolute; bottom: 100px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
                                                     Nama : {{ $anggota->nama }}
@@ -202,7 +171,6 @@
                             </div>
                         </div>
                         
-
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title mb-5">Complete Your Profile</h5>
@@ -221,21 +189,21 @@
                                     <div>
                                         <a href="{{ $anggota->twitter_url }}" target="_blank" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-dark text-white">
-                                                <i class="  ri-twitter-fill"></i>
+                                                <i class="ri-twitter-fill"></i>
                                             </span>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="{{ $anggota->facebook_url }}" target="_blank" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-primary">
-                                                <i class=" ri-facebook-circle-fill"></i>
+                                                <i class="ri-facebook-circle-fill"></i>
                                             </span>
                                         </a>
                                     </div>
                                     <div>
                                         <a href="{{ $anggota->linkedin_url }}" target="_blank" class="avatar-xs d-block">
                                             <span class="avatar-title rounded-circle fs-16 bg-success">
-                                                <i class=" ri-linkedin-box-fill"></i>
+                                                <i class="ri-linkedin-box-fill"></i>
                                             </span>
                                         </a>
                                     </div>
@@ -247,8 +215,8 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div><!-- end card body -->
-                        </div><!-- end card -->
+                            </div>
+                        </div>
                     </div>
                     <!--end col-->
                     <div class="col-xxl-9">
@@ -270,7 +238,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end col-->
                                     <div class="col-md-4">
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0 avatar-sm align-self-center me-3">
@@ -284,7 +251,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end col-->
                                     <div class="col-md-4">
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0 avatar-sm align-self-center me-3">
@@ -298,7 +264,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end col-->
                                     <div class="col-md-4">
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0 avatar-sm align-self-center me-3">
@@ -325,13 +290,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end col-->
                                 </div>
-                                <!--end row-->
                             </div>
-                            <!--end card-body-->
                         </div>
-                        <!-- end card -->
 
                         <div class="row">
                             <div class="col-lg-12">
@@ -376,6 +337,8 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Membership Tab -->
             <div class="tab-pane fade" id="activities" role="tabpanel">
                 <div class="col-xxl-12">
                     <div class="card">
@@ -395,12 +358,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-customer-service-2-line"></i>
+                                                <i class="ri-customer-service-2-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -409,7 +371,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
@@ -437,7 +398,7 @@
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-government-line"></i>
+                                                <i class="ri-government-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -446,12 +407,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-hotel-line"></i>
+                                                <i class="ri-hotel-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -460,12 +420,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-pages-line"></i>
+                                                <i class="ri-pages-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -474,12 +433,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-file-reduce-line"></i>
+                                                <i class="ri-file-reduce-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -492,7 +450,7 @@
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-file-paper-line"></i>
+                                                <i class="ri-file-paper-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -524,12 +482,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-input-method-line"></i>
+                                                <i class="ri-input-method-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -551,12 +508,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-calendar-2-line"></i>
+                                                <i class="ri-calendar-2-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -565,12 +521,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-user-follow-line"></i>
+                                                <i class="ri-user-follow-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -583,7 +538,7 @@
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-team-line"></i>
+                                                <i class="ri-team-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -606,7 +561,7 @@
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-map-line"></i>
+                                                <i class="ri-map-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -615,12 +570,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-map-2-line"></i>
+                                                <i class="ri-map-2-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -629,12 +583,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-map-pin-line"></i>
+                                                <i class="ri-map-pin-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -643,12 +596,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--end col-->
                                 <div class="col-md-4">
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-map-pin-5-line"></i>
+                                                <i class="ri-map-pin-5-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -661,7 +613,7 @@
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-map-pin-4-line"></i>
+                                                <i class="ri-map-pin-4-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -674,7 +626,7 @@
                                     <div class="d-flex mt-4">
                                         <div class="flex-shrink-0 avatar-sm align-self-center me-3">
                                             <div class="avatar-title border border-dashed rounded-circle fs-16 text-primary bg-transparent">
-                                                <i class=" ri-map-pin-user-line"></i>
+                                                <i class="ri-map-pin-user-line"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
@@ -688,533 +640,250 @@
                     </div>
                 </div>
             </div>
-            <!--end tab-pane-->
 
+            <!-- Education Tab -->
             <div class="tab-pane fade" id="education" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Universitas Indonesia</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 year Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <div class="avatar-title rounded-circle bg-light text-primary">
-                                                                    J
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-success  bg-success-subtle fs-10">Completed</div>
-                                            </div>
-                                        </div>
-                                        <div class="col mt-3">
-                                            <h5 class="text-muted mt-0 mb-1 fs-13">S1 Kedokteran Umum</h5>
-                                            <a href="#" class="text-reset fs-14 mb-0">2008-2012</a>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Universitas Indonesia</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 year Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-primary  bg-primary-subtle fs-10">Progress</div>
-                                            </div>
-                                        </div>
-                                        <div class="col mt-3">
-                                            <h5 class="text-muted mt-0 mb-1 fs-13">Program Profesi Dokter (Koas)</h5>
-                                            <a href="#" class="text-reset fs-14 mb-0">2012-2014</a>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Universitas Gadjah Mada</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">1 year Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-primary  bg-primary-subtle fs-10">Progress</div>
-                                            </div>
-                                        </div>
-                                        <div class="col mt-3">
-                                            <h5 class="text-muted mt-0 mb-1 fs-13">Spesialis Penyakit Dalam (Sp.PD)</h5>
-                                            <a href="#" class="text-reset fs-14 mb-0">2015-2019</a>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Pelatihan ACLS & BLS</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">6 Month Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-success  bg-success-subtle fs-10">Completed</div>
-                                            </div>
-                                        </div>
-                                        <div class="col mt-3">
-                                            <h5 class="text-muted mt-0 mb-1 fs-13">PERKI</h5>
-                                            <a href="#" class="text-reset fs-14 mb-0">2020</a>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="text-center mb-4 me-3">
-                                                <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
-                                            </div>
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Workshop EKG Lanjut</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">3 Month Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-success  bg-success-subtle fs-10">Completed</div>
-                                            </div>
-                                        </div>
-                                        <div class="col mt-3">
-                                            <h5 class="text-muted mt-0 mb-1 fs-13">IDI Jakarta</h5>
-                                            <a href="#" class="text-reset fs-14 mb-0">2021</a>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-
-                            <!--end col-->
-                            <div class="col-lg-12">
-                                <div class="mt-4">
-                                    <ul class="pagination pagination-separated justify-content-center mb-0">
-                                        <li class="page-item disabled">
-                                            <a href="javascript:void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a href="javascript:void(0);" class="page-link">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="javascript:void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <h5 class="card-title flex-grow-1 mb-0">Education History</h5>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEducationModal">
+                                    <i class="ri-add-line me-1"></i> Add Education
+                                </button>
                             </div>
                         </div>
-                        <!--end row-->
-                    </div>
-                    <!--end card-body-->
-                </div>
-                <!--end card-->
-            </div>
-            <!--end tab-pane-->
+                        
+                        @if($educations->count() > 0)
+                            <div class="row">
+                                @foreach($educations as $education)
+                                    <div class="col-xxl-3 col-sm-6">
+                                        <div class="card profile-project-card shadow-none mt-3">
+                                            <div class="card-body p-4">
+                                                <div class="d-flex">
+                                                    <div class="text-center mb-4 me-3">
+                                                        @if($education->institution_logo)
+                                                            <img src="{{ URL::asset('storage/logos/' . $education->institution_logo) }}" alt="" width="30px" height="30px" class="">
+                                                        @else
+                                                            <img src="{{ URL::asset('build/images/companies/img-1.png') }}" alt="" width="30px" height="30px" class="">
+                                                        @endif
+                                                    </div>
+                                                    <div class="flex-grow-1 text-muted overflow-hidden">
+                                                        <h5 class="fs-14 text-truncate">
+                                                            <a href="#" class="text-body">{{ $education->institution_name }}</a>
+                                                        </h5>
+                                                        <p class="text-muted text-truncate mb-0">
+                                                            Last Update : <span class="fw-semibold text-body">{{ $education->last_update }}</span>
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex-shrink-0 ms-2">
+                                                        <div class="col text-end dropdown"> 
+                                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> 
+                                                                <i class="bi bi-three-dots-vertical"></i> 
+                                                            </a>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li>
+                                                                    <a class="dropdown-item edit-education" href="#" 
+                                                                       data-id="{{ $education->id }}"
+                                                                       data-bs-toggle="modal" 
+                                                                       data-bs-target="#editEducationModal">
+                                                                        <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item text-danger" href="#" 
+                                                                       onclick="deleteEducation({{ $education->id }})">
+                                                                        <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Delete
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                                <div class="d-flex mt-3 align-items-center">
+                                                    <div class="flex-grow-1">
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div>
+                                                                <h5 class="fs-12 text-muted mb-0">GPA :</h5>
+                                                            </div>
+                                                            <div class="text-body fw-medium">
+                                                                {{ $education->gpa ? number_format($education->gpa, 2) : '-' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-shrink-0 ms-2">
+                                                        <div class="badge {{ $education->status_badge_class }} fs-10">
+                                                            {{ $education->status_label }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col mt-3">
+                                                    <h5 class="text-muted mt-0 mb-1 fs-13">{{ $education->degree_type }}</h5>
+                                                    @if($education->major)
+                                                        <p class="text-muted mb-1 fs-12">{{ $education->major }}</p>
+                                                    @endif
+                                                    <a href="#" class="text-reset fs-14 mb-0">{{ $education->period }}</a>
+                                                </div>
+                                                
+                                                @if($education->description)
+                                                    <div class="mt-2">
+                                                        <p class="text-muted fs-12 mb-0">{{ Str::limit($education->description, 100) }}</p>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="text-center py-5">
+                                <div class="avatar-sm mx-auto mb-4">
+                                    <div class="avatar-title bg-soft-primary text-primary rounded-circle fs-20">
+                                        <i class="ri-book-line"></i>
+                                    </div>
+                                </div>
+                                <h5 class="fs-16">No Education Data</h5>
+                                <p class="text-muted">Belum ada data pendidikan. Klik tombol "Add Education" untuk menambah data pendidikan Anda.</p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practice Tab -->
             <div class="tab-pane fade" id="projects" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">RS Cipto Mangunkusumo</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 year Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <div class="avatar-title rounded-circle bg-light text-primary">
-                                                                    J
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-primary bg-primary-subtle fs-10">Tersedia</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">Klinik Medika Sehat </a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">2 month Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-4.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-primary bg-primary-subtle fs-10">Tersedia</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- end card body -->
-                                </div>
-                                <!-- end card -->
-                            </div>
-                            <!--end col-->
-                            <div class="col-xxl-3 col-sm-6">
-                                <div class="card profile-project-card shadow-none mt-3">
-                                    <div class="card-body p-4">
-
-                                        <div class="d-flex">
-                                            <div class="flex-grow-1 text-muted overflow-hidden">
-                                                <h5 class="fs-14 text-truncate"><a href="#" class="text-body">RS Mitra Keluarga</a></h5>
-                                                <p class="text-muted text-truncate mb-0">Last Update : <span class="fw-semibold text-body">1 year Ago</span></p>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="col text-end dropdown"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-three-dots-vertical"></i> </a>
-                                                    <ul class="dropdown-menu dropdown-menu-end">
-                                                        <li><a class="dropdown-item edit-list" href="#addmemberModal" data-bs-toggle="modal" data-edit-id="12"><i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit</a></li>
-                                                        <li><a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="12"><i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex mt-3 align-items-center">
-                                            <div class="flex-grow-1">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <div>
-                                                        <h5 class="fs-12 text-muted mb-0">Members :</h5>
-                                                    </div>
-                                                    <div class="avatar-group">
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <div class="avatar-title rounded-circle bg-light text-primary">
-                                                                    M
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="avatar-group-item">
-                                                            <div class="avatar-xs">
-                                                                <img src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="" class="rounded-circle img-fluid" />
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="flex-shrink-0 ms-2">
-                                                <div class="badge text-info bg-info-subtle fs-10">Praktik Berakhir</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="mt-4">
-                                    <ul class="pagination pagination-separated justify-content-center mb-0">
-                                        <li class="page-item disabled">
-                                            <a href="javascript:void(0);" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                        </li>
-                                        <li class="page-item active">
-                                            <a href="javascript:void(0);" class="page-link">1</a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a href="javascript:void(0);" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <h5 class="card-title flex-grow-1 mb-0">Practice History</h5>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPracticeModal">
+                                    <i class="ri-add-line me-1"></i> Add Practice
+                                </button>
                             </div>
                         </div>
+                        
+                        @if($practices->count() > 0)
+                            <div class="row">
+                                @foreach($practices as $practice)
+                                    <div class="col-xxl-3 col-sm-6">
+                                        <div class="card profile-project-card shadow-none mt-3">
+                                            <div class="card-body p-4">
+                                                <div class="d-flex">
+                                                    <div class="flex-grow-1 text-muted overflow-hidden">
+                                                        <h5 class="fs-14 text-truncate">
+                                                            <a href="#" class="text-body">{{ $practice->institution_name }}</a>
+                                                        </h5>
+                                                        <p class="text-muted text-truncate mb-0">
+                                                            Last Update : <span class="fw-semibold text-body">{{ $practice->last_update }}</span>
+                                                        </p>
+                                                        @if($practice->position)
+                                                            <p class="text-muted text-truncate mb-0 fs-12">{{ $practice->position }}</p>
+                                                        @endif
+                                                    </div>
+                                                    <div class="flex-shrink-0 ms-2">
+                                                        <div class="col text-end dropdown"> 
+                                                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> 
+                                                                <i class="bi bi-three-dots-vertical"></i> 
+                                                            </a>
+                                                            <ul class="dropdown-menu dropdown-menu-end">
+                                                                <li>
+                                                                    <a class="dropdown-item edit-practice" href="#" 
+                                                                       data-id="{{ $practice->id }}"
+                                                                       data-bs-toggle="modal" 
+                                                                       data-bs-target="#editPracticeModal">
+                                                                        <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item text-danger" href="#" 
+                                                                       onclick="deletePractice({{ $practice->id }})">
+                                                                        <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Delete
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-flex mt-3 align-items-center">
+                                                    <div class="flex-grow-1">
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div>
+                                                                <h5 class="fs-12 text-muted mb-0">Type :</h5>
+                                                            </div>
+                                                            <div class="text-body fw-medium fs-12">
+                                                                {{ $practice->practice_type_label }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-shrink-0 ms-2">
+                                                        <div class="badge {{ $practice->status_badge_class }} fs-10">
+                                                            {{ $practice->status_label }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col mt-3">
+                                                    @if($practice->department)
+                                                        <h5 class="text-muted mt-0 mb-1 fs-13">{{ $practice->department }}</h5>
+                                                    @endif
+                                                    <a href="#" class="text-reset fs-14 mb-0">{{ $practice->period }}</a>
+                                                    @if($practice->full_address)
+                                                        <p class="text-muted fs-12 mt-1 mb-0">
+                                                            <i class="ri-map-pin-line me-1"></i>{{ Str::limit($practice->full_address, 50) }}
+                                                        </p>
+                                                    @endif
+                                                    @if($practice->phone)
+                                                        <p class="text-muted fs-12 mt-1 mb-0">
+                                                            <i class="ri-phone-line me-1"></i>{{ $practice->phone }}
+                                                        </p>
+                                                    @endif
+                                                </div>
+                                                
+                                                @if($practice->description)
+                                                    <div class="mt-2">
+                                                        <p class="text-muted fs-12 mb-0">{{ Str::limit($practice->description, 100) }}</p>
+                                                    </div>
+                                                @endif
+
+                                                @if($practice->schedule)
+                                                    <div class="mt-2">
+                                                        <h6 class="fs-12 text-muted mb-1">Schedule:</h6>
+                                                        <div class="d-flex flex-wrap gap-1">
+                                                            @foreach($practice->schedule as $day => $time)
+                                                                @if($time)
+                                                                    <span class="badge bg-soft-info text-info fs-11">
+                                                                        {{ ucfirst($day) }}: {{ $time }}
+                                                                    </span>
+                                                                @endif
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="text-center py-5">
+                                <div class="avatar-sm mx-auto mb-4">
+                                    <div class="avatar-title bg-soft-primary text-primary rounded-circle fs-20">
+                                        <i class="ri-hospital-line"></i>
+                                    </div>
+                                </div>
+                                <h5 class="fs-16">No Practice Data</h5>
+                                <p class="text-muted">Belum ada data praktik. Klik tombol "Add Practice" untuk menambah data tempat praktik Anda.</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
 
+            <!-- Documents Tab -->
             <div class="tab-pane fade" id="documents" role="tabpanel">
                 <div class="card">
                     <div class="card-body">
@@ -1297,11 +966,189 @@
         </div>
     </div>
 </div>
+
+<!-- Include Modals -->
+@include('member.partials.education-modals')
+@include('member.partials.practice-modals')
+
 @endsection
 
 @section('script')
-
 <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js')}}"></script>
 <script src="{{ URL::asset('build/js/pages/profile.init.js')}}"></script>
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
+
+<script>
+// Education Management
+function deleteEducation(id) {
+    if (confirm('Are you sure you want to delete this education record?')) {
+        fetch(`/education/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Education deleted successfully!');
+                location.reload();
+            } else {
+                alert('Error deleting education: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting education');
+        });
+    }
+}
+
+// Practice Management
+function deletePractice(id) {
+    if (confirm('Are you sure you want to delete this practice record?')) {
+        fetch(`/practice/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Practice deleted successfully!');
+                location.reload();
+            } else {
+                alert('Error deleting practice: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting practice');
+        });
+    }
+}
+
+// Edit Education Modal Handler
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle edit education buttons
+    document.querySelectorAll('.edit-education').forEach(button => {
+        button.addEventListener('click', function() {
+            const educationId = this.dataset.id;
+            
+            // Fetch education data
+            fetch(`/education/${educationId}/edit`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const education = data.education;
+                        
+                        // Populate form
+                        document.getElementById('edit_institution_name').value = education.institution_name || '';
+                        document.getElementById('edit_degree_type').value = education.degree_type || '';
+                        document.getElementById('edit_major').value = education.major || '';
+                        document.getElementById('edit_status').value = education.status || '';
+                        document.getElementById('edit_start_year').value = education.start_year || '';
+                        document.getElementById('edit_end_year').value = education.end_year || '';
+                        document.getElementById('edit_gpa').value = education.gpa || '';
+                        document.getElementById('edit_graduation_date').value = education.graduation_date || '';
+                        document.getElementById('edit_certificate_number').value = education.certificate_number || '';
+                        document.getElementById('edit_description').value = education.description || '';
+                        
+                        // Set form action
+                        document.getElementById('editEducationForm').action = `/education/${educationId}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error loading education data');
+                });
+        });
+    });
+    
+    // Handle edit practice buttons
+    document.querySelectorAll('.edit-practice').forEach(button => {
+        button.addEventListener('click', function() {
+            const practiceId = this.dataset.id;
+            
+            // Fetch practice data
+            fetch(`/practice/${practiceId}/edit`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const practice = data.practice;
+                        
+                        // Populate form
+                        document.getElementById('edit_institution_name').value = practice.institution_name || '';
+                        document.getElementById('edit_practice_type').value = practice.practice_type || '';
+                        document.getElementById('edit_position').value = practice.position || '';
+                        document.getElementById('edit_department').value = practice.department || '';
+                        document.getElementById('edit_status').value = practice.status || '';
+                        document.getElementById('edit_license_number').value = practice.license_number || '';
+                        document.getElementById('edit_start_date').value = practice.start_date || '';
+                        document.getElementById('edit_end_date').value = practice.end_date || '';
+                        document.getElementById('edit_phone').value = practice.phone || '';
+                        document.getElementById('edit_city').value = practice.city || '';
+                        document.getElementById('edit_address').value = practice.address || '';
+                        document.getElementById('edit_province').value = practice.province || '';
+                        document.getElementById('edit_description').value = practice.description || '';
+                        
+                        // Populate schedule
+                        if (practice.schedule) {
+                            document.getElementById('edit_monday').value = practice.schedule.monday || '';
+                            document.getElementById('edit_tuesday').value = practice.schedule.tuesday || '';
+                            document.getElementById('edit_wednesday').value = practice.schedule.wednesday || '';
+                            document.getElementById('edit_thursday').value = practice.schedule.thursday || '';
+                            document.getElementById('edit_friday').value = practice.schedule.friday || '';
+                            document.getElementById('edit_saturday').value = practice.schedule.saturday || '';
+                            document.getElementById('edit_sunday').value = practice.schedule.sunday || '';
+                        }
+                        
+                        // Set form action
+                        document.getElementById('editPracticeForm').action = `/practice/${practiceId}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error loading practice data');
+                });
+        });
+    });
+});
+
+// Form validation
+document.addEventListener('DOMContentLoaded', function() {
+    // Education form validation
+    const educationForms = document.querySelectorAll('form[action*="education"]');
+    educationForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const startYear = parseInt(this.querySelector('input[name="start_year"]').value);
+            const endYear = parseInt(this.querySelector('input[name="end_year"]').value);
+            
+            if (endYear && startYear > endYear) {
+                e.preventDefault();
+                alert('End year cannot be earlier than start year');
+                return false;
+            }
+        });
+    });
+    
+    // Practice form validation
+    const practiceForms = document.querySelectorAll('form[action*="practice"]');
+    practiceForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const startDate = new Date(this.querySelector('input[name="start_date"]').value);
+            const endDate = new Date(this.querySelector('input[name="end_date"]').value);
+            
+            if (endDate && startDate > endDate) {
+                e.preventDefault();
+                alert('End date cannot be earlier than start date');
+                return false;
+            }
+        });
+    });
+});
+</script>
 @endsection

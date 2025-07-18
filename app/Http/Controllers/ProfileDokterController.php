@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Anggota;
 use App\Models\Document;
+use App\Models\Education;
+use App\Models\Practice;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,9 +18,25 @@ class ProfileDokterController extends Controller
     public function index()
     {
         $anggota = Anggota::where('user_id', Auth::id())->first();
+
+        if (!$anggota) {
+            return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
+        }
+
+        // Load documents
         $documents = Document::where('user_id', Auth::id())->orderBy('upload_date', 'desc')->get();
 
-        return view('member.profile-dokter', compact('anggota', 'documents'));
+        // Load educations dengan sorting berdasarkan tahun mulai
+        $educations = Education::byAnggota($anggota->id)
+            ->orderBy('start_year', 'desc')
+            ->get();
+
+        // Load practices dengan sorting berdasarkan tanggal mulai
+        $practices = Practice::byAnggota($anggota->id)
+            ->orderBy('start_date', 'desc')
+            ->get();
+
+        return view('member.profile-dokter', compact('anggota', 'documents', 'educations', 'practices'));
     }
 
     // Method untuk download PDF - FIXED VERSION

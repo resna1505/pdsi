@@ -11,6 +11,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\LockScreenController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
+use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FAQDokterController;
 use App\Http\Controllers\LeaderBoardsController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\MasterIuranController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\PembayaranIuranController;
+use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\ProfileDokterController;
@@ -94,18 +96,41 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/documents/{id}/view', [ProfileDokterController::class, 'view'])->name('documents.view');
     Route::get('/documents/{id}/download', [ProfileDokterController::class, 'download'])->name('documents.download');
     Route::delete('/documents/{id}', [ProfileDokterController::class, 'destroy'])->name('documents.destroy');
-
     Route::get('/download-card-pdf', [ProfileDokterController::class, 'downloadCardPDF'])->name('member.download-card-pdf');
     Route::get('/card-preview/{id}', [ProfileDokterController::class, 'cardPreview'])->name('member.card-preview');
-
     Route::get('/jpg-front', [ProfileDokterController::class, 'downloadCardJPGFront'])->name('jpg.front');
     Route::get('/jpg-back', [ProfileDokterController::class, 'downloadCardJPGBack'])->name('jpg.back');
     Route::get('/jpg-both-zip', [ProfileDokterController::class, 'downloadCardJPGBoth'])->name('jpg.both.zip');
-
     Route::get('/edit-profile-dokter', [EditProfileController::class, 'index'])->name('edit-profile-dokter.index');
     Route::post('/edit-profile-dokter', [EditProfileController::class, 'update'])->name('edit-profile-dokter.update');
     Route::post('/change-password', [EditProfileController::class, 'changePassword'])->name('change-password');
     Route::put('/edit-photo-dokter/{id}', [EditProfileController::class, 'updatePhoto'])->name('edit-photo-dokter.update');
+
+    // Route::post('/education', [EducationController::class, 'store'])->name('education.store');
+    // Route::get('/education/{id}/edit', [EducationController::class, 'edit'])->name('education.edit');
+    // Route::put('/education/{id}', [EducationController::class, 'update'])->name('education.update');
+    // Route::delete('/education/{id}', [EducationController::class, 'destroy'])->name('education.destroy');
+
+    // // Practice Routes
+    // Route::post('/practice', [PracticeController::class, 'store'])->name('practice.store');
+    // Route::get('/practice/{id}/edit', [PracticeController::class, 'edit'])->name('practice.edit');
+    // Route::put('/practice/{id}', [PracticeController::class, 'update'])->name('practice.update');
+    // Route::delete('/practice/{id}', [PracticeController::class, 'destroy'])->name('practice.destroy');
+
+    Route::prefix('education')->name('education.')->group(function () {
+        Route::post('/', [EducationController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [EducationController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [EducationController::class, 'update'])->name('update');
+        Route::delete('/{id}', [EducationController::class, 'destroy'])->name('destroy');
+    });
+
+    // NEW: Practice Management Routes
+    Route::prefix('practice')->name('practice.')->group(function () {
+        Route::post('/', [PracticeController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [PracticeController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [PracticeController::class, 'update'])->name('update');
+        Route::delete('/{id}', [PracticeController::class, 'destroy'])->name('destroy');
+    });
 
     // Berita
     Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement.index');

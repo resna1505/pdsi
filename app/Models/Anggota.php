@@ -51,4 +51,33 @@ class Anggota extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class, 'anggota_id');
+    }
+
+    /**
+     * Relationship dengan Practice
+     */
+    public function practices()
+    {
+        return $this->hasMany(Practice::class, 'anggota_id');
+    }
+
+    /**
+     * Get active practices only
+     */
+    public function activePractices()
+    {
+        return $this->hasMany(Practice::class, 'anggota_id')->where('status', 'active');
+    }
+
+    /**
+     * Get completed educations only
+     */
+    public function completedEducations()
+    {
+        return $this->hasMany(Education::class, 'anggota_id')->where('status', 'completed');
+    }
 }
