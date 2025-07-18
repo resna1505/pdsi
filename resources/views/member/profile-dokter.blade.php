@@ -300,15 +300,15 @@
                                     <div class="card-header d-flex align-items-center">
                                         <h5 class="card-title mb-0 flex-grow-1">Activity Stream</h5>
                                         <div class="flex-shrink-0">
-                                            <button type="button" class="btn btn-soft-primary btn-sm">
+                                            {{-- <button type="button" class="btn btn-soft-primary btn-sm">
                                                 View All Activity
-                                            </button>
+                                            </button> --}}
                                         </div>
                                     </div>
                                     <div class="card-body px-0">
                                         <div data-simplebar style="max-height: 400px;" class="p-3 pt-0">
                                             <ul class="acitivity-timeline-2 list-unstyled mb-0">
-                                                <li>
+                                                {{-- <li>
                                                     <h6 class="fs-14">Konsultasi Online</h6>
                                                     <p class="text-muted">09:24 PM</p>
                                                     <p class="mb-0">Dr. resna pangestu, Sp.PD menyelesaikan konsultasi dengan pasien melalui Telemedicine.</p>
@@ -327,6 +327,31 @@
                                                     <h6 class="fs-14">Artikel Medis Dipublikasikan</h6>
                                                     <p class="text-muted">2 minggu yang lalu</p>
                                                     <p class="mb-0">"Manajemen Hipertensi pada Lansia" telah diterbitkan di Jurnal IDI.</p>
+                                                </li> --}}
+                                                <li>
+                                                    <h6 class="fs-14">-</h6>
+                                                    <p class="text-muted">-</p>
+                                                    <p class="mb-0">-</p>
+                                                </li>
+                                                <li>
+                                                    <h6 class="fs-14">-</h6>
+                                                    <p class="text-muted">-</p>
+                                                    <p class="mb-0">-</p>
+                                                </li>
+                                                <li>
+                                                    <h6 class="fs-14">-</h6>
+                                                    <p class="text-muted">-</p>
+                                                    <p class="mb-0">-</p>
+                                                </li>
+                                                <li>
+                                                    <h6 class="fs-14">-</h6>
+                                                    <p class="text-muted">-</p>
+                                                    <p class="mb-0">-</p>
+                                                </li>
+                                                <li>
+                                                    <h6 class="fs-14">-</h6>
+                                                    <p class="text-muted">-</p>
+                                                    <p class="mb-0">-</p>
                                                 </li>
                                             </ul>
                                         </div>
