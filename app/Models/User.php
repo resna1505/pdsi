@@ -17,6 +17,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    use Notifiable;
 
     protected $fillable = [
         'is_active',
@@ -44,12 +45,16 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_active' => 'boolean'
     ];
 
     // app/Models/User.php
-
+    // public function anggota()
+    // {
+    //     return $this->hasOne(\App\Models\Anggota::class, 'user_id', 'id');
+    // }
     public function anggota()
     {
-        return $this->hasOne(\App\Models\Anggota::class, 'user_id', 'id');
+        return $this->hasOne(Anggota::class, 'user_id');
     }
 }

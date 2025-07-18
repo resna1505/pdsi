@@ -41,4 +41,9 @@ class Article extends Model
     {
         return $this->image ? asset('storage/' . $this->image) : asset('images/default-mitra.png');
     }
+
+    public function getExcerptAttribute()
+    {
+        return \Illuminate\Support\Str::limit($this->description, 100);
+    }
 }

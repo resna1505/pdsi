@@ -72,4 +72,9 @@ class Agenda extends Model
     {
         return $this->belongsTo(CategoryAgenda::class, 'category_id');
     }
+
+    public function getDateAttribute()
+    {
+        return $this->dimulai ? $this->dimulai->format('Y-m-d') : null;
+    }
 }

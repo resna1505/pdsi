@@ -66,11 +66,6 @@
                             <i class="ri-megaphone-line	"></i> <span data-key="t-announcement">@lang('translation.announcement')</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link menu-link" href="pages-coming-soon">
-                            <i class="  ri-file-list-3-line"></i> <span data-key="t-authentication">LMS Kemenkes</span>
-                        </a>
-                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                             <i class=" ri-pin-distance-line"></i> <span data-key="t-authentication">Tautan</span>
@@ -114,31 +109,11 @@
                 <li class="nav-item">
                     <a href="{{ url('/apps-calendar') }}" class="nav-link menu-link"> <i class="bi bi-calendar3"></i> <span data-key="t-calendar">@lang('translation.calendar')</span> </a>
                 </li>
-                {{-- <li class="nav-item">
-                        <a class="nav-link menu-link" href="{{ url('/training') }}">
-                            <i class="ri-briefcase-line	"></i> <span data-key="t-training">@lang('translation.training')</span>
-                        </a>
-                    </li> --}}
                 @if (Auth::user()->level == 'Admin')    
                     <li class="nav-item">
                         <a href="{{ url('/apps-leaderboards') }}" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard">@lang('translation.leaderboard')</span> </a>
                     </li>
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
-                            <i class="bi bi-person-circle"></i> <span data-key="t-authentication">@lang('translation.user')</span>
-                        </a>
-                        <div class="collapse menu-dropdown" id="sidebarAuth">
-                            <ul class="nav nav-sm flex-column">
-                                <li class="nav-item">
-                                    <a href="pengajuan-admin" class="nav-link" data-key="t-basic">@lang('translation.admin')</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="pengajuan-anggota" class="nav-link" data-key="t-basic-2">@lang('translation.member')</a>
-                                </li>                               
-                            </ul>
-                        </div>
-                    </li> --}}
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ url('/user') }}">
                             <i class="bi bi-person-circle"></i> <span data-key="t-user">@lang('translation.user')</span>
@@ -195,11 +170,6 @@
                             <i class=" ri-questionnaire-line"></i> <span data-key="t-faq">FAQ</span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link menu-link" href="pages-coming-soon">
-                            <i class="bi bi-table"></i> <span data-key="t-authentication">@lang('translation.table')</span>
-                        </a>
-                    </li> --}}
                 @endif
 
                 @if (Auth::user()->level == 'Dokter')                

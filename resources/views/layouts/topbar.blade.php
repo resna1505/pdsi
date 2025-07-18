@@ -1,3 +1,183 @@
+{{-- Tambahkan CSRF token di head --}}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+{{-- CSS Inline untuk Search --}}
+<style>
+/* Search Modal Styles */
+#searchModal .modal-dialog {
+    margin-top: 10vh;
+}
+
+#searchModal .modal-content {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+#searchModal .modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Search Input Styles */
+#search-options {
+    border-radius: 8px;
+    padding-left: 45px;
+    padding-right: 80px;
+    font-size: 16px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+#search-options:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Search Icon */
+.search-widget-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.search-widget-icon:first-of-type {
+    left: 15px;
+    color: #6c757d;
+}
+
+.search-widget-icon-close {
+    right: 15px;
+    color: #6c757d;
+    text-decoration: none;
+}
+
+.search-widget-icon-close:hover {
+    color: #007bff;
+}
+
+/* Search Dropdown */
+#search-dropdown {
+    position: static !important;
+    transform: none !important;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    display: block !important;
+    opacity: 1 !important;
+}
+
+#search-dropdown .dropdown-head {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+/* Search Results */
+.notify-item {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    transition: all 0.3s ease;
+}
+
+.notify-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.notify-item i {
+    width: 20px;
+    text-align: center;
+}
+
+.notification-title {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.notification-group-list {
+    margin-bottom: 20px;
+}
+
+.notification-group-list:last-child {
+    margin-bottom: 0;
+}
+
+/* Avatar Styles */
+.avatar-xs {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+}
+
+/* Loading State */
+.spinner-border {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* No Results State */
+.fs-24 {
+    font-size: 24px;
+}
+
+/* Recent Search Tags */
+.btn-soft-secondary {
+    background-color: #e9ecef;
+    border-color: #e9ecef;
+    color: #6c757d;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.btn-soft-secondary:hover {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+/* Search Result Categories */
+.list-group-item {
+    border: none;
+    padding: 10px 15px;
+    margin-bottom: 2px;
+    border-radius: 6px;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #searchModal .modal-dialog {
+        margin: 5vh auto;
+        width: 95%;
+    }
+    
+    #search-options {
+        font-size: 14px;
+        padding-left: 40px;
+        padding-right: 70px;
+    }
+    
+    .search-widget-icon:first-of-type {
+        left: 12px;
+        font-size: 14px;
+    }
+    
+    .search-widget-icon-close {
+        right: 12px;
+        font-size: 12px;
+    }
+}
+</style>
+
 <header id="page-topbar">
     <div class="layout-width">
         <div class="navbar-header">
@@ -58,10 +238,6 @@
                                 <div class="col">
                                     <h6 class="m-0 fw-semibold fs-15"> @lang('translation.our-social-media') </h6>
                                 </div>
-                                {{-- <div class="col-auto">
-                                    <a href="#!" class="btn btn-sm btn-soft-info"> View All Apps
-                                        <i class="ri-arrow-right-s-line align-middle"></i></a>
-                                </div> --}}
                             </div>
                         </div>
 
@@ -122,11 +298,11 @@
                     </button>
                     <div class="dropdown-menu p-2 dropdown-menu-end" id="light-dark-mode">
                         <a href="#!" class="dropdown-item" data-mode="light"><i
-                                class="bi bi-sun align-middle me-2"></i> Defualt (light mode)</a>
+                                class="bi bi-sun align-middle me-2"></i> Default (light mode)</a>
                         <a href="#!" class="dropdown-item" data-mode="dark"><i
                                 class="bi bi-moon align-middle me-2"></i> Dark</a>
                         <a href="#!" class="dropdown-item" data-mode="auto"><i
-                                class="bi bi-moon-stars align-middle me-2"></i> Auto (system defualt)</a>
+                                class="bi bi-moon-stars align-middle me-2"></i> Auto (system default)</a>
                     </div>
                 </div>
 
@@ -164,152 +340,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-
-                        {{-- <div class="py-2 ps-2" id="notificationItemsTabContent">
-                            <div data-simplebar style="max-height: 300px;" class="pe-2">
-                                <h6 class="text-overflow text-muted fs-13 my-2 text-uppercase notification-title">New
-                                </h6>
-                                <div
-                                    class="text-reset notification-item d-block dropdown-item position-relative unread-message">
-                                    <div class="d-flex">
-                                        <div class="avatar-xs me-3 flex-shrink-0">
-                                            <span class="avatar-title bg-info-subtle text-info rounded-circle fs-16">
-                                                <i class="bx bx-badge-check"></i>
-                                            </span>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <a href="#!" class="stretched-link">
-                                                <h6 class="mt-0 fs-14 mb-2 lh-base">Your <b>Elite</b> author Graphic
-                                                    Optimization <span class="text-secondary">reward</span> is ready!
-                                                </h6>
-                                            </a>
-                                            <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                <span><i class="mdi mdi-clock-outline"></i> Just 30 sec ago</span>
-                                            </p>
-                                        </div>
-                                        <div class="px-2 fs-15">
-                                            <div class="form-check notification-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="all-notification-check01">
-                                                <label class="form-check-label"
-                                                    for="all-notification-check01"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="text-reset notification-item d-block dropdown-item position-relative unread-message">
-                                    <div class="d-flex">
-                                        <div class="position-relative me-3 flex-shrink-0">
-                                            <img src="{{ URL::asset('build/images/users/avatar-2.jpg') }}"
-                                                class="rounded-circle avatar-xs" alt="user-pic">
-                                            <span
-                                                class="active-badge position-absolute start-100 translate-middle p-1 bg-success rounded-circle">
-                                                <span class="visually-hidden">New alerts</span>
-                                            </span>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <a href="#!" class="stretched-link">
-                                                <h6 class="mt-0 mb-1 fs-14 fw-semibold">Angela Bernier</h6>
-                                            </a>
-                                            <div class="fs-13 text-muted">
-                                                <p class="mb-1">Answered to your comment on the cash flow forecast's
-                                                    graph 🔔.</p>
-                                            </div>
-                                            <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                <span><i class="mdi mdi-clock-outline"></i> 48 min ago</span>
-                                            </p>
-                                        </div>
-                                        <div class="px-2 fs-15">
-                                            <div class="form-check notification-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="all-notification-check02">
-                                                <label class="form-check-label"
-                                                    for="all-notification-check02"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div
-                                    class="text-reset notification-item d-block dropdown-item position-relative unread-message">
-                                    <div class="d-flex">
-                                        <div class="avatar-xs me-3 flex-shrink-0">
-                                            <span
-                                                class="avatar-title bg-danger-subtle text-danger rounded-circle fs-16">
-                                                <i class='bx bx-message-square-dots'></i>
-                                            </span>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <a href="#!" class="stretched-link">
-                                                <h6 class="mt-0 mb-2 fs-14 lh-base">You have received <b
-                                                        class="text-success">20</b> new messages in the conversation
-                                                </h6>
-                                            </a>
-                                            <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                <span><i class="mdi mdi-clock-outline"></i> 2 hrs ago</span>
-                                            </p>
-                                        </div>
-                                        <div class="px-2 fs-15">
-                                            <div class="form-check notification-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="all-notification-check03">
-                                                <label class="form-check-label"
-                                                    for="all-notification-check03"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h6 class="text-overflow text-muted fs-13 my-2 text-uppercase notification-title">Read
-                                    Before</h6>
-
-                                <div class="text-reset notification-item d-block dropdown-item position-relative">
-                                    <div class="d-flex">
-
-                                        <div class="position-relative me-3 flex-shrink-0">
-                                            <img src="{{ URL::asset('build/images/users/avatar-8.jpg') }}"
-                                                class="rounded-circle avatar-xs" alt="user-pic">
-                                            <span
-                                                class="active-badge position-absolute start-100 translate-middle p-1 bg-warning rounded-circle">
-                                                <span class="visually-hidden">New alerts</span>
-                                            </span>
-                                        </div>
-
-                                        <div class="flex-grow-1">
-                                            <a href="#!" class="stretched-link">
-                                                <h6 class="mt-0 mb-1 fs-14 fw-semibold">Maureen Gibson</h6>
-                                            </a>
-                                            <div class="fs-13 text-muted">
-                                                <p class="mb-1">We talked about a project on linkedin.</p>
-                                            </div>
-                                            <p class="mb-0 fs-11 fw-medium text-uppercase text-muted">
-                                                <span><i class="mdi mdi-clock-outline"></i> 4 hrs ago</span>
-                                            </p>
-                                        </div>
-                                        <div class="px-2 fs-15">
-                                            <div class="form-check notification-check">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="all-notification-check04">
-                                                <label class="form-check-label"
-                                                    for="all-notification-check04"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="notification-actions" id="notification-actions">
-                                <div class="d-flex text-muted justify-content-center align-items-center">
-                                    Select <div id="select-content" class="text-body fw-semibold px-1">0</div> Result
-                                    <button type="button" class="btn btn-link link-danger p-0 ms-2"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#removeNotificationModal">Remove</button>
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
 
@@ -317,7 +348,6 @@
                     <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
-                            {{-- Nama dari anggota --}}
                             <img class="rounded-circle header-profile-user"
                                 src="{{ Auth::user()->anggota?->avatar
                                     ? asset('storage/images/users/' . Auth::user()->anggota->avatar)
@@ -331,26 +361,16 @@
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
                         <h6 class="dropdown-header">Welcome {{ Auth::user()->anggota?->nama }} {{ Auth::user()->last_name }}!</h6>
-                            <a class="dropdown-item" href="profile-dokter"><i
+                            <a class="dropdown-item" href="{{ url('/profile-dokter') }}"><i
                                 class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Profile</span>
                             </a>
-                            <a class="dropdown-item" href="faq-dokter"><i
+                            <a class="dropdown-item" href="{{ url('/faq-dokter') }}"><i
                                 class="mdi mdi-lifebuoy text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Help</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            {{-- <a class="dropdown-item" href="pages-profile-settings"><span
-                                class="badge bg-success-subtle text-success mt-1 float-end">New</span><i
-                                class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span
-                                class="align-middle">Settings</span>
-                            </a> --}}
-                            {{-- <a class="dropdown-item" href="auth-lockscreen-basic"><i
-                                class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span
-                                class="align-middle">Lock screen</span>
-                            </a> --}}
                             <form method="POST" action="{{ route('lockscreen.lock') }}" style="display: inline;">
                                 @csrf
                                 <button type="submit" class="dropdown-item border-0 bg-transparent">
@@ -369,8 +389,7 @@
     </div>
 </header>
 
-
-<!-- Modal -->
+<!-- Search Modal -->
 <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content rounded">
@@ -384,8 +403,9 @@
                         id="search-close-options">Clear</a>
                 </div>
             </div>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0 overflow-hidden" id="search-dropdown">
-
+            
+            {{-- Search Results Dropdown --}}
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0 overflow-hidden show" id="search-dropdown">
                 <div class="dropdown-head rounded-top">
                     <div class="p-3">
                         <div class="row align-items-center">
@@ -395,71 +415,31 @@
                         </div>
                     </div>
 
-                    <div class="dropdown-item bg-transparent text-wrap">
+                    {{-- <div class="dropdown-item bg-transparent text-wrap">
                         <a href="index" class="btn btn-soft-secondary btn-sm btn-rounded">how to setup <i
                                 class="mdi mdi-magnify ms-1 align-middle"></i></a>
                         <a href="index" class="btn btn-soft-secondary btn-sm btn-rounded">buttons <i
                                 class="mdi mdi-magnify ms-1 align-middle"></i></a>
-                    </div>
+                    </div> --}}
                 </div>
 
-                <div data-simplebar style="max-height: 300px;" class="pe-2 ps-3 my-3">
+                <div data-simplebar style="max-height: 400px;" class="pe-2 ps-3 my-3">
                     <div class="list-group list-group-flush">
                         <div class="notification-group-list">
-                            <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">Apps
-                                Pages</h5>
-                            <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item"><i
-                                    class="bi bi-speedometer2 me-2"></i> <span>Analytics Dashboard</span></a>
-                            <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item"><i
-                                    class="bi bi-filetype-psd me-2"></i> <span>PDSI.psd</span></a>
-                            <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item"><i
-                                    class="bi bi-ticket-detailed me-2"></i> <span>Support Tickets</span></a>
-                            <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item"><i
-                                    class="bi bi-file-earmark-zip me-2"></i> <span>PDSI.zip</span></a>
-                        </div>
-
-                        <div class="notification-group-list">
-                            <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
-                                Links</h5>
-                            <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item"><i
-                                    class="bi bi-link-45deg me-2 align-middle"></i>
-                                <span>www.ICT PDSI.com</span></a>
-                        </div>
-
-                        <div class="notification-group-list">
-                            <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
-                                People</h5>
+                            {{-- <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">Apps Pages</h5>
                             <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
-                                <div class="d-flex align-items-center">
-                                    <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" alt=""
-                                        class="avatar-xs rounded-circle flex-shrink-0 me-2" />
-                                    <div>
-                                        <h6 class="mb-0">Ayaan Bowen</h6>
-                                        <span class="fs-13 text-muted">React Developer</span>
-                                    </div>
-                                </div>
+                                <i class="bi bi-speedometer2 me-2"></i> <span>Analytics Dashboard</span>
                             </a>
                             <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
-                                <div class="d-flex align-items-center">
-                                    <img src="{{ URL::asset('build/images/users/avatar-7.jpg') }}" alt=""
-                                        class="avatar-xs rounded-circle flex-shrink-0 me-2" />
-                                    <div>
-                                        <h6 class="mb-0">Alexander Kristi</h6>
-                                        <span class="fs-13 text-muted">React Developer</span>
-                                    </div>
-                                </div>
+                                <i class="bi bi-filetype-psd me-2"></i> <span>PDSI.psd</span>
                             </a>
                             <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
-                                <div class="d-flex align-items-center">
-                                    <img src="{{ URL::asset('build/images/users/avatar-5.jpg') }}" alt=""
-                                        class="avatar-xs rounded-circle flex-shrink-0 me-2" />
-                                    <div>
-                                        <h6 class="mb-0">Alan Carla</h6>
-                                        <span class="fs-13 text-muted">React Developer</span>
-                                    </div>
-                                </div>
+                                <i class="bi bi-ticket-detailed me-2"></i> <span>Support Tickets</span>
                             </a>
-                        </div>
+                            <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
+                                <i class="bi bi-file-earmark-zip me-2"></i> <span>PDSI.zip</span>
+                            </a> --}}
+                        </div>                        
                     </div>
                 </div>
             </div>
@@ -467,34 +447,270 @@
     </div>
 </div>
 
-<!-- removeNotificationModal -->
-<div id="removeNotificationModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    id="NotificationModalbtn-close"></button>
-            </div>
-            <div class="modal-body p-md-5">
-                <div class="text-center">
-                    <div class="text-danger">
-                        <i class="bi bi-trash display-4"></i>
+{{-- JavaScript Inline untuk Search --}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Search script loaded!');
+    
+    const searchInput = document.getElementById('search-options');
+    const searchDropdown = document.getElementById('search-dropdown');
+    const searchModal = document.getElementById('searchModal');
+    const clearBtn = document.getElementById('search-close-options');
+    
+    console.log('Elements found:', {
+        searchInput: !!searchInput,
+        searchDropdown: !!searchDropdown,
+        searchModal: !!searchModal,
+        clearBtn: !!clearBtn
+    });
+    
+    let searchTimeout;
+    
+    // Event listener untuk input search
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim();
+            console.log('Input detected, query:', query);
+            
+            // Clear previous timeout
+            clearTimeout(searchTimeout);
+            
+            // Show/hide clear button
+            if (query.length > 0) {
+                clearBtn.classList.remove('d-none');
+            } else {
+                clearBtn.classList.add('d-none');
+            }
+            
+            // Debounce search (delay 300ms)
+            searchTimeout = setTimeout(() => {
+                console.log('Timeout triggered for query:', query);
+                if (query.length >= 2) {
+                    performSearch(query);
+                } else if (query.length === 0) {
+                    showRecentSearches();
+                }
+            }, 300);
+        });
+    }
+    
+    // Clear search
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            console.log('Clear button clicked');
+            searchInput.value = '';
+            clearBtn.classList.add('d-none');
+            showRecentSearches();
+        });
+    }
+    
+    // Show recent searches when modal opens
+    if (searchModal) {
+        searchModal.addEventListener('shown.bs.modal', function() {
+            console.log('Modal opened');
+            searchInput.focus();
+            if (searchInput.value.trim() === '') {
+                showRecentSearches();
+            }
+        });
+    }
+    
+    function performSearch(query) {
+        console.log('=== PERFORM SEARCH START ===');
+        console.log('Query:', query);
+        
+        // Show loading state
+        showLoadingState();
+        
+        // Get CSRF token
+        const csrfToken = document.querySelector('meta[name="csrf-token"]');
+        const tokenValue = csrfToken ? csrfToken.getAttribute('content') : null;
+        
+        console.log('CSRF Token found:', !!csrfToken);
+        console.log('CSRF Token value:', tokenValue);
+        
+        // Prepare request
+        const requestData = { query: query };
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': tokenValue || ''
+            },
+            body: JSON.stringify(requestData)
+        };
+        
+        console.log('Request URL:', '/search-global');
+        console.log('Request data:', requestData);
+        console.log('Request headers:', requestOptions.headers);
+        
+        fetch('/search-global', requestOptions)
+        .then(response => {
+            console.log('=== RESPONSE RECEIVED ===');
+            console.log('Status:', response.status);
+            console.log('Status Text:', response.statusText);
+            console.log('Headers:', Object.fromEntries(response.headers.entries()));
+            
+            // Clone response untuk debugging
+            return response.clone().text().then(text => {
+                console.log('Raw response text:', text);
+                
+                // Try to parse as JSON
+                try {
+                    const data = JSON.parse(text);
+                    console.log('Parsed JSON:', data);
+                    displaySearchResults(data);
+                } catch (e) {
+                    console.error('JSON parse error:', e);
+                    console.log('Response is not JSON, probably HTML error page');
+                    showErrorState();
+                }
+            });
+        })
+        .catch(error => {
+            console.error('=== FETCH ERROR ===');
+            console.error('Error type:', error.name);
+            console.error('Error message:', error.message);
+            console.error('Full error:', error);
+            showErrorState();
+        });
+    }
+    
+    function showLoadingState() {
+        console.log('Showing loading state');
+        const resultsContainer = searchDropdown.querySelector('.pe-2.ps-3.my-3');
+        if (resultsContainer) {
+            resultsContainer.innerHTML = `
+                <div class="text-center py-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
                     </div>
-                    <div class="mt-4 fs-15">
-                        <h4 class="mb-1">Are you sure ?</h4>
-                        <p class="text-muted mx-4 mb-0">Are you sure you want to remove this Notification ?</p>
-                    </div>
+                    <p class="text-muted mt-2">Searching...</p>
                 </div>
-                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
-                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn w-sm btn-danger" id="delete-notification">Yes, Delete
-                        It!</button>
+            `;
+        }
+    }
+    
+    function showErrorState() {
+        console.log('Showing error state');
+        const resultsContainer = searchDropdown.querySelector('.pe-2.ps-3.my-3');
+        if (resultsContainer) {
+            resultsContainer.innerHTML = `
+                <div class="text-center py-4">
+                    <i class="bi bi-exclamation-triangle text-warning fs-24"></i>
+                    <p class="text-muted mt-2">Something went wrong. Please try again.</p>
+                    <small class="text-muted">Check console for details</small>
                 </div>
-            </div>
-
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+            `;
+        }
+    }
+    
+    function displaySearchResults(data) {
+        console.log('Displaying search results:', data);
+        const resultsContainer = searchDropdown.querySelector('.pe-2.ps-3.my-3');
+        let html = '';
+        
+        // Check if we have any results
+        const hasResults = (data.menus && data.menus.length > 0) ||
+                          (data.users && data.users.length > 0) ||
+                          (data.agendas && data.agendas.length > 0) ||
+                          (data.news && data.news.length > 0) ||
+                          (data.workshops && data.workshops.length > 0);
+        
+        if (!hasResults) {
+            html = `
+                <div class="text-center py-4">
+                    <i class="bi bi-search text-muted fs-24"></i>
+                    <p class="text-muted mt-2">No results found</p>
+                </div>
+            `;
+        } else {
+            html = '<div class="list-group list-group-flush">';
+            
+            // Menus Section
+            if (data.menus && data.menus.length > 0) {
+                html += `
+                    <div class="notification-group-list">
+                        <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
+                            Menus
+                        </h5>
+                `;
+                data.menus.forEach(menu => {
+                    html += `
+                        <a href="${menu.url}" class="list-group-item dropdown-item notify-item">
+                            <i class="${menu.icon} me-2"></i> 
+                            <span>${menu.title}</span>
+                        </a>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Users Section
+            if (data.users && data.users.length > 0) {
+                html += `
+                    <div class="notification-group-list">
+                        <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
+                            Users
+                        </h5>
+                `;
+                data.users.forEach(user => {
+                    html += `
+                        <a href="${user.url}" class="list-group-item dropdown-item notify-item">
+                            <div class="d-flex align-items-center">
+                                <img src="/storage/images/users/${user.avatar}" 
+                                     class="avatar-xs rounded-circle flex-shrink-0 me-2" 
+                                     alt="${user.name}"
+                                     onerror="this.src='/build/images/users/avatar-1.jpg'">
+                                <div>
+                                    <h6 class="mb-0">${user.name}</h6>
+                                    <span class="fs-13 text-muted">${user.role}</span>
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            html += '</div>';
+        }
+        
+        if (resultsContainer) {
+            resultsContainer.innerHTML = html;
+        }
+    }
+    
+    function showRecentSearches() {
+        console.log('Showing recent searches');
+        const resultsContainer = searchDropdown.querySelector('.pe-2.ps-3.my-3');
+        if (resultsContainer) {
+            resultsContainer.innerHTML = `
+                <div class="list-group list-group-flush">
+                    <div class="notification-group-list">
+                        <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">Apps Pages</h5>
+                        <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
+                            <i class="bi bi-speedometer2 me-2"></i> <span>Analytics Dashboard</span>
+                        </a>
+                        <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
+                            <i class="bi bi-filetype-psd me-2"></i> <span>PDSI.psd</span>
+                        </a>
+                        <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
+                            <i class="bi bi-ticket-detailed me-2"></i> <span>Support Tickets</span>
+                        </a>
+                        <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
+                            <i class="bi bi-file-earmark-zip me-2"></i> <span>PDSI.zip</span>
+                        </a>
+                    </div>                
+                </div>
+            `;
+        }
+    }
+    
+    console.log('Search script initialization complete!');
+});
+</script>
 
 <script>
 function lockScreen() {
@@ -514,4 +730,4 @@ function lockScreen() {
         form.submit();
     }
 }
-</script> --}}
+</script>

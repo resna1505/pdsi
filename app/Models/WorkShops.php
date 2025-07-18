@@ -11,6 +11,11 @@ class Workshops extends Model
     protected $table = 'workshops';
     protected $fillable = ['title', 'image', 'description', 'price', 'category_id', 'tagline', 'short_description', 'assign'];
 
+    public function getExcerptAttribute()
+    {
+        return \Illuminate\Support\Str::limit($this->description, 100);
+    }
+
     // public function category()
     // {
     //     return $this->belongsTo(CategoriesWorkshops::class);

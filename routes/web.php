@@ -24,6 +24,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\ProfileDokterController;
 use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikasiIuranController;
@@ -74,7 +75,17 @@ Route::get('/auth-offline', function () {
     return view('auth-offline');
 })->name('auth.offline');
 
+Route::get('/test-search', function () {
+    dd([
+        'message' => 'Route works!',
+        'user' => Auth::user(),
+        'timestamp' => now()
+    ]);
+});
+
 Route::group(['middleware' => 'auth'], function () {
+    Route::post('/search-global', [SearchController::class, 'globalSearch'])->name('search.global');
+
     Route::get('auth-lockscreen-basic', [LockScreenController::class, 'show'])->name('lockscreen.show');
     Route::post('auth-lockscreen-unlock', [LockScreenController::class, 'unlock'])->name('lockscreen.unlock');
     Route::post('auth-lockscreen-lock', [LockScreenController::class, 'lock'])->name('lockscreen.lock');
@@ -105,17 +116,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/edit-profile-dokter', [EditProfileController::class, 'update'])->name('edit-profile-dokter.update');
     Route::post('/change-password', [EditProfileController::class, 'changePassword'])->name('change-password');
     Route::put('/edit-photo-dokter/{id}', [EditProfileController::class, 'updatePhoto'])->name('edit-photo-dokter.update');
-
-    // Route::post('/education', [EducationController::class, 'store'])->name('education.store');
-    // Route::get('/education/{id}/edit', [EducationController::class, 'edit'])->name('education.edit');
-    // Route::put('/education/{id}', [EducationController::class, 'update'])->name('education.update');
-    // Route::delete('/education/{id}', [EducationController::class, 'destroy'])->name('education.destroy');
-
-    // // Practice Routes
-    // Route::post('/practice', [PracticeController::class, 'store'])->name('practice.store');
-    // Route::get('/practice/{id}/edit', [PracticeController::class, 'edit'])->name('practice.edit');
-    // Route::put('/practice/{id}', [PracticeController::class, 'update'])->name('practice.update');
-    // Route::delete('/practice/{id}', [PracticeController::class, 'destroy'])->name('practice.destroy');
 
     Route::prefix('education')->name('education.')->group(function () {
         Route::post('/', [EducationController::class, 'store'])->name('store');
