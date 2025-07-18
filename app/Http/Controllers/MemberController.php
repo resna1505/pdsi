@@ -6,6 +6,8 @@ use App\Models\Anggota;
 use App\Models\Document;
 use App\Exports\AdminExport;
 use App\Exports\MemberExport;
+use App\Models\Education;
+use App\Models\Practice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -50,7 +52,17 @@ class MemberController extends Controller
 
         $documents = Document::where('user_id', $userId)->orderBy('upload_date', 'desc')->get();
 
-        return view('member.profile-dokter', compact('anggota', 'documents'));
+        // Load educations dengan sorting berdasarkan tahun mulai
+        $educations = Education::byAnggota($id)
+            ->orderBy('start_year', 'desc')
+            ->get();
+
+        // Load practices dengan sorting berdasarkan tanggal mulai
+        $practices = Practice::byAnggota($id)
+            ->orderBy('start_date', 'desc')
+            ->get();
+
+        return view('member.profile-dokter', compact('anggota', 'documents', 'educations', 'practices'));
     }
 
     public function exportAdmin()

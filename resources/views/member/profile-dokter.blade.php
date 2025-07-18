@@ -679,7 +679,7 @@
                             </div>
                         </div>
                         
-                        @if($educations->count() > 0)
+                        @if(isset($educations) && $educations->count() > 0)
                             <div class="row">
                                 @foreach($educations as $education)
                                     <div class="col-xxl-3 col-sm-6">
@@ -790,7 +790,7 @@
                             </div>
                         </div>
                         
-                        @if($practices->count() > 0)
+                        @if(isset($practices) && $practices->count() > 0)
                             <div class="row">
                                 @foreach($practices as $practice)
                                     <div class="col-xxl-3 col-sm-6">

@@ -607,16 +607,27 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function displaySearchResults(data) {
-        console.log('Displaying search results:', data);
+        console.log('=== DISPLAY SEARCH RESULTS ===');
+        console.log('Full data received:', data);
+        
         const resultsContainer = searchDropdown.querySelector('.pe-2.ps-3.my-3');
         let html = '';
         
-        // Check if we have any results
+        // Check if we have any results - Debug each section
+        console.log('Checking results:');
+        console.log('- Menus:', data.menus ? data.menus.length : 0);
+        console.log('- Users:', data.users ? data.users.length : 0);
+        console.log('- Agendas:', data.agendas ? data.agendas.length : 0);
+        console.log('- News:', data.news ? data.news.length : 0);
+        console.log('- Workshops:', data.workshops ? data.workshops.length : 0);
+        
         const hasResults = (data.menus && data.menus.length > 0) ||
-                          (data.users && data.users.length > 0) ||
-                          (data.agendas && data.agendas.length > 0) ||
-                          (data.news && data.news.length > 0) ||
-                          (data.workshops && data.workshops.length > 0);
+                        (data.users && data.users.length > 0) ||
+                        (data.agendas && data.agendas.length > 0) ||
+                        (data.news && data.news.length > 0) ||
+                        (data.workshops && data.workshops.length > 0);
+        
+        console.log('Has results:', hasResults);
         
         if (!hasResults) {
             html = `
@@ -630,6 +641,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Menus Section
             if (data.menus && data.menus.length > 0) {
+                console.log('Rendering menus:', data.menus);
                 html += `
                     <div class="notification-group-list">
                         <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
@@ -649,6 +661,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Users Section
             if (data.users && data.users.length > 0) {
+                console.log('Rendering users:', data.users);
                 html += `
                     <div class="notification-group-list">
                         <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
@@ -660,9 +673,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <a href="${user.url}" class="list-group-item dropdown-item notify-item">
                             <div class="d-flex align-items-center">
                                 <img src="/storage/images/users/${user.avatar}" 
-                                     class="avatar-xs rounded-circle flex-shrink-0 me-2" 
-                                     alt="${user.name}"
-                                     onerror="this.src='/build/images/users/avatar-1.jpg'">
+                                    class="avatar-xs rounded-circle flex-shrink-0 me-2" 
+                                    alt="${user.name}"
+                                    onerror="this.src='/build/images/users/avatar-1.jpg'">
                                 <div>
                                     <h6 class="mb-0">${user.name}</h6>
                                     <span class="fs-13 text-muted">${user.role}</span>
@@ -674,11 +687,94 @@ document.addEventListener('DOMContentLoaded', function() {
                 html += '</div>';
             }
             
+            // Agendas Section - FIXED
+            if (data.agendas && data.agendas.length > 0) {
+                console.log('Rendering agendas:', data.agendas);
+                html += `
+                    <div class="notification-group-list">
+                        <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
+                            Agendas
+                        </h5>
+                `;
+                data.agendas.forEach(agenda => {
+                    html += `
+                        <a href="${agenda.url}" class="list-group-item dropdown-item notify-item">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-calendar-event-line me-2 text-primary"></i>
+                                <div>
+                                    <h6 class="mb-0">${agenda.title}</h6>
+                                    <span class="fs-13 text-muted">${agenda.date || 'TBD'}</span>
+                                    ${agenda.location ? `<br><small class="text-muted">${agenda.location}</small>` : ''}
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // News Section
+            if (data.news && data.news.length > 0) {
+                console.log('Rendering news:', data.news);
+                html += `
+                    <div class="notification-group-list">
+                        <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
+                            News
+                        </h5>
+                `;
+                data.news.forEach(news => {
+                    html += `
+                        <a href="${news.url}" class="list-group-item dropdown-item notify-item">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-newspaper-line me-2 text-info"></i>
+                                <div>
+                                    <h6 class="mb-0">${news.title}</h6>
+                                    <span class="fs-13 text-muted">${news.excerpt || ''}</span>
+                                    ${news.author ? `<br><small class="text-muted">By ${news.author}</small>` : ''}
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Workshops Section
+            if (data.workshops && data.workshops.length > 0) {
+                console.log('Rendering workshops:', data.workshops);
+                html += `
+                    <div class="notification-group-list">
+                        <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">
+                            Workshops
+                        </h5>
+                `;
+                data.workshops.forEach(workshop => {
+                    html += `
+                        <a href="${workshop.url}" class="list-group-item dropdown-item notify-item">
+                            <div class="d-flex align-items-center">
+                                <i class="ri-graduation-cap-line me-2 text-success"></i>
+                                <div>
+                                    <h6 class="mb-0">${workshop.title}</h6>
+                                    <span class="fs-13 text-muted">${workshop.price || 'Free'}</span>
+                                    ${workshop.tagline ? `<br><small class="text-muted">${workshop.tagline}</small>` : ''}
+                                </div>
+                            </div>
+                        </a>
+                    `;
+                });
+                html += '</div>';
+            }
+            
             html += '</div>';
         }
         
+        console.log('Generated HTML:', html);
+        
         if (resultsContainer) {
             resultsContainer.innerHTML = html;
+            console.log('HTML updated in container');
+        } else {
+            console.error('Results container not found!');
         }
     }
     
@@ -689,19 +785,7 @@ document.addEventListener('DOMContentLoaded', function() {
             resultsContainer.innerHTML = `
                 <div class="list-group list-group-flush">
                     <div class="notification-group-list">
-                        <h5 class="text-overflow text-muted fs-13 mb-2 mt-3 text-uppercase notification-title">Apps Pages</h5>
-                        <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
-                            <i class="bi bi-speedometer2 me-2"></i> <span>Analytics Dashboard</span>
-                        </a>
-                        <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
-                            <i class="bi bi-filetype-psd me-2"></i> <span>PDSI.psd</span>
-                        </a>
-                        <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
-                            <i class="bi bi-ticket-detailed me-2"></i> <span>Support Tickets</span>
-                        </a>
-                        <a href="javascript:void(0);" class="list-group-item dropdown-item notify-item">
-                            <i class="bi bi-file-earmark-zip me-2"></i> <span>PDSI.zip</span>
-                        </a>
+                        
                     </div>                
                 </div>
             `;

@@ -158,7 +158,7 @@ class SearchController extends Controller
                         'speciality' => $anggota->spesialis ?? null,
                         'city' => $anggota->kota ?? null,
                         'avatar' => $anggota->avatar ?? 'avatar-1.jpg',
-                        'url' => '/user/' . $user->id
+                        'url' => '/member/' . $user->id
                     ];
                 });
         } catch (\Exception $e) {
@@ -170,25 +170,31 @@ class SearchController extends Controller
     private function searchAgendas($query)
     {
         try {
-            return Agenda::where('title', 'LIKE', "%{$query}%")
+            // Debug: Log query untuk agenda
+            Log::info("Searching agendas with query: {$query}");
+
+            $agendas = Agenda::where('title', 'LIKE', "%{$query}%")
                 ->orWhere('description', 'LIKE', "%{$query}%")
                 ->orWhere('location', 'LIKE', "%{$query}%")
                 ->orWhere('author', 'LIKE', "%{$query}%")
                 ->limit(5)
-                ->get()
-                ->map(function ($agenda) {
-                    return [
-                        'id' => $agenda->id,
-                        'title' => $agenda->title,
-                        'description' => $agenda->description ? \Illuminate\Support\Str::limit($agenda->description, 50) : null,
-                        'author' => $agenda->author,
-                        'location' => $agenda->location,
-                        'start_date' => $agenda->dimulai ? date('Y-m-d', strtotime($agenda->dimulai)) : null,
-                        'end_date' => $agenda->berakhir ? date('Y-m-d', strtotime($agenda->berakhir)) : null,
-                        'date' => $agenda->dimulai ? date('d M Y', strtotime($agenda->dimulai)) : 'TBD',
-                        'url' => '/agenda/' . $agenda->id
-                    ];
-                });
+                ->get();
+
+            Log::info("Found {$agendas->count()} agendas");
+
+            return $agendas->map(function ($agenda) {
+                return [
+                    'id' => $agenda->id,
+                    'title' => $agenda->title,
+                    'description' => $agenda->description ? \Illuminate\Support\Str::limit($agenda->description, 50) : null,
+                    'author' => $agenda->author,
+                    'location' => $agenda->location,
+                    'start_date' => $agenda->dimulai ? date('Y-m-d', strtotime($agenda->dimulai)) : null,
+                    'end_date' => $agenda->berakhir ? date('Y-m-d', strtotime($agenda->berakhir)) : null,
+                    'date' => $agenda->dimulai ? date('d M Y', strtotime($agenda->dimulai)) : 'TBD',
+                    'url' => '/agenda'
+                ];
+            });
         } catch (\Exception $e) {
             Log::error('Agenda search error: ' . $e->getMessage());
             return collect([]);
@@ -210,7 +216,7 @@ class SearchController extends Controller
                         'excerpt' => $article->description ? \Illuminate\Support\Str::limit($article->description, 50) : null,
                         'author' => $article->author,
                         'published_at' => $article->created_at ? $article->created_at->format('d M Y') : null,
-                        'url' => '/articles/' . $article->id
+                        'url' => '/articles'
                     ];
                 });
         } catch (\Exception $e) {
@@ -239,7 +245,7 @@ class SearchController extends Controller
                         'price' => $workshop->price > 0 ? 'Rp ' . number_format($workshop->price, 0, ',', '.') : 'Free',
                         'price_raw' => $workshop->price,
                         'image' => $workshop->image,
-                        'url' => '/workshops/' . $workshop->id
+                        'url' => '/workshops'
                     ];
                 });
         } catch (\Exception $e) {
