@@ -100,7 +100,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/jpg-front', [ProfileDokterController::class, 'downloadCardJPGFront'])->name('jpg.front');
     Route::get('/jpg-back', [ProfileDokterController::class, 'downloadCardJPGBack'])->name('jpg.back');
-    // Route::get('/jpg-both-zip', [ProfileDokterController::class, 'downloadCardJPGBoth'])->name('jpg.both.zip');
+    Route::get('/jpg-both-zip', [ProfileDokterController::class, 'downloadCardJPGBoth'])->name('jpg.both.zip');
 
     Route::get('/edit-profile-dokter', [EditProfileController::class, 'index'])->name('edit-profile-dokter.index');
     Route::post('/edit-profile-dokter', [EditProfileController::class, 'update'])->name('edit-profile-dokter.update');
