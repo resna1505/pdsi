@@ -21,6 +21,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\ProfileDokterController;
 use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikasiIuranController;
 use App\Http\Controllers\VisiMisiValueController;
@@ -203,6 +204,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/events/{event}/date', [EventController::class, 'updateEventDate'])->name('events.update-date');
 
     Route::get('/apps-leaderboards', [LeaderBoardsController::class, 'index'])->name('apps-leaderboards.index');
+
+    Route::get('/slider', [SliderController::class, 'index'])->name('slider.index');
+    Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');
+    Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
+    Route::get('/slider/{id}/edit', [SliderController::class, 'edit'])->name('slider.edit');
+    Route::put('/slider/{id}', [SliderController::class, 'update'])->name('slider.update');
+    Route::patch('/slider/{id}/toggle-status', [SliderController::class, 'toggleStatus'])->name('slider.toggleStatus');
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

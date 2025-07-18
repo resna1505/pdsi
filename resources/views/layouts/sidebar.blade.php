@@ -123,9 +123,6 @@
                     <li class="nav-item">
                         <a href="{{ url('/apps-leaderboards') }}" class="nav-link menu-link"> <i class="bi bi-gem"></i> <span data-key="t-leaderboard">@lang('translation.leaderboard')</span> </a>
                     </li>
-                @endif
-
-                @if (Auth::user()->level == 'Admin')
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Master Data</span></li>
                     {{-- <li class="nav-item">
                         <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
@@ -158,6 +155,11 @@
                         </a>
                     </li>
                     <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Profile</span></li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ url('/slider') }}">
+                            <i class="ri-slideshow-line"></i> <span data-key="t-slider">Banner</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ url('/articles') }}">
                             <i class="ri-volume-up-line"></i> <span data-key="t-news-management">@lang('translation.news')</span>
