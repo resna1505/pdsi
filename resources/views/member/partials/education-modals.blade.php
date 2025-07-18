@@ -41,10 +41,21 @@
                                 <input type="text" class="form-control" id="major" name="major">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="status" class="form-label">Status *</label>
                                 <select class="form-select" id="status" name="status" required>
+                                    <option value="progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="dropped">Dropped</option>
+                                </select>
+                            </div>
+                        </div> --}}
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="degree_type" class="form-label">Status *</label>
+                                <select class="form-select" id="degree_type" name="status" required>
+                                    <option value="">Select Status</option>
                                     <option value="progress">In Progress</option>
                                     <option value="completed">Completed</option>
                                     <option value="dropped">Dropped</option>

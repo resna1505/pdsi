@@ -1053,7 +1053,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         document.getElementById('edit_start_year').value = education.start_year || '';
                         document.getElementById('edit_end_year').value = education.end_year || '';
                         document.getElementById('edit_gpa').value = education.gpa || '';
-                        document.getElementById('edit_graduation_date').value = education.graduation_date || '';
+                        const graduationDate = new Date(education.graduation_date);
+                        const formattedGraduationDate = graduationDate.toISOString().slice(0, 10);
+                        document.getElementById('edit_graduation_date').value = formattedGraduationDate || '';
                         document.getElementById('edit_certificate_number').value = education.certificate_number || '';
                         document.getElementById('edit_description').value = education.description || '';
                         
