@@ -24,6 +24,6 @@ class Slider extends Model
 
     public function scopeOrdered($query)
     {
-        return $query->orderBy('created_at', 'desc');
+        return $query->orderBy('created_at', 'asc');
     }
 }
