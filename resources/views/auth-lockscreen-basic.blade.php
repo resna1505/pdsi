@@ -29,7 +29,6 @@
                                             <p class="mb-0">&copy;
                                                 <script>
                                                     document.write(new Date().getFullYear())
-
                                                 </script> PDSI. Crafted with <i class="mdi mdi-heart text-danger"></i> by ICT PDSI
                                             </p>
                                         </div>
@@ -44,24 +43,63 @@
                                             <h5 class="text-primary fs-20">Lock Screen</h5>
                                             <p class="text-muted mb-4">Enter your password to unlock the screen!</p>
                                         </div>
+                                        
+                                        {{-- Alert Messages --}}
+                                        @if (session('success'))
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                {{ session('success') }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @endif
+
+                                        @if (session('info'))
+                                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                                                {{ session('info') }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @endif
+
+                                        @if (session('error'))
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                {{ session('error') }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @endif
+                                        
                                         <div class="user-thumb text-center">
-                                            <img src="{{ URL::asset('build/images/users/avatar-1.jpg') }}" class="rounded-circle img-thumbnail avatar-lg" alt="thumbnail">
-                                            <h5 class="font-size-15 mt-3">Hi ! Edward Diana</h5>
+                                            <img src="{{ Auth::user()->anggota?->avatar
+                                    ? asset('storage/images/users/' . Auth::user()->anggota->avatar)
+                                    : asset('build/images/users/avatar-1.jpg') }}" class="rounded-circle img-thumbnail avatar-lg" alt="thumbnail">
+                                            <h5 class="font-size-15 mt-3">{{ Auth::user()->anggota?->nama ?? Auth::user()->name }}</h5>
                                         </div>
                                         <div class="p-2 mt-4">
-                                            <form>
+                                            <form method="POST" action="{{ route('lockscreen.unlock') }}">
+                                                @csrf
                                                 <div class="mb-3">
-                                                    <label class="form-label" for="userpassword">Password or Pin</label>
-                                                    <input type="password" class="form-control" id="userpassword" placeholder="Enter password or pin" required>
+                                                    <label class="form-label" for="userpassword">Password</label>
+                                                    <input type="password" 
+                                                           class="form-control @error('password') is-invalid @enderror" 
+                                                           id="userpassword" 
+                                                           name="password"
+                                                           placeholder="Enter your password" 
+                                                           required
+                                                           autofocus>
+                                                    @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                                 <div class="mb-2 mt-4">
-                                                    <button class="btn btn-primary w-100" type="submit">Unlock</button>
+                                                    <button class="btn btn-primary w-100" type="submit">
+                                                        <i class="mdi mdi-lock-open-outline me-1"></i> Unlock
+                                                    </button>
                                                 </div>
                                             </form><!-- end form -->
 
                                         </div>
                                         <div class="mt-4 text-center">
-                                            <p class="mb-0">Not you ? return <a href="auth-signin-basic" class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
+                                            <p class="mb-0">Not you ? return <a href="{{ route('login') }}" class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
                                         </div>
                                     </div><!-- end card body -->
                                 </div><!-- end card -->
@@ -79,4 +117,20 @@
     <!--end container-->
 </section>
 
+@endsection
+
+@section('script')
+<script>
+    // Auto focus pada input password
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('userpassword').focus();
+    });
+    
+    // Handle enter key
+    document.getElementById('userpassword').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            this.closest('form').submit();
+        }
+    });
+</script>
 @endsection

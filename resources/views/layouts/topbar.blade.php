@@ -347,10 +347,17 @@
                                 class="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Settings</span>
                             </a> --}}
-                            <a class="dropdown-item" href="auth-lockscreen-basic"><i
+                            {{-- <a class="dropdown-item" href="auth-lockscreen-basic"><i
                                 class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle">Lock screen</span>
-                            </a>
+                            </a> --}}
+                            <form method="POST" action="{{ route('lockscreen.lock') }}" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="dropdown-item border-0 bg-transparent">
+                                    <i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> 
+                                    <span class="align-middle">Lock screen</span>
+                                </button>
+                            </form>
                             <a class="dropdown-item " href="{{ url('logout') }}"><i
                                 class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle" key="t-logout">logout</span>
@@ -488,3 +495,23 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script>
+function lockScreen() {
+    if (confirm('Apakah Anda yakin ingin mengunci layar?')) {
+        // Create form and submit
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '{{ route("lockscreen.lock") }}';
+        
+        const csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = '_token';
+        csrfToken.value = '{{ csrf_token() }}';
+        
+        form.appendChild(csrfToken);
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+</script> --}}

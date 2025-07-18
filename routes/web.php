@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\LockScreenController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\EventController;
@@ -72,6 +73,10 @@ Route::get('/auth-offline', function () {
 })->name('auth.offline');
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('auth-lockscreen-basic', [LockScreenController::class, 'show'])->name('lockscreen.show');
+    Route::post('auth-lockscreen-unlock', [LockScreenController::class, 'unlock'])->name('lockscreen.unlock');
+    Route::post('auth-lockscreen-lock', [LockScreenController::class, 'lock'])->name('lockscreen.lock');
+
     Route::get('/index', function () {
         return redirect('/');
     });

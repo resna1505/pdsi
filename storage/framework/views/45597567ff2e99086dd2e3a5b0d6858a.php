@@ -198,10 +198,14 @@
                             </a>
                             <div class="dropdown-divider"></div>
                             
-                            <a class="dropdown-item" href="auth-lockscreen-basic"><i
-                                class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span
-                                class="align-middle">Lock screen</span>
-                            </a>
+                            
+                            <form method="POST" action="<?php echo e(route('lockscreen.lock')); ?>" style="display: inline;">
+                                <?php echo csrf_field(); ?>
+                                <button type="submit" class="dropdown-item border-0 bg-transparent">
+                                    <i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> 
+                                    <span class="align-middle">Lock screen</span>
+                                </button>
+                            </form>
                             <a class="dropdown-item " href="<?php echo e(url('logout')); ?>"><i
                                 class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                                 class="align-middle" key="t-logout">logout</span>
@@ -339,4 +343,23 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-<?php /**PATH D:\Project\pdsi\resources\views/layouts/topbar.blade.php ENDPATH**/ ?>
+
+<script>
+function lockScreen() {
+    if (confirm('Apakah Anda yakin ingin mengunci layar?')) {
+        // Create form and submit
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '<?php echo e(route("lockscreen.lock")); ?>';
+        
+        const csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = '_token';
+        csrfToken.value = '<?php echo e(csrf_token()); ?>';
+        
+        form.appendChild(csrfToken);
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+</script> --}}<?php /**PATH D:\Project\pdsi\resources\views/layouts/topbar.blade.php ENDPATH**/ ?>
