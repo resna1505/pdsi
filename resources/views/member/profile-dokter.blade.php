@@ -144,13 +144,10 @@
                                                     <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="First slide" style="width: 100%; height: 100%; object-fit: cover;">
                                                 </div>
                                                 <div style="position: absolute; bottom: 100px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    Nama : {{ $anggota->nama }}
+                                                    Nama : {{ \Illuminate\Support\Str::limit($anggota->nama, 20) }}
                                                 </div>
                                                 <div style="position: absolute; bottom: 80px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    Id : {{ $anggota->id }}
-                                                </div>
-                                                <div style="position: absolute; bottom: 60px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
-                                                    No.Urut Anggota : {{ $anggota->id }}
+                                                    NPA : {{ $anggota->no_kartu_anggota }}
                                                 </div>
                                             </div>
                                         </div>

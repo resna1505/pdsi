@@ -34,6 +34,7 @@ class Anggota extends Model
         'description',
         'facebook_url',
         'instagram_url',
+        'no_kartu_anggota'
     ];
 
     // Method untuk menghitung persentase
@@ -94,6 +95,36 @@ class Anggota extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Accessor untuk format nomor kartu anggota
+     * REVISI: Sesuaikan dengan format 17 digit
+     */
+    public function getFormattedNoKartuAttribute()
+    {
+        if (!$this->no_kartu_anggota) {
+            return 'Belum Diverifikasi';
+        }
+
+        // Format: 12270422110900001 menjadi 1227-0422-1109-00001
+        return preg_replace('/(\d{4})(\d{4})(\d{4})(\d{5})/', '$1-$2-$3-$4', $this->no_kartu_anggota);
+    }
+
+    /**
+     * Scope untuk anggota yang sudah memiliki kartu
+     */
+    public function scopeVerified($query)
+    {
+        return $query->whereNotNull('no_kartu_anggota');
+    }
+
+    /**
+     * Scope untuk anggota berdasarkan provinsi
+     */
+    public function scopeByProvinsi($query, $provinsi)
+    {
+        return $query->where('provinsi', $provinsi);
     }
 
     public function educations()
