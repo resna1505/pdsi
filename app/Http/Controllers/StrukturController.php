@@ -21,7 +21,7 @@ class StrukturController extends Controller
             $request->validate([
                 'title' => 'required|string|max:255',
                 'subtitle' => 'required|string|max:500',
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             ]);
 
             $imagePath = null;
