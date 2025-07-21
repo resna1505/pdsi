@@ -98,12 +98,12 @@ Struktur Management
                                                     </button>
                                                 </form>
                                             </li>
-                                            <li>
+                                            {{-- <li>
                                                 <a class="dropdown-item remove-struktur" href="#removeStrukturModal" 
                                                    data-bs-toggle="modal" data-remove-id="{{ $item->id }}">
                                                     <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
                                                 </a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                 </div>

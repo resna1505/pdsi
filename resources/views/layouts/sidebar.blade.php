@@ -147,7 +147,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ url('/struktur') }}">
-                            <i class=" ri-image-add-line"></i> <span data-key="t-struktur">Struktur</span>
+                            <i class=" ri-menu-4-fill"></i> <span data-key="t-struktur">Struktur</span>
                         </a>
                     </li>
                     <li class="nav-item">
