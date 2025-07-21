@@ -88,7 +88,15 @@ class Anggota extends Model
 
     public function testimonials()
     {
-        return $this->hasMany(Testimonial::class);
+        return $this->hasMany(Testimonial::class, 'anggota_id');
+    }
+
+    /**
+     * Get testimonial aktif saja
+     */
+    public function activeTestimonials()
+    {
+        return $this->hasMany(Testimonial::class, 'anggota_id')->where('is_active', true);
     }
 
     // app/Models/Anggota.php

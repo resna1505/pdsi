@@ -94,19 +94,26 @@ Testimonial Management
                                             <i class="ri-more-2-fill fs-17"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            @if($testimonial->anggota_id == auth()->id())
+                                            @php
+                                                $currentAnggota = auth()->user()->anggota ?? null;
+                                                $isOwner = $currentAnggota && $currentAnggota->id == $testimonial->anggota_id;
+                                            @endphp
+                                            
+                                            @if($isOwner)
                                                 <li>
                                                     <a class="dropdown-item edit-testimonial" href="#editTestimonial" 
-                                                       data-bs-toggle="modal" data-edit-id="{{ $testimonial->id }}">
+                                                    data-bs-toggle="modal" data-edit-id="{{ $testimonial->id }}">
                                                         <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item remove-testimonial" href="#removeTestimonialModal" 
-                                                       data-bs-toggle="modal" data-remove-id="{{ $testimonial->id }}">
+                                                    data-bs-toggle="modal" data-remove-id="{{ $testimonial->id }}">
                                                         <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
                                                     </a>
                                                 </li>
+                                            @else
+                                                <li><span class="dropdown-item-text text-muted">No actions available</span></li>
                                             @endif
                                         </ul>
                                     </div>

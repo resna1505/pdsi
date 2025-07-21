@@ -57,4 +57,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Anggota::class, 'user_id');
     }
+    /**
+     * Relasi ke Testimonial melalui Anggota
+     */
+    public function testimonials()
+    {
+        return $this->hasManyThrough(Testimonial::class, Anggota::class, 'user_id', 'anggota_id');
+    }
 }

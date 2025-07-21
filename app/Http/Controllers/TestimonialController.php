@@ -4,34 +4,61 @@ namespace App\Http\Controllers;
 
 use App\Models\Testimonial;
 use App\Models\User;
+use App\Models\Anggota; // ← TAMBAHKAN INI
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class TestimonialController extends Controller
 {
+    /**
+     * Helper method untuk mendapatkan anggota_id dari user yang login
+     */
+    private function getCurrentAnggotaId()
+    {
+        $anggota = Anggota::where('user_id', auth()->id())->first();
+        return $anggota ? $anggota->id : null;
+    }
+
     public function index()
     {
-        $testimonials = Testimonial::select('testimonials.*', 'anggotas.nama as anggota_name')
-            ->join('anggotas', 'testimonials.anggota_id', '=', 'anggotas.id')
-            ->orderBy('testimonials.created_at', 'desc')
-            ->get();
+        try {
+            $testimonials = Testimonial::select('testimonials.*', 'anggotas.nama as anggota_name')
+                ->join('anggotas', 'testimonials.anggota_id', '=', 'anggotas.id')
+                ->orderBy('testimonials.created_at', 'desc')
+                ->get();
 
-        return view('member.testimonial', compact('testimonials'));
+            return view('member.testimonial', compact('testimonials'));
+        } catch (\Throwable $e) {
+            Log::error('Testimonial index error: ' . $e->getMessage(), [
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+
+            // Fallback: tampilkan halaman kosong dengan error message
+            return view('member.testimonial', ['testimonials' => collect([])])
+                ->with('error', 'Failed to load testimonials. Please try again.');
+        }
     }
 
     public function store(Request $request)
     {
         try {
+            $anggotaId = $this->getCurrentAnggotaId();
+
+            if (!$anggotaId) {
+                return redirect()->back()->with('error', 'Data anggota tidak ditemukan. Silakan lengkapi profil Anda terlebih dahulu.');
+            }
+
             $request->validate([
                 'testimonial_text' => 'required|string|max:1000',
                 'rating' => 'required|integer|between:1,5',
             ]);
 
             Testimonial::create([
-                'anggota_id' => auth()->id(),
+                'anggota_id' => $anggotaId, // ← FIX: gunakan anggota.id bukan user.id
                 'testimonial_text' => $request->testimonial_text,
                 'rating' => $request->rating,
-                'is_active' => true, // auto active
+                'is_active' => true,
             ]);
 
             return redirect()->back()->with('success', 'Testimonial added successfully!');
@@ -48,8 +75,14 @@ class TestimonialController extends Controller
     public function destroy($id)
     {
         try {
-            $testimonial = Testimonial::where('anggota_id', auth()->id())
-                ->findOrFail($id); // hanya bisa hapus testimonial sendiri
+            $anggotaId = $this->getCurrentAnggotaId();
+
+            if (!$anggotaId) {
+                return redirect()->back()->with('error', 'Data anggota tidak ditemukan.');
+            }
+
+            $testimonial = Testimonial::where('anggota_id', $anggotaId) // ← FIX: gunakan anggota.id
+                ->findOrFail($id);
             $testimonial->delete();
 
             return redirect()->back()->with('success', 'Testimonial deleted successfully!');
@@ -84,8 +117,14 @@ class TestimonialController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $testimonial = Testimonial::where('anggota_id', auth()->id())
-                ->findOrFail($id); // hanya bisa edit testimonial sendiri
+            $anggotaId = $this->getCurrentAnggotaId();
+
+            if (!$anggotaId) {
+                return redirect()->back()->with('error', 'Data anggota tidak ditemukan.');
+            }
+
+            $testimonial = Testimonial::where('anggota_id', $anggotaId) // ← FIX: gunakan anggota.id
+                ->findOrFail($id);
 
             $request->validate([
                 'testimonial_text' => 'required|string|max:1000',
@@ -95,7 +134,6 @@ class TestimonialController extends Controller
             $testimonial->update([
                 'testimonial_text' => $request->testimonial_text,
                 'rating' => $request->rating,
-                // is_active tetap sama, tidak bisa diubah user
             ]);
 
             return redirect()->back()->with('success', 'Testimonial updated successfully!');
