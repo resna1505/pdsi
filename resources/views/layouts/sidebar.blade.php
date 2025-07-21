@@ -102,6 +102,11 @@
                             </ul>
                         </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('testimonial.index') }}">
+                            <i class=" ri-mail-star-line"></i> <span data-key="t-testimoni">Testimoni</span>
+                        </a>
+                    </li>
                 @endif
                 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">@lang('translation.apps')</span></li>

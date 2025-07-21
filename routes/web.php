@@ -27,6 +27,7 @@ use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaContro
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StrukturController;
+use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikasiIuranController;
 use App\Http\Controllers\VisiMisiValueController;
@@ -250,6 +251,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/struktur/{id}/edit', [StrukturController::class, 'edit'])->name('struktur.edit');
     Route::put('/struktur/{id}', [StrukturController::class, 'update'])->name('struktur.update');
     Route::patch('/struktur/{id}/toggle-status', [StrukturController::class, 'toggleStatus'])->name('struktur.toggleStatus');
+
+    // Routes untuk Testimonial Management
+    Route::get('/testimonial', [TestimonialController::class, 'index'])->name('testimonial.index');
+    Route::post('/testimonial', [TestimonialController::class, 'store'])->name('testimonial.store');
+    Route::delete('/testimonial/{id}', [TestimonialController::class, 'destroy'])->name('testimonial.destroy');
+    Route::get('/testimonial/{id}/edit', [TestimonialController::class, 'edit'])->name('testimonial.edit');
+    Route::put('/testimonial/{id}', [TestimonialController::class, 'update'])->name('testimonial.update');
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });
