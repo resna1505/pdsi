@@ -23,9 +23,10 @@ class TestimonialController extends Controller
     {
         try {
             $testimonials = Testimonial::select('testimonials.*', 'anggotas.nama as anggota_name')
-                ->join('anggotas', 'testimonials.anggota_id', '=', 'anggotas.id')
+                ->leftJoin('anggotas', 'testimonials.anggota_id', '=', 'anggotas.id')
                 ->orderBy('testimonials.created_at', 'desc')
                 ->get();
+
 
             return view('member.testimonial', compact('testimonials'));
         } catch (\Throwable $e) {
