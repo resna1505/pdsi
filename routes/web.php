@@ -26,6 +26,7 @@ use App\Http\Controllers\ProfileDokterController;
 use App\Http\Controllers\ProgramKerjaController as ControllersProgramKerjaController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\StrukturController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VerifikasiIuranController;
 use App\Http\Controllers\VisiMisiValueController;
@@ -241,6 +242,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/slider/{id}/edit', [SliderController::class, 'edit'])->name('slider.edit');
     Route::put('/slider/{id}', [SliderController::class, 'update'])->name('slider.update');
     Route::patch('/slider/{id}/toggle-status', [SliderController::class, 'toggleStatus'])->name('slider.toggleStatus');
+
+    // Routes untuk Struktur Management
+    Route::get('/struktur', [StrukturController::class, 'index'])->name('struktur.index');
+    Route::post('/struktur', [StrukturController::class, 'store'])->name('struktur.store');
+    Route::delete('/struktur/{id}', [StrukturController::class, 'destroy'])->name('struktur.destroy');
+    Route::get('/struktur/{id}/edit', [StrukturController::class, 'edit'])->name('struktur.edit');
+    Route::put('/struktur/{id}', [StrukturController::class, 'update'])->name('struktur.update');
+    Route::patch('/struktur/{id}/toggle-status', [StrukturController::class, 'toggleStatus'])->name('struktur.toggleStatus');
 
     Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 });

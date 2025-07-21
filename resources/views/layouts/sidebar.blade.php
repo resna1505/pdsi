@@ -146,6 +146,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ url('/struktur') }}">
+                            <i class=" ri-image-add-line"></i> <span data-key="t-struktur">Struktur</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ url('/mitra') }}">
                             <i class="ri-building-2-line"></i> <span data-key="t-mitra">Mitra</span>
                         </a>
