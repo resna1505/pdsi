@@ -40,7 +40,7 @@
                             <i class="ri-attachment-2 me-2"></i>
                             <strong>Lampiran:</strong> {{ basename($article->attachment) }}
                         </div>
-                        <a href="{{ asset('storage/images/users/' . $article->attachment) }}" 
+                        <a href="{{ asset('storage/articles/' . $article->attachment) }}" 
                             class="btn btn-sm btn-outline-primary" 
                             download="{{ basename($article->attachment) }}">
                              <i class="ri-download-2-line me-1"></i> Unduh
