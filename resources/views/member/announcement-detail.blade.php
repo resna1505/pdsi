@@ -16,11 +16,7 @@
 
                 {{-- Video --}}
                 <div class="mb-4 ratio ratio-16x9 rounded shadow-sm overflow-hidden">
-                    <iframe
-                        src="{{ $article->video_url }}"
-                        title="YouTube video"
-                        allowfullscreen>
-                    </iframe>
+                    <img src="{{ asset('storage/articles/' . $article->attachment) }}" alt="alt" class="rounded" />
                 </div>
 
                 {{-- Judul --}}
