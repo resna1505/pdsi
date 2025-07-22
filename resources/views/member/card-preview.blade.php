@@ -25,7 +25,7 @@
         
         .card {
             width: 350px;
-            height: 550px;
+            height: 610px;
             position: relative;
             background-size: cover;
             background-repeat: no-repeat;
@@ -146,10 +146,7 @@
                     Nama : {{ $anggota->nama }}
                 </div>
                 <div class="member-info member-id">
-                    Id : {{ $anggota->id }}
-                </div>
-                <div class="member-info member-number">
-                    No.Urut Anggota : {{ $anggota->id }}
+                    NPA : {{ $anggota->no_kartu_anggota }}
                 </div>
             </div>
             <div class="card-label">Bagian Depan</div>

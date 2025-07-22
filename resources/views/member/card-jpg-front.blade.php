@@ -104,10 +104,7 @@
             Nama : {{ $anggota->nama }}
         </div>
         <div class="member-info member-id">
-            Id : {{ $anggota->id }}
-        </div>
-        <div class="member-info member-number">
-            No.Urut Anggota : {{ $anggota->id }}
+            NPA : {{ $anggota->no_kartu_anggota }}
         </div>
     </div>
 </body>

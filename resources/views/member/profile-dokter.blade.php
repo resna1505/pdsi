@@ -116,13 +116,13 @@
                                                     <i class="fas fa-id-card-alt"></i> Kartu Belakang
                                                 </a>
                                             </li>
-                                            <li><hr class="dropdown-divider"></li>
+                                            {{-- <li><hr class="dropdown-divider"></li>
                                             <li><h6 class="dropdown-header">Complete Set</h6></li>
                                             <li>
                                                 <a class="dropdown-item" href="{{ route('jpg.both.zip') }}">
                                                     <i class="fas fa-file-archive"></i> Both Cards (ZIP)
                                                 </a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                     </div>
                                     
