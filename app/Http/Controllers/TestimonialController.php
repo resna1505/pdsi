@@ -22,8 +22,10 @@ class TestimonialController extends Controller
     public function index()
     {
         try {
+            $anggotaId = $this->getCurrentAnggotaId();
             $testimonials = Testimonial::select('testimonials.*', 'anggotas.nama as anggota_name')
                 ->leftJoin('anggotas', 'testimonials.anggota_id', '=', 'anggotas.id')
+                ->where('testimonials.anggota_id', $anggotaId)
                 ->orderBy('testimonials.created_at', 'desc')
                 ->get();
 
