@@ -62,7 +62,67 @@ class MemberController extends Controller
             ->orderBy('start_date', 'desc')
             ->get();
 
-        return view('member.profile-dokter', compact('anggota', 'documents', 'educations', 'practices'));
+        // Calculate profile completion percentage
+        $profilePercentage = $this->calculateProfileCompletion($anggota);
+
+        // Determine progress bar color based on percentage
+        $progressColor = $this->getProgressColor($profilePercentage);
+
+        return view('member.profile-dokter', compact(
+            'anggota',
+            'documents',
+            'educations',
+            'practices',
+            'profilePercentage',
+            'progressColor'
+        ));
+    }
+
+    /**
+     * Calculate profile completion percentage
+     */
+    private function calculateProfileCompletion($anggota)
+    {
+        $fields = [
+            'nama',
+            'email',
+            'no_hp',
+            'alamat',
+            'kota',
+            'provinsi',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'ktp',
+            'profesi',
+            'avatar'
+        ];
+
+        $completedFields = 0;
+        $totalFields = count($fields);
+
+        foreach ($fields as $field) {
+            if (!empty($anggota->$field)) {
+                $completedFields++;
+            }
+        }
+
+        return round(($completedFields / $totalFields) * 100);
+    }
+
+    /**
+     * Get progress bar color based on percentage
+     */
+    private function getProgressColor($percentage)
+    {
+        if ($percentage >= 80) {
+            return 'bg-success';
+        } elseif ($percentage >= 60) {
+            return 'bg-warning';
+        } elseif ($percentage >= 40) {
+            return 'bg-info';
+        } else {
+            return 'bg-danger';
+        }
     }
 
     public function exportAdmin()
