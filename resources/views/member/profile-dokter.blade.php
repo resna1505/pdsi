@@ -152,7 +152,7 @@
                                             </div>
                                         </div>
                                         <div class="carousel-item"> 
-                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_belakang.jpg') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">                                                
+                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_belakang.png') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">                                                
                                             </div>
                                         </div>
                                     </div>

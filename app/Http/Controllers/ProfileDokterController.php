@@ -65,7 +65,7 @@ class ProfileDokterController extends Controller
 
             // Background images to base64
             $frontBgPath = public_path('build/images/kta_pdsi_depan.jpg');
-            $backBgPath = public_path('build/images/kta_pdsi_belakang.jpg');
+            $backBgPath = public_path('build/images/kta_pdsi_belakang.png');
 
             $frontBgBase64 = '';
             $backBgBase64 = '';
@@ -303,7 +303,7 @@ class ProfileDokterController extends Controller
         try {
             $backBgBase64 = '';
 
-            $backPath = public_path('build/images/kta_pdsi_belakang.jpg');
+            $backPath = public_path('build/images/kta_pdsi_belakang.png');
             if (file_exists($backPath)) {
                 $backData = file_get_contents($backPath);
                 $backBgBase64 = 'data:' . mime_content_type($backPath) . ';base64,' . base64_encode($backData);
@@ -365,7 +365,7 @@ class ProfileDokterController extends Controller
                 $frontBgBase64 = 'data:' . mime_content_type($frontPath) . ';base64,' . base64_encode($frontData);
             }
 
-            $backPath = public_path('build/images/kta_pdsi_belakang.jpg');
+            $backPath = public_path('build/images/kta_pdsi_belakang.png');
             if (file_exists($backPath)) {
                 $backData = file_get_contents($backPath);
                 $backBgBase64 = 'data:' . mime_content_type($backPath) . ';base64,' . base64_encode($backData);
