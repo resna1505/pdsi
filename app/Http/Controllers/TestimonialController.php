@@ -4,33 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Testimonial;
 use App\Models\User;
-use App\Models\Anggota; // ← TAMBAHKAN INI
+use App\Models\Anggota;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class TestimonialController extends Controller
 {
-    /**
-     * Helper method untuk mendapatkan anggota_id dari user yang login
-     */
-    private function getCurrentAnggotaId()
-    {
-        $anggota = Anggota::where('user_id', auth()->id())->first();
-        return $anggota ? $anggota->id : null;
-    }
-
     public function index()
     {
         try {
-            $anggotaId = $this->getCurrentAnggotaId();
             $testimonials = Testimonial::select('testimonials.*', 'anggotas.nama as anggota_name')
                 ->leftJoin('anggotas', 'testimonials.anggota_id', '=', 'anggotas.id')
-                ->where('testimonials.anggota_id', $anggotaId)
                 ->orderBy('testimonials.created_at', 'desc')
                 ->get();
 
+            // Load all anggota for dropdown
+            $anggotas = Anggota::select('id', 'nama')
+                ->orderBy('nama', 'asc')
+                ->get();
 
-            return view('member.testimonial', compact('testimonials'));
+            return view('member.testimonial', compact('testimonials', 'anggotas'));
         } catch (\Throwable $e) {
             Log::error('Testimonial index error: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
@@ -38,27 +31,24 @@ class TestimonialController extends Controller
             ]);
 
             // Fallback: tampilkan halaman kosong dengan error message
-            return view('member.testimonial', ['testimonials' => collect([])])
-                ->with('error', 'Failed to load testimonials. Please try again.');
+            return view('member.testimonial', [
+                'testimonials' => collect([]),
+                'anggotas' => collect([])
+            ])->with('error', 'Failed to load testimonials. Please try again.');
         }
     }
 
     public function store(Request $request)
     {
         try {
-            $anggotaId = $this->getCurrentAnggotaId();
-
-            if (!$anggotaId) {
-                return redirect()->back()->with('error', 'Data anggota tidak ditemukan. Silakan lengkapi profil Anda terlebih dahulu.');
-            }
-
             $request->validate([
+                'anggota_id' => 'required|exists:anggotas,id',
                 'testimonial_text' => 'required|string|max:1000',
                 'rating' => 'required|integer|between:1,5',
             ]);
 
             Testimonial::create([
-                'anggota_id' => $anggotaId, // ← FIX: gunakan anggota.id bukan user.id
+                'anggota_id' => $request->anggota_id,
                 'testimonial_text' => $request->testimonial_text,
                 'rating' => $request->rating,
                 'is_active' => true,
@@ -78,14 +68,7 @@ class TestimonialController extends Controller
     public function destroy($id)
     {
         try {
-            $anggotaId = $this->getCurrentAnggotaId();
-
-            if (!$anggotaId) {
-                return redirect()->back()->with('error', 'Data anggota tidak ditemukan.');
-            }
-
-            $testimonial = Testimonial::where('anggota_id', $anggotaId) // ← FIX: gunakan anggota.id
-                ->findOrFail($id);
+            $testimonial = Testimonial::findOrFail($id);
             $testimonial->delete();
 
             return redirect()->back()->with('success', 'Testimonial deleted successfully!');
@@ -104,10 +87,12 @@ class TestimonialController extends Controller
     {
         try {
             $testimonial = Testimonial::with('anggota')->findOrFail($id);
+            $anggotas = Anggota::select('id', 'nama')->orderBy('nama', 'asc')->get();
 
             return response()->json([
                 'success' => true,
-                'testimonial' => $testimonial
+                'testimonial' => $testimonial,
+                'anggotas' => $anggotas
             ]);
         } catch (\Throwable $e) {
             return response()->json([
@@ -120,21 +105,16 @@ class TestimonialController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $anggotaId = $this->getCurrentAnggotaId();
-
-            if (!$anggotaId) {
-                return redirect()->back()->with('error', 'Data anggota tidak ditemukan.');
-            }
-
-            $testimonial = Testimonial::where('anggota_id', $anggotaId) // ← FIX: gunakan anggota.id
-                ->findOrFail($id);
+            $testimonial = Testimonial::findOrFail($id);
 
             $request->validate([
+                'anggota_id' => 'required|exists:anggotas,id',
                 'testimonial_text' => 'required|string|max:1000',
                 'rating' => 'required|integer|between:1,5',
             ]);
 
             $testimonial->update([
+                'anggota_id' => $request->anggota_id,
                 'testimonial_text' => $request->testimonial_text,
                 'rating' => $request->rating,
             ]);

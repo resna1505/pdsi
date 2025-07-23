@@ -94,27 +94,18 @@ Testimonial Management
                                             <i class="ri-more-2-fill fs-17"></i>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            @php
-                                                $currentAnggota = auth()->user()->anggota ?? null;
-                                                $isOwner = $currentAnggota && $currentAnggota->id == $testimonial->anggota_id;
-                                            @endphp
-                                            
-                                            @if($isOwner)
-                                                <li>
-                                                    <a class="dropdown-item edit-testimonial" href="#editTestimonial" 
-                                                    data-bs-toggle="modal" data-edit-id="{{ $testimonial->id }}">
-                                                        <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item remove-testimonial" href="#removeTestimonialModal" 
-                                                    data-bs-toggle="modal" data-remove-id="{{ $testimonial->id }}">
-                                                        <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
-                                                    </a>
-                                                </li>
-                                            @else
-                                                <li><span class="dropdown-item-text text-muted">No actions available</span></li>
-                                            @endif
+                                            <li>
+                                                <a class="dropdown-item edit-testimonial" href="#editTestimonial" 
+                                                data-bs-toggle="modal" data-edit-id="{{ $testimonial->id }}">
+                                                    <i class="ri-pencil-line me-2 align-bottom text-muted"></i>Edit
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item remove-testimonial" href="#removeTestimonialModal" 
+                                                data-bs-toggle="modal" data-remove-id="{{ $testimonial->id }}">
+                                                    <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -139,6 +130,21 @@ Testimonial Management
                 <form method="POST" action="{{ route('testimonial.store') }}" class="needs-validation" novalidate>
                     @csrf
                     <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="anggota_id" class="form-label">Select Member</label>
+                            <select class="form-select @error('anggota_id') is-invalid @enderror" 
+                                    name="anggota_id" id="anggota_id" required>
+                                <option value="">Choose Member...</option>
+                                @foreach($anggotas as $anggota)
+                                    <option value="{{ $anggota->id }}" {{ old('anggota_id') == $anggota->id ? 'selected' : '' }}>
+                                        {{ $anggota->nama }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('anggota_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="col-md-12 mb-3">
                             <label for="rating" class="form-label">Rating</label>
                             <select class="form-select @error('rating') is-invalid @enderror" 
@@ -187,6 +193,13 @@ Testimonial Management
                     @csrf
                     @method('PUT')
                     <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="edit-anggota-id" class="form-label">Select Member</label>
+                            <select class="form-select" name="anggota_id" id="edit-anggota-id" required>
+                                <option value="">Choose Member...</option>
+                                <!-- Options will be populated by JavaScript -->
+                            </select>
+                        </div>
                         <div class="col-md-12 mb-3">
                             <label for="edit-rating" class="form-label">Rating</label>
                             <select class="form-select" name="rating" id="edit-rating" required>
@@ -295,8 +308,23 @@ Testimonial Management
                     .then(data => {
                         if (data.success) {
                             const testimonial = data.testimonial;
+                            const anggotas = data.anggotas;
                             
                             editForm.setAttribute('action', `/testimonial/${testimonialId}`);
+                            
+                            // Populate member dropdown
+                            const anggotaSelect = document.getElementById('edit-anggota-id');
+                            anggotaSelect.innerHTML = '<option value="">Choose Member...</option>';
+                            
+                            anggotas.forEach(anggota => {
+                                const option = document.createElement('option');
+                                option.value = anggota.id;
+                                option.textContent = anggota.nama;
+                                if (anggota.id == testimonial.anggota_id) {
+                                    option.selected = true;
+                                }
+                                anggotaSelect.appendChild(option);
+                            });
                             
                             document.getElementById('edit-rating').value = testimonial.rating || '';
                             document.getElementById('edit-testimonial-text').value = testimonial.testimonial_text || '';

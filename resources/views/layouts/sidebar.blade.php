@@ -102,11 +102,6 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link menu-link" href="{{ route('testimonial.index') }}">
-                            <i class=" ri-mail-star-line"></i> <span data-key="t-testimoni">Testimoni</span>
-                        </a>
-                    </li>
                 @endif
                 
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-apps">@lang('translation.apps')</span></li>
@@ -178,6 +173,12 @@
                     <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ url('/faq') }}">
                             <i class=" ri-questionnaire-line"></i> <span data-key="t-faq">FAQ</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ route('testimonial.index') }}">
+                            <i class=" ri-mail-star-line"></i> <span data-key="t-testimoni">Pengakuan</span>
                         </a>
                     </li>
                 @endif
