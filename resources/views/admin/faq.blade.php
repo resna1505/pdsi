@@ -192,6 +192,7 @@ FAQ
     </div>
 </div>
 
+<!-- Update bagian modal Add FAQ -->
 <div class="modal fade" id="addmemberModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
@@ -222,9 +223,10 @@ FAQ
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <!-- 🆕 UPDATE: Ubah Answer menggunakan CKEditor -->
                         <div class="col-md-12 mb-4">
                             <label for="answer" class="form-label">Answer</label>
-                            <textarea name="answer" class="form-control @error('answer') is-invalid @enderror" id="answer" rows="5" required>{{ old('answer') }}</textarea>
+                            <textarea name="answer" class="ckeditor-classic form-control @error('answer') is-invalid @enderror" id="answer" rows="5" required>{{ old('answer') }}</textarea>
                             @error('answer')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -240,11 +242,12 @@ FAQ
     </div>
 </div>
 
+<!-- Update bagian modal Edit FAQ -->
 <div class="modal fade" id="editmemberModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0">
             <div class="modal-header p-4 pb-0">
-                <h5 class="modal-title" id="editMemberLabel">Edit News</h5>
+                <h5 class="modal-title" id="editMemberLabel">Edit FAQ</h5>
                 <button type="button" class="btn-close" id="editMemberBtn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
@@ -268,13 +271,14 @@ FAQ
                             <input type="text" class="form-control" id="edit-question" name="question" required>
                         </div>
                         
+                        <!-- 🆕 UPDATE: Ubah Answer menggunakan CKEditor -->
                         <div class="col-md-12 mb-3">
                             <label for="edit-answer" class="form-label">Answer</label>
                             <textarea name="answer" id="edit-answer" class="form-control" rows="5" required></textarea>
                         </div>                        
                         <div class="hstack gap-2 justify-content-end">
                             <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Update News</button>
+                            <button type="submit" class="btn btn-success">Update FAQ</button>
                         </div>
                     </div>
                 </form>
@@ -282,6 +286,7 @@ FAQ
         </div>
     </div>
 </div>
+
 <div id="removeMemberModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -312,14 +317,17 @@ FAQ
 @endsection
 
 @section('script')
-{{-- <script src="{{ URL::asset('build/js/pages/team.init.js') }}"></script> --}}
+{{-- Existing scripts --}}
 <script src="{{ URL::asset('build/libs/glightbox/js/glightbox.min.js') }}"></script>
 <script src="{{ URL::asset('build/libs/swiper/swiper-bundle.min.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/search-result.init.js') }}"></script>
 <script src="{{ URL::asset('build/js/app.js') }}"></script>
 
+{{-- 🆕 CKEditor scripts --}}
 <script src="{{ URL::asset('build/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
 <script src="{{ URL::asset('build/js/pages/form-editor.init.js') }}"></script>
+
+{{-- Existing pagination script --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const itemsPerPage = 5;
@@ -351,7 +359,6 @@ FAQ
                 pagination.querySelector(".prev")?.classList.toggle("disabled", page === 1);
                 pagination.querySelector(".next")?.classList.toggle("disabled", page === totalPages);
 
-                // Update pagination-info
                 if (paginationInfo) {
                     const start = (page - 1) * itemsPerPage + 1;
                     const end = Math.min(page * itemsPerPage, totalItems);
@@ -403,13 +410,11 @@ FAQ
             showPage(currentPage);
         }
 
-        // Init first visible tab
         const activeTabPane = document.querySelector(".tab-pane.active");
         if (activeTabPane) {
             initPagination(activeTabPane);
         }
 
-        // Re-init on tab switch
         const tabLinks = document.querySelectorAll('[data-bs-toggle="tab"]');
         tabLinks.forEach(link => {
             link.addEventListener("shown.bs.tab", function() {
@@ -420,6 +425,8 @@ FAQ
         });
     });
 </script>
+
+{{-- Existing search script --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById("searchInput");
@@ -430,7 +437,6 @@ FAQ
                 const keyword = this.value.toLowerCase();
                 searchKeyword.textContent = this.value;
 
-                // Loop semua tab-pane yang memiliki .video-lists
                 document.querySelectorAll(".tab-pane").forEach(tab => {
                     const videoList = tab.querySelector(".video-lists");
                     const pagination = tab.querySelector(".pagination");
@@ -446,7 +452,6 @@ FAQ
                         if (match) matchedCount++;
                     });
 
-                    // Sembunyikan pagination dan info jika search aktif
                     if (pagination) pagination.style.display = keyword ? "none" : "flex";
                     if (paginationInfo) paginationInfo.style.display = keyword ? "none" : "block";
                 });
@@ -454,9 +459,10 @@ FAQ
         }
     });
 </script>
+
+{{-- Existing delete modal script --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle modal delete
     const removeLinks = document.querySelectorAll('.remove-list');
     const deleteForm = document.getElementById('deleteForm');
     
@@ -469,65 +475,142 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+{{-- 🆕 TAMBAHAN BARU: CKEditor Script untuk FAQ --}}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle edit modal
-    const editLinks = document.querySelectorAll('.edit-list');
-    const editForm = document.getElementById('edit-form');
-    
-    editLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const articleId = this.getAttribute('data-edit-id');
-            
-            // Fetch article data
-            fetch(`/faq/${articleId}/edit`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const article = data.article;
-                        
-                        // Set form action
-                        editForm.setAttribute('action', `/faq/${articleId}`);
-                        
-                        // Fill form fields
-                        document.getElementById('edit-question').value = article.question;
-                        document.getElementById('edit-answer').value = article.answer;
-                        document.getElementById('edit-category_id').value = article.faq_category_id;
-                        
-                        // Show current image
-                        // const imagePreview = document.getElementById('current-image-preview');
-                        // if (article.attachment) {
-                        //     imagePreview.innerHTML = `
-                        //         <img src="{{ asset('storage/faq/') }}/${article.attachment}" 
-                        //              alt="Current Image" width="150" class="rounded">
-                        //     `;
-                        // } else {
-                        //     imagePreview.innerHTML = '<p class="text-muted">No image</p>';
-                        // }
-                        
-                        // Clear previous errors
-                        document.getElementById('edit-errors').classList.add('d-none');
-                        
-                        // If using CKEditor, update it
-                        // if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-description']) {
-                        //     CKEDITOR.instances['edit-description'].setData(article.description);
-                        // }
-                    } else {
-                        alert('Error loading article data');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // alert('Error loading article data');
-                });
+    document.addEventListener('DOMContentLoaded', function() {
+        let editCKEditor = null;
+        let pendingAnswer = '';
+        
+        // Initialize CKEditor untuk Add FAQ
+        if (typeof CKEDITOR !== 'undefined' && document.getElementById('answer')) {
+            CKEDITOR.replace('answer', {
+                height: 300,
+                removeButtons: 'Image,Flash,Iframe,Smiley,ImageButton',
+                removePlugins: 'image,image2,easyimage,cloudservices'
+            });
+        }
+        
+        // Handle edit modal
+        const editLinks = document.querySelectorAll('.edit-list');
+        const editForm = document.getElementById('edit-form');
+        const editModal = document.getElementById('editmemberModal');
+        
+        editLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const articleId = this.getAttribute('data-edit-id');
+                
+                fetch(`/faq/${articleId}/edit`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const article = data.article;
+                            
+                            editForm.setAttribute('action', `/faq/${articleId}`);
+                            
+                            document.getElementById('edit-question').value = article.question;
+                            document.getElementById('edit-category_id').value = article.faq_category_id;
+                            
+                            pendingAnswer = article.answer;
+                            document.getElementById('edit-answer').value = article.answer;
+                            
+                            const editErrors = document.getElementById('edit-errors');
+                            if (editErrors) {
+                                editErrors.classList.add('d-none');
+                            }
+                        } else {
+                            alert('Error loading FAQ data');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error loading FAQ data');
+                    });
+            });
         });
+        
+        // Initialize CKEditor when modal is shown
+        editModal.addEventListener('shown.bs.modal', function() {
+            if (editCKEditor) {
+                if (typeof editCKEditor.destroy === 'function') {
+                    editCKEditor.destroy().then(() => {
+                        initEditCKEditor();
+                    }).catch(error => {
+                        console.error('Error destroying CKEditor:', error);
+                        initEditCKEditor();
+                    });
+                } else if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-answer']) {
+                    CKEDITOR.instances['edit-answer'].destroy();
+                    editCKEditor = null;
+                    initEditCKEditor();
+                }
+            } else {
+                initEditCKEditor();
+            }
+        });
+        
+        // Destroy CKEditor when modal is hidden
+        editModal.addEventListener('hidden.bs.modal', function() {
+            if (editCKEditor) {
+                if (typeof editCKEditor.destroy === 'function') {
+                    editCKEditor.destroy().then(() => {
+                        editCKEditor = null;
+                    }).catch(error => {
+                        console.error('Error destroying CKEditor:', error);
+                        editCKEditor = null;
+                    });
+                } else if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['edit-answer']) {
+                    CKEDITOR.instances['edit-answer'].destroy();
+                    editCKEditor = null;
+                }
+            }
+        });
+        
+        function initEditCKEditor() {
+            setTimeout(() => {
+                if (typeof ClassicEditor !== 'undefined') {
+                    ClassicEditor
+                        .create(document.querySelector('#edit-answer'))
+                        .then(editor => {
+                            editCKEditor = editor;
+                            setTimeout(() => {
+                                if (pendingAnswer) {
+                                    editor.setData(pendingAnswer);
+                                }
+                            }, 100);
+                        })
+                        .catch(error => {
+                            console.error('Error initializing CKEditor 5:', error);
+                        });
+                }
+                else if (typeof CKEDITOR !== 'undefined') {
+                    if (pendingAnswer) {
+                        document.getElementById('edit-answer').value = pendingAnswer;
+                    }
+                    
+                    editCKEditor = CKEDITOR.replace('edit-answer', {
+                        height: 300,
+                        removeButtons: 'Image,Flash,Iframe,Smiley,ImageButton',
+                        removePlugins: 'image,image2,easyimage,cloudservices',
+                        on: {
+                            instanceReady: function(ev) {
+                                setTimeout(() => {
+                                    if (pendingAnswer) {
+                                        ev.editor.setData(pendingAnswer);
+                                    }
+                                }, 100);
+                                
+                                setTimeout(() => {
+                                    if (pendingAnswer) {
+                                        ev.editor.setData(pendingAnswer);
+                                    }
+                                }, 500);
+                            }
+                        }
+                    });
+                }
+            }, 500);
+        }
     });
-});
-</script>
-<script>
-// Initialize CKEditor for edit modal
-if (typeof CKEDITOR !== 'undefined') {
-    CKEDITOR.replace('edit-description');
-}
 </script>
 @endsection
