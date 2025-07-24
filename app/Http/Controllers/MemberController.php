@@ -10,6 +10,9 @@ use App\Models\Education;
 use App\Models\Practice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\DB; // 🆕 TAMBAHAN
+use Illuminate\Support\Facades\Storage; // 🆕 TAMBAHAN
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -180,6 +183,79 @@ class MemberController extends Controller
         } catch (\Exception $e) {
             Log::error('Export Member Error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Terjadi kesalahan saat export: ' . $e->getMessage());
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Cari user berdasarkan ID
+            $user = User::findOrFail($id);
+
+            // Cari anggota berdasarkan user_id
+            $anggota = Anggota::where('user_id', $id)->first();
+
+            if (!$anggota) {
+                return redirect()->route('member.index')->with('error', 'Data anggota tidak ditemukan.');
+            }
+
+            // Pastikan hanya member (dokter) yang bisa dihapus, bukan admin
+            if (empty($anggota->spesialis)) {
+                return redirect()->route('member.index')->with('error', 'Admin tidak dapat dihapus melalui fitur ini.');
+            }
+
+            // Hapus file-file yang terkait jika ada
+            $filesToDelete = [];
+
+            if ($anggota->avatar) {
+                $filesToDelete[] = public_path("storage/images/users/{$anggota->avatar}");
+            }
+
+            if ($anggota->ktp) {
+                $filesToDelete[] = public_path("storage/images/users/{$anggota->ktp}");
+            }
+
+            if ($anggota->npwp) {
+                $filesToDelete[] = public_path("storage/images/users/{$anggota->npwp}");
+            }
+
+            // 🆕 Jika ada field dokumen_persyaratan, hapus juga
+            if (!empty($anggota->dokumen_persyaratan)) {
+                $filesToDelete[] = public_path("storage/images/users/{$anggota->dokumen_persyaratan}");
+            }
+
+            // Hapus data terkait dari tabel lain
+            Education::where('anggota_id', $anggota->id)->delete();
+            Practice::where('anggota_id', $anggota->id)->delete();
+            Document::where('user_id', $id)->delete();
+
+            // Hapus data anggota
+            $memberName = $anggota->nama;
+            $anggota->delete();
+
+            // Hapus user
+            $user->delete();
+
+            // Hapus file-file fisik setelah database berhasil dihapus
+            foreach ($filesToDelete as $filePath) {
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+
+            DB::commit();
+
+            Log::info("Member deleted successfully: {$memberName} (ID: {$id})");
+
+            return redirect()->route('member.index')->with('success', "Member {$memberName} berhasil dihapus.");
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            Log::error("Error deleting member: " . $e->getMessage());
+
+            return redirect()->route('member.index')->with('error', 'Terjadi kesalahan saat menghapus member: ' . $e->getMessage());
         }
     }
 }

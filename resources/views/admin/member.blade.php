@@ -118,6 +118,23 @@ Member
                                 <div class="col list-element">
                                     <div class="card">
                                         <div class="card-body">
+                                             <div class="position-absolute top-0 end-0 p-2">
+                                                <div class="dropdown">
+                                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false" class="text-muted">
+                                                        <i class="ri-more-fill fs-17"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li>
+                                                            <a class="dropdown-item remove-list" href="#removeMemberModal" 
+                                                            data-bs-toggle="modal" 
+                                                            data-remove-id="{{ $item->user_id }}"
+                                                            data-member-name="{{ $item->nama }}">
+                                                                <i class="ri-delete-bin-5-line me-2 align-bottom"></i>Remove
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                             <div class="text-center mb-4">
                                                 <img src="{{ URL::asset("storage/images/users/{$item->avatar}") }}" alt="" class="avatar-md rounded-3" />
                                             </div>
@@ -158,6 +175,36 @@ Member
                             <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
                         </div>                        
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="removeMemberModal" class="modal fade zoomIn" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-removeMemberModal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mt-2 text-center">
+                    <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+                    <div class="mt-4 pt-2 fs-15 mx-4 mx-sm-5">
+                        <h4>Are you sure ?</h4>
+                        <p class="text-muted mx-4 mb-0">
+                            Are you sure you want to remove member 
+                            <strong><span id="memberNameToDelete">-</span></strong> ?
+                        </p>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+                    <button type="button" class="btn w-sm btn-light" data-bs-dismiss="modal">Close</button>
+                    <form id="deleteForm" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn w-sm btn-danger" id="remove-item">Yes, Delete It!</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -532,6 +579,36 @@ Member
         }
         verifikasiForm.setAttribute('action', `/verifikasi-user/${anggotaId}`);
         verifikasiForm.submit();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const removeLinks = document.querySelectorAll('.remove-list');
+        const deleteForm = document.getElementById('deleteForm');
+        const memberNameSpan = document.getElementById('memberNameToDelete');
+        
+        removeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const userId = this.getAttribute('data-remove-id');
+                const memberName = this.getAttribute('data-member-name') || 'this member';
+                
+                // Set action URL untuk form delete
+                const actionUrl = `{{ route('member.destroy', '') }}/${userId}`;
+                deleteForm.setAttribute('action', actionUrl);
+                
+                // Set nama member di modal
+                if (memberNameSpan) {
+                    memberNameSpan.textContent = memberName;
+                }
+            });
+        });
+
+        // Handle form submission dengan loading state
+        deleteForm.addEventListener('submit', function(e) {
+            const submitButton = this.querySelector('#remove-item');
+            submitButton.innerHTML = '<i class="ri-loader-4-line"></i> Deleting...';
+            submitButton.disabled = true;
+        });
     });
 </script>
 

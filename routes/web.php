@@ -157,6 +157,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/member/export-admin', [MemberController::class, 'exportAdmin'])->name('member.export.admin');
     Route::get('/member/export-member', [MemberController::class, 'exportMember'])->name('member.export.member');
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
+    Route::delete('/member/{id}', [MemberController::class, 'destroy'])->name('member.destroy');
 
     // Update routes di web.php - URUTAN PENTING!
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
