@@ -37,6 +37,8 @@ class Register extends Component
     public $otherProfesi = '';
     public $noktp;
 
+    public $dokumen_persyaratan;
+
     // ========================================
     // 🆕 TAMBAHAN BARU UNTUK AUTOCOMPLETE
     // ========================================
@@ -222,6 +224,7 @@ class Register extends Component
             'regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/'
         ],
         'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        'dokumen_persyaratan' => 'required|file|mimes:doc,docx,pdf',
         'remember' => 'required|accepted',
         'otp' => 'required',
     ];
@@ -262,6 +265,9 @@ class Register extends Component
 
     protected $messages = [
         'password.regex' => 'Password harus mengandung kombinasi huruf dan angka.',
+        'dokumen_persyaratan.required' => 'Dokumen persyaratan wajib diupload.',
+        'dokumen_persyaratan.mimes' => 'Dokumen harus berformat DOC, DOCX, atau PDF.',
+        'dokumen_persyaratan.max' => 'Ukuran dokumen maksimal 5MB.',
     ];
 
     /**
@@ -361,6 +367,16 @@ class Register extends Component
             }
         }
 
+        $dokumenName = null;
+        if ($this->dokumen_persyaratan) {
+            $dokumenName = time() . '_dokumen.' . $this->dokumen_persyaratan->getClientOriginalExtension();
+            try {
+                file_put_contents($destination . '/' . $dokumenName, file_get_contents($this->dokumen_persyaratan->getRealPath()));
+            } catch (\Exception $e) {
+                dd('Gagal simpan file Dokumen Persyaratan: ' . $e->getMessage());
+            }
+        }
+
 
         if ($this->profesi == 'other') {
             $this->profesi = $this->otherProfesi;
@@ -396,6 +412,7 @@ class Register extends Component
                 'ktp' => $ktpName,
                 'npwp' => $npwpName,
                 'avatar' => $avatarName,
+                'dokumen_persyaratan' => $dokumenName,
             ]);
 
             DB::commit();

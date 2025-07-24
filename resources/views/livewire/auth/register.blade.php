@@ -339,6 +339,46 @@
                                                         </div>
                                                     </div>
 
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Dokumen Persyaratan <span class="text-danger">*</span></label>
+                                                        
+                                                        <!-- Tombol Download -->
+                                                        <div class="mb-2">
+                                                            <a href="{{ asset('downloads/Surat-Fakta-Integritas-Anggota-PDSI.docx') }}" 
+                                                            class="btn btn-outline-primary btn-sm" 
+                                                            download="Surat-Fakta-Integritas-Anggota-PDSI.docx">
+                                                                <i class="ri-download-line me-1"></i>
+                                                                Download Template Dokumen
+                                                            </a>
+                                                            <small class="text-muted d-block mt-1">
+                                                                Silakan download template, isi, dan upload kembali file yang sudah diisi
+                                                            </small>
+                                                        </div>
+                                                        
+                                                        <!-- Input Upload -->
+                                                        <input type="file" 
+                                                            class="form-control @error('dokumen_persyaratan') is-invalid @enderror" 
+                                                            wire:model="dokumen_persyaratan" 
+                                                            id="dokumen_persyaratan" 
+                                                            accept=".doc,.docx,.pdf" 
+                                                            required>
+                                                        
+                                                        @error('dokumen_persyaratan')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
+                                                        
+                                                        <div class="invalid-feedback">
+                                                            Silakan upload dokumen persyaratan yang sudah diisi
+                                                        </div>
+                                                        
+                                                        <!-- Loading indicator (opsional untuk Livewire) -->
+                                                        <div wire:loading wire:target="dokumen_persyaratan" class="text-muted mt-1">
+                                                            <small><i class="ri-loader-4-line spinner-border spinner-border-sm me-1"></i>Uploading...</small>
+                                                        </div>
+                                                    </div>
+
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
                                                             <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>

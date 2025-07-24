@@ -34,7 +34,8 @@ class Anggota extends Model
         'description',
         'facebook_url',
         'instagram_url',
-        'no_kartu_anggota'
+        'no_kartu_anggota',
+        'dokumen_persyaratan'
     ];
 
     // Method untuk menghitung persentase
