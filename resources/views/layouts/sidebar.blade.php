@@ -177,7 +177,7 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link menu-link" href="{{ route('testimonial.index') }}">
+                        <a class="nav-link menu-link" href="{{ url('/testimonial') }}">
                             <i class=" ri-mail-star-line"></i> <span data-key="t-testimoni">Pengakuan</span>
                         </a>
                     </li>
