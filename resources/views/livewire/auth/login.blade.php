@@ -2,6 +2,7 @@
     Login
 @endsection
 
+<div>
 <section class="auth-page-wrapper py-5 position-relative d-flex align-items-center justify-content-center min-vh-100 bg-light">
     <div class="container">
         <div class="row">
@@ -133,6 +134,51 @@
     <!--end container-->
 </section>
 
+    <!-- Announcement Modal -->
+<div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-primary text-white border-0 position-relative">
+                <h5 class="modal-title text-white" id="announcementModalLabel">
+                    <i class="ri-notification-2-line me-2"></i>Pengumuman / Announcement
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <div class="position-relative">
+                    <!-- Main announcement image/content -->
+                    <img src="{{ asset('downloads/pengumuman_pdsi.png') }}" class="img-fluid" alt="Announcement Image">
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <button type="button" class="btn btn-warning px-4" data-bs-dismiss="modal">
+                    <i class="ri-close-line me-1"></i>Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
 @section('script')
     <script src="{{ URL::asset('build/js/pages/password-addon.init.js') }}"></script>
-@endsection
+    <script>
+        // Show modal on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if modal should be shown (you can add conditions here)
+            var announcementModal = new bootstrap.Modal(document.getElementById('announcementModal'));
+            
+            // Show modal after a short delay
+            setTimeout(function() {
+                announcementModal.show();
+            }, 500);
+            
+            // Optional: Store in localStorage to show only once per session
+            // if (!localStorage.getItem('announcement_shown')) {
+            //     setTimeout(function() {
+            //         announcementModal.show();
+            //         localStorage.setItem('announcement_shown', 'true');
+            //     }, 500);
+            // }
+        });
+    </script>
+@endsection```````````````````````````````````
