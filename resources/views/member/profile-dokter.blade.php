@@ -70,9 +70,23 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-lg-auto order-lg-2">
+                    {{-- <div class="col-lg-auto order-lg-2">
                         <a href="edit-profile-dokter" class="btn btn-secondary"><i class="ri-edit-box-line align-bottom"></i> Edit Profile</a>
-                    </div>
+                    </div> --}}
+                    @if(Request::is('member/*'))
+                        {{-- Jika diakses melalui /member/{id}, gunakan route member.edit --}}
+                        <div class="col-lg-auto order-lg-2">
+                            <a href="{{ route('member.edit', $anggota->user_id ?? $anggota->id) }}" class="btn btn-secondary">
+                                <i class="ri-edit-box-line align-bottom"></i> Edit Profile
+                            </a>
+                        </div>
+                    @else
+                        <div class="col-lg-auto order-lg-2">
+                            <a href="{{ route('edit-profile-dokter.index') }}" class="btn btn-secondary">
+                                <i class="ri-edit-box-line align-bottom"></i> Edit Profile
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

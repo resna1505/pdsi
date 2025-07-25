@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB; // 🆕 TAMBAHAN
 
 class EditProfileController extends Controller
 {
@@ -22,22 +23,46 @@ class EditProfileController extends Controller
     public function update(Request $request)
     {
         try {
-            $request->validate([
-                'nama' => 'nullable|string|max:255',
-                'email' => 'nullable|email',
-                'no_hp' => 'nullable|string',
-                'tempat_lahir' => 'nullable|string',
-                // 'tanggal_lahir' => 'nullable|date',
-                'profesi' => 'nullable|array',
-                'alamat' => 'nullable|string',
-                'kota' => 'nullable|string',
-                'provinsi' => 'nullable|string',
-                'description' => 'nullable|string',
-            ]);
+            DB::beginTransaction();
 
             $anggota = Anggota::where('user_id', Auth::id())->first();
 
-            $tanggalLahir = Carbon::parse($request->tanggal_lahir)->format('Y-m-d');
+            if (!$anggota) {
+                return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
+            }
+
+            $request->validate([
+                'nama' => 'required|string|max:255',
+                'email' => 'required|email|unique:anggotas,email,' . $anggota->id, // 🆕 PERBAIKI UNIQUE VALIDATION
+                'no_hp' => 'required|string|max:20',
+                'alamat' => 'nullable|string|max:500',
+                'kota' => 'nullable|string|max:100',
+                'provinsi' => 'nullable|string|max:100',
+                'tempat_lahir' => 'nullable|string|max:100',
+                'tanggal_lahir' => 'nullable|date',
+                'profesi' => 'nullable|array',
+                'description' => 'nullable|string|max:1000',
+                'facebook_url' => 'nullable',
+                'twitter_url' => 'nullable',
+                'linkedin_url' => 'nullable',
+                'instagram_url' => 'nullable',
+            ]);
+
+            $tanggalLahir = null;
+            if ($request->tanggal_lahir) {
+                $tanggalLahir = Carbon::parse($request->tanggal_lahir)->format('Y-m-d');
+            }
+
+            if ($request->hasFile('photo')) {
+                if ($anggota->avatar && file_exists(public_path("storage/images/users/{$anggota->avatar}"))) {
+                    unlink(public_path("storage/images/users/{$anggota->avatar}"));
+                }
+
+                $image = $request->file('photo');
+                $filename = time() . '_' . $image->getClientOriginalName();
+                $image->move(public_path('storage/images/users'), $filename);
+                $anggota->avatar = $filename;
+            }
 
             $anggota->update([
                 'nama' => $request->nama,
@@ -45,21 +70,39 @@ class EditProfileController extends Controller
                 'no_hp' => $request->no_hp,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $tanggalLahir,
-                'profesi' => implode(',', $request->profesi ?? []),
+                'profesi' => is_array($request->profesi) ? implode(', ', $request->profesi) : $request->profesi,
                 'alamat' => $request->alamat,
                 'kota' => $request->kota,
                 'provinsi' => $request->provinsi,
                 'description' => $request->description,
+                'facebook_url' => $request->facebook_url,
+                'twitter_url' => $request->twitter_url,
+                'linkedin_url' => $request->linkedin_url,
+                'instagram_url' => $request->instagram_url,
             ]);
 
+            if ($anggota->user) {
+                $anggota->user->update([
+                    'name' => $request->nama,
+                    'email' => $request->email,
+                ]);
+            }
+
+            DB::commit();
             return redirect()->back()->with('success', 'Profile added successfully!');
         } catch (\Throwable $e) {
-            Log::error('Profile store error: ' . $e->getMessage(), [
+            DB::rollBack(); // 🆕 ROLLBACK JIKA ERROR
+
+            Log::error('Profile update error: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
-                'line' => $e->getLine()
+                'line' => $e->getLine(),
+                'user_id' => Auth::id(),
+                'request_data' => $request->except(['photo']) // Log request tanpa file
             ]);
 
-            return redirect()->back()->with('error', 'Failed to add Profile. Please try again.');
+            return redirect()->back()
+                ->withInput() // 🆕 KEMBALIKAN INPUT
+                ->with('error', 'Gagal memperbarui profile. Silakan coba lagi.');
         }
     }
 

@@ -104,7 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // -> Dokter
     // Profile
-    Route::get('/profile-dokter', [ProfileDokterController::class, 'index'])->name('profile-dokter.index');
+    Route::get('/profile-dokter', [ProfileDokterController::class, 'index'])->name('profile.dokter');
     Route::post('/documents', [ProfileDokterController::class, 'store'])->name('documents.store');
     Route::get('/documents/{id}/view', [ProfileDokterController::class, 'view'])->name('documents.view');
     Route::get('/documents/{id}/download', [ProfileDokterController::class, 'download'])->name('documents.download');
@@ -114,6 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/jpg-front', [ProfileDokterController::class, 'downloadCardJPGFront'])->name('jpg.front');
     Route::get('/jpg-back', [ProfileDokterController::class, 'downloadCardJPGBack'])->name('jpg.back');
     Route::get('/jpg-both-zip', [ProfileDokterController::class, 'downloadCardJPGBoth'])->name('jpg.both.zip');
+
     Route::get('/edit-profile-dokter', [EditProfileController::class, 'index'])->name('edit-profile-dokter.index');
     Route::post('/edit-profile-dokter', [EditProfileController::class, 'update'])->name('edit-profile-dokter.update');
     Route::post('/change-password', [EditProfileController::class, 'changePassword'])->name('change-password');
@@ -158,6 +159,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/member/export-member', [MemberController::class, 'exportMember'])->name('member.export.member');
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');
     Route::delete('/member/{id}', [MemberController::class, 'destroy'])->name('member.destroy');
+
+    // Routes untuk Member (Admin edit member lain)
+    Route::get('/member/{id}/edit', [MemberController::class, 'edit'])->name('member.edit');
+    Route::post('/member/{id}/update', [MemberController::class, 'update'])->name('member.update');
 
     // Update routes di web.php - URUTAN PENTING!
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
