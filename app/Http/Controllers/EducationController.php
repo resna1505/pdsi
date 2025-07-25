@@ -50,7 +50,8 @@ class EducationController extends Controller
 
             Education::create($data);
 
-            return redirect()->back()->with('success', 'Education added successfully!');
+            return redirect()->back()->with('success', 'Education added successfully!')
+                ->with('active_tab', 'education');
         } catch (\Exception $e) {
             Log::error('Education store error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Failed to add education. Please try again.');
@@ -141,7 +142,8 @@ class EducationController extends Controller
 
             $education->update($data);
 
-            return redirect()->back()->with('success', 'Education updated successfully!');
+            return redirect()->back()->with('success', 'Education added successfully!')
+                ->with('active_tab', 'education');
         } catch (\Exception $e) {
             Log::error('Education update error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Failed to update education. Please try again.');
@@ -178,7 +180,11 @@ class EducationController extends Controller
 
             $education->delete();
 
-            return response()->json(['success' => true, 'message' => 'Education deleted successfully']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Education deleted successfully!',
+                'active_tab' => 'education'
+            ]);
         } catch (\Exception $e) {
             Log::error('Education delete error: ' . $e->getMessage());
             return response()->json(['success' => false, 'message' => 'Error deleting education']);

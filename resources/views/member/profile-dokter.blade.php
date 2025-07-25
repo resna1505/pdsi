@@ -7,7 +7,19 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('content')
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="ri-check-circle-line me-2"></i>{{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="ri-error-warning-line me-2"></i>{{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row">
     <div class="col-lg-12">
         <div class="card overflow-hidden">
@@ -934,7 +946,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Documents Tab -->
             <div class="tab-pane fade" id="documents" role="tabpanel">
                 <div class="card">
@@ -953,63 +964,82 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="table-responsive">
-                                    <table class="table table-borderless align-middle mb-0 mt-3">
-                                        <thead class="table-light">
-                                            <tr>
-                                                <th>Nama File</th>
-                                                <th>Tipe</th>
-                                                <th>Ukuran</th>
-                                                <th>Tanggal Upload</th>
-                                                <th>Nama Anggota</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($documents as $doc)
+                                @if($documents && $documents->count() > 0)
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless align-middle mb-0 mt-3">
+                                            <thead class="table-light">
                                                 <tr>
-                                                    <td>{{ $doc->filename }}</td>
-                                                    <td>{{ $doc->type }}</td>
-                                                    <td>{{ $doc->size }}</td>
-                                                    <td>{{ \Carbon\Carbon::parse($doc->upload_date)->format('d M Y') }}</td>
-                                                    <td>{{ $doc->anggota->nama ?? '-' }}</td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink{{ $doc->id }}" data-bs-toggle="dropdown" aria-expanded="true">
-                                                                <i class="bi bi-sliders2"></i>
-                                                            </a>
-                                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink{{ $doc->id }}">
-                                                                <li>
-                                                                    <a class="dropdown-item" href="{{ route('documents.view', $doc->id) }}" target="_blank">
-                                                                        <i class="ri-eye-fill me-2 align-middle text-muted"></i>View
-                                                                    </a>
-                                                                </li>
-                                                                <li>
-                                                                    <a class="dropdown-item" href="{{ route('documents.download', $doc->id) }}">
-                                                                        <i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download
-                                                                    </a>
-                                                                </li>
-                                                                <li class="dropdown-divider"></li>
-                                                                <li>
-                                                                    <form action="{{ route('documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus file ini?')">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button class="dropdown-item text-danger" type="submit">
-                                                                            <i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete
-                                                                        </button>
-                                                                    </form>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
+                                                    <th>Nama File</th>
+                                                    <th>Tipe</th>
+                                                    <th>Ukuran</th>
+                                                    <th>Tanggal Upload</th>
+                                                    <th>Nama Anggota</th>
+                                                    <th>Aksi</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-center mt-3">
-                                    <a href="javascript:void(0);" class="text-success"><i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load more </a>
-                                </div>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($documents as $doc)
+                                                    <tr>
+                                                        <td>{{ $doc->filename }}</td>
+                                                        <td>{{ $doc->type }}</td>
+                                                        <td>{{ $doc->size }}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($doc->upload_date)->format('d M Y') }}</td>
+                                                        <td>{{ $doc->anggota->nama ?? '-' }}</td>
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a href="javascript:void(0);" class="btn btn-light btn-icon" id="dropdownMenuLink{{ $doc->id }}" data-bs-toggle="dropdown" aria-expanded="true">
+                                                                    <i class="bi bi-sliders2"></i>
+                                                                </a>
+                                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink{{ $doc->id }}">
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="{{ route('documents.view', $doc->id) }}" target="_blank">
+                                                                            <i class="ri-eye-fill me-2 align-middle text-muted"></i>View
+                                                                        </a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a class="dropdown-item" href="{{ route('documents.download', $doc->id) }}">
+                                                                            <i class="ri-download-2-fill me-2 align-middle text-muted"></i>Download
+                                                                        </a>
+                                                                    </li>
+                                                                    <li class="dropdown-divider"></li>
+                                                                    <li>
+                                                                        <form action="{{ route('documents.destroy', $doc->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus file ini?')">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button class="dropdown-item text-danger" type="submit">
+                                                                                <i class="ri-delete-bin-5-line me-2 align-middle text-muted"></i>Delete
+                                                                            </button>
+                                                                        </form>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    
+                                    {{-- Tampilkan "Load more" hanya jika ada banyak data (misal > 10) --}}
+                                    @if($documents->count() > 10)
+                                        <div class="text-center mt-3">
+                                            <a href="javascript:void(0);" class="text-success">
+                                                <i class="mdi mdi-loading mdi-spin fs-20 align-middle me-2"></i> Load more 
+                                            </a>
+                                        </div>
+                                    @endif
+                                @else
+                                    {{-- Tampilkan empty state jika tidak ada data --}}
+                                    <div class="text-center py-5">
+                                        <div class="avatar-sm mx-auto mb-4">
+                                            <div class="avatar-title bg-soft-primary text-primary rounded-circle fs-20">
+                                                <i class="ri-file-list-3-line"></i>
+                                            </div>
+                                        </div>
+                                        <h5 class="fs-16">No Documents</h5>
+                                        <p class="text-muted">Belum ada dokumen yang diupload. Klik tombol "Upload File" untuk menambah dokumen Anda.</p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -1045,7 +1075,11 @@ function deleteEducation(id) {
         .then(data => {
             if (data.success) {
                 alert('Education deleted successfully!');
-                location.reload();
+                // Redirect dengan active tab
+                window.location.href = window.location.pathname + '?tab=education';
+                // Atau reload dengan hash
+                // window.location.hash = '#education';
+                // location.reload();
             } else {
                 alert('Error deleting education: ' + data.message);
             }
@@ -1071,7 +1105,8 @@ function deletePractice(id) {
         .then(data => {
             if (data.success) {
                 alert('Practice deleted successfully!');
-                location.reload();
+                // Redirect dengan active tab
+                window.location.href = window.location.pathname + '?tab=projects';
             } else {
                 alert('Error deleting practice: ' + data.message);
             }
@@ -1204,5 +1239,122 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+</script>
+<script>
+    // Keep active tab after page reload
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if there's an active tab from session
+        @if(session('active_tab'))
+            const activeTab = '{{ session("active_tab") }}';
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.nav-link').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('active', 'show');
+            });
+            
+            // Activate the target tab
+            const targetTabLink = document.querySelector(`a[href="#${activeTab}"]`);
+            const targetTabPane = document.querySelector(`#${activeTab}`);
+            
+            if (targetTabLink && targetTabPane) {
+                targetTabLink.classList.add('active');
+                targetTabPane.classList.add('active', 'show');
+            }
+        @endif
+        
+        // Store active tab in localStorage when tab is clicked
+        document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('href').substring(1);
+                localStorage.setItem('activeTab', tabId);
+            });
+        });
+        
+        // Auto-hide alerts after 5 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                if (alert.classList.contains('show')) {
+                    alert.classList.remove('show');
+                    setTimeout(() => alert.remove(), 150);
+                }
+            });
+        }, 5000);
+    });
+</script>
+<script>
+// Keep active tab after page reload
+document.addEventListener('DOMContentLoaded', function() {
+    let activeTabId = null;
+    
+    // Check URL parameter first
+    const urlParams = new URLSearchParams(window.location.search);
+    const tabFromUrl = urlParams.get('tab');
+    
+    // Priority: URL parameter > session > default
+    @if(session('active_tab'))
+        activeTabId = '{{ session("active_tab") }}';
+    @endif
+    
+    if (tabFromUrl) {
+        activeTabId = tabFromUrl;
+    }
+    
+    // Check hash in URL
+    if (window.location.hash) {
+        const hashTab = window.location.hash.substring(1);
+        if (hashTab) {
+            activeTabId = hashTab;
+        }
+    }
+    
+    if (activeTabId) {
+        // Remove active class from all tabs
+        document.querySelectorAll('.nav-link').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-pane').forEach(pane => {
+            pane.classList.remove('active', 'show');
+        });
+        
+        // Activate the target tab
+        const targetTabLink = document.querySelector(`a[href="#${activeTabId}"]`);
+        const targetTabPane = document.querySelector(`#${activeTabId}`);
+        
+        if (targetTabLink && targetTabPane) {
+            targetTabLink.classList.add('active');
+            targetTabPane.classList.add('active', 'show');
+        }
+        
+        // Clean URL
+        if (tabFromUrl) {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    }
+    
+    // Store active tab when tab is clicked
+    document.querySelectorAll('a[data-bs-toggle="tab"]').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const tabId = this.getAttribute('href').substring(1);
+            localStorage.setItem('activeTab', tabId);
+        });
+    });
+    
+    // Auto-hide alerts after 5 seconds
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('.alert');
+        alerts.forEach(alert => {
+            if (alert.classList.contains('show')) {
+                alert.classList.remove('show');
+                setTimeout(() => alert.remove(), 150);
+            }
+        });
+    }, 5000);
+});
+
+// Rest of existing code...
 </script>
 @endsection

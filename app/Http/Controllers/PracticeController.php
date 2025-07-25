@@ -52,7 +52,8 @@ class PracticeController extends Controller
 
             Practice::create($data);
 
-            return redirect()->back()->with('success', 'Practice added successfully!');
+            return redirect()->back()->with('success', 'Practice added successfully!')
+                ->with('active_tab', 'projects');
         } catch (\Exception $e) {
             Log::error('Practice store error: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Failed to add practice. Please try again.');
@@ -85,7 +86,8 @@ class PracticeController extends Controller
             ]);
         } catch (\Exception $e) {
             Log::error('Practice edit error: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => 'Error loading practice data']);
+            return redirect()->back()->with('error', 'Failed to add practice. Please try again.')
+                ->with('active_tab', 'projects');
         }
     }
 
@@ -138,10 +140,12 @@ class PracticeController extends Controller
 
             $practice->update($data);
 
-            return redirect()->back()->with('success', 'Practice updated successfully!');
+            return redirect()->back()->with('success', 'Practice updated successfully!')
+                ->with('active_tab', 'projects');
         } catch (\Exception $e) {
             Log::error('Practice update error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to update practice. Please try again.');
+            return redirect()->back()->with('error', 'Failed to update practice. Please try again.')
+                ->with('active_tab', 'projects');
         }
     }
 
@@ -167,10 +171,17 @@ class PracticeController extends Controller
 
             $practice->delete();
 
-            return response()->json(['success' => true, 'message' => 'Practice deleted successfully']);
+            return response()->json([
+                'success' => true,
+                'message' => 'Practice deleted successfully!',
+                'active_tab' => 'projects'
+            ]);
         } catch (\Exception $e) {
             Log::error('Practice delete error: ' . $e->getMessage());
-            return response()->json(['success' => false, 'message' => 'Error deleting practice']);
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete practice'
+            ], 422);
         }
     }
 }

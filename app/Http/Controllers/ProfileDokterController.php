@@ -183,14 +183,17 @@ class ProfileDokterController extends Controller
                 'upload_date' => $upload_date,
             ]);
 
-            return redirect()->back()->with('success', 'Document added successfully!');
+            // Redirect dengan hash untuk tetap di tab documents
+            return redirect()->back()->with('success', 'Document uploaded successfully!')
+                ->with('active_tab', 'documents');
         } catch (\Throwable $e) {
-            Log::error('Article store error: ' . $e->getMessage(), [
+            Log::error('Document store error: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
 
-            return redirect()->back()->with('error', 'Failed to add Document. Please try again.');
+            return redirect()->back()->with('error', 'Failed to upload document. Please try again.')
+                ->with('active_tab', 'documents');
         }
     }
 
@@ -226,14 +229,16 @@ class ProfileDokterController extends Controller
 
             $document->delete();
 
-            return redirect()->back()->with('success', 'File berhasil dihapus!');
+            return redirect()->back()->with('success', 'Document deleted successfully!')
+                ->with('active_tab', 'documents');
         } catch (\Throwable $e) {
             Log::error('Article store error: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ]);
 
-            return redirect()->back()->with('error', 'Failed to delete Document. Please try again.');
+            return redirect()->back()->with('error', 'Failed to delete document. Please try again.')
+                ->with('active_tab', 'documents');
         }
     }
 
@@ -433,86 +438,4 @@ class ProfileDokterController extends Controller
             return redirect()->back()->with('error', 'Gagal membuat ZIP: ' . $e->getMessage());
         }
     }
-
-    // public function edit()
-    // {
-    //     $anggota = Anggota::where('user_id', Auth::id())->first();
-
-    //     if (!$anggota) {
-    //         return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
-    //     }
-
-    //     // Gunakan view yang sama
-    //     return view('member.edit-profile-dokter', compact('anggota'));
-    // }
-    // public function update(Request $request)
-    // {
-    //     try {
-    //         DB::beginTransaction();
-
-    //         $anggota = Anggota::where('user_id', Auth::id())->first();
-
-    //         if (!$anggota) {
-    //             return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
-    //         }
-
-    //         // Validasi input
-    //         $request->validate([
-    //             'nama' => 'required|string|max:255',
-    //             'email' => 'required|email|unique:anggotas,email,' . $anggota->id,
-    //             'no_hp' => 'required|string|max:20',
-    //             'alamat' => 'nullable|string|max:500',
-    //             'kota' => 'nullable|string|max:100',
-    //             'provinsi' => 'nullable|string|max:100',
-    //             'tempat_lahir' => 'nullable|string|max:100',
-    //             'tanggal_lahir' => 'nullable|date',
-    //             'ktp' => 'nullable|string|max:20',
-    //             'npwp' => 'nullable|string|max:20',
-    //             'profesi' => 'nullable|string|max:100',
-    //             'spesialis' => 'nullable|string|max:100',
-    //             'description' => 'nullable|string|max:1000',
-    //             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    //             'facebook_url' => 'nullable|url',
-    //             'twitter_url' => 'nullable|url',
-    //             'linkedin_url' => 'nullable|url',
-    //             'instagram_url' => 'nullable|url',
-    //         ]);
-
-    //         // Handle avatar upload
-    //         if ($request->hasFile('avatar')) {
-    //             // Delete old avatar if exists
-    //             if ($anggota->avatar && file_exists(public_path("storage/images/users/{$anggota->avatar}"))) {
-    //                 unlink(public_path("storage/images/users/{$anggota->avatar}"));
-    //             }
-
-    //             $avatar = $request->file('avatar');
-    //             $filename = time() . '_' . $avatar->getClientOriginalName();
-    //             $avatar->move(public_path('storage/images/users'), $filename);
-    //             $anggota->avatar = $filename;
-    //         }
-
-    //         // Update anggota data
-    //         $anggota->update($request->except(['avatar', '_token', '_method']));
-
-    //         // Update user table
-    //         if ($anggota->user) {
-    //             $anggota->user->update([
-    //                 'name' => $request->nama,
-    //                 'email' => $request->email,
-    //             ]);
-    //         }
-
-    //         DB::commit();
-
-    //         return redirect()->route('profile.dokter')
-    //             ->with('success', 'Profile berhasil diperbarui.');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         Log::error("Error updating profile: " . $e->getMessage());
-
-    //         return redirect()->back()
-    //             ->withInput()
-    //             ->with('error', 'Terjadi kesalahan saat memperbarui profile: ' . $e->getMessage());
-    //     }
-    // }
 }
