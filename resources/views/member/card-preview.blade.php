@@ -40,7 +40,7 @@
         }
         
         .card-back {
-            background-image: url('{{ asset('build/images/kta_pdsi_belakang.jpg') }}');
+            background-image: url('{{ asset('build/images/kta_pdsi_belakang.png') }}');
         }
         
         .avatar-container {
