@@ -88,7 +88,7 @@ User
                                                         data-bs-target="#viewVerification"
                                                         data-id="{{ $item->user_id }}"
                                                         data-nama="{{ $item->nama }}"
-                                                        data-ktp="{{ $item->ktp }}"
+                                                        data-ktp="{{ $item->noktp }}"
                                                         data-npwp="{{ $item->npwp }}"
                                                         data-lahir="{{ $item->tempat_lahir }}"
                                                         data-birthday="{{ $item->tanggal_lahir }}"
@@ -126,15 +126,15 @@ User
                                             </div>
                                         </div>
                                     </div>
-                                </div>  
-                            @endforeach                           
+                                </div>
+                            @endforeach
                         </div>
                         <div class="d-flex align-items-center border-top pt-3">
                             <div class="flex-grow-1">
                                 <div class="text-muted pagination-info mb-2"></div>
                             </div>
                             <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="tab-pane" id="member" role="tabpanel">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -155,7 +155,7 @@ User
                                                         data-bs-target="#viewVerification"
                                                         data-id="{{ $item->user_id }}"
                                                         data-nama="{{ $item->nama }}"
-                                                        data-ktp="{{ $item->ktp }}"
+                                                        data-ktp="{{ $item->noktp }}"
                                                         data-npwp="{{ $item->npwp }}"
                                                         data-lahir="{{ $item->tempat_lahir }}"
                                                         data-birthday="{{ $item->tanggal_lahir }}"
@@ -165,6 +165,9 @@ User
                                                         data-city="{{ $item->kota }}"
                                                         data-provinsi="{{ $item->provinsi }}"
                                                         data-profesi="{{ $item->profesi }}"
+                                                        data-downloadktp="{{ $item->ktp }}"
+                                                        data-downloadnpwp="{{ $item->npwp }}"
+                                                        data-downloaddokumen="{{ $item->dokumen_persyaratan }}"
                                                         data-avatar="{{  URL::asset("storage/images/users/{$item->avatar}") }}"
                                                         >
                                                             <i class="ri-eye-fill"></i>
@@ -193,15 +196,15 @@ User
                                             </div>
                                         </div>
                                     </div>
-                                </div>  
-                            @endforeach                                                        
+                                </div>
+                            @endforeach
                         </div>
                         <div class="d-flex align-items-center border-top pt-3">
                             <div class="flex-grow-1">
                                 <div class="text-muted pagination-info mb-2"></div>
                             </div>
                             <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>
@@ -287,19 +290,19 @@ User
                         <td class="overview-email"></td>
                     </tr>
                     <tr>
-                        <th scope="row">KTP</th>
+                        <th scope="row">No KTP</th>
                         <td class="overview-ktp">-</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">NPWP</th>
-                        <td class="overview-npwp">-</td>
                     </tr>
                     <tr>
                         <th scope="row">Phone Number</th>
                         <td class="overview-phone">-</td>
                     </tr>
                     <tr>
-                        <th scope="row">Tempat Tinggal</th>
+                        <th scope="row">Tempat Lahir</th>
+                        <td class="overview-lahir">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Alamat</th>
                         <td class="overview-address">-</td>
                     </tr>
                     <tr>
@@ -311,18 +314,31 @@ User
                         <td class="overview-provinsi">-</td>
                     </tr>
                     <tr>
-                        <th scope="row">Tempat Lahir</th>
-                        <td class="overview-lahir">-</td>
-                    </tr>                    
-                    <tr>
                         <th scope="row">Tanggal Lahir</th>
                         <td class="overview-birthday">-</td>
-                    </tr>                    
+                    </tr>
                     </form>
                 </tbody>
             </table>
         </div>
-        <div class="hstack gap-2 w-100">
+
+        <!-- Download Section -->
+        <div class="mt-4">
+            <h6 class="mb-3">Dokumen Verifikasi</h6>
+            <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-primary btn-sm download-btn" id="downloadKTP" style="display: none;">
+                    <i class="ri-download-line me-1"></i> Download KTP
+                </button>
+                <button type="button" class="btn btn-outline-primary btn-sm download-btn" id="downloadNPWP" style="display: none;">
+                    <i class="ri-download-line me-1"></i> Download NPWP
+                </button>
+                <button type="button" class="btn btn-outline-primary btn-sm download-btn" id="downloadDokumen" style="display: none;">
+                    <i class="ri-download-line me-1"></i> Download Dokumen
+                </button>
+            </div>
+        </div>
+
+        <div class="hstack gap-2 w-100 mt-4">
             <button type="button" class="btn btn-secondary w-100" id="btnVerifikasi" data-anggota-id="{{ Auth::user()->anggota?->id ?? '' }}">
                 Verifikasi
             </button>
@@ -373,12 +389,12 @@ User
         function toggleExportButtons() {
             const activeTab = document.querySelector('.nav-link.active');
             const exportType = activeTab ? activeTab.getAttribute('data-export') : 'admin';
-            
+
             const adminBtn = document.getElementById('exportAdminBtn');
             const memberBtn = document.getElementById('exportMemberBtn');
             const adminForm = document.getElementById('exportAdminForm');
             const memberForm = document.getElementById('exportMemberForm');
-            
+
             if (exportType === 'admin') {
                 adminBtn.style.display = 'inline-block';
                 memberBtn.style.display = 'none';
@@ -536,7 +552,7 @@ User
     document.addEventListener('DOMContentLoaded', function() {
         const removeLinks = document.querySelectorAll('.remove-list');
         const deleteForm = document.getElementById('deleteForm');
-        
+
         removeLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 const articleId = this.getAttribute('data-remove-id');
@@ -549,12 +565,17 @@ User
 
 <script>
     const viewVerification = document.getElementById('viewVerification');
+
+    // Global variables untuk menyimpan file paths
+    let currentKtpFile = '';
+    let currentNpwpFile = '';
+    let currentDokumenFile = '';
+
     viewVerification.addEventListener('show.bs.offcanvas', function (event) {
         const button = event.relatedTarget;
         const id = button.getAttribute('data-id');
         const nama = button.getAttribute('data-nama');
         const ktp = button.getAttribute('data-ktp');
-        const npwp = button.getAttribute('data-npwp');
         const lahir = button.getAttribute('data-lahir');
         const birthday = button.getAttribute('data-birthday');
         const email = button.getAttribute('data-email');
@@ -564,7 +585,11 @@ User
         const provinsi = button.getAttribute('data-provinsi');
         const profesi = button.getAttribute('data-profesi');
         const avatar = button.getAttribute('data-avatar');
+        const downloadnpwp = button.getAttribute('data-downloadnpwp');
+        const downloadktp = button.getAttribute('data-downloadktp');
+        const downloaddokumen = button.getAttribute('data-downloaddokumen');
 
+        // Set nilai form
         document.getElementById('targetUserId').value = id;
         viewVerification.querySelector('.overview-name').textContent = nama;
         viewVerification.querySelector('.overview-email').textContent = email;
@@ -574,14 +599,108 @@ User
         viewVerification.querySelector('.overview-provinsi').textContent = provinsi;
         viewVerification.querySelector('.overview-profesi').textContent = profesi;
         viewVerification.querySelector('.overview-ktp').textContent = ktp;
-        viewVerification.querySelector('.overview-npwp').textContent = npwp;
         viewVerification.querySelector('.overview-lahir').textContent = lahir;
         viewVerification.querySelector('.overview-birthday').textContent = birthday;
         viewVerification.querySelector('.overview-avatar').src = avatar;
+
+        // Set file paths untuk download
+        currentKtpFile = downloadktp;
+        currentNpwpFile = downloadnpwp;
+        currentDokumenFile = downloaddokumen;
+
+        // Show/Hide download buttons berdasarkan ketersediaan file
+        const downloadKTPBtn = document.getElementById('downloadKTP');
+        const downloadNPWPBtn = document.getElementById('downloadNPWP');
+        const downloadDokumenBtn = document.getElementById('downloadDokumen');
+
+        // Reset semua button
+        downloadKTPBtn.style.display = 'none';
+        downloadNPWPBtn.style.display = 'none';
+        downloadDokumenBtn.style.display = 'none';
+
+        // Show button jika file ada
+        if (downloadktp && downloadktp !== '' && downloadktp !== 'null') {
+            downloadKTPBtn.style.display = 'block';
+        }
+        if (downloadnpwp && downloadnpwp !== '' && downloadnpwp !== 'null') {
+            downloadNPWPBtn.style.display = 'block';
+        }
+        if (downloaddokumen && downloaddokumen !== '' && downloaddokumen !== 'null') {
+            downloadDokumenBtn.style.display = 'block';
+        }
     });
+
+    // Event listeners untuk download buttons
+    document.getElementById('downloadKTP').addEventListener('click', function() {
+        if (currentKtpFile && currentKtpFile !== '' && currentKtpFile !== 'null') {
+            downloadFile(currentKtpFile, 'KTP');
+        }
+    });
+
+    document.getElementById('downloadNPWP').addEventListener('click', function() {
+        if (currentNpwpFile && currentNpwpFile !== '' && currentNpwpFile !== 'null') {
+            downloadFile(currentNpwpFile, 'NPWP');
+        }
+    });
+
+    document.getElementById('downloadDokumen').addEventListener('click', function() {
+        if (currentDokumenFile && currentDokumenFile !== '' && currentDokumenFile !== 'null') {
+            downloadFile(currentDokumenFile, 'Dokumen');
+        }
+    });
+
+    // Function untuk download file
+    // Function untuk download file
+function downloadFile(filename, type) {
+    if (!filename || filename === '' || filename === 'null') {
+        alert('File tidak tersedia untuk didownload');
+        return;
+    }
+
+    // Buat URL download menggunakan route Laravel
+    const downloadUrl = `/download/user-document/${type.toLowerCase()}/${filename}`;
+
+    // Buat element anchor untuk trigger download
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.target = '_blank';
+
+    // Trigger download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Optional: Show success message
+    showDownloadNotification(type, filename);
+}
+
+    // Function untuk show notification (optional)
+    function showDownloadNotification(type, filename) {
+        // Buat toast notification (jika menggunakan Bootstrap Toast)
+        const toastHtml = `
+            <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="ri-download-line me-2"></i>
+                        ${type} berhasil didownload: ${filename}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        `;
+
+        // Atau gunakan alert sederhana
+        console.log(`${type} berhasil didownload: ${filename}`);
+
+        // Uncomment line dibawah jika ingin menggunakan alert
+        // alert(`${type} berhasil didownload: ${filename}`);
+    }
 </script>
 
 <script>
+    const btnVerifikasi = document.getElementById('btnVerifikasi');
+    const verifikasiForm = document.getElementById('verifikasiForm');
+
     btnVerifikasi.addEventListener('click', function () {
         const anggotaId = document.getElementById('targetUserId').value;
         if (!anggotaId) {

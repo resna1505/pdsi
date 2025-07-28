@@ -171,6 +171,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/verifikasi-user/{id}', [UserController::class, 'verifikasi']);
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
+    Route::get('/download/user-document/{type}/{filename}', [UserController::class, 'downloadDocument'])->name('user.download.document');
+
     Route::get('/verifikasi-iuran', [VerifikasiIuranController::class, 'index']);
     Route::post('/data-verifikasi-iuran/{id}', [VerifikasiIuranController::class, 'verifikasi']);
     Route::delete('/verifikasi-iuran/{id}', [VerifikasiIuranController::class, 'destroy'])->name('verifikasi-iuran.destroy');

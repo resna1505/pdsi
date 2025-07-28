@@ -276,4 +276,44 @@ class UserController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat export: ' . $e->getMessage());
         }
     }
+
+    public function downloadDocument($type, $filename)
+    {
+        try {
+            // Validasi type yang diizinkan
+            $allowedTypes = ['ktp', 'npwp', 'dokumen'];
+            if (!in_array($type, $allowedTypes)) {
+                return redirect()->back()->with('error', 'Tipe dokumen tidak valid.');
+            }
+
+            // Path file berdasarkan type
+            $filePath = 'images/users/' . $filename;
+
+            // Cek apakah file exists di storage
+            if (!Storage::disk('public')->exists($filePath)) {
+                return redirect()->back()->with('error', 'File tidak ditemukan.');
+            }
+
+            // Get file dari storage
+            $file = Storage::disk('public')->get($filePath);
+            $mimeType = mime_content_type(Storage::disk('public')->path($filePath));
+
+            // Set nama file untuk download
+            $downloadName = strtoupper($type) . '_' . $filename;
+
+            return response($file)
+                ->header('Content-Type', $mimeType)
+                ->header('Content-Disposition', 'attachment; filename="' . $downloadName . '"');
+
+        } catch (\Exception $e) {
+            Log::error('Download document error: ' . $e->getMessage(), [
+                'type' => $type,
+                'filename' => $filename,
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+
+            return redirect()->back()->with('error', 'Gagal mendownload dokumen: ' . $e->getMessage());
+        }
+    }
 }
