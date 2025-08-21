@@ -226,7 +226,7 @@ class Register extends Component
         'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         'dokumen_persyaratan' => 'required|file|mimes:doc,docx,pdf',
         'remember' => 'required|accepted',
-        'otp' => 'required',
+        // 'otp' => 'required',
     ];
 
     // ========================================
@@ -307,10 +307,6 @@ class Register extends Component
             ['otp' => $otpCode, 'expires_at' => Carbon::now()->addMinutes(10)]
         );
 
-        // Kirim OTP ke email
-        // Mail::raw("Your OTP Code is: $otpCode", function ($message) {
-        //     $message->to($this->email)->subject('Your OTP Code');
-        // });
         Mail::to($this->email)->send(new OtpEmail($otpCode));
 
         session()->flash('success', 'OTP has been sent to your email.');
@@ -320,17 +316,17 @@ class Register extends Component
     {
         $this->validate();
 
-        $otpRecord = Otp::where('email', $this->email)
-            ->where('otp', $this->otp)
-            ->where('expires_at', '>', now())
-            ->first();
+        // $otpRecord = Otp::where('email', $this->email)
+        //     ->where('otp', $this->otp)
+        //     ->where('expires_at', '>', now())
+        //     ->first();
 
-        if (!$otpRecord) {
-            session()->flash('error', 'Invalid or expired OTP.');
-            return;
-        }
+        // if (!$otpRecord) {
+        //     session()->flash('error', 'Invalid or expired OTP.');
+        //     return;
+        // }
 
-        $otpRecord->delete();
+        // $otpRecord->delete();
 
         $destination = public_path('storage/images/users');
         if (!file_exists($destination)) {
