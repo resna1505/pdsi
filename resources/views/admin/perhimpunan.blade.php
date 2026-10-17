@@ -150,7 +150,7 @@ Perhimpunan
 
 {{-- Modal edit --}}
 <div class="modal fade" id="editPerhimpunanModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content border-0">
             <div class="modal-header p-4 pb-0">
                 <h5 class="modal-title">Edit Perhimpunan</h5>
@@ -182,6 +182,46 @@ Perhimpunan
                                 <input type="file" class="form-control" id="edit-{{ $field }}" name="{{ $field }}" accept=".jpg,.jpeg,.png">
                             </div>
                         @endforeach
+                        <div class="col-12">
+                            <hr class="mt-1">
+                            <h6 class="mb-1">Profil di Website</h6>
+                            <p class="text-muted small mb-3">Ditampilkan di halaman Perhimpunan pada website pdsionline.org.</p>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="edit-logo" class="form-label">Logo</label>
+                            <div class="mb-2 d-none" id="edit-logo-current">
+                                <img src="" alt="" class="rounded border bg-light p-1" style="max-height: 90px;">
+                            </div>
+                            <input type="file" class="form-control" id="edit-logo" name="logo" accept=".jpg,.jpeg,.png,.webp">
+                            <small class="text-muted">PNG transparan disarankan, maks. 2 MB.</small>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label for="edit-ringkasan" class="form-label">Ringkasan</label>
+                            <textarea class="form-control" id="edit-ringkasan" name="ringkasan" rows="4" maxlength="1000"
+                                placeholder="1-2 kalimat untuk kartu di halaman daftar perhimpunan"></textarea>
+                        </div>
+                        @foreach ([
+                            'filosofi' => ['Filosofi', 4, ''],
+                            'arti_lambang' => ['Arti Lambang', 5, ''],
+                            'visi' => ['Visi', 3, ''],
+                            'misi' => ['Misi', 6, 'Satu poin per baris'],
+                            'tujuan' => ['Tujuan', 4, ''],
+                        ] as $field => [$label, $rows, $hint])
+                            <div class="col-12 mb-3">
+                                <label for="edit-{{ $field }}" class="form-label">{{ $label }}
+                                    @if ($hint)<span class="text-muted small">({{ $hint }})</span>@endif
+                                </label>
+                                <textarea class="form-control" id="edit-{{ $field }}" name="{{ $field }}" rows="{{ $rows }}"></textarea>
+                            </div>
+                        @endforeach
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-slogan" class="form-label">Slogan</label>
+                            <input type="text" class="form-control" id="edit-slogan" name="slogan" maxlength="255">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-nilai_dasar" class="form-label">Nilai Dasar <span class="text-muted small">(pisahkan dengan koma)</span></label>
+                            <input type="text" class="form-control" id="edit-nilai_dasar" name="nilai_dasar" maxlength="255">
+                        </div>
                         <div class="col-12 mb-3">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" id="edit-is-active" name="is_active" value="1">
@@ -258,6 +298,13 @@ Perhimpunan
                         document.getElementById('edit-nama').value = data.perhimpunan.nama;
                         document.getElementById('edit-singkatan').value = data.perhimpunan.singkatan;
                         document.getElementById('edit-is-active').checked = !!data.perhimpunan.is_active;
+
+                        ['ringkasan', 'filosofi', 'arti_lambang', 'visi', 'misi', 'tujuan', 'slogan', 'nilai_dasar'].forEach(function (field) {
+                            document.getElementById(`edit-${field}`).value = data.perhimpunan[field] || '';
+                        });
+                        const logoCurrent = document.getElementById('edit-logo-current');
+                        logoCurrent.classList.toggle('d-none', !data.logo_url);
+                        logoCurrent.querySelector('img').src = data.logo_url || '';
 
                         ['kta_depan', 'kta_belakang'].forEach(function (field) {
                             const current = document.getElementById(`edit-${field}-current`);
