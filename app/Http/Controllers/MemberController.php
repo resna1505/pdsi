@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anggota;
+use App\Models\Perhimpunan;
 use App\Models\Document;
 use App\Exports\AdminExport;
 use App\Exports\MemberExport;
@@ -274,8 +275,13 @@ class MemberController extends Controller
             return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
         }
 
+        // Pilihan perhimpunan hanya untuk admin
+        $perhimpunans = Auth::user()->level === 'Admin'
+            ? Perhimpunan::orderBy('urutan')->orderBy('nama')->get(['id', 'nama', 'singkatan'])
+            : null;
+
         // Gunakan view yang sama dengan edit-profile-dokter
-        return view('member.edit-profile-dokter', compact('anggota'));
+        return view('member.edit-profile-dokter', compact('anggota', 'perhimpunans'));
     }
     public function update(Request $request, $id)
     {
@@ -304,7 +310,13 @@ class MemberController extends Controller
                 'twitter_url' => 'nullable',
                 'linkedin_url' => 'nullable',
                 'instagram_url' => 'nullable',
+                'perhimpunan_id' => 'nullable|exists:perhimpunans,id',
             ]);
+
+            // Perhimpunan hanya boleh diubah admin
+            if (Auth::user()->level === 'Admin' && $request->has('perhimpunan_id')) {
+                $anggota->perhimpunan_id = $request->perhimpunan_id ?: null;
+            }
 
             $tanggalLahir = null;
             if ($request->tanggal_lahir) {

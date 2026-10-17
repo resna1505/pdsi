@@ -41,7 +41,10 @@ class Register extends Component
 
     public $dokumen_persyaratan;
 
-    // Perhimpunan & dokumen profesi (opsional, untuk dokter yang memiliki STR/SIP)
+    // Jenis keanggotaan: 'biasa' (anggota PDSI) atau 'perhimpunan' (wajib syarat dokumen)
+    public $jenis_anggota = 'perhimpunan';
+
+    // Perhimpunan & dokumen syarat (khusus anggota perhimpunan)
     public $perhimpunan_id = '';
     public $no_str;
     public $str_berlaku_sampai;
@@ -238,18 +241,35 @@ class Register extends Component
         ],
         'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         'dokumen_persyaratan' => 'required|file|mimes:doc,docx,pdf',
-        'perhimpunan_id' => 'nullable|required_if:profesi,Dokter Umum,Dokter Spesialis|exists:perhimpunans,id',
-        'no_str' => 'nullable|string|max:100',
-        'str_berlaku_sampai' => 'nullable|date',
-        'file_str' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-        'file_sip' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-        'file_serkom' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-        'file_serpeng' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-        'file_ijazah' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
-        'file_cv' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
+        'jenis_anggota' => 'required|in:biasa,perhimpunan',
         'remember' => 'required|accepted',
         // 'otp' => 'required',
     ];
+
+    /**
+     * Aturan validasi sesuai jenis keanggotaan.
+     * Anggota perhimpunan wajib melampirkan syarat dokumen (SERPENG khusus PDSKKSI).
+     */
+    protected function registrationRules(): array
+    {
+        $rules = $this->rules;
+
+        if ($this->jenis_anggota === 'perhimpunan') {
+            $rules += [
+                'perhimpunan_id' => 'required|exists:perhimpunans,id',
+                'no_str' => 'required|string|max:100',
+                'str_berlaku_sampai' => 'nullable|date|after_or_equal:today',
+                'file_str' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+                'file_sip' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+                'file_serkom' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+                'file_serpeng' => ($this->isPdskksi() ? 'required' : 'nullable') . '|file|mimes:pdf,jpg,jpeg,png|max:5120',
+                'file_ijazah' => 'required|file|mimes:pdf,jpg,jpeg,png|max:5120',
+                'file_cv' => 'required|file|mimes:pdf,doc,docx|max:5120',
+            ];
+        }
+
+        return $rules;
+    }
 
     // ========================================
     // 🆕 METHOD BARU UNTUK AUTOCOMPLETE
@@ -290,7 +310,16 @@ class Register extends Component
         'dokumen_persyaratan.required' => 'Dokumen persyaratan wajib diupload.',
         'dokumen_persyaratan.mimes' => 'Dokumen harus berformat DOC, DOCX, atau PDF.',
         'dokumen_persyaratan.max' => 'Ukuran dokumen maksimal 5MB.',
-        'perhimpunan_id.required_if' => 'Perhimpunan wajib dipilih untuk Dokter Umum / Dokter Spesialis.',
+        'jenis_anggota.required' => 'Pilih jenis keanggotaan terlebih dahulu.',
+        'perhimpunan_id.required' => 'Perhimpunan wajib dipilih.',
+        'no_str.required' => 'No. STR wajib diisi.',
+        'str_berlaku_sampai.after_or_equal' => 'STR sudah tidak berlaku. Lampirkan STR yang masih aktif.',
+        'file_str.required' => 'File STR wajib diunggah.',
+        'file_sip.required' => 'File SIP wajib diunggah.',
+        'file_serkom.required' => 'File Serkom wajib diunggah.',
+        'file_serpeng.required' => 'File SERPENG wajib diunggah untuk anggota PDSKKSI.',
+        'file_ijazah.required' => 'File Ijazah Dokter wajib diunggah.',
+        'file_cv.required' => 'File CV wajib diunggah.',
         'file_str.mimes' => 'File STR harus berformat PDF, JPG, atau PNG.',
         'file_sip.mimes' => 'File SIP harus berformat PDF, JPG, atau PNG.',
         'file_serkom.mimes' => 'File Serkom harus berformat PDF, JPG, atau PNG.',
@@ -349,7 +378,11 @@ class Register extends Component
 
     public function submit()
     {
-        $this->validate();
+        if ($this->jenis_anggota === 'perhimpunan') {
+            $this->profesi = $this->profesiPerhimpunan();
+        }
+
+        $this->validate($this->registrationRules());
 
         // $otpRecord = Otp::where('email', $this->email)
         //     ->where('otp', $this->otp)
@@ -409,11 +442,12 @@ class Register extends Component
         }
 
 
-        // Dokumen profesi (opsional)
+        // Dokumen syarat perhimpunan (anggota biasa tidak menyimpan data perhimpunan)
+        $isPerhimpunan = $this->jenis_anggota === 'perhimpunan';
         $dokumenProfesi = [];
         foreach (array_keys(Anggota::DOKUMEN_PERSYARATAN) as $field) {
             $dokumenProfesi[$field] = null;
-            if ($this->{$field}) {
+            if ($isPerhimpunan && $this->{$field}) {
                 $fileName = time() . '_' . Str::random(6) . '_' . str_replace('file_', '', $field) . '.' . $this->{$field}->getClientOriginalExtension();
                 try {
                     file_put_contents($destination . '/' . $fileName, file_get_contents($this->{$field}->getRealPath()));
@@ -465,9 +499,9 @@ class Register extends Component
                 'npwp' => $npwpName,
                 'avatar' => $avatarName,
                 'dokumen_persyaratan' => $dokumenName,
-                'perhimpunan_id' => $this->perhimpunan_id ?: null,
-                'no_str' => $this->no_str ?: null,
-                'str_berlaku_sampai' => $this->str_berlaku_sampai ?: null,
+                'perhimpunan_id' => $isPerhimpunan ? $this->perhimpunan_id : null,
+                'no_str' => $isPerhimpunan ? $this->no_str : null,
+                'str_berlaku_sampai' => $isPerhimpunan && $this->str_berlaku_sampai ? $this->str_berlaku_sampai : null,
                 'status_verifikasi' => 'pending',
             ] + $dokumenProfesi);
 
@@ -480,10 +514,38 @@ class Register extends Component
         }
     }
 
+    public function mount()
+    {
+        // Jika hanya satu perhimpunan aktif, langsung terpilih
+        $active = Perhimpunan::active()->pluck('id');
+        if ($active->count() === 1) {
+            $this->perhimpunan_id = (string) $active->first();
+        }
+    }
+
     public function isPdskksi(): bool
     {
-        return $this->perhimpunan_id
+        return $this->jenis_anggota === 'perhimpunan'
+            && $this->perhimpunan_id
             && Perhimpunan::whereKey($this->perhimpunan_id)->value('singkatan') === 'PDSKKSI';
+    }
+
+    /**
+     * Profesi anggota perhimpunan diisi otomatis: PDUSI = Dokter Umum, selainnya Dokter Spesialis.
+     */
+    protected function profesiPerhimpunan(): string
+    {
+        $singkatan = $this->perhimpunan_id ? Perhimpunan::whereKey($this->perhimpunan_id)->value('singkatan') : null;
+
+        return $singkatan === 'PDUSI' ? 'Dokter Umum' : 'Dokter Spesialis';
+    }
+
+    public function updatedJenisAnggota()
+    {
+        // Ganti jalur: kosongkan profesi agar dipilih ulang (anggota biasa) / diisi otomatis (perhimpunan)
+        $this->profesi = null;
+        $this->otherProfesi = '';
+        $this->resetValidation();
     }
 
     public function render()

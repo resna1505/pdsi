@@ -209,6 +209,25 @@
                                     @enderror
                                 </div>
                             </div>
+                            @if (isset($perhimpunans) && Auth::user()->level === 'Admin')
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="perhimpunanInput" class="form-label">Perhimpunan</label>
+                                        <select class="form-select @error('perhimpunan_id') is-invalid @enderror" id="perhimpunanInput" name="perhimpunan_id">
+                                            <option value="">Anggota Biasa PDSI (tanpa perhimpunan)</option>
+                                            @foreach ($perhimpunans as $perhimpunan)
+                                                <option value="{{ $perhimpunan->id }}" @selected(old('perhimpunan_id', $anggota->perhimpunan_id) == $perhimpunan->id)>
+                                                    {{ $perhimpunan->nama }} ({{ $perhimpunan->singkatan }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        <small class="text-muted">Hanya admin. Menentukan jenis keanggotaan dan desain KTA (mis. PDSKKSI memakai KTA PDSKKSI).</small>
+                                        @error('perhimpunan_id')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            @endif
                             <div class="col-lg-12">
                                 <div class="mb-3 pb-2">
                                     <label for="descriptionTextarea" class="form-label">Description</label>

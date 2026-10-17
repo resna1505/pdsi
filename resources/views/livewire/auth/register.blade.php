@@ -63,6 +63,53 @@
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">
+                                                        <div class="mb-4">
+                                                            <label class="form-label">Daftar sebagai <span class="text-danger">*</span></label>
+                                                            <div class="row g-2">
+                                                                <div class="col-sm-6">
+                                                                    <input type="radio" class="btn-check" name="jenis_anggota" id="jenis_biasa" value="biasa" wire:model.live="jenis_anggota" autocomplete="off" @checked($jenis_anggota === 'biasa')>
+                                                                    <label class="btn btn-outline-primary w-100 text-start p-3" for="jenis_biasa">
+                                                                        <span class="fw-semibold d-block">Anggota Biasa PDSI</span>
+                                                                        <small class="opacity-75">Pendaftaran anggota PDSI</small>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <input type="radio" class="btn-check" name="jenis_anggota" id="jenis_perhimpunan" value="perhimpunan" wire:model.live="jenis_anggota" autocomplete="off" @checked($jenis_anggota === 'perhimpunan')>
+                                                                    <label class="btn btn-outline-primary w-100 text-start p-3" for="jenis_perhimpunan">
+                                                                        <span class="fw-semibold d-block">Anggota Perhimpunan</span>
+                                                                        <small class="opacity-75">Dokter spesialis / perhimpunan, wajib STR, SIP, dll.</small>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            @error('jenis_anggota')
+                                                            <div class="text-danger small mt-1"><strong>{{ $message }}</strong></div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    @if ($jenis_anggota === 'perhimpunan')
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-4 p-3 rounded border border-primary-subtle bg-primary-subtle">
+                                                            <label for="perhimpunan_id" class="form-label fw-semibold">Pilih Perhimpunan <span class="text-danger">*</span></label>
+                                                            <select id="perhimpunan_id"
+                                                                    class="form-select @error('perhimpunan_id') is-invalid @enderror"
+                                                                    wire:model.live="perhimpunan_id">
+                                                                <option value="">-- Pilih Perhimpunan --</option>
+                                                                @foreach ($perhimpunans as $perhimpunan)
+                                                                    <option value="{{ $perhimpunan->id }}" @selected((string) $perhimpunan_id === (string) $perhimpunan->id)>{{ $perhimpunan->singkatan }} - {{ $perhimpunan->nama }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('perhimpunan_id')
+                                                            <div class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                            @enderror
+                                                            <small class="text-muted d-block mt-2">Lengkapi data diri di bawah, lalu unggah syarat dokumen perhimpunan (STR, SIP, Serkom, Ijazah, CV{{ $showSerpeng ? ', SERPENG' : '' }}).</small>
+                                                        </div>
+                                                    </div>
+                                                    @endif
+
+                                                    <div class="col-lg-12">
                                                         <div class="mb-3">
                                                             <label for="useremail" class="form-label">Email <span
                                                                     class="text-danger">*</span></label>
@@ -238,6 +285,7 @@
                                                     </div>
                                                     <!-- AKHIR MODIFIKASI -->
 
+                                                    @if ($jenis_anggota !== 'perhimpunan')
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
                                                             <label for="profesi" class="form-label">Profesi <span class="text-danger">*</span></label>
@@ -287,29 +335,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="perhimpunan_id" class="form-label">Perhimpunan
-                                                                @if (in_array($profesi, ['Dokter Umum', 'Dokter Spesialis']))
-                                                                    <span class="text-danger">*</span>
-                                                                @endif
-                                                            </label>
-                                                            <select id="perhimpunan_id"
-                                                                    class="form-select @error('perhimpunan_id') is-invalid @enderror"
-                                                                    wire:model.live="perhimpunan_id">
-                                                                <option value="">-- Pilih Perhimpunan --</option>
-                                                                @foreach ($perhimpunans as $perhimpunan)
-                                                                    <option value="{{ $perhimpunan->id }}">{{ $perhimpunan->nama }} ({{ $perhimpunan->singkatan }})</option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('perhimpunan_id')
-                                                            <div class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
+                                                    @endif
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
@@ -402,15 +428,16 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Dokumen profesi (opsional) -->
+                                                    <!-- Syarat dokumen anggota perhimpunan -->
+                                                    @if ($jenis_anggota === 'perhimpunan')
                                                     <div class="col-lg-12">
                                                         <div class="border rounded p-3 mb-3">
-                                                            <h6 class="mb-1">Dokumen Profesi <span class="text-muted fw-normal">(opsional)</span></h6>
-                                                            <p class="text-muted small mb-3">Lengkapi jika Anda dokter yang memiliki STR/SIP. File PDF/JPG/PNG, maks. 5 MB.</p>
+                                                            <h6 class="mb-1">Syarat Dokumen Perhimpunan <span class="text-danger">*</span></h6>
+                                                            <p class="text-muted small mb-3">Semua dokumen wajib diunggah. File PDF/JPG/PNG (CV: PDF/DOC/DOCX), maks. 5 MB.</p>
 
                                                             <div class="row">
                                                                 <div class="col-md-7 mb-3">
-                                                                    <label for="no_str" class="form-label">No. STR</label>
+                                                                    <label for="no_str" class="form-label">No. STR <span class="text-danger">*</span></label>
                                                                     <input id="no_str" type="text" class="form-control @error('no_str') is-invalid @enderror"
                                                                            wire:model="no_str" placeholder="Nomor STR">
                                                                     @error('no_str')
@@ -433,17 +460,18 @@
                                                                     'file_str' => ['STR (masih aktif)', '.pdf,.jpg,.jpeg,.png'],
                                                                     'file_sip' => ['SIP', '.pdf,.jpg,.jpeg,.png'],
                                                                     'file_serkom' => ['Serkom', '.pdf,.jpg,.jpeg,.png'],
-                                                                    'file_serpeng' => ['SERPENG (khusus Sp.KKLP)', '.pdf,.jpg,.jpeg,.png'],
+                                                                    'file_serpeng' => ['SERPENG (wajib khusus PDSKKSI / Sp.KKLP)', '.pdf,.jpg,.jpeg,.png'],
                                                                     'file_ijazah' => ['Ijazah Dokter', '.pdf,.jpg,.jpeg,.png'],
                                                                     'file_cv' => ['CV', '.pdf,.doc,.docx'],
                                                                 ];
-                                                                if (!$showSerpeng) {
-                                                                    unset($dokumenProfesi['file_serpeng']);
-                                                                }
                                                             @endphp
                                                             @foreach ($dokumenProfesi as $field => [$label, $accept])
                                                                 <div class="mb-3" wire:key="{{ $field }}">
-                                                                    <label for="{{ $field }}" class="form-label">{{ $label }}</label>
+                                                                    <label for="{{ $field }}" class="form-label">{{ $label }}
+                                                                        @if ($field !== 'file_serpeng' || $showSerpeng)
+                                                                            <span class="text-danger">*</span>
+                                                                        @endif
+                                                                    </label>
                                                                     <input id="{{ $field }}" type="file" accept="{{ $accept }}"
                                                                            class="form-control @error($field) is-invalid @enderror"
                                                                            wire:model="{{ $field }}">
@@ -457,6 +485,7 @@
                                                             @endforeach
                                                         </div>
                                                     </div>
+                                                    @endif
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
