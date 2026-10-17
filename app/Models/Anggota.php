@@ -103,6 +103,28 @@ class Anggota extends Model
             ->all();
     }
 
+    /**
+     * Perhimpunan yang memakai desain KTA default (kta_default_*.jpg).
+     */
+    public const PERHIMPUNAN_KTA_DEFAULT = ['PDSKKSI'];
+
+    /**
+     * Pakai KTA perhimpunan (landscape + QR)? Anggota PDSKKSI, atau perhimpunan
+     * yang desain KTA-nya sudah diunggah admin. Selain itu tetap KTA PDSI lama.
+     */
+    public function usesNewKta(): bool
+    {
+        $perhimpunan = $this->perhimpunan;
+
+        if (!$perhimpunan) {
+            return false;
+        }
+
+        return in_array($perhimpunan->singkatan, self::PERHIMPUNAN_KTA_DEFAULT, true)
+            || $perhimpunan->kta_depan
+            || $perhimpunan->kta_belakang;
+    }
+
     public function isKtaExpired(): bool
     {
         return $this->kta_berlaku_sampai && $this->kta_berlaku_sampai->isPast();

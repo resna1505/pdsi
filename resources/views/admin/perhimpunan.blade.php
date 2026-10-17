@@ -26,7 +26,8 @@ Perhimpunan
                 <div class="flex-grow-1">
                     <h5 class="card-title mb-1">Master Perhimpunan</h5>
                     <p class="text-muted mb-0 small">
-                        Perhimpunan aktif muncul di form register. Desain KTA khusus bersifat opsional; jika kosong, kartu memakai desain default.
+                        Perhimpunan aktif muncul di form register. Anggota PDSKKSI memakai KTA PDSKKSI; perhimpunan lain memakai KTA PDSI,
+                        kecuali desain KTA khusus perhimpunan tersebut diunggah di sini.
                     </p>
                 </div>
                 <input type="text" class="form-control" id="searchPerhimpunan" placeholder="Cari perhimpunan..." style="max-width: 260px;">
@@ -58,8 +59,10 @@ Perhimpunan
                                     <td>
                                         @if ($item->kta_depan || $item->kta_belakang)
                                             <span class="badge bg-primary-subtle text-primary">Khusus</span>
+                                        @elseif (in_array($item->singkatan, \App\Models\Anggota::PERHIMPUNAN_KTA_DEFAULT, true))
+                                            <span class="badge bg-success-subtle text-success">KTA {{ $item->singkatan }}</span>
                                         @else
-                                            <span class="badge bg-light text-muted">Default</span>
+                                            <span class="badge bg-light text-muted">KTA PDSI</span>
                                         @endif
                                     </td>
                                     <td>

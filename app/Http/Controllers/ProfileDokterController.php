@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\LegacyPdsiKta;
 use App\Models\Anggota;
 use App\Models\Document;
 use App\Models\Education;
@@ -18,6 +19,8 @@ use Mpdf\Mpdf;
 
 class ProfileDokterController extends Controller
 {
+    use LegacyPdsiKta;
+
     public function index(KtaService $kta)
     {
         $anggota = Anggota::where('user_id', Auth::id())->first();
@@ -42,26 +45,41 @@ class ProfileDokterController extends Controller
         $profilePercentage = $anggota->getProfilePercentage();
         $progressColor = $anggota->getProgressColor();
 
-        $ktaData = $anggota->no_kartu_anggota ? $kta->cardData($anggota, false) : null;
+        // null = tampilkan KTA PDSI lama (lihat profile-dokter.blade.php)
+        $ktaData = $anggota->usesNewKta() && $anggota->no_kartu_anggota ? $kta->cardData($anggota, false) : null;
 
         return view('member.profile-dokter', compact('anggota', 'documents', 'educations', 'practices', 'profilePercentage', 'progressColor', 'ktaData'));
     }
 
     /**
-     * Anggota milik user login yang sudah punya nomor kartu (sudah disetujui).
+     * Anggota user login untuk KTA perhimpunan, atau response yang langsung dikembalikan:
+     * error, atau KTA PDSI lama ($legacyMethod) untuk anggota yang tidak memakai KTA perhimpunan.
      */
-    private function anggotaWithKta(): ?Anggota
+    private function resolveKta(string $legacyMethod)
     {
-        return Anggota::where('user_id', Auth::id())->whereNotNull('no_kartu_anggota')->first();
+        $anggota = Anggota::with('perhimpunan')->where('user_id', Auth::id())->first();
+
+        if (!$anggota) {
+            return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
+        }
+
+        if (!$anggota->usesNewKta()) {
+            return $this->{$legacyMethod}($anggota);
+        }
+
+        if (!$anggota->no_kartu_anggota) {
+            return redirect()->back()->with('error', 'Kartu anggota belum tersedia. Akun Anda belum diverifikasi.');
+        }
+
+        return $anggota;
     }
 
     // Download KTA (PDF, 2 halaman ukuran kartu: depan & belakang)
     public function downloadCardPDF(KtaService $kta)
     {
-        $anggota = $this->anggotaWithKta();
-
-        if (!$anggota) {
-            return redirect()->back()->with('error', 'Kartu anggota belum tersedia. Akun Anda belum diverifikasi.');
+        $anggota = $this->resolveKta('legacyKtaPdf');
+        if (!$anggota instanceof Anggota) {
+            return $anggota;
         }
 
         try {
@@ -126,6 +144,10 @@ class ProfileDokterController extends Controller
 
         if ((int) $anggota->user_id !== (int) Auth::id() && Auth::user()->level !== 'Admin') {
             abort(403);
+        }
+
+        if (!$anggota->usesNewKta()) {
+            return $this->legacyKtaPreview($anggota);
         }
 
         if (!$anggota->no_kartu_anggota) {
@@ -229,10 +251,9 @@ class ProfileDokterController extends Controller
 
     private function downloadCardJPG(KtaService $kta, string $side)
     {
-        $anggota = $this->anggotaWithKta();
-
-        if (!$anggota) {
-            return redirect()->back()->with('error', 'Kartu anggota belum tersedia. Akun Anda belum diverifikasi.');
+        $anggota = $this->resolveKta($side === 'back' ? 'legacyKtaJpgBack' : 'legacyKtaJpgFront');
+        if (!$anggota instanceof Anggota) {
+            return $anggota;
         }
 
         try {
@@ -249,10 +270,9 @@ class ProfileDokterController extends Controller
     // Download KTA depan & belakang (ZIP)
     public function downloadCardJPGBoth(KtaService $kta)
     {
-        $anggota = $this->anggotaWithKta();
-
-        if (!$anggota) {
-            return redirect()->back()->with('error', 'Kartu anggota belum tersedia. Akun Anda belum diverifikasi.');
+        $anggota = $this->resolveKta('legacyKtaJpgBoth');
+        if (!$anggota instanceof Anggota) {
+            return $anggota;
         }
 
         $front = $back = null;

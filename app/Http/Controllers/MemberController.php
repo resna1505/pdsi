@@ -73,7 +73,8 @@ class MemberController extends Controller
         // Determine progress bar color based on percentage
         $progressColor = $this->getProgressColor($profilePercentage);
 
-        $ktaData = $anggota->no_kartu_anggota ? app(KtaService::class)->cardData($anggota, false) : null;
+        // null = tampilkan KTA PDSI lama (lihat profile-dokter.blade.php)
+        $ktaData = $anggota->usesNewKta() && $anggota->no_kartu_anggota ? app(KtaService::class)->cardData($anggota, false) : null;
 
         return view('member.profile-dokter', compact(
             'anggota',

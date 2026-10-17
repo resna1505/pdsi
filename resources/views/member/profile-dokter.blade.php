@@ -117,6 +117,7 @@
                     <div class="col-xxl-3">
                         <div class="card">
                             <div class="card-body p-2">
+                                @if ($anggota->usesNewKta())
                                 @if ($ktaData)
                                     <div class="text-center mb-3">
                                         <h6>{{ (int) $anggota->user_id === (int) Auth::id() ? 'Download Kartu Anggota:' : 'Kartu Anggota' }}</h6>
@@ -178,6 +179,83 @@
                                         <h6 class="alert-heading">Kartu Anggota Belum Tersedia</h6>
                                         <p class="mb-0 small">Kartu anggota dapat diunduh setelah pendaftaran Anda diverifikasi oleh admin.</p>
                                     </div>
+                                @endif
+                                @else
+                                {{-- KTA PDSI lama (tidak diubah) --}}
+                                <div class="text-center mb-4">
+                                    <h6>Download Kartu Anggota:</h6>
+                                    
+                                    <!-- PDF Download -->
+                                    <a href="{{ route('member.download-card-pdf') }}" class="btn btn-danger btn-sm me-2">
+                                        <i class="fas fa-download"></i> PDF
+                                    </a>
+                                    
+                                    <!-- JPG Download Options -->
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown">
+                                            <i class="fas fa-image"></i> JPG
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><h6 class="dropdown-header">Single Cards</h6></li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('jpg.front') }}">
+                                                    <i class="fas fa-id-card"></i> Kartu Depan
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('jpg.back') }}">
+                                                    <i class="fas fa-id-card-alt"></i> Kartu Belakang
+                                                </a>
+                                            </li>
+                                            {{-- <li><hr class="dropdown-divider"></li>
+                                            <li><h6 class="dropdown-header">Complete Set</h6></li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('jpg.both.zip') }}">
+                                                    <i class="fas fa-file-archive"></i> Both Cards (ZIP)
+                                                </a>
+                                            </li> --}}
+                                        </ul>
+                                    </div>
+                                    
+                                    <!-- Preview -->
+                                    <a href="{{ route('member.card-preview', $anggota->id) }}" target="_blank" class="btn btn-info btn-sm ms-2">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </a>
+                                </div>
+                                <!-- Card Carousel -->
+                                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                                        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                                    </ol>
+                                    <div class="carousel-inner" role="listbox">
+                                        <div class="carousel-item active"> 
+                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_depan.jpg') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">
+                                                <div style="position: absolute; top: 51%; left: 50%; transform: translate(-50%, -50%); width: 220px; height: 220px; border-radius: 50%; overflow: hidden; border: 2px solid white;">
+                                                    <img src="{{ URL::asset('storage/images/users/' . $anggota->avatar) }}" alt="First slide" style="width: 100%; height: 100%; object-fit: cover;">
+                                                </div>
+                                                <div style="position: absolute; bottom: 100px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
+                                                    Nama : {{ \Illuminate\Support\Str::limit($anggota->nama, 30) }}
+                                                </div>
+                                                <div style="position: absolute; bottom: 80px; left: 0; right: 0; text-align: center; color: white; font-weight: bold;">
+                                                    NPA : {{ $anggota->no_kartu_anggota }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="carousel-item"> 
+                                            <div class="d-bloack img-fluid mx-auto" style="background: url('{{ URL::asset('build/images/kta_pdsi_belakang.png') }}') no-repeat center center; background-size: cover; width: 300px; height: 500px; position: relative;">                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </a>
+                                </div>
                                 @endif
                             </div>
                         </div>
