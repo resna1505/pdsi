@@ -22,6 +22,20 @@ User
     </div>
 @endif
 
+@if (session('warning'))
+    <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+        {{ session('warning') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+        {{ $errors->first() }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
@@ -64,6 +78,14 @@ User
                                 Member
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#ditolak" role="tab" aria-selected="false" data-export="none">
+                                Ditolak
+                                @if (count($ditolak))
+                                    <span class="badge bg-danger-subtle text-danger ms-1">{{ count($ditolak) }}</span>
+                                @endif
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -98,6 +120,10 @@ User
                                                         data-city="{{ $item->kota }}"
                                                         data-provinsi="{{ $item->provinsi }}"
                                                         data-profesi="{{ $item->profesi }}"
+                                                        data-perhimpunan="{{ $item->perhimpunan ? $item->perhimpunan->nama . ' (' . $item->perhimpunan->singkatan . ')' : '-' }}"
+                                                        data-nostr="{{ $item->no_str ?: '-' }}"
+                                                        data-strberlaku="{{ $item->str_berlaku_sampai ? $item->str_berlaku_sampai->format('d/m/Y') : ($item->no_str ? 'Seumur hidup' : '-') }}"
+                                                        data-docs="{{ json_encode($item->dokumenVerifikasi()) }}"
                                                         data-avatar="{{  URL::asset("storage/images/users/{$item->avatar}") }}"
                                                         >
                                                             <i class="ri-eye-fill"></i>
@@ -123,6 +149,46 @@ User
                                                 </a>
                                                 <p class="text-muted mb-0">{{ $item->email }}</p>
                                                 <span class="badge bg-warning text-dark mt-2">Pending Verification</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="d-flex align-items-center border-top pt-3">
+                            <div class="flex-grow-1">
+                                <div class="text-muted pagination-info mb-2"></div>
+                            </div>
+                            <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="ditolak" role="tabpanel">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="text-muted mb-0">Pendaftar yang ditolak. Hapus data agar pendaftar dapat mendaftar ulang dengan email yang sama.</p>
+                            <span class="badge bg-danger">Total: {{ count($ditolak) }} Ditolak</span>
+                        </div>
+                        <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 video-lists">
+                            @foreach ($ditolak as $item)
+                                <div class="col list-element">
+                                    <div class="card">
+                                        <div class="card-body p-4 m-2">
+                                            <div class="text-end dropdown mb-2"> <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"> <i class="ri-more-fill fs-17"></i> </a>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>
+                                                        <a class="dropdown-item remove-list" href="#removeMemberModal" data-bs-toggle="modal" data-remove-id="{{ $item->user_id }}">
+                                                        <i class="ri-delete-bin-5-line me-2 align-bottom text-muted"></i>Remove
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="text-center mb-3">
+                                                <img src="{{  URL::asset("storage/images/users/{$item->avatar}") }}" alt="" class="avatar-md rounded-3" />
+                                            </div>
+                                            <div class="text-center">
+                                                <h5 class="fs-17">{{ $item->nama }}</h5>
+                                                <p class="text-muted mb-0">{{ $item->email }}</p>
+                                                <span class="badge bg-danger mt-2">Ditolak {{ $item->tanggal_verifikasi?->format('d/m/Y') }}</span>
+                                                <p class="text-muted small mt-2 mb-0">{{ $item->alasan_penolakan }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -168,6 +234,10 @@ User
                                                         data-downloadktp="{{ $item->ktp }}"
                                                         data-downloadnpwp="{{ $item->npwp }}"
                                                         data-downloaddokumen="{{ $item->dokumen_persyaratan }}"
+                                                        data-perhimpunan="{{ $item->perhimpunan ? $item->perhimpunan->nama . ' (' . $item->perhimpunan->singkatan . ')' : '-' }}"
+                                                        data-nostr="{{ $item->no_str ?: '-' }}"
+                                                        data-strberlaku="{{ $item->str_berlaku_sampai ? $item->str_berlaku_sampai->format('d/m/Y') : ($item->no_str ? 'Seumur hidup' : '-') }}"
+                                                        data-docs="{{ json_encode($item->dokumenVerifikasi()) }}"
                                                         data-avatar="{{  URL::asset("storage/images/users/{$item->avatar}") }}"
                                                         >
                                                             <i class="ri-eye-fill"></i>
@@ -317,6 +387,18 @@ User
                         <th scope="row">Tanggal Lahir</th>
                         <td class="overview-birthday">-</td>
                     </tr>
+                    <tr>
+                        <th scope="row">Perhimpunan</th>
+                        <td class="overview-perhimpunan">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">No STR</th>
+                        <td class="overview-nostr">-</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">STR Berlaku</th>
+                        <td class="overview-strberlaku">-</td>
+                    </tr>
                     </form>
                 </tbody>
             </table>
@@ -325,23 +407,41 @@ User
         <!-- Download Section -->
         <div class="mt-4">
             <h6 class="mb-3">Dokumen Verifikasi</h6>
-            <div class="d-grid gap-2">
-                <button type="button" class="btn btn-outline-primary btn-sm download-btn" id="downloadKTP" style="display: none;">
-                    <i class="ri-download-line me-1"></i> Download KTP
-                </button>
-                <button type="button" class="btn btn-outline-primary btn-sm download-btn" id="downloadNPWP" style="display: none;">
-                    <i class="ri-download-line me-1"></i> Download NPWP
-                </button>
-                <button type="button" class="btn btn-outline-primary btn-sm download-btn" id="downloadDokumen" style="display: none;">
-                    <i class="ri-download-line me-1"></i> Download Dokumen
-                </button>
-            </div>
+            <div class="d-grid gap-2" id="dokumenList"></div>
+            <p class="text-muted small mb-0 d-none" id="dokumenEmpty">Tidak ada dokumen yang diunggah.</p>
         </div>
 
         <div class="hstack gap-2 w-100 mt-4">
-            <button type="button" class="btn btn-secondary w-100" id="btnVerifikasi" data-anggota-id="{{ Auth::user()->anggota?->id ?? '' }}">
-                Verifikasi
+            <button type="button" class="btn btn-outline-danger w-100" data-bs-toggle="modal" data-bs-target="#tolakModal">
+                Tolak
             </button>
+            <button type="button" class="btn btn-success w-100" id="btnVerifikasi" data-anggota-id="{{ Auth::user()->anggota?->id ?? '' }}">
+                Setujui
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="tolakModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" id="tolakForm">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">Tolak Pendaftaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-3">Pendaftar: <strong id="tolakNama">-</strong>. Alasan akan dikirim ke email pendaftar.</p>
+                    <label for="alasan_penolakan" class="form-label">Alasan Penolakan <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="alasan_penolakan" name="alasan_penolakan" rows="4" maxlength="1000" required
+                        placeholder="Contoh: Dokumen STR tidak terbaca, mohon unggah ulang."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-danger">Tolak Pendaftaran</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -387,7 +487,7 @@ User
     document.addEventListener("DOMContentLoaded", function() {
         // Show/Hide Export Buttons based on active tab
         function toggleExportButtons() {
-            const activeTab = document.querySelector('.nav-link.active');
+            const activeTab = document.querySelector('.nav-link.active[data-export]');
             const exportType = activeTab ? activeTab.getAttribute('data-export') : 'admin';
 
             const adminBtn = document.getElementById('exportAdminBtn');
@@ -400,11 +500,16 @@ User
                 memberBtn.style.display = 'none';
                 adminForm.style.display = 'inline';
                 memberForm.style.display = 'none';
-            } else {
+            } else if (exportType === 'member') {
                 adminBtn.style.display = 'none';
                 memberBtn.style.display = 'inline-block';
                 adminForm.style.display = 'none';
                 memberForm.style.display = 'inline';
+            } else {
+                adminBtn.style.display = 'none';
+                memberBtn.style.display = 'none';
+                adminForm.style.display = 'none';
+                memberForm.style.display = 'none';
             }
         }
 
@@ -566,11 +671,6 @@ User
 <script>
     const viewVerification = document.getElementById('viewVerification');
 
-    // Global variables untuk menyimpan file paths
-    let currentKtpFile = '';
-    let currentNpwpFile = '';
-    let currentDokumenFile = '';
-
     viewVerification.addEventListener('show.bs.offcanvas', function (event) {
         const button = event.relatedTarget;
         const id = button.getAttribute('data-id');
@@ -585,9 +685,6 @@ User
         const provinsi = button.getAttribute('data-provinsi');
         const profesi = button.getAttribute('data-profesi');
         const avatar = button.getAttribute('data-avatar');
-        const downloadnpwp = button.getAttribute('data-downloadnpwp');
-        const downloadktp = button.getAttribute('data-downloadktp');
-        const downloaddokumen = button.getAttribute('data-downloaddokumen');
 
         // Set nilai form
         document.getElementById('targetUserId').value = id;
@@ -603,50 +700,36 @@ User
         viewVerification.querySelector('.overview-birthday').textContent = birthday;
         viewVerification.querySelector('.overview-avatar').src = avatar;
 
-        // Set file paths untuk download
-        currentKtpFile = downloadktp;
-        currentNpwpFile = downloadnpwp;
-        currentDokumenFile = downloaddokumen;
+        viewVerification.querySelector('.overview-perhimpunan').textContent = button.getAttribute('data-perhimpunan') || '-';
+        viewVerification.querySelector('.overview-nostr').textContent = button.getAttribute('data-nostr') || '-';
+        viewVerification.querySelector('.overview-strberlaku').textContent = button.getAttribute('data-strberlaku') || '-';
 
-        // Show/Hide download buttons berdasarkan ketersediaan file
-        const downloadKTPBtn = document.getElementById('downloadKTP');
-        const downloadNPWPBtn = document.getElementById('downloadNPWP');
-        const downloadDokumenBtn = document.getElementById('downloadDokumen');
+        // Tombol download untuk setiap dokumen yang diunggah
+        let docs = [];
+        try {
+            docs = JSON.parse(button.getAttribute('data-docs') || '[]');
+        } catch (e) {
+            docs = [];
+        }
+        const dokumenList = document.getElementById('dokumenList');
+        dokumenList.innerHTML = '';
+        docs.forEach(function (doc) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'btn btn-outline-primary btn-sm download-btn';
+            btn.innerHTML = '<i class="ri-download-line me-1"></i> Download ';
+            btn.appendChild(document.createTextNode(doc.label));
+            btn.addEventListener('click', function () {
+                downloadFile(doc.file, doc.type);
+            });
+            dokumenList.appendChild(btn);
+        });
+        document.getElementById('dokumenEmpty').classList.toggle('d-none', docs.length > 0);
 
-        // Reset semua button
-        downloadKTPBtn.style.display = 'none';
-        downloadNPWPBtn.style.display = 'none';
-        downloadDokumenBtn.style.display = 'none';
-
-        // Show button jika file ada
-        if (downloadktp && downloadktp !== '' && downloadktp !== 'null') {
-            downloadKTPBtn.style.display = 'block';
-        }
-        if (downloadnpwp && downloadnpwp !== '' && downloadnpwp !== 'null') {
-            downloadNPWPBtn.style.display = 'block';
-        }
-        if (downloaddokumen && downloaddokumen !== '' && downloaddokumen !== 'null') {
-            downloadDokumenBtn.style.display = 'block';
-        }
-    });
-
-    // Event listeners untuk download buttons
-    document.getElementById('downloadKTP').addEventListener('click', function() {
-        if (currentKtpFile && currentKtpFile !== '' && currentKtpFile !== 'null') {
-            downloadFile(currentKtpFile, 'KTP');
-        }
-    });
-
-    document.getElementById('downloadNPWP').addEventListener('click', function() {
-        if (currentNpwpFile && currentNpwpFile !== '' && currentNpwpFile !== 'null') {
-            downloadFile(currentNpwpFile, 'NPWP');
-        }
-    });
-
-    document.getElementById('downloadDokumen').addEventListener('click', function() {
-        if (currentDokumenFile && currentDokumenFile !== '' && currentDokumenFile !== 'null') {
-            downloadFile(currentDokumenFile, 'Dokumen');
-        }
+        // Form tolak
+        document.getElementById('tolakForm').setAttribute('action', `/tolak-user/${id}`);
+        document.getElementById('tolakNama').textContent = nama;
+        document.getElementById('alasan_penolakan').value = '';
     });
 
     // Function untuk download file

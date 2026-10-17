@@ -13,7 +13,9 @@ use App\Models\Otp;
 use Carbon\Carbon;
 use App\Mail\OtpEmail;
 use App\Models\Anggota;
+use App\Models\Perhimpunan;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Register extends Component
 {
@@ -38,6 +40,17 @@ class Register extends Component
     public $noktp;
 
     public $dokumen_persyaratan;
+
+    // Perhimpunan & dokumen profesi (opsional, untuk dokter yang memiliki STR/SIP)
+    public $perhimpunan_id = '';
+    public $no_str;
+    public $str_berlaku_sampai;
+    public $file_str;
+    public $file_sip;
+    public $file_serkom;
+    public $file_serpeng;
+    public $file_ijazah;
+    public $file_cv;
 
     // ========================================
     // 🆕 TAMBAHAN BARU UNTUK AUTOCOMPLETE
@@ -225,6 +238,15 @@ class Register extends Component
         ],
         'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         'dokumen_persyaratan' => 'required|file|mimes:doc,docx,pdf',
+        'perhimpunan_id' => 'nullable|required_if:profesi,Dokter Umum,Dokter Spesialis|exists:perhimpunans,id',
+        'no_str' => 'nullable|string|max:100',
+        'str_berlaku_sampai' => 'nullable|date',
+        'file_str' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        'file_sip' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        'file_serkom' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        'file_serpeng' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        'file_ijazah' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        'file_cv' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
         'remember' => 'required|accepted',
         // 'otp' => 'required',
     ];
@@ -268,6 +290,19 @@ class Register extends Component
         'dokumen_persyaratan.required' => 'Dokumen persyaratan wajib diupload.',
         'dokumen_persyaratan.mimes' => 'Dokumen harus berformat DOC, DOCX, atau PDF.',
         'dokumen_persyaratan.max' => 'Ukuran dokumen maksimal 5MB.',
+        'perhimpunan_id.required_if' => 'Perhimpunan wajib dipilih untuk Dokter Umum / Dokter Spesialis.',
+        'file_str.mimes' => 'File STR harus berformat PDF, JPG, atau PNG.',
+        'file_sip.mimes' => 'File SIP harus berformat PDF, JPG, atau PNG.',
+        'file_serkom.mimes' => 'File Serkom harus berformat PDF, JPG, atau PNG.',
+        'file_serpeng.mimes' => 'File SERPENG harus berformat PDF, JPG, atau PNG.',
+        'file_ijazah.mimes' => 'File Ijazah harus berformat PDF, JPG, atau PNG.',
+        'file_cv.mimes' => 'File CV harus berformat PDF, DOC, atau DOCX.',
+        'file_str.max' => 'Ukuran file maksimal 5MB.',
+        'file_sip.max' => 'Ukuran file maksimal 5MB.',
+        'file_serkom.max' => 'Ukuran file maksimal 5MB.',
+        'file_serpeng.max' => 'Ukuran file maksimal 5MB.',
+        'file_ijazah.max' => 'Ukuran file maksimal 5MB.',
+        'file_cv.max' => 'Ukuran file maksimal 5MB.',
     ];
 
     /**
@@ -374,6 +409,27 @@ class Register extends Component
         }
 
 
+        // Dokumen profesi (opsional)
+        $dokumenProfesi = [];
+        foreach (array_keys(Anggota::DOKUMEN_PERSYARATAN) as $field) {
+            $dokumenProfesi[$field] = null;
+            if ($this->{$field}) {
+                $fileName = time() . '_' . Str::random(6) . '_' . str_replace('file_', '', $field) . '.' . $this->{$field}->getClientOriginalExtension();
+                try {
+                    file_put_contents($destination . '/' . $fileName, file_get_contents($this->{$field}->getRealPath()));
+                    $dokumenProfesi[$field] = $fileName;
+                } catch (\Exception $e) {
+                    session()->flash('error', 'Gagal menyimpan file ' . Anggota::DOKUMEN_PERSYARATAN[$field] . '. Silakan coba lagi.');
+                    return;
+                }
+            }
+        }
+
+        // SERPENG hanya untuk PDSKKSI
+        if (!$this->isPdskksi()) {
+            $dokumenProfesi['file_serpeng'] = null;
+        }
+
         if ($this->profesi == 'other') {
             $this->profesi = $this->otherProfesi;
         }
@@ -409,7 +465,11 @@ class Register extends Component
                 'npwp' => $npwpName,
                 'avatar' => $avatarName,
                 'dokumen_persyaratan' => $dokumenName,
-            ]);
+                'perhimpunan_id' => $this->perhimpunan_id ?: null,
+                'no_str' => $this->no_str ?: null,
+                'str_berlaku_sampai' => $this->str_berlaku_sampai ?: null,
+                'status_verifikasi' => 'pending',
+            ] + $dokumenProfesi);
 
             DB::commit();
             return redirect('login')->with('success', 'User registered successfully.!');
@@ -420,8 +480,17 @@ class Register extends Component
         }
     }
 
+    public function isPdskksi(): bool
+    {
+        return $this->perhimpunan_id
+            && Perhimpunan::whereKey($this->perhimpunan_id)->value('singkatan') === 'PDSKKSI';
+    }
+
     public function render()
     {
-        return view('livewire.auth.register')->extends('layouts.master-without-nav');
+        return view('livewire.auth.register', [
+            'perhimpunans' => Perhimpunan::active()->get(['id', 'nama', 'singkatan']),
+            'showSerpeng' => $this->isPdskksi(),
+        ])->extends('layouts.master-without-nav');
     }
 }

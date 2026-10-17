@@ -14,6 +14,8 @@ use App\Http\Controllers\EditProfileController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FAQDokterController;
+use App\Http\Controllers\KtaVerificationController;
+use App\Http\Controllers\PerhimpunanController;
 use App\Http\Controllers\LeaderBoardsController;
 use App\Http\Controllers\MasterIuranController;
 use App\Http\Controllers\MemberController;
@@ -64,6 +66,9 @@ Route::get('/forget-password', \App\Http\Livewire\Auth\ForgetPassword::class)->n
 Route::get('/new-password/{email?}/{token?}', \App\Http\Livewire\Auth\NewPassword::class);
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout']);
 Route::get('index/{locale}', [App\Http\Controllers\HomeController::class, 'lang']);
+
+// Verifikasi KTA (publik, tujuan QR code di kartu)
+Route::get('/verifikasi-kta/{token}', [KtaVerificationController::class, 'show'])->name('kta.verify');
 
 Route::get('/auth-404-basic', function () {
     return view('auth-404-basic');
@@ -169,6 +174,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/user/export-admin', [UserController::class, 'exportAdmin'])->name('user.export.admin');
     Route::get('/user/export-member', [UserController::class, 'exportMember'])->name('user.export.member');
     Route::post('/verifikasi-user/{id}', [UserController::class, 'verifikasi']);
+    Route::post('/tolak-user/{id}', [UserController::class, 'tolak'])->name('user.tolak');
+
+    Route::get('/perhimpunan', [PerhimpunanController::class, 'index'])->name('perhimpunan.index');
+    Route::post('/perhimpunan', [PerhimpunanController::class, 'store'])->name('perhimpunan.store');
+    Route::get('/perhimpunan/{id}/edit', [PerhimpunanController::class, 'edit'])->name('perhimpunan.edit');
+    Route::put('/perhimpunan/{id}', [PerhimpunanController::class, 'update'])->name('perhimpunan.update');
+    Route::delete('/perhimpunan/{id}', [PerhimpunanController::class, 'destroy'])->name('perhimpunan.destroy');
     Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
     Route::get('/download/user-document/{type}/{filename}', [UserController::class, 'downloadDocument'])->name('user.download.document');

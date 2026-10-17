@@ -35,8 +35,94 @@ class Anggota extends Model
         'facebook_url',
         'instagram_url',
         'no_kartu_anggota',
-        'dokumen_persyaratan'
+        'dokumen_persyaratan',
+        'perhimpunan_id',
+        'no_str',
+        'str_berlaku_sampai',
+        'file_str',
+        'file_sip',
+        'file_serkom',
+        'file_serpeng',
+        'file_ijazah',
+        'file_cv',
+        'status_verifikasi',
+        'alasan_penolakan',
+        'tanggal_verifikasi',
+        'kta_berlaku_sampai',
+        'kta_token',
     ];
+
+    protected $casts = [
+        'str_berlaku_sampai' => 'date',
+        'tanggal_verifikasi' => 'datetime',
+        'kta_berlaku_sampai' => 'date',
+    ];
+
+    /**
+     * Masa berlaku KTA sejak disetujui (tahun)
+     */
+    public const MASA_BERLAKU_KTA_TAHUN = 5;
+
+    /**
+     * Dokumen persyaratan: kolom => label
+     */
+    public const DOKUMEN_PERSYARATAN = [
+        'file_str' => 'STR',
+        'file_sip' => 'SIP',
+        'file_serkom' => 'Serkom',
+        'file_serpeng' => 'SERPENG',
+        'file_ijazah' => 'Ijazah Dokter',
+        'file_cv' => 'CV',
+    ];
+
+    public function perhimpunan()
+    {
+        return $this->belongsTo(Perhimpunan::class);
+    }
+
+    /**
+     * Dokumen yang diunggah pendaftar, untuk halaman verifikasi admin.
+     * Format: [['type' => 'str', 'label' => 'STR', 'file' => '...'], ...]
+     */
+    public function dokumenVerifikasi(): array
+    {
+        $dokumen = [
+            'ktp' => ['KTP', $this->ktp],
+            'npwp' => ['NPWP', $this->npwp],
+            'dokumen' => ['Surat Fakta Integritas', $this->dokumen_persyaratan],
+        ];
+
+        foreach (self::DOKUMEN_PERSYARATAN as $field => $label) {
+            $dokumen[str_replace('file_', '', $field)] = [$label, $this->{$field}];
+        }
+
+        return collect($dokumen)
+            ->filter(fn ($item) => !empty($item[1]))
+            ->map(fn ($item, $type) => ['type' => $type, 'label' => $item[0], 'file' => $item[1]])
+            ->values()
+            ->all();
+    }
+
+    public function isKtaExpired(): bool
+    {
+        return $this->kta_berlaku_sampai && $this->kta_berlaku_sampai->isPast();
+    }
+
+    /**
+     * Path absolut background KTA (depan/belakang): desain perhimpunan jika ada,
+     * selain itu desain default.
+     */
+    public function ktaBackgroundPath(string $side): string
+    {
+        $column = $side === 'back' ? 'kta_belakang' : 'kta_depan';
+        $custom = $this->perhimpunan?->{$column};
+
+        if ($custom && file_exists(public_path('storage/images/kta/' . $custom))) {
+            return public_path('storage/images/kta/' . $custom);
+        }
+
+        return public_path($side === 'back' ? 'build/images/kta_default_belakang.jpg' : 'build/images/kta_default_depan.jpg');
+    }
 
     // Method untuk menghitung persentase
     public function getProfilePercentage()

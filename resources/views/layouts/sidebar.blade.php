@@ -125,6 +125,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ url('/perhimpunan') }}">
+                            <i class="ri-hospital-line"></i> <span data-key="t-perhimpunan">Perhimpunan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ url('/masteriuran') }}">
                             <i class="ri-money-dollar-circle-line"></i> <span data-key="t-masteriuran">Iuran</span>
                         </a>

@@ -290,6 +290,29 @@
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
+                                                            <label for="perhimpunan_id" class="form-label">Perhimpunan
+                                                                @if (in_array($profesi, ['Dokter Umum', 'Dokter Spesialis']))
+                                                                    <span class="text-danger">*</span>
+                                                                @endif
+                                                            </label>
+                                                            <select id="perhimpunan_id"
+                                                                    class="form-select @error('perhimpunan_id') is-invalid @enderror"
+                                                                    wire:model.live="perhimpunan_id">
+                                                                <option value="">-- Pilih Perhimpunan --</option>
+                                                                @foreach ($perhimpunans as $perhimpunan)
+                                                                    <option value="{{ $perhimpunan->id }}">{{ $perhimpunan->nama }} ({{ $perhimpunan->singkatan }})</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('perhimpunan_id')
+                                                            <div class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
                                                             <label for="ktp" class="form-label">Foto KTP<span
                                                                     class="text-danger">*</span></label>
                                                             <label for="" class="text-muted"> (File: JPG/PNG Maks. 200 KB)</label>
@@ -376,6 +399,62 @@
                                                         <!-- Loading indicator (opsional untuk Livewire) -->
                                                         <div wire:loading wire:target="dokumen_persyaratan" class="text-muted mt-1">
                                                             <small><i class="ri-loader-4-line spinner-border spinner-border-sm me-1"></i>Uploading...</small>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Dokumen profesi (opsional) -->
+                                                    <div class="col-lg-12">
+                                                        <div class="border rounded p-3 mb-3">
+                                                            <h6 class="mb-1">Dokumen Profesi <span class="text-muted fw-normal">(opsional)</span></h6>
+                                                            <p class="text-muted small mb-3">Lengkapi jika Anda dokter yang memiliki STR/SIP. File PDF/JPG/PNG, maks. 5 MB.</p>
+
+                                                            <div class="row">
+                                                                <div class="col-md-7 mb-3">
+                                                                    <label for="no_str" class="form-label">No. STR</label>
+                                                                    <input id="no_str" type="text" class="form-control @error('no_str') is-invalid @enderror"
+                                                                           wire:model="no_str" placeholder="Nomor STR">
+                                                                    @error('no_str')
+                                                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-5 mb-3">
+                                                                    <label for="str_berlaku_sampai" class="form-label">STR Berlaku Sampai</label>
+                                                                    <input id="str_berlaku_sampai" type="date" class="form-control @error('str_berlaku_sampai') is-invalid @enderror"
+                                                                           wire:model="str_berlaku_sampai">
+                                                                    <small class="text-muted">Kosongkan jika STR seumur hidup</small>
+                                                                    @error('str_berlaku_sampai')
+                                                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            @php
+                                                                $dokumenProfesi = [
+                                                                    'file_str' => ['STR (masih aktif)', '.pdf,.jpg,.jpeg,.png'],
+                                                                    'file_sip' => ['SIP', '.pdf,.jpg,.jpeg,.png'],
+                                                                    'file_serkom' => ['Serkom', '.pdf,.jpg,.jpeg,.png'],
+                                                                    'file_serpeng' => ['SERPENG (khusus Sp.KKLP)', '.pdf,.jpg,.jpeg,.png'],
+                                                                    'file_ijazah' => ['Ijazah Dokter', '.pdf,.jpg,.jpeg,.png'],
+                                                                    'file_cv' => ['CV', '.pdf,.doc,.docx'],
+                                                                ];
+                                                                if (!$showSerpeng) {
+                                                                    unset($dokumenProfesi['file_serpeng']);
+                                                                }
+                                                            @endphp
+                                                            @foreach ($dokumenProfesi as $field => [$label, $accept])
+                                                                <div class="mb-3" wire:key="{{ $field }}">
+                                                                    <label for="{{ $field }}" class="form-label">{{ $label }}</label>
+                                                                    <input id="{{ $field }}" type="file" accept="{{ $accept }}"
+                                                                           class="form-control @error($field) is-invalid @enderror"
+                                                                           wire:model="{{ $field }}">
+                                                                    @error($field)
+                                                                    <div class="invalid-feedback"><strong>{{ $message }}</strong></div>
+                                                                    @enderror
+                                                                    <div wire:loading wire:target="{{ $field }}" class="text-muted mt-1">
+                                                                        <small><i class="ri-loader-4-line spinner-border spinner-border-sm me-1"></i>Uploading...</small>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
                                                         </div>
                                                     </div>
 

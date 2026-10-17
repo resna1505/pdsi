@@ -6,17 +6,19 @@ use App\Models\Anggota;
 use App\Models\Document;
 use App\Models\Education;
 use App\Models\Practice;
+use App\Services\KtaService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB; // 🆕 TAMBAHAN
+use Illuminate\Support\Str;
 use Mpdf\Mpdf;
 
 class ProfileDokterController extends Controller
 {
-    public function index()
+    public function index(KtaService $kta)
     {
         $anggota = Anggota::where('user_id', Auth::id())->first();
 
@@ -40,66 +42,30 @@ class ProfileDokterController extends Controller
         $profilePercentage = $anggota->getProfilePercentage();
         $progressColor = $anggota->getProgressColor();
 
-        return view('member.profile-dokter', compact('anggota', 'documents', 'educations', 'practices', 'profilePercentage', 'progressColor'));
+        $ktaData = $anggota->no_kartu_anggota ? $kta->cardData($anggota, false) : null;
+
+        return view('member.profile-dokter', compact('anggota', 'documents', 'educations', 'practices', 'profilePercentage', 'progressColor', 'ktaData'));
     }
 
-    // Method untuk download PDF - FIXED VERSION
-    public function downloadCardPDF()
+    /**
+     * Anggota milik user login yang sudah punya nomor kartu (sudah disetujui).
+     */
+    private function anggotaWithKta(): ?Anggota
     {
-        $anggota = Anggota::where('user_id', Auth::id())->first();
+        return Anggota::where('user_id', Auth::id())->whereNotNull('no_kartu_anggota')->first();
+    }
+
+    // Download KTA (PDF, 2 halaman ukuran kartu: depan & belakang)
+    public function downloadCardPDF(KtaService $kta)
+    {
+        $anggota = $this->anggotaWithKta();
 
         if (!$anggota) {
-            return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
+            return redirect()->back()->with('error', 'Kartu anggota belum tersedia. Akun Anda belum diverifikasi.');
         }
 
         try {
-            // Convert image to base64 for PDF
-            $avatarPath = public_path('storage/images/users/' . $anggota->avatar);
-            $avatarBase64 = '';
-
-            if (file_exists($avatarPath)) {
-                $imageData = file_get_contents($avatarPath);
-                $base64 = base64_encode($imageData);
-                $mimeType = mime_content_type($avatarPath);
-                $avatarBase64 = 'data:' . $mimeType . ';base64,' . $base64;
-            }
-
-            // Background images to base64
-            $frontBgPath = public_path('build/images/kta_pdsi_depan.jpg');
-            $backBgPath = public_path('build/images/kta_pdsi_belakang.png');
-
-            $frontBgBase64 = '';
-            $backBgBase64 = '';
-
-            if (file_exists($frontBgPath)) {
-                $frontImageData = file_get_contents($frontBgPath);
-                $frontBase64 = base64_encode($frontImageData);
-                $frontMimeType = mime_content_type($frontBgPath);
-                $frontBgBase64 = 'data:' . $frontMimeType . ';base64,' . $frontBase64;
-            }
-
-            if (file_exists($backBgPath)) {
-                $backImageData = file_get_contents($backBgPath);
-                $backBase64 = base64_encode($backImageData);
-                $backMimeType = mime_content_type($backBgPath);
-                $backBgBase64 = 'data:' . $backMimeType . ';base64,' . $backBase64;
-            }
-
-            // Pass data to view
-            $data = [
-                'anggota' => $anggota,
-                'avatarBase64' => $avatarBase64,
-                'frontBgBase64' => $frontBgBase64,
-                'backBgBase64' => $backBgBase64
-            ];
-
-            // Generate PDF
-            $pdf = Pdf::loadView('member.card-pdf', $data);
-            $pdf->setPaper('A4', 'portrait');
-
-            $filename = 'KTA_' . str_replace(' ', '_', $anggota->nama) . '_' . date('Y-m-d') . '.pdf';
-
-            return $pdf->download($filename);
+            return $kta->pdf($anggota)->download($kta->filename($anggota, 'Lengkap', 'pdf'));
         } catch (\Exception $e) {
             Log::error('Error PDF: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal membuat PDF: ' . $e->getMessage());
@@ -153,11 +119,20 @@ class ProfileDokterController extends Controller
         }
     }
 
-    // Method untuk preview card (untuk screenshot)
-    public function cardPreview($id)
+    // Preview KTA (pemilik kartu atau admin)
+    public function cardPreview($id, KtaService $kta)
     {
         $anggota = Anggota::findOrFail($id);
-        return view('member.card-preview', compact('anggota'));
+
+        if ((int) $anggota->user_id !== (int) Auth::id() && Auth::user()->level !== 'Admin') {
+            abort(403);
+        }
+
+        if (!$anggota->no_kartu_anggota) {
+            return redirect()->back()->with('error', 'Kartu anggota belum tersedia. Akun belum diverifikasi.');
+        }
+
+        return view('member.kta.preview', $kta->cardData($anggota, false));
     }
 
     public function store(Request $request)
@@ -242,200 +217,69 @@ class ProfileDokterController extends Controller
         }
     }
 
-    public function downloadCardJPGFront()
+    public function downloadCardJPGFront(KtaService $kta)
     {
-        $anggota = Anggota::where('user_id', Auth::id())->first();
+        return $this->downloadCardJPG($kta, 'front');
+    }
+
+    public function downloadCardJPGBack(KtaService $kta)
+    {
+        return $this->downloadCardJPG($kta, 'back');
+    }
+
+    private function downloadCardJPG(KtaService $kta, string $side)
+    {
+        $anggota = $this->anggotaWithKta();
 
         if (!$anggota) {
-            return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
+            return redirect()->back()->with('error', 'Kartu anggota belum tersedia. Akun Anda belum diverifikasi.');
         }
 
         try {
-            // Convert images to base64
-            $avatarBase64 = '';
-            $frontBgBase64 = '';
+            $path = $kta->jpg($anggota, $side);
+            $filename = $kta->filename($anggota, $side === 'back' ? 'Belakang' : 'Depan', 'jpg');
 
-            $avatarPath = public_path('storage/images/users/' . $anggota->avatar);
-            if (file_exists($avatarPath)) {
-                $avatarData = file_get_contents($avatarPath);
-                $avatarBase64 = 'data:' . mime_content_type($avatarPath) . ';base64,' . base64_encode($avatarData);
-            }
-
-            $frontPath = public_path('build/images/kta_pdsi_depan.jpg');
-            if (file_exists($frontPath)) {
-                $frontData = file_get_contents($frontPath);
-                $frontBgBase64 = 'data:' . mime_content_type($frontPath) . ';base64,' . base64_encode($frontData);
-            }
-
-            $data = compact('anggota', 'avatarBase64', 'frontBgBase64');
-            $html = view('member.card-jpg-front', $data)->render();
-
-            $filename = 'KTA_Depan_' . str_replace(' ', '_', $anggota->nama) . '_' . date('Y-m-d') . '.jpg';
-            $filepath = storage_path('app/public/temp/' . $filename);
-
-            if (!file_exists(storage_path('app/public/temp'))) {
-                mkdir(storage_path('app/public/temp'), 0755, true);
-            }
-
-            // Optimized settings untuk single card
-            \Spatie\Browsershot\Browsershot::html($html)
-                ->noSandbox()
-                ->timeout(30) // Reduced timeout
-                ->setScreenshotType('jpeg', 90)
-                ->windowSize(350, 550) // Exact card size
-                ->deviceScaleFactor(2) // High quality
-                ->dismissDialogs()
-                ->ignoreHttpsErrors()
-                ->setOption('no-first-run', true)
-                ->setOption('disable-web-security', true)
-                ->save($filepath);
-
-            return response()->download($filepath)->deleteFileAfterSend(true);
+            return response()->download($path, $filename)->deleteFileAfterSend(true);
         } catch (\Exception $e) {
-            Log::error('Error JPG Front: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Gagal membuat JPG Depan: ' . $e->getMessage());
+            Log::error('Error JPG ' . $side . ': ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal membuat JPG: ' . $e->getMessage());
         }
     }
 
-    // Method 2: Download Kartu Belakang Saja
-    public function downloadCardJPGBack()
+    // Download KTA depan & belakang (ZIP)
+    public function downloadCardJPGBoth(KtaService $kta)
     {
-        $anggota = Anggota::where('user_id', Auth::id())->first();
+        $anggota = $this->anggotaWithKta();
 
         if (!$anggota) {
-            return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
+            return redirect()->back()->with('error', 'Kartu anggota belum tersedia. Akun Anda belum diverifikasi.');
         }
+
+        $front = $back = null;
 
         try {
-            $backBgBase64 = '';
+            $front = $kta->jpg($anggota, 'front');
+            $back = $kta->jpg($anggota, 'back');
 
-            $backPath = public_path('build/images/kta_pdsi_belakang.png');
-            if (file_exists($backPath)) {
-                $backData = file_get_contents($backPath);
-                $backBgBase64 = 'data:' . mime_content_type($backPath) . ';base64,' . base64_encode($backData);
-            }
-
-            $data = compact('anggota', 'backBgBase64');
-            $html = view('member.card-jpg-back', $data)->render();
-
-            $filename = 'KTA_Belakang_' . str_replace(' ', '_', $anggota->nama) . '_' . date('Y-m-d') . '.jpg';
-            $filepath = storage_path('app/public/temp/' . $filename);
-
-            if (!file_exists(storage_path('app/public/temp'))) {
-                mkdir(storage_path('app/public/temp'), 0755, true);
-            }
-
-            \Spatie\Browsershot\Browsershot::html($html)
-                ->noSandbox()
-                ->timeout(30)
-                ->setScreenshotType('jpeg', 90)
-                ->windowSize(350, 550) // Exact card size
-                ->deviceScaleFactor(2)
-                ->dismissDialogs()
-                ->ignoreHttpsErrors()
-                ->setOption('no-first-run', true)
-                ->setOption('disable-web-security', true)
-                ->save($filepath);
-
-            return response()->download($filepath)->deleteFileAfterSend(true);
-        } catch (\Exception $e) {
-            Log::error('Error JPG Back: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Gagal membuat JPG Belakang: ' . $e->getMessage());
-        }
-    }
-
-    // Method 3: Download Both Cards as ZIP
-    public function downloadCardJPGBoth()
-    {
-        $anggota = Anggota::where('user_id', Auth::id())->first();
-
-        if (!$anggota) {
-            return redirect()->back()->with('error', 'Data anggota tidak ditemukan');
-        }
-
-        try {
-            // Convert images to base64
-            $avatarBase64 = '';
-            $frontBgBase64 = '';
-            $backBgBase64 = '';
-
-            $avatarPath = public_path('storage/images/users/' . $anggota->avatar);
-            if (file_exists($avatarPath)) {
-                $avatarData = file_get_contents($avatarPath);
-                $avatarBase64 = 'data:' . mime_content_type($avatarPath) . ';base64,' . base64_encode($avatarData);
-            }
-
-            $frontPath = public_path('build/images/kta_pdsi_depan.jpg');
-            if (file_exists($frontPath)) {
-                $frontData = file_get_contents($frontPath);
-                $frontBgBase64 = 'data:' . mime_content_type($frontPath) . ';base64,' . base64_encode($frontData);
-            }
-
-            $backPath = public_path('build/images/kta_pdsi_belakang.png');
-            if (file_exists($backPath)) {
-                $backData = file_get_contents($backPath);
-                $backBgBase64 = 'data:' . mime_content_type($backPath) . ';base64,' . base64_encode($backData);
-            }
-
-            // Generate front card
-            $frontData = compact('anggota', 'avatarBase64', 'frontBgBase64');
-            $frontHtml = view('member.card-jpg-front', $frontData)->render();
-
-            $frontFilename = 'KTA_Depan_' . str_replace(' ', '_', $anggota->nama) . '.jpg';
-            $frontFilepath = storage_path('app/public/temp/' . $frontFilename);
-
-            if (!file_exists(storage_path('app/public/temp'))) {
-                mkdir(storage_path('app/public/temp'), 0755, true);
-            }
-
-            \Spatie\Browsershot\Browsershot::html($frontHtml)
-                ->noSandbox()
-                ->timeout(30)
-                ->setScreenshotType('jpeg', 90)
-                ->windowSize(350, 550)
-                ->deviceScaleFactor(2)
-                ->dismissDialogs()
-                ->ignoreHttpsErrors()
-                ->save($frontFilepath);
-
-            // Generate back card
-            $backData = compact('anggota', 'backBgBase64');
-            $backHtml = view('member.card-jpg-back', $backData)->render();
-
-            $backFilename = 'KTA_Belakang_' . str_replace(' ', '_', $anggota->nama) . '.jpg';
-            $backFilepath = storage_path('app/public/temp/' . $backFilename);
-
-            \Spatie\Browsershot\Browsershot::html($backHtml)
-                ->noSandbox()
-                ->timeout(30)
-                ->setScreenshotType('jpeg', 90)
-                ->windowSize(350, 550)
-                ->deviceScaleFactor(2)
-                ->dismissDialogs()
-                ->ignoreHttpsErrors()
-                ->save($backFilepath);
-
-            // Create ZIP
-            $zipFilename = 'KTA_Complete_' . str_replace(' ', '_', $anggota->nama) . '_' . date('Y-m-d') . '.zip';
-            $zipFilepath = storage_path('app/public/temp/' . $zipFilename);
-
+            $zipPath = storage_path('app/public/temp/' . Str::uuid() . '.zip');
             $zip = new \ZipArchive();
-            if ($zip->open($zipFilepath, \ZipArchive::CREATE) === TRUE) {
-                $zip->addFile($frontFilepath, $frontFilename);
-                $zip->addFile($backFilepath, $backFilename);
-                $zip->close();
-
-                // Clean up individual files
-                if (file_exists($frontFilepath)) unlink($frontFilepath);
-                if (file_exists($backFilepath)) unlink($backFilepath);
-
-                return response()->download($zipFilepath)->deleteFileAfterSend(true);
-            } else {
+            if ($zip->open($zipPath, \ZipArchive::CREATE) !== true) {
                 throw new \Exception('Cannot create ZIP file');
             }
+            $zip->addFile($front, $kta->filename($anggota, 'Depan', 'jpg'));
+            $zip->addFile($back, $kta->filename($anggota, 'Belakang', 'jpg'));
+            $zip->close();
+
+            return response()->download($zipPath, $kta->filename($anggota, 'Lengkap', 'zip'))->deleteFileAfterSend(true);
         } catch (\Exception $e) {
             Log::error('Error JPG Both: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal membuat ZIP: ' . $e->getMessage());
+        } finally {
+            foreach ([$front, $back] as $file) {
+                if ($file && file_exists($file)) {
+                    unlink($file);
+                }
+            }
         }
     }
 }

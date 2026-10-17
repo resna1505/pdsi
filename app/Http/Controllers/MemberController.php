@@ -11,6 +11,7 @@ use App\Models\Practice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Services\KtaService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB; // 🆕 TAMBAHAN
 use Illuminate\Support\Facades\Storage; // 🆕 TAMBAHAN
@@ -72,13 +73,16 @@ class MemberController extends Controller
         // Determine progress bar color based on percentage
         $progressColor = $this->getProgressColor($profilePercentage);
 
+        $ktaData = $anggota->no_kartu_anggota ? app(KtaService::class)->cardData($anggota, false) : null;
+
         return view('member.profile-dokter', compact(
             'anggota',
             'documents',
             'educations',
             'practices',
             'profilePercentage',
-            'progressColor'
+            'progressColor',
+            'ktaData'
         ));
     }
 

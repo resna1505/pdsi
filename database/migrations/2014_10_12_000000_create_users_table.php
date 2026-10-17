@@ -34,7 +34,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-        User::create([
+        User::forceCreate([
+            'is_active' => true,
             'email' => 'admin@ictpdsi.com', // Email sebaiknya lowercase
             'name' => 'Admin ICT PDSI',
             'level' => 'Admin',

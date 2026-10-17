@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Auth;
 
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Login extends Component
 {
@@ -35,6 +37,17 @@ class Login extends Component
         if (Auth::attempt($credentials)) {
             return redirect()->intended('/');
         } else {
+            // Password benar tapi akun belum aktif: beri tahu status pendaftarannya
+            $user = User::with('anggota')->where('email', $this->email)->first();
+            if ($user && !$user->is_active && Hash::check($this->password, $user->password)) {
+                if ($user->anggota?->status_verifikasi === 'rejected') {
+                    $this->addError('email', 'Pendaftaran Anda ditolak: ' . $user->anggota->alasan_penolakan);
+                } else {
+                    $this->addError('email', 'Akun Anda masih menunggu verifikasi admin.');
+                }
+                return;
+            }
+
             $this->addError('email', trans('auth.failed'));
             return redirect()->back();
         }

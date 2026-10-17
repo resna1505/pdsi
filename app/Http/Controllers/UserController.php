@@ -6,8 +6,11 @@ use App\Models\Anggota;
 use App\Models\User;
 use App\Exports\UserAdminExport;
 use App\Exports\UserMemberExport;
+use App\Mail\PendaftaranDitolakEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
@@ -16,19 +19,35 @@ class UserController extends Controller
 {
     public function index()
     {
-        $admin = Anggota::where('spesialis', '')
+        $notRejected = function ($query) {
+            $query->whereNull('status_verifikasi')->orWhere('status_verifikasi', '!=', 'rejected');
+        };
+
+        $admin = Anggota::with('perhimpunan')
+            ->where('spesialis', '')
+            ->where($notRejected)
             ->whereHas('user', function ($query) {
                 $query->where('is_active', 0);
             })
             ->get();
 
-        $dokter = Anggota::where('spesialis', '!=', '')
+        $dokter = Anggota::with('perhimpunan')
+            ->where('spesialis', '!=', '')
+            ->where($notRejected)
             ->whereHas('user', function ($query) {
                 $query->where('is_active', 0);
             })
             ->get();
 
-        return view('admin.user', compact('admin', 'dokter'));
+        $ditolak = Anggota::with('perhimpunan')
+            ->where('status_verifikasi', 'rejected')
+            ->whereHas('user', function ($query) {
+                $query->where('is_active', 0);
+            })
+            ->latest('tanggal_verifikasi')
+            ->get();
+
+        return view('admin.user', compact('admin', 'dokter', 'ditolak'));
     }
 
     /**
@@ -146,8 +165,13 @@ class UserController extends Controller
             $user->is_active = 1;
             $user->save();
 
-            // Update nomor kartu anggota
+            // Update nomor kartu anggota & data KTA
             $anggota->no_kartu_anggota = $noKartuAnggota;
+            $anggota->status_verifikasi = 'approved';
+            $anggota->alasan_penolakan = null;
+            $anggota->tanggal_verifikasi = now();
+            $anggota->kta_berlaku_sampai = now()->addYears(Anggota::MASA_BERLAKU_KTA_TAHUN);
+            $anggota->kta_token = $anggota->kta_token ?: Str::random(40);
             $anggota->save();
 
             DB::commit();
@@ -175,6 +199,47 @@ class UserController extends Controller
 
             return redirect()->back()->with('error', 'Gagal memverifikasi user: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Tolak pendaftaran: simpan alasan & kirim email ke pendaftar.
+     */
+    public function tolak(Request $request, $id)
+    {
+        abort_unless(auth()->user()->level === 'Admin', 403);
+
+        $request->validate([
+            'alasan_penolakan' => 'required|string|max:1000',
+        ], [
+            'alasan_penolakan.required' => 'Alasan penolakan wajib diisi.',
+        ]);
+
+        $user = User::findOrFail($id);
+        $anggota = Anggota::where('user_id', $user->id)->first();
+
+        if (!$anggota) {
+            return redirect()->back()->with('error', 'Data anggota tidak ditemukan!');
+        }
+
+        if ($user->is_active == 1) {
+            return redirect()->back()->with('warning', 'User sudah terverifikasi, tidak dapat ditolak.');
+        }
+
+        $anggota->update([
+            'status_verifikasi' => 'rejected',
+            'alasan_penolakan' => $request->alasan_penolakan,
+            'tanggal_verifikasi' => now(),
+        ]);
+
+        try {
+            Mail::to($anggota->email ?: $user->email)->send(new PendaftaranDitolakEmail($anggota));
+        } catch (\Throwable $e) {
+            Log::error('Gagal kirim email penolakan: ' . $e->getMessage(), ['user_id' => $user->id]);
+
+            return redirect()->back()->with('warning', 'Pendaftaran ditolak, tetapi email pemberitahuan gagal dikirim.');
+        }
+
+        return redirect()->back()->with('success', 'Pendaftaran ' . $anggota->nama . ' ditolak dan email pemberitahuan telah dikirim.');
     }
 
     /**
@@ -281,7 +346,7 @@ class UserController extends Controller
     {
         try {
             // Validasi type yang diizinkan
-            $allowedTypes = ['ktp', 'npwp', 'dokumen'];
+            $allowedTypes = ['ktp', 'npwp', 'dokumen', 'str', 'sip', 'serkom', 'serpeng', 'ijazah', 'cv'];
             if (!in_array($type, $allowedTypes)) {
                 return redirect()->back()->with('error', 'Tipe dokumen tidak valid.');
             }
