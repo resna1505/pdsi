@@ -221,6 +221,27 @@
                                                     </div>
 
                                                     <!-- BAGIAN YANG DIMODIFIKASI: KOTA DAN PROVINSI -->
+                                                    @if ($jenis_anggota === 'perhimpunan')
+                                                    {{-- Anggota perhimpunan: tanpa kota, provinsi dipilih langsung --}}
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label for="provinsi_select" class="form-label">Asal Provinsi <span class="text-danger">*</span></label>
+                                                            <select id="provinsi_select"
+                                                                    class="form-select @error('provinsi') is-invalid @enderror"
+                                                                    wire:model="provinsi">
+                                                                <option value="">-- Pilih Provinsi --</option>
+                                                                @foreach (\App\Http\Livewire\Auth\Register::DAFTAR_PROVINSI as $namaProvinsi)
+                                                                    <option value="{{ $namaProvinsi }}" @selected($provinsi === $namaProvinsi)>{{ $namaProvinsi }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('provinsi')
+                                                            <div class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                    @else
                                                     <div class="col-lg-12">
                                                         <div class="mb-3 position-relative">
                                                             <label for="kota" class="form-label">Mendaftar keanggotaan PDSI Kota/Kabupaten, sebutkan ? <span class="text-danger">*</span></label>
@@ -283,6 +304,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                    @endif
                                                     <!-- AKHIR MODIFIKASI -->
 
                                                     @if ($jenis_anggota !== 'perhimpunan')

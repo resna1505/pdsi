@@ -42,7 +42,7 @@
                         <div class="col-xl-5 col-lg-5">
                             <h5 class="fs-17">{{ $anggota->nama }}</h5>
                             <div class="hstack gap-1 mb-3 text-muted">
-                                <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>{{ $anggota->kota }}, {{ $anggota->provinsi }}</div>
+                                <div class="me-2"><i class="ri-map-pin-user-line me-1 fs-16 align-middle"></i>{{ collect([$anggota->kota, $anggota->provinsi])->filter()->implode(', ') }}</div>
                                 <div>
                                     <i class="ri-building-line me-1 fs-16 align-middle"></i>-
                                 </div>
@@ -722,7 +722,7 @@
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
                                             <p class="mb-2">Kab / Kota :</p>
-                                            <h6 class="text-truncate mb-0">{{ $anggota->kota }}</h6>
+                                            <h6 class="text-truncate mb-0">{{ $anggota->kota ?: '-' }}</h6>
                                         </div>
                                     </div>
                                 </div>
