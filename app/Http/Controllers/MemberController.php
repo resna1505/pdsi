@@ -7,6 +7,7 @@ use App\Models\Perhimpunan;
 use App\Models\Document;
 use App\Exports\AdminExport;
 use App\Exports\MemberExport;
+use App\Exports\PerhimpunanMemberExport;
 use App\Models\Education;
 use App\Models\Practice;
 use Illuminate\Http\Request;
@@ -23,19 +24,53 @@ class MemberController extends Controller
 {
     public function index()
     {
+        // Anggota perhimpunan ditampilkan terpisah di menu Member Perhimpunan
         $admin = Anggota::where('spesialis', '')
+            ->whereNull('perhimpunan_id')
             ->whereHas('user', function ($query) {
                 $query->where('is_active', 1);
             })
             ->get();
 
         $dokter = Anggota::where('spesialis', '!=', '')
+            ->whereNull('perhimpunan_id')
             ->whereHas('user', function ($query) {
                 $query->where('is_active', 1);
             })
             ->get();
 
         return view('admin.member', compact('admin', 'dokter'));
+    }
+
+    /**
+     * Member perhimpunan (sudah diverifikasi), dikelompokkan per perhimpunan.
+     */
+    public function perhimpunan()
+    {
+        abort_unless(Auth::user()->level === 'Admin', 403);
+
+        $perhimpunans = Perhimpunan::query()
+            ->where(function ($query) {
+                $query->where('is_active', true)->orWhereHas('anggotas');
+            })
+            ->with(['anggotas' => function ($query) {
+                $query->whereHas('user', fn ($q) => $q->where('is_active', 1))
+                    ->orderBy('no_kartu_anggota');
+            }])
+            ->orderBy('urutan')
+            ->get();
+
+        return view('admin.member-perhimpunan', compact('perhimpunans'));
+    }
+
+    public function exportPerhimpunan($id)
+    {
+        abort_unless(Auth::user()->level === 'Admin', 403);
+
+        $perhimpunan = Perhimpunan::findOrFail($id);
+        $filename = 'member_' . strtolower($perhimpunan->singkatan) . '_' . date('Y-m-d_H-i-s') . '.xlsx';
+
+        return Excel::download(new PerhimpunanMemberExport($perhimpunan), $filename);
     }
 
     public function show($id)
@@ -233,6 +268,16 @@ class MemberController extends Controller
                 $filesToDelete[] = public_path("storage/images/users/{$anggota->dokumen_persyaratan}");
             }
 
+            // Dokumen syarat perhimpunan (STR, SIP, dll.)
+            foreach (array_keys(Anggota::DOKUMEN_PERSYARATAN) as $field) {
+                if (!empty($anggota->{$field})) {
+                    $filesToDelete[] = public_path("storage/images/users/{$anggota->{$field}}");
+                }
+            }
+
+            // Kembali ke daftar asal (Member PDSI / Member Perhimpunan)
+            $redirectRoute = $anggota->perhimpunan_id ? 'member.perhimpunan' : 'member.index';
+
             // Hapus data terkait dari tabel lain
             Education::where('anggota_id', $anggota->id)->delete();
             Practice::where('anggota_id', $anggota->id)->delete();
@@ -256,7 +301,7 @@ class MemberController extends Controller
 
             Log::info("Member deleted successfully: {$memberName} (ID: {$id})");
 
-            return redirect()->route('member.index')->with('success', "Member {$memberName} berhasil dihapus.");
+            return redirect()->route($redirectRoute)->with('success', "Member {$memberName} berhasil dihapus.");
         } catch (\Exception $e) {
             DB::rollBack();
 

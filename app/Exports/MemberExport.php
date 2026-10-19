@@ -17,6 +17,7 @@ class MemberExport implements FromCollection, WithHeadings, WithMapping, WithSty
     {
         try {
             return Anggota::where('spesialis', '!=', '')
+                ->whereNull('perhimpunan_id') // anggota perhimpunan punya daftar sendiri
                 ->whereHas('user', function ($query) {
                     $query->where('is_active', 1);
                 })

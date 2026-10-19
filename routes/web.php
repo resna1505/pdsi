@@ -160,6 +160,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/workshops/{id}', [WorkshopsController::class, 'update'])->name('workshops.update');
 
     Route::get('/member', [MemberController::class, 'index'])->name('member.index');
+    Route::get('/member-perhimpunan', [MemberController::class, 'perhimpunan'])->name('member.perhimpunan');
+    Route::get('/member-perhimpunan/{id}/export', [MemberController::class, 'exportPerhimpunan'])->name('member.perhimpunan.export');
     Route::get('/member/export-admin', [MemberController::class, 'exportAdmin'])->name('member.export.admin');
     Route::get('/member/export-member', [MemberController::class, 'exportMember'])->name('member.export.member');
     Route::get('/member/{id}', [MemberController::class, 'show'])->name('member.show');

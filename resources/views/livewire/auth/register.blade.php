@@ -157,6 +157,7 @@
                                                         </div>
                                                     </div>
 
+                                                    @if ($jenis_anggota !== 'perhimpunan')
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
                                                             <label for="tempat_lahir" class="form-label">Tempat Lahir <span
@@ -188,6 +189,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                    @endif
 
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
@@ -221,27 +223,8 @@
                                                     </div>
 
                                                     <!-- BAGIAN YANG DIMODIFIKASI: KOTA DAN PROVINSI -->
-                                                    @if ($jenis_anggota === 'perhimpunan')
-                                                    {{-- Anggota perhimpunan: tanpa kota, provinsi dipilih langsung --}}
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="provinsi_select" class="form-label">Asal Provinsi <span class="text-danger">*</span></label>
-                                                            <select id="provinsi_select"
-                                                                    class="form-select @error('provinsi') is-invalid @enderror"
-                                                                    wire:model="provinsi">
-                                                                <option value="">-- Pilih Provinsi --</option>
-                                                                @foreach (\App\Http\Livewire\Auth\Register::DAFTAR_PROVINSI as $namaProvinsi)
-                                                                    <option value="{{ $namaProvinsi }}" @selected($provinsi === $namaProvinsi)>{{ $namaProvinsi }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('provinsi')
-                                                            <div class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                    @else
+                                                    {{-- Anggota perhimpunan tidak mengisi kota/provinsi --}}
+                                                    @if ($jenis_anggota !== 'perhimpunan')
                                                     <div class="col-lg-12">
                                                         <div class="mb-3 position-relative">
                                                             <label for="kota" class="form-label">Mendaftar keanggotaan PDSI Kota/Kabupaten, sebutkan ? <span class="text-danger">*</span></label>
@@ -410,6 +393,7 @@
                                                         </div>
                                                     </div>
 
+                                                    @if ($jenis_anggota !== 'perhimpunan')
                                                     <div class="mb-3">
                                                         <label class="form-label">Dokumen Persyaratan <span class="text-danger">*</span></label>
 
@@ -449,6 +433,7 @@
                                                             <small><i class="ri-loader-4-line spinner-border spinner-border-sm me-1"></i>Uploading...</small>
                                                         </div>
                                                     </div>
+                                                    @endif
 
                                                     <!-- Syarat dokumen anggota perhimpunan -->
                                                     @if ($jenis_anggota === 'perhimpunan')
@@ -568,21 +553,28 @@
                                                         </div>
                                                     </div> --}}
 
+                                                    @php
+                                                        $pihakKetentuan = $jenis_anggota === 'perhimpunan' ? 'Anggota Perhimpunan Dokter Spesialis' : 'PDSI Online';
+                                                    @endphp
                                                     <div class="mb-4">
                                                         <div class="form-check @error('remember') is-invalid @enderror">
                                                             <input class="form-check-input" type="checkbox" name="remember" id="remember" wire:model.live="remember"
                                                                 {{ old('remember') ? 'checked' : '' }}>
-                                                            <p class="mb-0 fs-12">Saya setuju dengan Ketentuan Penggunaan PDSI Online</p>
+                                                            @if ($jenis_anggota === 'perhimpunan')
+                                                                <label class="mb-0 fs-13 fw-bold" for="remember">Saya setuju dengan Ketentuan Penggunaan {{ $pihakKetentuan }}</label>
+                                                            @else
+                                                                <p class="mb-0 fs-12">Saya setuju dengan Ketentuan Penggunaan {{ $pihakKetentuan }}</p>
+                                                            @endif
                                                             <p class="mb-0 fs-12 text-muted fst-italic">
                                                                 Mohon tinjau dan terima
                                                                 <a href="#" data-bs-toggle="modal" data-bs-target=".bs-terms-modal-lg" class="text-primary fst-normal fw-medium">Ketentuan Penggunaan
                                                                 </a>
-                                                                PDSI Online untuk menyelesaikan pembuatan akun
+                                                                {{ $pihakKetentuan }} untuk menyelesaikan pembuatan akun
                                                             </p>
                                                         </div>
                                                         @error('remember')
                                                             <span class="invalid-feedback" role="alert">
-                                                                <strong>Anda harus menyetujui Ketentuan Penggunaan PDSI Online terlebih dahulu.</strong>
+                                                                <strong>Anda harus menyetujui Ketentuan Penggunaan {{ $pihakKetentuan }} terlebih dahulu.</strong>
                                                             </span>
                                                         @enderror
                                                     </div>
@@ -622,7 +614,7 @@
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="myLargeModalLabel">From Persetujuan Register</h5>
+                                        <h5 class="modal-title" id="myLargeModalLabel">{{ $jenis_anggota === 'perhimpunan' ? 'Ketentuan Penggunaan Anggota Perhimpunan Dokter Spesialis' : 'From Persetujuan Register' }}</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">

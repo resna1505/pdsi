@@ -122,9 +122,14 @@ class PerhimpunanController extends Controller
             'tujuan' => 'nullable|string',
             'slogan' => 'nullable|string|max:255',
             'nilai_dasar' => 'nullable|string|max:255',
+            'prefix_nomor' => 'nullable|regex:/^[0-9]+$/|max:30',
+            'nomor_mulai' => 'nullable|integer|min:1',
+        ], [
+            'prefix_nomor.regex' => 'Awalan nomor anggota hanya boleh berisi angka.',
         ]);
 
         unset($validated['kta_depan'], $validated['kta_belakang'], $validated['logo']);
+        $validated['nomor_mulai'] = $validated['nomor_mulai'] ?? 1;
         $validated['is_active'] = $request->boolean('is_active');
 
         return $validated;

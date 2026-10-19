@@ -25,11 +25,32 @@ class Perhimpunan extends Model
         'tujuan',
         'slogan',
         'nilai_dasar',
+        'prefix_nomor',
+        'nomor_mulai',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'nomor_mulai' => 'integer',
     ];
+
+    /**
+     * Nomor kartu anggota berikutnya: prefix + nomor urut (mulai dari nomor_mulai).
+     * Dipanggil di dalam transaksi; baris perhimpunan dikunci agar nomor tidak dobel.
+     */
+    public function nextNomorAnggota(): string
+    {
+        $locked = static::whereKey($this->id)->lockForUpdate()->first();
+        $prefix = $locked->prefix_nomor;
+
+        $lastSequence = Anggota::where('no_kartu_anggota', 'like', $prefix . '%')
+            ->selectRaw('MAX(CAST(SUBSTRING(no_kartu_anggota, ?) AS UNSIGNED)) as seq', [strlen($prefix) + 1])
+            ->value('seq');
+
+        $next = max((int) $lastSequence + 1, (int) $locked->nomor_mulai);
+
+        return $prefix . $next;
+    }
 
     /**
      * Syarat dokumen pendaftaran anggota perhimpunan (sesuai form register).

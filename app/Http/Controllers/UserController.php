@@ -23,21 +23,16 @@ class UserController extends Controller
             $query->whereNull('status_verifikasi')->orWhere('status_verifikasi', '!=', 'rejected');
         };
 
-        $admin = Anggota::with('perhimpunan')
-            ->where('spesialis', '')
+        $pending = fn () => Anggota::with('perhimpunan')
             ->where($notRejected)
             ->whereHas('user', function ($query) {
                 $query->where('is_active', 0);
-            })
-            ->get();
+            });
 
-        $dokter = Anggota::with('perhimpunan')
-            ->where('spesialis', '!=', '')
-            ->where($notRejected)
-            ->whereHas('user', function ($query) {
-                $query->where('is_active', 0);
-            })
-            ->get();
+        // Pendaftar PDSI dan pendaftar perhimpunan dipisah
+        $admin = $pending()->whereNull('perhimpunan_id')->where('spesialis', '')->get();
+        $dokter = $pending()->whereNull('perhimpunan_id')->where('spesialis', '!=', '')->get();
+        $perhimpunan = $pending()->whereNotNull('perhimpunan_id')->latest()->get();
 
         $ditolak = Anggota::with('perhimpunan')
             ->where('status_verifikasi', 'rejected')
@@ -47,7 +42,7 @@ class UserController extends Controller
             ->latest('tanggal_verifikasi')
             ->get();
 
-        return view('admin.user', compact('admin', 'dokter', 'ditolak'));
+        return view('admin.user', compact('admin', 'dokter', 'perhimpunan', 'ditolak'));
     }
 
     /**
@@ -158,8 +153,12 @@ class UserController extends Controller
                 return redirect()->back()->with('warning', 'Anggota sudah memiliki nomor kartu: ' . $anggota->no_kartu_anggota);
             }
 
-            // Generate nomor kartu anggota
-            $noKartuAnggota = $this->generateNoKartuAnggota($anggota->provinsi);
+            // Generate nomor kartu anggota: format perhimpunan (mis. PDSKKSI 0819270422xxxx)
+            // atau format PDSI 17 digit berbasis provinsi
+            $perhimpunan = $anggota->perhimpunan;
+            $noKartuAnggota = $perhimpunan && $perhimpunan->prefix_nomor
+                ? $perhimpunan->nextNomorAnggota()
+                : $this->generateNoKartuAnggota($anggota->provinsi);
 
             // Update status user
             $user->is_active = 1;

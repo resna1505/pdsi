@@ -184,6 +184,23 @@ Perhimpunan
                         @endforeach
                         <div class="col-12">
                             <hr class="mt-1">
+                            <h6 class="mb-1">Penomoran Kartu Anggota</h6>
+                            <p class="text-muted small mb-3">
+                                Nomor = awalan + nomor urut, mis. <code>0819270422</code> + <code>1021</code> = <code>08192704221021</code>.
+                                Kosongkan awalan agar anggota perhimpunan ini memakai nomor PDSI (17 digit berbasis provinsi).
+                            </p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-prefix_nomor" class="form-label">Awalan Nomor</label>
+                            <input type="text" class="form-control" id="edit-prefix_nomor" name="prefix_nomor" inputmode="numeric" maxlength="30">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="edit-nomor_mulai" class="form-label">Nomor Urut Mulai</label>
+                            <input type="number" class="form-control" id="edit-nomor_mulai" name="nomor_mulai" min="1">
+                            <small class="text-muted">Nomor yang sudah dibagikan manual sebaiknya dilewati.</small>
+                        </div>
+                        <div class="col-12">
+                            <hr class="mt-1">
                             <h6 class="mb-1">Profil di Website</h6>
                             <p class="text-muted small mb-3">Ditampilkan di halaman Perhimpunan pada website pdsionline.org.</p>
                         </div>
@@ -299,7 +316,7 @@ Perhimpunan
                         document.getElementById('edit-singkatan').value = data.perhimpunan.singkatan;
                         document.getElementById('edit-is-active').checked = !!data.perhimpunan.is_active;
 
-                        ['ringkasan', 'filosofi', 'arti_lambang', 'visi', 'misi', 'tujuan', 'slogan', 'nilai_dasar'].forEach(function (field) {
+                        ['prefix_nomor', 'nomor_mulai', 'ringkasan', 'filosofi', 'arti_lambang', 'visi', 'misi', 'tujuan', 'slogan', 'nilai_dasar'].forEach(function (field) {
                             document.getElementById(`edit-${field}`).value = data.perhimpunan[field] || '';
                         });
                         const logoCurrent = document.getElementById('edit-logo-current');

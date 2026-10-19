@@ -79,6 +79,14 @@ User
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#perhimpunan" role="tab" aria-selected="false" data-export="none">
+                                Perhimpunan
+                                @if (count($perhimpunan))
+                                    <span class="badge bg-warning-subtle text-warning ms-1">{{ count($perhimpunan) }}</span>
+                                @endif
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" href="#ditolak" role="tab" aria-selected="false" data-export="none">
                                 Ditolak
                                 @if (count($ditolak))
@@ -267,6 +275,23 @@ User
                                         </div>
                                     </div>
                                 </div>
+                            @endforeach
+                        </div>
+                        <div class="d-flex align-items-center border-top pt-3">
+                            <div class="flex-grow-1">
+                                <div class="text-muted pagination-info mb-2"></div>
+                            </div>
+                            <ul class="pagination pagination-separated justify-content-center mb-0"></ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="perhimpunan" role="tabpanel">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <p class="text-muted mb-0">Pendaftar anggota perhimpunan. Nomor anggota mengikuti penomoran masing-masing perhimpunan.</p>
+                            <span class="badge bg-warning text-dark">Total: {{ count($perhimpunan) }} Pending</span>
+                        </div>
+                        <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-md-2 row-cols-1 video-lists">
+                            @foreach ($perhimpunan as $item)
+                                @include('admin.partials.pending-card')
                             @endforeach
                         </div>
                         <div class="d-flex align-items-center border-top pt-3">

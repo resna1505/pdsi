@@ -44,6 +44,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link menu-link" href="{{ url('/member-perhimpunan') }}">
+                            <i class="ri-hospital-line"></i> <span data-key="t-member-perhimpunan">Member Perhimpunan</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link menu-link" href="{{ url('/verifikasi-iuran') }}">
                             <i class=" ri-donut-chart-line"></i> <span data-key="t-verifikasi-iuran">Verifikasi Iuran</span>
                         </a>

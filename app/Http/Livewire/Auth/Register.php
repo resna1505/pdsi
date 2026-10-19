@@ -41,17 +41,6 @@ class Register extends Component
 
     public $dokumen_persyaratan;
 
-    // Pilihan provinsi untuk anggota perhimpunan (harus ada di kode provinsi nomor anggota)
-    public const DAFTAR_PROVINSI = [
-        'Aceh', 'Sumatera Utara', 'Sumatera Barat', 'Riau', 'Kepulauan Riau', 'Jambi',
-        'Sumatera Selatan', 'Bangka Belitung', 'Bengkulu', 'Lampung', 'DKI Jakarta', 'Banten',
-        'Jawa Barat', 'Jawa Tengah', 'DI Yogyakarta', 'Jawa Timur', 'Bali', 'Nusa Tenggara Barat',
-        'Nusa Tenggara Timur', 'Kalimantan Barat', 'Kalimantan Tengah', 'Kalimantan Selatan',
-        'Kalimantan Timur', 'Kalimantan Utara', 'Sulawesi Utara', 'Gorontalo', 'Sulawesi Tengah',
-        'Sulawesi Barat', 'Sulawesi Selatan', 'Sulawesi Tenggara', 'Maluku', 'Maluku Utara',
-        'Papua', 'Papua Barat', 'Papua Barat Daya', 'Papua Tengah', 'Papua Pegunungan', 'Papua Selatan',
-    ];
-
     // Jenis keanggotaan: 'biasa' (anggota PDSI) atau 'perhimpunan' (wajib syarat dokumen)
     public $jenis_anggota = 'perhimpunan';
 
@@ -266,10 +255,11 @@ class Register extends Component
         $rules = $this->rules;
 
         if ($this->jenis_anggota === 'perhimpunan') {
-            // Anggota perhimpunan tidak mengisi kota; provinsi dipilih langsung
-            // (tetap wajib karena dipakai untuk nomor anggota)
-            $rules['kota'] = 'nullable';
-            $rules['provinsi'] = 'required|in:' . implode(',', self::DAFTAR_PROVINSI);
+            // Anggota perhimpunan tidak mengisi data berikut
+            // (nomor anggota perhimpunan tidak berbasis provinsi)
+            foreach (['tempat_lahir', 'tanggal_lahir', 'kota', 'provinsi', 'dokumen_persyaratan'] as $field) {
+                $rules[$field] = 'nullable';
+            }
 
             $rules += [
                 'perhimpunan_id' => 'required|exists:perhimpunans,id',
@@ -327,8 +317,6 @@ class Register extends Component
         'dokumen_persyaratan.mimes' => 'Dokumen harus berformat DOC, DOCX, atau PDF.',
         'dokumen_persyaratan.max' => 'Ukuran dokumen maksimal 5MB.',
         'jenis_anggota.required' => 'Pilih jenis keanggotaan terlebih dahulu.',
-        'provinsi.required' => 'Provinsi wajib dipilih.',
-        'provinsi.in' => 'Pilih provinsi dari daftar.',
         'perhimpunan_id.required' => 'Perhimpunan wajib dipilih.',
         'no_str.required' => 'No. STR wajib diisi.',
         'str_berlaku_sampai.after_or_equal' => 'STR sudah tidak berlaku. Lampirkan STR yang masih aktif.',
@@ -449,8 +437,11 @@ class Register extends Component
             }
         }
 
+        $isPerhimpunan = $this->jenis_anggota === 'perhimpunan';
+
+        // Surat Fakta Integritas hanya untuk anggota biasa PDSI
         $dokumenName = null;
-        if ($this->dokumen_persyaratan) {
+        if (!$isPerhimpunan && $this->dokumen_persyaratan) {
             $dokumenName = time() . '_dokumen.' . $this->dokumen_persyaratan->getClientOriginalExtension();
             try {
                 file_put_contents($destination . '/' . $dokumenName, file_get_contents($this->dokumen_persyaratan->getRealPath()));
@@ -461,7 +452,6 @@ class Register extends Component
 
 
         // Dokumen syarat perhimpunan (anggota biasa tidak menyimpan data perhimpunan)
-        $isPerhimpunan = $this->jenis_anggota === 'perhimpunan';
         $dokumenProfesi = [];
         foreach (array_keys(Anggota::DOKUMEN_PERSYARATAN) as $field) {
             $dokumenProfesi[$field] = null;
@@ -505,12 +495,12 @@ class Register extends Component
                 'email' => $this->email,
                 'nama' => $this->name,
                 'noktp' => $this->noktp, // ← TAMBAHKAN INI
-                'tempat_lahir' => $this->tempat_lahir,
-                'tanggal_lahir' => $this->tanggal_lahir,
+                'tempat_lahir' => $isPerhimpunan ? null : $this->tempat_lahir,
+                'tanggal_lahir' => $isPerhimpunan ? null : $this->tanggal_lahir,
                 'no_hp' => $this->no_hp,
                 'alamat' => $this->alamat,
                 'kota' => $isPerhimpunan ? null : $this->kota,
-                'provinsi' => $this->provinsi,
+                'provinsi' => $isPerhimpunan ? null : $this->provinsi,
                 'profesi' => $this->profesi,
                 'spesialis' => $this->profesi,
                 'ktp' => $ktpName,
